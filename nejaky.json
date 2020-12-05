@@ -1,0 +1,116 @@
+{
+    "id": "...", //Id of the subject
+    "name": { //name of the subject in all languages 
+        "cz": "...",
+        "en": "..."
+    },
+    "credits": 0, //number of credits of the subject 
+    "supervisor": "...", //uuIdentity of supervisor
+    "degree": "...", //degree of the subject
+    "desc": { //description of the subject in all languages 
+        "cz": ",...",
+        "en": "..."
+    },
+    "language": { //language of the subject study form
+        "cz": {
+            "studyForms": { //pole nebo mapa
+                "fulltime": {
+                    "id": "...",
+                    "studyMaterialList": [
+                        "..."
+                    ],
+                    "topics": [
+                        {
+                            "name": "...", //name of the topic
+                            "desc": "...", //description of the topic
+                            "id": "...", //code of the topic
+                            "studyMaterialList": [
+                                {
+                                    "studyMateriaId": "...",
+                                    "url": "...",
+                                    "name": "..."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "parttime": {
+                    "id": "...",
+                    "studyMaterialList": [
+                        "..."
+                    ],
+                    "topics": [
+                        {
+                            "name": "...", //name of the topic
+                            "desc": "...", //description of the topic
+                            "id": "...", //code of the topic
+                            "studyMaterialList": [
+                                {
+                                    "studyMateriaId": "...",
+                                    "url": "...",
+                                    "name": "..."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "en": {
+            "name": "...", //name of the subject
+            "desc": "...", //description 
+            "studyForms": { //pole nebo mapa
+                "fulltime": {
+                    "id": "...",
+                    "studyMaterialList": [
+                        "..."
+                    ],
+                    "topics": [
+                        {
+                            "name": "...", //name of the topic
+                            "desc": "...", //description of the topic
+                            "id": "...", //code of the topic
+                            "studyMaterialList": [
+                                {
+                                    "studyMateriaId": "...",
+                                    "url": "...",
+                                    "name": "..."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "parttime": {
+                    "id": "...",
+                    "studyMaterialList": [
+                        "..."
+                    ],
+                    "topics": [
+                        {
+                            "name": "...", //name of the topic
+                            "desc": "...", //description of the topic
+                            "id": "...", //code of the topic
+                            "studyMaterialList": [
+                                {
+                                    "studyMateriaId": "...",
+                                    "url": "...",
+                                    "name": "..."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "teachers": [ //array of uuIdentities of teachers added in subject update
+        "..."
+    ],
+    "students": [ //array of objects containing students uuIdentities and study forms added in subject update
+        {
+            "uuIdentity": "...",
+            "formOfStudy": "..."
+        }
+    ],
+    "visibility": true //If subject is visible for students, teachers and guests
+}

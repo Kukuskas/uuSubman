@@ -1,5 +1,0 @@
-{
-  "devDependencies": {
-    "jest": "@Mock package.json for IDE integration."
-  }
-}
