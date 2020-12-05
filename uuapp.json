@@ -1,0 +1,18 @@
+{
+  "product": "uu_subman_maing01",
+  "version": "0.1.0",
+  "license": "License Commercial",
+  "description": {
+    "en": "",
+    "cs": ""
+  },
+  "uu_subman_maing01-hi": {},
+  "uu_subman_maing01-server": {
+    "devkit": {
+      "development": {
+        "appBoxLocationUri": "----- VALUE REQUIRED -----",
+        "appDeploymentUri": null
+      }
+    }
+  }
+}
