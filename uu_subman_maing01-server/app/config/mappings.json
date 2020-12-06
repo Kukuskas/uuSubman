@@ -15,6 +15,11 @@
         "realization": "index.html",
         "httpMethod": "GET",
         "type": "UVE"
+      },
+      "submanMain/load": {
+        "realization": "api/controllers/SubmanMainController.load",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }
