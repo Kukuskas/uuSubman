@@ -20,6 +20,54 @@
       "submanMain/load": {
         "sysStateList": ["active"],
         "profileList": ["Authorities","Executives"]
+      },
+      "uu-app-binarystore/createBinary": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "uu-app-binarystore/getBinary": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "uu-app-binarystore/getBinaryData": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "uu-app-binarystore/updateBinaryData": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "uu-app-binarystore/updateBinary": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "uu-app-binarystore/deleteBinary": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "uu-app-binarystore/listBinaries": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "uu-app-binarystore/getBinaryVersion": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "uu-app-binarystore/updateBinaryVersion": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "uu-app-binarystore/getBinaryVersionData": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "uu-app-binarystore/deleteBinaryVersion": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "uu-app-binarystore/listBinaryVersions": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

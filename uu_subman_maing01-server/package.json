@@ -1,10 +1,12 @@
 {
   "name": "uu_subman_maing01-server",
-  "version": "0.1.0",
+  "version": "0.2.0-DEV",
   "description": "",
   "license": "License Commercial",
   "spec": "nodejs-app; uu_appg01@3.1.0",
   "dependencies": {
+    "uu5tilesg02": "^1.7.3",
+    "uu_appg01_binarystore-cmd": "^3.0.0",
     "uu_appg01_server": "^5.0.0",
     "uu_apprepresentationg01": "^2.0.0"
   },
