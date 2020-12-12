@@ -10,9 +10,8 @@
     "useCaseMap": {
       "subject/create": {
         "sysStateList": ["active"],
-        "profileList": [ "Authorities"]
+        "profileList": ["Authorities"]
       },
-
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
         "profileList": ["AwidLicenseOwner"]

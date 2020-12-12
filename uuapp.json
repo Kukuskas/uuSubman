@@ -11,7 +11,7 @@
     "devkit": {
       "development": {
         "appBoxLocationUri": "ues:UCL-BT:OPR.RSP/APPBOXES",
-        "appDeploymentUri": null
+        "appDeploymentUri": "ues:UCL-BT[118500965363973101]:UUN_STUDENTS01_AWE[5f9fea37f439f9fab6743983]:UUN.BPMI20WFT02.MAING01[5fc6263af439f96dbc7467ff]"
       }
     }
   }
