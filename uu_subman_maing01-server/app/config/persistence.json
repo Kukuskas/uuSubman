@@ -6,6 +6,9 @@
       "schemaMap": {
         "submanMain": {
           "realization": "dao/SubmanMainMongo"
+        },
+        "subject": {
+          "realization": "dao/SubjectMongo"
         }
       }
     }

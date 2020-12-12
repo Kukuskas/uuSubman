@@ -1,11 +1,18 @@
 {
   "{asid}": {
-    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public"],
-    "useCaseMap": {}
+    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public","Administration"],
+    "useCaseMap": {
+
+    }
   },
   "*": {
     "profileList": ["Authorities","Executives","AwidLicenseOwner","Public"],
     "useCaseMap": {
+      "subject/create": {
+        "sysStateList": ["active"],
+        "profileList": [ "Authorities"]
+      },
+
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
         "profileList": ["AwidLicenseOwner"]
