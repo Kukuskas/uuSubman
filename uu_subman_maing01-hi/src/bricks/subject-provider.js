@@ -4,7 +4,11 @@ import { createComponent, useState } from "uu5g04-hooks";
 import Config from "./config/config";
 //@@viewOff:imports
 
+<<<<<<< HEAD
 const initialSubjects = [
+=======
+let initialSubjects = [
+>>>>>>> 57b05dfcd69ad21acaa2964dde1ef27ecb452184
   {
     id: 1,
     name: "Subject 1",
@@ -43,6 +47,7 @@ const SubjectProvider = createComponent({
   //@@viewOff:statics
 
   render({ children }) {
+<<<<<<< HEAD
     //@viewOn:hooks
     const [subjects, setSubjects] = useState(initialSubjects);
     //@viewOff:hooks
@@ -57,6 +62,23 @@ const SubjectProvider = createComponent({
     function handleDelete(subject) {
       setSubjects(prevSubjects => prevSubjects.filter(item => item.id !== subject.id));
     }
+=======
+      
+    const [subjects, setSubjects] = useState(initialSubjects); 
+      
+      //@@viewOn:private
+     
+      function handleCreate(subject) {
+        subject.id = UU5.Common.Tools.generateUUID();
+        subject.averageRating = Math.round(Math.random() * 5); // <0, 5>
+        setSubjects(prevSubjects => prevSubjects.concat([subject]));
+      }
+
+      function handleDelete(subject) {
+        setSubjects(prevSubjects => prevSubjects.filter(item => item.id !== subject.id));
+      }
+
+>>>>>>> 57b05dfcd69ad21acaa2964dde1ef27ecb452184
     //@@viewOff:private
 
     //@@viewOn:render

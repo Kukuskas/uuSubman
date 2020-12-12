@@ -31,7 +31,11 @@ const SubjectList = createVisualComponent({
   render({ subjects, onDetail, onUpdate, onDelete }) {
     //@@viewOn:render
     if (subjects.length === 0) {
+<<<<<<< HEAD
       return <UU5.Common.Error content="No subjects!" />;
+=======
+      return <UU5.Common.Error content="WTF No subjects!" />;
+>>>>>>> 57b05dfcd69ad21acaa2964dde1ef27ecb452184
     }
 
     return (
