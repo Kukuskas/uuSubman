@@ -21,6 +21,26 @@ const Create = {
   },
 };
 
+
+const Get = {
+  UC_CODE: `${SUBJECT_ERROR_PREFIX}get/`,
+  InvalidDtoIn: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  SubmanDoesNotExist: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}subjectDoesNotExist`;
+      this.message = "Subman does not exist.";
+    }
+  } 
+};
+
 module.exports = {
+  Get,
   Create
 };

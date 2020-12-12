@@ -1,6 +1,6 @@
 {
   "name": "uu_subman_maing01-hi",
-  "version": "0.2.0-DEV",
+  "version": "0.2.2-DEV",
   "description": "",
   "license": "License Commercial",
   "namespace": "UuSubman",
@@ -8,8 +8,9 @@
   "dependencies": {
     "systemjs": "0.19.47",
     "uu5g04": "^1.0.0",
-    "uu_plus4u5g01": "^4.0.0",
+    "uu5tilesg02": "^1.7.3",
     "uu_contentkitg01": "^2.0.0",
+    "uu_plus4u5g01": "^4.0.0",
     "uu_territoryg01": "^1.0.0"
   },
   "uuBuildSettings": {

@@ -7,13 +7,17 @@ const subjectCreateDtoInType = shape({
     credits: integer(10).isRequired(),
     supervisor: string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/).isRequired(),
     degree: oneOf(["Bachalor", "Magister"]).isRequired(),
-    desc: shape({  
+    desc: shape({
         cz: string(500).isRequired(),
         en: string(500).isRequired()
     }).isRequired(),
     language: string(30).isRequired(),
-    
+
     teachers:
-       string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/),
+        string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/),
     visibility: boolean()
-  })
+})
+
+const subjectGetDtoInType = shape({
+    id: mongoId().isRequired()
+})

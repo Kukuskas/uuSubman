@@ -11,6 +11,10 @@ class SubjectMongo extends UuObjectDao {
     return await super.insertOne(subject);
   }
 
+  async get(awid, id) {
+    return await super.findOne({ awid, id });
+  }
+
 }
 
 module.exports = SubjectMongo;

@@ -1,9 +1,7 @@
 {
   "{asid}": {
-    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public","Administration"],
-    "useCaseMap": {
-
-    }
+    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public","Administration","Authorities"],
+    "useCaseMap": {}
   },
   "*": {
     "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Administration"],
@@ -74,6 +72,10 @@
       "uu-app-binarystore/listBinaryVersions": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "subject/get": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities"]
       }
     }
   }
