@@ -5,9 +5,14 @@ const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/subject-error.js");
 
+const AUTHORITIES_PROFILE = "Authorities";
+
 const WARNINGS = {
   createUnsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`
+  },
+  getUnsupportedKeys: {
+    code: `${Errors.Get.UC_CODE}unsupportedKeys`
   }
 };
 
@@ -15,14 +20,16 @@ class SubjectAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("subject");
+    this.subjectDao = DaoFactory.getDao("subject");
   }
 
+ 
   async create(awid, dtoIn, session, authorizationResult) {
     let validationResult = this.validator.validate("subjectCreateDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.createUnsupportedKeys.code, 
+      WARNINGS.createUnsupportedKeys.code,
       Errors.Create.InvalidDtoIn
     );
 
@@ -42,6 +49,34 @@ class SubjectAbl {
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }
+
+  async get(awid, dtoIn, session, authorizationResult) {
+
+    // hds 2, 2.1
+    let validationResult = this.validator.validate("subjectGetDtoInType", dtoIn);
+    // hds 2.2, 2.3, A4, A5
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.getUnsupportedKeys.code,
+      Errors.Get.InvalidDtoIn
+    );
+
+    dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+    dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
+
+
+    // hds 3
+    let subject = await this.dao.get(awid, dtoIn.id);
+    if (!subject) {
+      throw new Errors.Get.SubmanDoesNotExist(uuAppErrorMap, { subjectId: dtoIn.id });
+    }
+   // hds 4
+    subject.uuAppErrorMap = uuAppErrorMap;
+    return subject;
+  }
+
+
 }
 
 module.exports = new SubjectAbl();
