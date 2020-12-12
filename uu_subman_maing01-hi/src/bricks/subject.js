@@ -1,12 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-<<<<<<< HEAD
-import Config from "./config/config";
-import { createVisualComponent, useScreenSize } from "uu5g04-hooks"; 
-=======
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
->>>>>>> 57b05dfcd69ad21acaa2964dde1ef27ecb452184
 //@@viewOff:imports
 
 const Subject = createVisualComponent({

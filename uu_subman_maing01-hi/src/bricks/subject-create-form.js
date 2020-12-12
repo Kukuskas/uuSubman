@@ -25,17 +25,6 @@ const SubjectCreateForm = createVisualComponent({
   //@@viewOff:defaultProps
 
   render({ onSave, onCancel }) {
-<<<<<<< HEAD
-   //@@viewOn:render
-return (
-    <UU5.Forms.Form onSave={onSave} onCancel={onCancel} labelColWidth="xs-12 m-1" inputColWidth="xs-12 m-11">
-      <UU5.Forms.Text label="Title" name="name" />
-      <UU5.Forms.Text label="Text" name="text" />
-      <UU5.Forms.Controls />
-    </UU5.Forms.Form>
-  );
-  //@@viewOff:render
-=======
     //@@viewOn:render
     return (
         <UU5.Forms.Form onSave={onSave} onCancel={onCancel} labelColWidth="xs-12 m-1" inputColWidth="xs-12 m-11">
@@ -45,7 +34,6 @@ return (
         </UU5.Forms.Form>
       );
     //@@viewOff:render
->>>>>>> 57b05dfcd69ad21acaa2964dde1ef27ecb452184
   }
 });
 
