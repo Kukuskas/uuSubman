@@ -77,9 +77,6 @@ class SubjectAbl {
   }
 
 
-
-
-
 }
 
 module.exports = new SubjectAbl();
