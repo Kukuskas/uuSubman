@@ -6,7 +6,7 @@
     }
   },
   "*": {
-    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public"],
+    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Administration"],
     "useCaseMap": {
       "subject/create": {
         "sysStateList": ["active"],

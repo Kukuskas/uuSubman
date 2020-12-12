@@ -6,9 +6,9 @@ const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/subject-error.js");
 
 const WARNINGS = {
-  // initUnsupportedKeys: {
-  //   code: `${Errors.Init.UC_CODE}unsupportedKeys`, //not working UC_CODE undefined
-  // }
+  createUnsupportedKeys: {
+    code: `${Errors.Create.UC_CODE}unsupportedKeys`
+  }
 };
 
 class SubjectAbl {
@@ -22,7 +22,7 @@ class SubjectAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      // WARNINGS.createUnsupportedKeys.code, //not working bcs problem above
+      WARNINGS.createUnsupportedKeys.code, 
       Errors.Create.InvalidDtoIn
     );
 
