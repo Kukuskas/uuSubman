@@ -145,7 +145,7 @@ let initialSubjects = [
           "mts": "2020-12-12T13:01:46.531Z",
           "rev": 0
         },
-        "id": "5fd4bf3j060269828c1be824",
+        "id": "1fd4bf3j060269828c1be824",
         "uuAppErrorMap": {}
       },
       {
@@ -169,7 +169,7 @@ let initialSubjects = [
           "mts": "2020-12-12T13:01:46.531Z",
           "rev": 0
         },
-        "id": "5fd4bf3d060269828c1be824",
+        "id": "2fd4bf3d060269828c1be824",
         "uuAppErrorMap": {}
       },
       {
@@ -193,7 +193,7 @@ let initialSubjects = [
           "mts": "2020-12-12T13:01:46.531Z",
           "rev": 0
         },
-        "id": "5fd4bf3c060269828c1be824",
+        "id": "3fd4bf3c060269828c1be824",
         "uuAppErrorMap": {}
       },
       {
@@ -217,7 +217,7 @@ let initialSubjects = [
           "mts": "2020-12-12T13:01:46.531Z",
           "rev": 0
         },
-        "id": "5fd4bf3b060269828c1be824",
+        "id": "4fd4bf3b060269828c1be824",
         "uuAppErrorMap": {}
       },
       {
@@ -241,7 +241,7 @@ let initialSubjects = [
           "mts": "2020-12-12T13:01:46.531Z",
           "rev": 0
         },
-        "id": "5fd4bf3a060269828c1be824",
+        "id": "6fd4bf3a060269828c1be824",
         "uuAppErrorMap": {}
       }
     ];
@@ -258,13 +258,17 @@ const SubjectProvider = createComponent({
       //@@viewOn:private
      
       function handleCreate(subject) {
-        subject.id = UU5.Common.Tools.generateUUID();
-        subject.averageRating = Math.round(Math.random() * 5); // <0, 5>
-        setSubjects(prevSubjects => prevSubjects.concat([subject]));
+        // subject.id = UU5.Common.Tools.generateUUID();
+        // subject.averageRating = Math.round(Math.random() * 5); // <0, 5>
+        // setSubjects(prevSubjects => prevSubjects.concat([subject]));
       }
 
       function handleDelete(subject) {
         setSubjects(prevSubjects => prevSubjects.filter(item => item.id !== subject.id));
+        console.log(item.id);
+        console.log(item);
+        console.log(subject.id);
+        console.log(subject);
       }
 
     //@@viewOff:private
