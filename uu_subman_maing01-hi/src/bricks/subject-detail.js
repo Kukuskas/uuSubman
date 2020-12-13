@@ -4,7 +4,7 @@ import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 //@@viewOff:imports
 
-const Subject = createVisualComponent({
+const SubjectDetail = createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "Subject",
   //@@viewOff:statics
@@ -14,9 +14,9 @@ const Subject = createVisualComponent({
     subject: UU5.PropTypes.shape({
       name: UU5.PropTypes.shape.isRequired,
       desc: UU5.PropTypes.shape.isRequired,
+      id: UU5.PropTypes.isRequired
     }),
     colorSchema: UU5.PropTypes.string,
-    onDetail: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func
   },
@@ -24,20 +24,20 @@ const Subject = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    subject: null,
+    subject: null ,
     colorSchema: "blue",
-    onDetail: () => {},
     onUpdate: () => {},
     onDelete: () => {}
+    
   },
   //@@viewOff:defaultProps
 
-  render({ subject, colorSchema, onDelete, onDetail }) {
+  render({ subject, colorSchema, onDelete, onUpdate }) {
     //@@viewOn:private
     function handleDelete() {
       onDelete(subject);
     }
-    function handleDetail(){
+    function handleUpdate(){
         onDetail(subject);
     }
     //@@viewOff:private
@@ -59,17 +59,17 @@ const Subject = createVisualComponent({
     }
 // onClick in div could be subject detail
     return (
-      <div onClick={handleDetail}> 
-          <UU5.Bricks.Card colorSchema={colorSchema}>
+      <> 
+          <UU5.Bricks.Section colorSchema={colorSchema}>
               <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
          <UU5.Bricks.Text content= {<UU5.Bricks.Lsi lsi={subject.desc}/>}/>
     <UU5.Bricks.Text>{subject.credits}</UU5.Bricks.Text>
          <UU5.Bricks.Text colorSchema="red">CLICK ANYWHERE TO DELETE</UU5.Bricks.Text> 
-      </UU5.Bricks.Card>
-      </div>
+      </UU5.Bricks.Section>
+      </>
     );
     //@@viewOff:render
   }
 });
 
-export default Subject;
+export default SubjectDetail;

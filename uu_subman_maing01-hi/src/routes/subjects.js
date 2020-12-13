@@ -6,6 +6,8 @@ import SubjectProvider from "../bricks/subject-provider";
 import SubjectCreate from "../bricks/subject-create";
 import SubjectsTitle from "../bricks/subject-title";
 import Css from './subject.css';
+import SubjectDetail from "../bricks/subject-detail";
+import UU5 from "uu5g04";
 //@@viewOff:imports
 
 const Subjects = createVisualComponent({
@@ -19,12 +21,14 @@ render() {
   return (
     <UU5.Bricks.Section className={Css.main()}>
       <SubjectProvider>
-        {({ viewState, subjects, handleCreate, handleDelete }) => {
+        {({ viewState, subjects, handleCreate, handleDelete, handleDetail, subject }) => {
           return (
             <>
               <SubjectsTitle subjects={subjects} />
               <SubjectCreate onCreate={handleCreate} />
-              <SubjectList subjects={subjects} onDelete={handleDelete} />
+              <SubjectList subjects={subjects} onDelete={handleDelete} onDetail={handleDetail}/>
+              <UU5.Bricks.Header detail/>
+              <SubjectDetail subject={subject}/>
             </>
           );
         }}

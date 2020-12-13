@@ -265,16 +265,16 @@ const SubjectProvider = createComponent({
 
       function handleDelete(subject) {
         setSubjects(prevSubjects => prevSubjects.filter(item => item.id !== subject.id));
-        console.log(item.id);
-        console.log(item);
-        console.log(subject.id);
-        console.log(subject);
+      }
+      function handleDetail(subject) {
+        console.log( "Detail předmětu: " + subject.name.cs); //Here fill in Subject/detail function 
+        ;
       }
 
     //@@viewOff:private
 
     //@@viewOn:render
-    return children({ subjects, handleCreate, handleDelete });
+    return children({ subjects, handleCreate, handleDelete, handleDetail });
     //@@viewOff:render
   }
 });
