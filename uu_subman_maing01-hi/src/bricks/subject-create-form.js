@@ -28,9 +28,11 @@ const SubjectCreateForm = createVisualComponent({
     //@@viewOn:render
     return (
         <UU5.Forms.Form onSave={onSave} onCancel={onCancel} labelColWidth="xs-12 m-1" inputColWidth="xs-12 m-11">
-          <UU5.Forms.Text label="Name" name="name" />
+           <UU5.Bricks.Header colorSchema="pink" content="Add subject not working needed to be coded!"></UU5.Bricks.Header>
+           <UU5.Forms.Text label="Name" name="name" />
           <UU5.Forms.Text label="Description" name="desc" />
           <UU5.Forms.Controls />
+          
         </UU5.Forms.Form>
       );
     //@@viewOff:render

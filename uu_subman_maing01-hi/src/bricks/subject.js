@@ -58,7 +58,8 @@ const Subject = createVisualComponent({
 // onClick in div could be subject detail
     return (
       <div onClick={handleDelete}> 
-          <UU5.Bricks.Card header={<UU5.Bricks.Lsi lsi={subject.name}/>}  colorSchema={colorSchema}>
+          <UU5.Bricks.Card colorSchema={colorSchema}>
+              <UU5.Bricks.Strong>{<UU5.Bricks.Lsi lsi={subject.name}/>}</UU5.Bricks.Strong>
          <UU5.Bricks.Text content= {<UU5.Bricks.Lsi lsi={subject.desc}/>}/>
     <UU5.Bricks.Text>{subject.credits}</UU5.Bricks.Text>
          <UU5.Bricks.Text colorSchema="red">CLICK ANYWHERE TO DELETE</UU5.Bricks.Text> 
