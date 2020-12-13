@@ -64,7 +64,7 @@ const Subject = createVisualComponent({
               <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
          <UU5.Bricks.Text content= {<UU5.Bricks.Lsi lsi={subject.desc}/>}/>
     <UU5.Bricks.Text>{subject.credits}</UU5.Bricks.Text>
-         <UU5.Bricks.Text colorSchema="red">CLICK ANYWHERE TO DELETE</UU5.Bricks.Text> 
+         <UU5.Bricks.Text colorSchema="red">CLICK TO console.log something</UU5.Bricks.Text> 
       </UU5.Bricks.Card>
       </div>
     );

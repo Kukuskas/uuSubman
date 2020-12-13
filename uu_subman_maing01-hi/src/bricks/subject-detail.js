@@ -55,19 +55,22 @@ const SubjectDetail = createVisualComponent({
     }
 
     if (!subject) {
-      return null;
+      return "In subject detail no subject provided";
+    }else if (!subject.id) {return "no subject id exist"
+      
     }
 // onClick in div could be subject detail
-    return (
-      <> 
-          <UU5.Bricks.Section colorSchema={colorSchema}>
-              <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
-         <UU5.Bricks.Text content= {<UU5.Bricks.Lsi lsi={subject.desc}/>}/>
-    <UU5.Bricks.Text>{subject.credits}</UU5.Bricks.Text>
-         <UU5.Bricks.Text colorSchema="red">CLICK ANYWHERE TO DELETE</UU5.Bricks.Text> 
-      </UU5.Bricks.Section>
-      </>
-    );
+    if(subject.id) {return (
+<UU5.Bricks.Section>
+        <UU5.Bricks.Header content= {<UU5.Bricks.Lsi lsi={subject.name}/>}/>
+        <UU5.Bricks.Text content ={<UU5.Bricks.Lsi lsi={Lsi.subjectCredits}/> + ": " + subject.credits}/>
+        <UU5.Bricks.Text content ={<UU5.Bricks.Lsi lsi={Lsi.subjectLanguage}/> + ": " + subject.language.cs + " " +  subject.language.en}/> 
+        <UU5.Bricks.Text content ={<UU5.Bricks.Lsi lsi={Lsi.subjectSupervisor}/> + ": " + subject.supervisor}/>  
+        <UU5.Bricks.Text content ={<UU5.Bricks.Lsi lsi={Lsi.subjectDegree}/> + ": " + subject.degree}/>
+        <UU5.Bricks.Button content ={<UU5.Bricks.Lsi lsi={Lsi.subjectChangeForm}/>} />
+        
+        </UU5.Bricks.Section>
+    )}
     //@@viewOff:render
   }
 });

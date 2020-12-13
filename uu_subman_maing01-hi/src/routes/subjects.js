@@ -28,7 +28,7 @@ render() {
               <SubjectCreate onCreate={handleCreate} />
               <SubjectList subjects={subjects} onDelete={handleDelete} onDetail={handleDetail}/>
               <UU5.Bricks.Header detail/>
-              <SubjectDetail subject={subject}/>
+              <SubjectDetail/>
             </>
           );
         }}
