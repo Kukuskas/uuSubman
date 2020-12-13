@@ -49,7 +49,6 @@ const SubjectList = createVisualComponent({
       tileHeight="auto"
       tileMinWidth={200}
       tileMaxWidth={400}
-      tileMinHeight={80}
       tileSpacing={8}
       rowSpacing={8}
     >
