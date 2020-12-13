@@ -2,48 +2,257 @@
 import UU5 from "uu5g04";
 import { createComponent, useState } from "uu5g04-hooks";
 import Config from "./config/config";
-//@@viewOff:imports
-
+//@@viewOff:impor<<<<
 let initialSubjects = [
-  {
-    id: 1,
-    name: "Subject 1",
-    text: "This is my subject 1...",
-    averageRating: 5.0
-  },
-  {
-    id: 2,
-    name: "Subject 2",
-    text: "This is my subject 2...",
-    averageRating: 4.0
-  },
-  {
-    id: 3,
-    name: "Subject 3",
-    text: "This is my subject 3...",
-    averageRating: 3.0
-  },
-  {
-    id: 4,
-    name: "Subject 4",
-    text: "This is my subject 4...",
-    averageRating: 2.0
-  },
-  {
-    id: 5,
-    name: "Subject 5",
-    text: "This is my subject 5...",
-    averageRating: 1.0
-  }
-];
+    {
+        name: {
+          cs: "Fyzika",
+          en: "Physic"
+        },
+        "credits": 3,
+        "supervisor": "121-25-256",
+        "degree": "Bachalor",
+        "desc": {
+          "cs": "Cíl předemětu je...",
+          "en": "Goal of this subject..."
+        },
+        "language": "cs",
+        "visibility": false,
+        "uuIdentity": "25-1622-1",
+        "awid": "22222222222222222222222222222222",
+        "sys": {
+          "cts": "2020-12-12T13:01:46.531Z",
+          "mts": "2020-12-12T13:01:46.531Z",
+          "rev": 0
+        },
+        "id": "5fd4bf3j060269828c1be824",
+        "uuAppErrorMap": {}
+      },
+      {
+        "name": {
+          "cs": "Matematika",
+          "en": "Mathematic"
+        },
+        "credits": 3,
+        "supervisor": "121-25-256",
+        "degree": "Bachalor",
+        "desc": {
+          "cs": "Cíl předemětu je...",
+          "en": "Goal of this subject..."
+        },
+        "language": "cs",
+        "visibility": false,
+        "uuIdentity": "25-1622-1",
+        "awid": "22222222222222222222222222222222",
+        "sys": {
+          "cts": "2020-12-12T13:01:46.531Z",
+          "mts": "2020-12-12T13:01:46.531Z",
+          "rev": 0
+        },
+        "id": "5fd4bf3d060269828c1be824",
+        "uuAppErrorMap": {}
+      },
+      {
+        "name": {
+          "cs": "Angličtina",
+          "en": "English"
+        },
+        "credits": 3,
+        "supervisor": "121-25-256",
+        "degree": "Bachalor",
+        "desc": {
+          "cs": "Cíl předemětu je...",
+          "en": "Goal of this subject..."
+        },
+        "language": "cs",
+        "visibility": false,
+        "uuIdentity": "25-1622-1",
+        "awid": "22222222222222222222222222222222",
+        "sys": {
+          "cts": "2020-12-12T13:01:46.531Z",
+          "mts": "2020-12-12T13:01:46.531Z",
+          "rev": 0
+        },
+        "id": "5fd4bf3c060269828c1be824",
+        "uuAppErrorMap": {}
+      },
+      {
+        "name": {
+          "cs": "Kung-fu",
+          "en": "Kung-fu"
+        },
+        "credits": 3,
+        "supervisor": "121-25-256",
+        "degree": "Bachalor",
+        "desc": {
+          "cs": "Cíl předemětu je...",
+          "en": "Goal of this subject..."
+        },
+        "language": "cs",
+        "visibility": false,
+        "uuIdentity": "25-1622-1",
+        "awid": "22222222222222222222222222222222",
+        "sys": {
+          "cts": "2020-12-12T13:01:46.531Z",
+          "mts": "2020-12-12T13:01:46.531Z",
+          "rev": 0
+        },
+        "id": "5fd4bf3b060269828c1be824",
+        "uuAppErrorMap": {}
+      },
+      {
+        "name": {
+          "cs": "Programování",
+          "en": "Programming"
+        },
+        "credits": 3,
+        "supervisor": "121-25-256",
+        "degree": "Bachalor",
+        "desc": {
+          "cs": "Cíl předemětu je...",
+          "en": "Goal of this subject..."
+        },
+        "language": "cs",
+        "visibility": false,
+        "uuIdentity": "25-1622-1",
+        "awid": "22222222222222222222222222222222",
+        "sys": {
+          "cts": "2020-12-12T13:01:46.531Z",
+          "mts": "2020-12-12T13:01:46.531Z",
+          "rev": 0
+        },
+        "id": "5fd4bf3a060269828c1be824",
+        "uuAppErrorMap": {}
+      },
+      {
+        name: {
+          cs: "Fyzika 2",
+          en: "Physic 2"
+        },
+        "credits": 3,
+        "supervisor": "121-25-256",
+        "degree": "Bachalor",
+        "desc": {
+          "cs": "Cíl předemětu je...",
+          "en": "Goal of this subject..."
+        },
+        "language": "cs",
+        "visibility": false,
+        "uuIdentity": "25-1622-1",
+        "awid": "22222222222222222222222222222222",
+        "sys": {
+          "cts": "2020-12-12T13:01:46.531Z",
+          "mts": "2020-12-12T13:01:46.531Z",
+          "rev": 0
+        },
+        "id": "5fd4bf3j060269828c1be824",
+        "uuAppErrorMap": {}
+      },
+      {
+        "name": {
+          "cs": "Matematika 2",
+          "en": "Mathematic 2"
+        },
+        "credits": 3,
+        "supervisor": "121-25-256",
+        "degree": "Bachalor",
+        "desc": {
+          "cs": "Cíl předemětu je...",
+          "en": "Goal of this subject..."
+        },
+        "language": "cs",
+        "visibility": false,
+        "uuIdentity": "25-1622-1",
+        "awid": "22222222222222222222222222222222",
+        "sys": {
+          "cts": "2020-12-12T13:01:46.531Z",
+          "mts": "2020-12-12T13:01:46.531Z",
+          "rev": 0
+        },
+        "id": "5fd4bf3d060269828c1be824",
+        "uuAppErrorMap": {}
+      },
+      {
+        "name": {
+          "cs": "Angličtina 2",
+          "en": "English 2"
+        },
+        "credits": 3,
+        "supervisor": "121-25-256",
+        "degree": "Bachalor",
+        "desc": {
+          "cs": "Cíl předemětu je...",
+          "en": "Goal of this subject..."
+        },
+        "language": "cs",
+        "visibility": false,
+        "uuIdentity": "25-1622-1",
+        "awid": "22222222222222222222222222222222",
+        "sys": {
+          "cts": "2020-12-12T13:01:46.531Z",
+          "mts": "2020-12-12T13:01:46.531Z",
+          "rev": 0
+        },
+        "id": "5fd4bf3c060269828c1be824",
+        "uuAppErrorMap": {}
+      },
+      {
+        "name": {
+          "cs": "Kung-fu 2",
+          "en": "Kung-fu 2"
+        },
+        "credits": 3,
+        "supervisor": "121-25-256",
+        "degree": "Bachalor",
+        "desc": {
+          "cs": "Cíl předemětu je...",
+          "en": "Goal of this subject..."
+        },
+        "language": "cs",
+        "visibility": false,
+        "uuIdentity": "25-1622-1",
+        "awid": "22222222222222222222222222222222",
+        "sys": {
+          "cts": "2020-12-12T13:01:46.531Z",
+          "mts": "2020-12-12T13:01:46.531Z",
+          "rev": 0
+        },
+        "id": "5fd4bf3b060269828c1be824",
+        "uuAppErrorMap": {}
+      },
+      {
+        "name": {
+          "cs": "Programování 2",
+          "en": "Programming 2"
+        },
+        "credits": 3,
+        "supervisor": "121-25-256",
+        "degree": "Bachalor",
+        "desc": {
+          "cs": "Cíl předemětu je...",
+          "en": "Goal of this subject..."
+        },
+        "language": "cs",
+        "visibility": false,
+        "uuIdentity": "25-1622-1",
+        "awid": "22222222222222222222222222222222",
+        "sys": {
+          "cts": "2020-12-12T13:01:46.531Z",
+          "mts": "2020-12-12T13:01:46.531Z",
+          "rev": 0
+        },
+        "id": "5fd4bf3a060269828c1be824",
+        "uuAppErrorMap": {}
+      }
+    ];
 
 const SubjectProvider = createComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "SubjectProvider",
   //@@viewOff:statics
 
-  render({ children }) {
-      
+  render({ children }) {    
+
     const [subjects, setSubjects] = useState(initialSubjects); 
       
       //@@viewOn:private

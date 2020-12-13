@@ -12,9 +12,8 @@ const Subject = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     subject: UU5.PropTypes.shape({
-      name: UU5.PropTypes.string.isRequired,
-      text: UU5.PropTypes.string.isRequired,
-      averageRating: UU5.PropTypes.number.isRequired
+      name: UU5.PropTypes.shape.isRequired,
+      desc: UU5.PropTypes.shape.isRequired,
     }),
     colorSchema: UU5.PropTypes.string,
     onDetail: UU5.PropTypes.func,
@@ -45,7 +44,8 @@ const Subject = createVisualComponent({
       return (
         <>
           {subject.name}
-          <UU5.Bricks.Button onClick={handleDelete} colorSchema="red">
+
+          <UU5.Bricks.Button onClick={handleDelete} colorSchema="grey">
             <UU5.Bricks.Icon icon="mdi-delete" />
           </UU5.Bricks.Button>
         </>
@@ -55,12 +55,14 @@ const Subject = createVisualComponent({
     if (!subject) {
       return null;
     }
-
+// onClick in div could be subject detail
     return (
-      <UU5.Bricks.Card header={renderHeader()} colorSchema={colorSchema}>
-        <div>{subject.text}</div>
-        <UU5.Bricks.Rating value={subject.averageRating} />
+      <div onClick={handleDelete}> 
+          <UU5.Bricks.Card header={<UU5.Bricks.Lsi lsi={subject.name}/>}  colorSchema={colorSchema}>
+         <UU5.Bricks.Text content= {<UU5.Bricks.Lsi lsi={subject.desc}/>}/>
+         <UU5.Bricks.Text colorSchema="red">CLICK ANYWHERE TO DELETE</UU5.Bricks.Text> 
       </UU5.Bricks.Card>
+      </div>
     );
     //@@viewOff:render
   }
