@@ -1,0 +1,24 @@
+{
+    "name": {
+      "cs": "Příklad",
+      "en": "Example"
+    },
+    "credits": 1,
+    "supervisor": "121-25-256",
+    "degree": "Bachalor",
+    "desc": {
+      "cs": "Cíl předemětu je...",
+      "en": "Goal of this subject..."
+    },
+    "language": "cs",
+    "visibility": false,
+    "uuIdentity": "25-1622-1",
+    "awid": "22222222222222222222222222222222",
+    "sys": {
+      "cts": "2020-12-12T13:01:46.531Z",
+      "mts": "2020-12-12T13:01:46.531Z",
+      "rev": 0
+    },
+    "id": "5fd4bf3j060269828c1be821",
+    "uuAppErrorMap": {}
+  }
