@@ -1,6 +1,6 @@
 {
   "{asid}": {
-    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public","Administration","Authorities"],
+    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public","Administration"],
     "useCaseMap": {}
   },
   "*": {
@@ -79,7 +79,7 @@
       },
       "subject/list": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Authorities"]
       }
     }
   }
