@@ -63,7 +63,9 @@ export const WelcomeRow = createVisualComponent({
 
     //@@viewOn:interface
     //@@viewOff:interface
-
+function name(params) {
+  
+}
     //@@viewOn:render
     let cssMargin = UU5.Common.Tools.fillUnit("-" + textPadding);
     let attrs = UU5.Common.VisualComponent.getAttrs(props, CLASS_NAMES.main());
