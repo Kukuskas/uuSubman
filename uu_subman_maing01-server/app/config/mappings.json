@@ -30,6 +30,11 @@
         "realization": "api/controllers/SubjectController.get",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "subject/list": {
+        "realization": "api/controllers/SubjectController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

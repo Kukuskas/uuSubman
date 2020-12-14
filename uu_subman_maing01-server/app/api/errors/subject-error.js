@@ -37,10 +37,22 @@ const Get = {
       this.code = `${Get.UC_CODE}subjectDoesNotExist`;
       this.message = "Subman does not exist.";
     }
-  } 
+  }
+};
+
+const List = {
+  UC_CODE: `${SUBJECT_ERROR_PREFIX}list/`,
+  InvalidDtoIn: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  }
 };
 
 module.exports = {
+  List,
   Get,
   Create
 };
