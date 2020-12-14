@@ -21,3 +21,10 @@ const subjectCreateDtoInType = shape({
 const subjectGetDtoInType = shape({
     id: mongoId().isRequired()
 })
+const subjectListDtoInType = shape({
+  // sortBy: oneOf(["typeOfStudy", "mySubjects"]),
+  pageInfo: shape({
+    pageIndex: integer(),
+    pageSize: integer()
+  })
+})

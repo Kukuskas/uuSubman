@@ -13,6 +13,9 @@ const WARNINGS = {
   },
   getUnsupportedKeys: {
     code: `${Errors.Get.UC_CODE}unsupportedKeys`
+  },
+  listUnsupportedKeys: {
+    code: `${Errors.List.UC_CODE}unsupportedKeys`
   }
 };
 
@@ -23,7 +26,27 @@ class SubjectAbl {
     this.subjectDao = DaoFactory.getDao("subject");
   }
 
- 
+  async list(awid, dtoIn, session, authorizationResult) {
+
+    // hds 2, 2.1
+    let validationResult = this.validator.validate("subjectListDtoInType", dtoIn);
+    // hds 2.2, 2.3, A4, A5
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.listUnsupportedKeys.code,
+      Errors.List.InvalidDtoIn
+    );
+    dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+    dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
+    
+    let dtoOut = await this.dao.list(awid)
+    // hds 4
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
+  }
+
+
   async create(awid, dtoIn, session, authorizationResult) {
     let validationResult = this.validator.validate("subjectCreateDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
