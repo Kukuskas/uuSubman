@@ -76,6 +76,10 @@
       "subject/get": {
         "sysStateList": ["active"],
         "profileList": ["Authorities"]
+      },
+      "subject/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }
