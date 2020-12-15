@@ -27,3 +27,7 @@ const subjectListDtoInType = shape({
         pageSize: integer()
     })
 })
+
+const subjectDeleteDtoInType = shape({
+    id: id().isRequired()
+  });

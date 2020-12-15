@@ -17,6 +17,11 @@ class SubjectMongo extends UuObjectDao {
   async list(awid, pageInfo) {
     return await super.find({ awid }, pageInfo);
   }
+
+  async delete(awid, id) {
+    await super.deleteOne({ awid, id });
+     
+  }
 }
 
 module.exports = SubjectMongo;

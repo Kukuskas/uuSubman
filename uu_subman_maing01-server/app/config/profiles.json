@@ -80,6 +80,10 @@
       "subject/list": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "subject/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities"]
       }
     }
   }

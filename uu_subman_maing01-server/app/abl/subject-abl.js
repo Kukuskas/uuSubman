@@ -1,7 +1,7 @@
 "use strict";
 const Path = require("path");
 const { Validator } = require("uu_appg01_server").Validation;
-const { DaoFactory } = require("uu_appg01_server").ObjectStore;
+const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/subject-error.js");
 
@@ -16,6 +16,9 @@ const WARNINGS = {
   },
   listUnsupportedKeys: {
     code: `${Errors.List.UC_CODE}unsupportedKeys`
+  },
+  deleteUnsupportedKeys: {
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`
   }
 };
 
@@ -25,6 +28,18 @@ class SubjectAbl {
     this.dao = DaoFactory.getDao("subject");
     this.subjectDao = DaoFactory.getDao("subject");
   }
+
+  async delete(awid, dtoIn) {
+    let validationResult = this.validator.validate("subjectDeleteDtoInType", dtoIn);
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.deleteUnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
+    );
+  await this.dao.delete(awid, dtoIn.id);
+  return uuAppErrorMap;
+};
 
   async list(awid, dtoIn, session, authorizationResult) {
 
