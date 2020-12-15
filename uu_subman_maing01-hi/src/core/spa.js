@@ -22,14 +22,13 @@ const STATICS = {
 const About = UU5.Common.Component.lazy(() => import("../routes/about"));
 const InitAppWorkspace = UU5.Common.Component.lazy(() => import("../routes/init-app-workspace"));
 const ControlPanel = UU5.Common.Component.lazy(() => import("../routes/control-panel"));
-const SubjectsRoute = UU5.Common.Component.lazy(() => import("../routes/subjects"));
 
 const DEFAULT_USE_CASE = "home";
 const ROUTES = {
   "": DEFAULT_USE_CASE,
   home: { component: <Home /> },
   about: { component: <About /> },
-  subjects: { component: <SubjectsRoute /> },
+  subjects: { component: <Subjects /> },
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
   controlPanel: { component: <ControlPanel /> },
 };

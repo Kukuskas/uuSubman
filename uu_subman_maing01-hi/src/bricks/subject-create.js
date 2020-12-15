@@ -49,7 +49,7 @@ const SubjectCreate = createComponent({
 
     //@@viewOn:render
     function renderButton() {
-      return <UU5.Bricks.Button onClick={handleAddClick} colorSchema="primary" content="Add subject" />;
+      return <UU5.Bricks.Button onClick={handleAddClick} colorSchema="primary" content={<UU5.Bricks.Lsi lsi={{ en: "Add subject", cs: "Přidat předmět"}}/>} />
     }
 
     function renderForm() {
