@@ -60,7 +60,7 @@ const SubjectCreate = createComponent({
 
     switch (mode) {
       case Mode.BUTTON:
-        return renderButton();
+        return renderForm();
       default:
         return renderForm();
     }
