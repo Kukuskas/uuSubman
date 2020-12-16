@@ -58,16 +58,24 @@ render() {
     }
   }
 
+  
+  async function handleDetail(id) {
+   
+      console.log ("++++++++++++++++++",id)
+  }
+  
+
   function renderLoad() {
     return <UU5.Bricks.Loading />;
   }
 
   function renderReady(subjects) {
+  //  UU5.Common.Tools.warning("here is your item", subjects )
     return (
-      <>
+      <>   
       <SubjectsTitle subjects={subjects} />
       <SubjectCreate onCreate={handleCreate} />
-      <SubjectList subjects={subjects} onDelete={handleDelete} />
+      <SubjectList subjects={subjects} onDelete={handleDelete} onDetail={handleDetail} />
       <UU5.Bricks.Header detail/>
       <SubjectDetail/>
     </>

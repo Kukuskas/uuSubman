@@ -8,7 +8,7 @@
     "useCaseMap": {
       "subject/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Public"]
       },
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
@@ -83,7 +83,7 @@
       },
       "subject/delete": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Public"]
       }
     }
   }
