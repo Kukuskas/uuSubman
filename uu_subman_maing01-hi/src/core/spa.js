@@ -11,6 +11,7 @@ import Left from "./left";
 import Bottom from "./bottom";
 import Home from "../routes/home";
 import Subjects from "../routes/subjects";
+import SubjectRoute from "../routes/subjectRoute";
 //@@viewOff:imports
 
 const STATICS = {
@@ -30,6 +31,7 @@ const ROUTES = {
   about: { component: <About /> },
   subjects: { component: <Subjects /> },
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
+  "subjects/subject": { component: <SubjectRoute /> },
   controlPanel: { component: <ControlPanel /> },
 };
 
