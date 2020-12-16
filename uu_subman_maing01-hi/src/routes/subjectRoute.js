@@ -7,11 +7,11 @@ import SubjectCreate from "../bricks/subject-create";
 import SubjectsTitle from "../bricks/subject-title";
 import Css from "./subject.css";
 import SubjectDetail from "../bricks/subject-detail";
-import UU5 from "uu5g04";
-import SubjectRoute from "./subjectRoute";
+import UU5, { PropTypes } from "uu5g04";
+import Subjects from "./subjects";
 //@@viewOff:imports
 
-const Subjects = createVisualComponent({
+const SubjectRoute = createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "Subjects",
   //@@viewOff:statics
@@ -60,6 +60,7 @@ const Subjects = createVisualComponent({
     function renderLoad() {
       return <UU5.Bricks.Loading />;
     }
+
     function renderReady(subjects) {
       return (
         <>
@@ -80,30 +81,26 @@ const Subjects = createVisualComponent({
           return <UU5.Bricks.Error content="Error happened!" error={errorData.error} errorData={errorData.data} />;
       }
     }
+    function handleBack() {
+      return UU5.Environment.getRouter().setRoute({
+        component: <Subjects />,
+      });
+    }
 
     return (
       <UU5.Bricks.Section className={Css.main()}>
-        <SubjectProvider>
-          {({ state, data, errorData, pendingData, handlerMap }) => {
-            createSubjectRef.current = handlerMap.createSubject;
-            updateSubjectRef.current = handlerMap.updateSubject;
-            deleteSubjectRef.current = handlerMap.deleteSubject;
-
-            switch (state) {
-              case "pending":
-              case "pendingNoData":
-                return renderLoad();
-              case "error":
-              case "errorNoData":
-                return renderError(errorData);
-              case "itemPending":
-              case "ready":
-              case "readyNoData":
-              default:
-                return renderReady(data);
-            }
-          }}
-        </SubjectProvider>
+        <UU5.Bricks.Button
+          colorSchema="primary"
+          content={<UU5.Bricks.Lsi lsi={{ en: "Back", cs: "Zpět" }} />}
+          onClick={handleBack}
+        />
+        <UU5.Bricks.Header>
+          Hello Its Subject Detail!!!
+          <br></br>
+          Its empty and we are working on it!
+          <br></br>
+          Info I am sending here is: {props.sended}
+        </UU5.Bricks.Header>
       </UU5.Bricks.Section>
     );
     //@@viewOff:render
@@ -111,4 +108,4 @@ const Subjects = createVisualComponent({
   //@@viewOff:render
 });
 
-export default Subjects;
+export default SubjectRoute;

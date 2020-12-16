@@ -11,8 +11,7 @@ import Left from "./left";
 import Bottom from "./bottom";
 import Home from "../routes/home";
 import Subjects from "../routes/subjects";
-import Subject from "../routes/subject";
-
+import SubjectRoute from "../routes/subjectRoute";
 //@@viewOff:imports
 
 const STATICS = {
@@ -24,17 +23,15 @@ const STATICS = {
 const About = UU5.Common.Component.lazy(() => import("../routes/about"));
 const InitAppWorkspace = UU5.Common.Component.lazy(() => import("../routes/init-app-workspace"));
 const ControlPanel = UU5.Common.Component.lazy(() => import("../routes/control-panel"));
-const SubjectsRoute = UU5.Common.Component.lazy(() => import("../routes/subjects"));
 
 const DEFAULT_USE_CASE = "home";
 const ROUTES = {
   "": DEFAULT_USE_CASE,
   home: { component: <Home /> },
   about: { component: <About /> },
-  subjects: { component: <SubjectsRoute /> },
- // subject: { component: <Subject />},
-  //"subjects/subject": "subject",
+  subjects: { component: <Subjects /> },
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
+  "subjects/subject": { component: <SubjectRoute /> },
   controlPanel: { component: <ControlPanel /> },
 };
 

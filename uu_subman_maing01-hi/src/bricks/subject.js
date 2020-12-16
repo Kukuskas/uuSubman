@@ -2,6 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
+import SubjectRoute from "../routes/subjectRoute";
 //@@viewOff:imports
 
 const Subject = createVisualComponent({
@@ -18,7 +19,7 @@ const Subject = createVisualComponent({
     colorSchema: UU5.PropTypes.string,
     onDetail: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func
+    onDelete: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -28,17 +29,21 @@ const Subject = createVisualComponent({
     colorSchema: "blue",
     onDetail: () => {},
     onUpdate: () => {},
-    onDelete: () => {}
+    onDelete: () => {},
   },
   //@@viewOff:defaultProps
 
   render({ subject, colorSchema, onDelete, onDetail }) {
     //@@viewOn:private
+
     function handleDelete() {
       onDelete(subject);
     }
-    function handleDetail(){
-        onDetail(subject);
+
+    function handleDetail() {
+      return UU5.Environment.getRouter().setRoute({
+        component: <SubjectRoute sended={subject.id} />,
+      });
     }
     //@@viewOff:private
 
@@ -46,7 +51,7 @@ const Subject = createVisualComponent({
     function renderHeader() {
       return (
         <>
-          {<UU5.Bricks.Lsi lsi={subject.name}/>}
+          {<UU5.Bricks.Lsi lsi={subject.name} />}
           <UU5.Bricks.Button onClick={handleDelete} colorSchema="grey">
             <UU5.Bricks.Icon icon="mdi-delete" />
           </UU5.Bricks.Button>
@@ -57,19 +62,19 @@ const Subject = createVisualComponent({
     if (!subject) {
       return null;
     }
-// onClick in div could be subject detail
+    // onClick in div could be subject detail
     return (
-      <div onClick={handleDetail}> 
-          <UU5.Bricks.Card colorSchema={colorSchema}>
-              <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
-         <UU5.Bricks.Text content= {<UU5.Bricks.Lsi lsi={subject.desc}/>}/>
-    <UU5.Bricks.Text>{subject.credits}</UU5.Bricks.Text>
-         <UU5.Bricks.Text colorSchema="red">CLICK TO console.log something</UU5.Bricks.Text> 
-      </UU5.Bricks.Card>
+      <div onClick={handleDetail}>
+        <UU5.Bricks.Card colorSchema={colorSchema}>
+          <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
+          <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
+          <UU5.Bricks.Text>{subject.credits}</UU5.Bricks.Text>
+          <UU5.Bricks.Text colorSchema="red">click to see detail</UU5.Bricks.Text>
+        </UU5.Bricks.Card>
       </div>
     );
     //@@viewOff:render
-  }
+  },
 });
 
 export default Subject;

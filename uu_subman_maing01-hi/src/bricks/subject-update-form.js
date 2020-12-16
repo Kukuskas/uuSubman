@@ -6,7 +6,7 @@ import "uu5g04-forms";
 import Form from "./form";
 //@@viewOff:imports
 
-const SubjectCreateForm = createVisualComponent({
+const SubjectUpdateForm = createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "SubjectCreateForm",
   //@@viewOff:statics
@@ -31,13 +31,13 @@ const SubjectCreateForm = createVisualComponent({
       <UU5.Bricks.Container>
         <UU5.Forms.ContextModal size="l" shown={true}>
           <UU5.Forms.ContextHeader
-            content={<UU5.Bricks.Lsi lsi={{ en: "Create a new subject", cs: "Vytvořit nový předmět" }} />}
+            content={<UU5.Bricks.Lsi lsi={{ en: "Update the subject", cs: "Upravit předmět" }} />}
             info={<UU5.Bricks.Lsi lsi={{ cs: <UU5.Bricks.Paragraph style="margin: 0" />, en: "More info..." }} />}
           />
           <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
             <Form />
             <UU5.Forms.ContextControls
-              buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Create", cs: "Vytvořit" }} /> }}
+              buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Uložit", cs: "Save" }} /> }}
               buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}
             />
           </UU5.Forms.ContextForm>
@@ -47,5 +47,3 @@ const SubjectCreateForm = createVisualComponent({
     //@@viewOff:render
   },
 });
-
-export default SubjectCreateForm;

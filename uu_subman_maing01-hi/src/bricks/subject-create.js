@@ -7,7 +7,7 @@ import SubjectCreateForm from "./subject-create-form";
 
 const Mode = {
   BUTTON: "BUTTON",
-  FORM: "FORM"
+  FORM: "FORM",
 };
 
 const SubjectCreate = createComponent({
@@ -17,13 +17,13 @@ const SubjectCreate = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    onCreate: UU5.PropTypes.func
+    onCreate: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    onCreate: () => {}
+    onCreate: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -49,7 +49,13 @@ const SubjectCreate = createComponent({
 
     //@@viewOn:render
     function renderButton() {
-      return <UU5.Bricks.Button onClick={handleAddClick} colorSchema="primary" content="Add subject" />;
+      return (
+        <UU5.Bricks.Button
+          onClick={handleAddClick}
+          colorSchema="primary"
+          content={<UU5.Bricks.Lsi lsi={{ en: "Add subject", cs: "Přidat předmět" }} />}
+        />
+      );
     }
 
     function renderForm() {
@@ -63,7 +69,7 @@ const SubjectCreate = createComponent({
         return renderForm();
     }
     //@@viewOff:render
-  }
+  },
 });
 
 export default SubjectCreate;
