@@ -55,7 +55,7 @@ const SubjectList = createVisualComponent({
     >
         {renderItem}
     </Uu5Tiles.Grid>
-    <Uu5Tiles.Grid
+    {/* <Uu5Tiles.Grid
       data={subjects}
       tileHeight="auto"
       tileMinWidth={200}
@@ -66,8 +66,8 @@ const SubjectList = createVisualComponent({
        <UU5.Bricks.YoutubeVideo size="xs" src="https://www.youtube.com/watch?v=cE0wfjsybIQ" /> 
        <UU5.Bricks.Text content= "name of a video"/>
        <div></div>
-    </Uu5Tiles.Grid>
-    <Uu5Tiles.Grid
+    </Uu5Tiles.Grid> */}
+    {/* <Uu5Tiles.Grid
       data={subjects}
       tileHeight="auto"
       tileMinWidth={200}
@@ -77,7 +77,7 @@ const SubjectList = createVisualComponent({
     >
         <UU5.Bricks.Video size="xs" src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4"/>
         <UU5.Bricks.Text content= "plus4U video"/>
-    </Uu5Tiles.Grid>
+    </Uu5Tiles.Grid> */}
     
 </>
       );

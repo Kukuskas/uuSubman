@@ -52,9 +52,6 @@ const Subject = createVisualComponent({
       return (
         <>
           {<UU5.Bricks.Lsi lsi={subject.name} />}
-          <UU5.Bricks.Button onClick={handleDelete} colorSchema="grey">
-            <UU5.Bricks.Icon icon="mdi-delete" />
-          </UU5.Bricks.Button>
         </>
       );
     }
@@ -63,15 +60,18 @@ const Subject = createVisualComponent({
       return null;
     }
     // onClick in div could be subject detail
+    console.log(subject.credits);
     return (
-      <div onClick={handleDetail}>
+     <> <div onClick={handleDetail}>
         <UU5.Bricks.Card colorSchema={colorSchema}>
           <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
           <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
-          <UU5.Bricks.Text>{subject.credits}</UU5.Bricks.Text>
+          <UU5.Bricks.Text content={subject.credits}/>
           <UU5.Bricks.Text colorSchema="red">click to see detail</UU5.Bricks.Text>
         </UU5.Bricks.Card>
       </div>
+      <UU5.Bricks.Button onClick={handleDelete} colorSchema="grey"><UU5.Bricks.Icon icon="mdi-delete" /></UU5.Bricks.Button>
+      </>
     );
     //@@viewOff:render
   },

@@ -6,9 +6,8 @@ import SubjectProvider from "../bricks/subject-provider";
 import SubjectCreate from "../bricks/subject-create";
 import SubjectsTitle from "../bricks/subject-title";
 import Css from "./subject.css";
-import SubjectDetail from "../bricks/subject-detail";
 import UU5 from "uu5g04";
-import SubjectRoute from "./subjectRoute";
+
 //@@viewOff:imports
 
 const Subjects = createVisualComponent({
@@ -17,7 +16,7 @@ const Subjects = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:render
-  render(props) {
+  render() {
     //@@viewOn:render
     const createSubjectRef = useRef();
     const updateSubjectRef = useRef();
@@ -66,8 +65,6 @@ const Subjects = createVisualComponent({
           <SubjectsTitle subjects={subjects} />
           <SubjectCreate onCreate={handleCreate} />
           <SubjectList subjects={subjects} onDelete={handleDelete} />
-          <UU5.Bricks.Header detail />
-          <SubjectDetail />
         </>
       );
     }

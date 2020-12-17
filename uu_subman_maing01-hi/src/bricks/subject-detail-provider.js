@@ -1,28 +1,27 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useDataList } from "uu5g04-hooks";
+import { createComponent, useDataObject } from "uu5g04-hooks";
 import Calls from "calls";
 import Config from "./config/config";
 //@@viewOff:impor<<<<
 
-const SubjectProvider = createComponent({
+const SubjectDetailProvider = createComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "SubjectProvider",
   //@@viewOff:statics
 
-  render({ children }) {
+  render({ children, id }) {
 
-    let listDataValues = useDataList({
+    let dataValues = useDataObject({
       pageSize: 200,
       handlerMap: {
-        load: Calls.listSubjects,
-        createSubject: Calls.createSubject,
+        load: Calls.getSubject,
         updateSubject: Calls.updateSubject,
         deleteSubject: Calls.deleteSubject,
       },
     });
 
-    let { state, data, newData, pendingData, errorData, handlerMap } = listDataValues;
+    let { state, data, pendingData, errorData, handlerMap } = dataValues;
     //@@viewOff:hooks
 
     //@@viewOff:private
@@ -31,7 +30,6 @@ const SubjectProvider = createComponent({
     return children({
       state,
       data,
-      newData,
       pendingData,
       errorData,
       handlerMap,
@@ -40,4 +38,4 @@ const SubjectProvider = createComponent({
   },
 });
 
-export default SubjectProvider;
+export default SubjectDetailProvider;
