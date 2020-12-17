@@ -47,7 +47,10 @@ const SubjectCreate = createComponent({
       }
 
       const input = {
-        name: { cs: it.nameCs, en: it.nameEn },
+        name: { 
+          cs: it.nameCs, 
+          en: it.nameEn 
+        },
         credits: it.credits,
         supervisor: it.supervisor,
         degree: it.degree,
@@ -62,7 +65,7 @@ const SubjectCreate = createComponent({
       };
       console.log(input);
 
-      // onCreate(opt.values);
+      onCreate(input);
       setMode(Mode.BUTTON);
     }
 
