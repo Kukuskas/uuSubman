@@ -32,7 +32,7 @@ const SubjectList = createVisualComponent({
   render({ subjects, onDetail, onUpdate, onDelete }) {
     //@@viewOn:render
     
-    function renderItem(item) {console.log(item.data);console.log(item);
+    function renderItem(item) {
         return (
             <Subject subject={item.data.data} colorSchema="green" onDetail={onDetail} onUpdate={onUpdate} onDelete={onDelete} />
         );

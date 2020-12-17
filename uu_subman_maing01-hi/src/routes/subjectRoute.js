@@ -18,7 +18,7 @@ const SubjectRoute = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:render
-  render(props) {
+  render(subject) {
     //@@viewOn:render
     const getSubjectRef = useRef();
     const updateSubjectRef = useRef();
@@ -62,10 +62,10 @@ const SubjectRoute = createVisualComponent({
       return <UU5.Bricks.Loading />;
     }
 
-    function renderReady(id) {
+    function renderReady(subject) {
       return (
         <>
-          <SubjectDetail id={props.sended} onDelete={handleDelete} />
+          <SubjectDetail subject={subject} onDelete={handleDelete} />
           
         </>
       );
@@ -85,6 +85,7 @@ const SubjectRoute = createVisualComponent({
       });
     }
 
+
     return (
       <UU5.Bricks.Section className={Css.main()}>
         <UU5.Bricks.Button
@@ -98,6 +99,7 @@ const SubjectRoute = createVisualComponent({
               getSubjectRef.current = handlerMap.getSubject;
               updateSubjectRef.current = handlerMap.updateSubject;
               deleteSubjectRef.current = handlerMap.deleteSubject;
+              data=subject.subject
 
               switch (state) {
                 case "pending":
@@ -110,7 +112,7 @@ const SubjectRoute = createVisualComponent({
                 case "ready":
                 case "readyNoData":
                 default:
-                  return ( {state}, renderReady(data));
+                  return (renderReady(data));
               }
             }}
           </SubjectProvider>

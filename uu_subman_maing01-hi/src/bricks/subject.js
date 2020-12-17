@@ -42,7 +42,7 @@ const Subject = createVisualComponent({
 
     function handleDetail() {
       return UU5.Environment.getRouter().setRoute({
-        component: <SubjectRoute sended={subject.id} />,
+        component: <SubjectRoute subject={subject} />,
       });
     }
     //@@viewOff:private
@@ -60,7 +60,7 @@ const Subject = createVisualComponent({
       return null;
     }
     // onClick in div could be subject detail
-    console.log(subject.credits);
+    
     return (
      <> <div onClick={handleDetail}>
         <UU5.Bricks.Card colorSchema={colorSchema}>
