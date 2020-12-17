@@ -6,8 +6,8 @@ import Plus4U5 from "uu_plus4u5g01";
 
 let Calls = {
   /** URL containing app base, e.g. "https://uuos9.plus4u.net/vnd-app/awid/". */
-  // APP_BASE_URI: "http://localhost:8080/uu-subman-maing01/22222222222222222222222222222222/",
- APP_BASE_URI: "https://uuapp.plus4u.net/uun-bpmi20wft02-maing01/43c62e94947f4ccfa862cbd5414423a7/",
+  APP_BASE_URI: "http://localhost:8080/uu-subman-maing01/22222222222222222222222222222222/",
+//  APP_BASE_URI: "https://uuapp.plus4u.net/uun-bpmi20wft02-maing01/43c62e94947f4ccfa862cbd5414423a7/",
 
   async call(method, url, dtoIn, clientOptions) {
     const response = await Plus4U5.Common.Calls.call(method, url, dtoIn, clientOptions);

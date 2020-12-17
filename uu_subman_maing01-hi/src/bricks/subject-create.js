@@ -38,12 +38,34 @@ const SubjectCreate = createComponent({
     }
 
     function handleSave(opt) {
+      console.log(opt );
+      
       onCreate(opt.values);
       setMode(Mode.BUTTON);
     }
 
     function handleCancel(subject) {
       setMode(Mode.BUTTON);
+    }
+    function handleAddSubject(opt) {
+      // const subjectData= {
+      //   name:{
+      //     cs: {"opt.nameCs.value"},
+      //     en: "string(50)"
+      // },
+      // credits: "integer(10).isRequired()",
+      // supervisor: "string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/).isRequired()",
+      // degree: "oneOf([Bachalor, Magister]).isRequired()",
+      // desc: {
+      //     cs: "string(500).isRequired()",
+      //     en: "string(500).isRequired()"
+      // },
+      // language: "string(30).isRequired()",
+  
+      // teachers:
+      //     "string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/)",
+      // visibility: "boolean()"
+      // }
     }
     //@@viewOff:private
 
