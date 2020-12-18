@@ -58,8 +58,7 @@ const SubjectDetail = createVisualComponent({
     }
 
     // onClick in div could be subject detail
-    console.log(subject.credits);
-    return (
+      return (
       <UU5.Bricks.Section>
         <UU5.Bricks.Box colorSchema={colorSchema}>
           <UU5.Bricks.Strong content={<UU5.Bricks.Lsi lsi={subject.name} />} />
@@ -67,13 +66,14 @@ const SubjectDetail = createVisualComponent({
           <UU5.Bricks.Text content={subject.credits} />
 
           <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={Lsi.subjectLanguage} />} />
-          <UU5.Bricks.Text content={subject.language} />
+          <UU5.Bricks.Text content={Object.keys(subject.language).join(" / ")} />
           <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={Lsi.subjectSupervisor} />} />
           <UU5.Bricks.Text content= {subject.supervisor}/>
           <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={Lsi.subjectDegree} />} />
           <UU5.Bricks.Text content= {subject.degree}/>
           <UU5.Bricks.Button content={<UU5.Bricks.Lsi lsi={Lsi.subjectChangeForm} />} />
           <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
+          {/* <UU5.Bricks.Button onClick={handleDelete} colorSchema="grey"><UU5.Bricks.Icon icon="mdi-delete" /></UU5.Bricks.Button> */}
         </UU5.Bricks.Box>
       </UU5.Bricks.Section>
     );

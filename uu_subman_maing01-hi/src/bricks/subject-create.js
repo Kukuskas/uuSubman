@@ -45,13 +45,13 @@ const SubjectCreate = createComponent({
       }else if (it.language="en") {
         lang = {en: ""}
       }
-
+      
       const input = {
         name: { 
           cs: it.nameCs, 
           en: it.nameEn 
         },
-        credits: it.credits,
+        credits: parseInt(it.credits),
         supervisor: it.supervisor,
         degree: it.degree,
         desc: {
@@ -72,25 +72,7 @@ const SubjectCreate = createComponent({
     function handleCancel(subject) {
       setMode(Mode.BUTTON);
     }
-    function handleAddSubject(opt) {
-      return {
-        name: {
-          cs: opt.values.nameCs,
-          en: "string(50)",
-        },
-        credits: "integer(10).isRequired()",
-        supervisor: "string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/).isRequired()",
-        degree: "oneOf([Bachalor, Magister]).isRequired()",
-        desc: {
-          cs: "string(500).isRequired()",
-          en: "string(500).isRequired()",
-        },
-        language: "string(30).isRequired()",
 
-        teachers: "string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/)",
-        visibility: "boolean()",
-      };
-    }
     //@@viewOff:private
 
     //@@viewOn:render
