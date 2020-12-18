@@ -11,25 +11,7 @@ const SubjectProvider = createComponent({
   //@@viewOff:statics
 
   render({ children }) {
-    // const [subjects, setSubjects] = useState(initialSubjects);
 
-    //   //@@viewOn:private
-
-    //   function handleCreate(subject) {
-    //     // subject.id = UU5.Common.Tools.generateUUID();
-    //     // subject.averageRating = Math.round(Math.random() * 5); // <0, 5>
-    //     // setSubjects(prevSubjects => prevSubjects.concat([subject]));
-    //   }
-
-    //   function handleDelete(subject) {
-    //     setSubjects(prevSubjects => prevSubjects.filter(item => item.id !== subject.id));
-    //   }
-    //   function handleDetail(subject) {
-    //     console.log( "Detail předmětu: " + subject.name.cs); //Here fill in Subject/detail function
-    //     ;
-    //   }
-
-    //@@viewOn:hooks
     let listDataValues = useDataList({
       pageSize: 200,
       handlerMap: {

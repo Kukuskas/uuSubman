@@ -9,6 +9,7 @@ import Css from "./subject.css";
 import SubjectDetail from "../bricks/subject-detail";
 import UU5, { PropTypes } from "uu5g04";
 import Subjects from "./subjects";
+
 //@@viewOff:imports
 
 const SubjectRoute = createVisualComponent({
@@ -17,9 +18,9 @@ const SubjectRoute = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:render
-  render(props) {
+  render(subject) {
     //@@viewOn:render
-    const createSubjectRef = useRef();
+    const getSubjectRef = useRef();
     const updateSubjectRef = useRef();
     const deleteSubjectRef = useRef();
     //@viewOff:hooks
@@ -32,11 +33,11 @@ const SubjectRoute = createVisualComponent({
       });
     }
 
-    async function handleCreate(subject) {
+    async function handleGet(id) {
       try {
-        await createSubjectRef.current(subject);
+        await getSubjectRef.current(subject);
       } catch {
-        showError(`Creation of ${subject.name} failed!`);
+        showError(`Getting of ${subject.name} failed!`);
       }
     }
 
@@ -61,14 +62,11 @@ const SubjectRoute = createVisualComponent({
       return <UU5.Bricks.Loading />;
     }
 
-    function renderReady(subjects) {
+    function renderReady(subject) {
       return (
         <>
-          <SubjectsTitle subjects={subjects} />
-          <SubjectCreate onCreate={handleCreate} />
-          <SubjectList subjects={subjects} onDelete={handleDelete} />
-          <UU5.Bricks.Header detail />
-          <SubjectDetail />
+          <SubjectDetail subject={subject} onDelete={handleDelete} />
+          
         </>
       );
     }
@@ -86,6 +84,15 @@ const SubjectRoute = createVisualComponent({
         component: <Subjects />,
       });
     }
+        async function handleDelete(subject) {
+      try {
+        await deleteSubjectRef.current({ id: subject.id });
+        handleBack()
+      } catch {
+        showError(`Deletion of ${subject.name} failed!`);
+      }
+    }
+
 
     return (
       <UU5.Bricks.Section className={Css.main()}>
@@ -94,13 +101,30 @@ const SubjectRoute = createVisualComponent({
           content={<UU5.Bricks.Lsi lsi={{ en: "Back", cs: "Zpět" }} />}
           onClick={handleBack}
         />
-        <UU5.Bricks.Header>
-          Hello Its Subject Detail!!!
-          <br></br>
-          Its empty and we are working on it!
-          <br></br>
-          Info I am sending here is: {props.sended}
-        </UU5.Bricks.Header>
+        <UU5.Bricks.Section className={Css.main()}>
+          <SubjectProvider>
+            {({ state, data, errorData, pendingData, handlerMap }) => {
+              getSubjectRef.current = handlerMap.getSubject;
+              updateSubjectRef.current = handlerMap.updateSubject;
+              deleteSubjectRef.current = handlerMap.deleteSubject;
+              data=subject.subject
+
+              switch (state) {
+                case "pending":
+                case "pendingNoData":
+                  return renderLoad();
+                case "error":
+                case "errorNoData":
+                  return renderError(errorData);
+                case "itemPending":
+                case "ready":
+                case "readyNoData":
+                default:
+                  return (renderReady(data));
+              }
+            }}
+          </SubjectProvider>
+        </UU5.Bricks.Section>
       </UU5.Bricks.Section>
     );
     //@@viewOff:render

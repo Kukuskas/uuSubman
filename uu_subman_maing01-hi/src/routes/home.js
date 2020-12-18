@@ -62,7 +62,7 @@ export const Home = createVisualComponent({
           </UU5.Common.Identity>
         );
       }
-      return <UU5.Bricks.Text content= {"Stranger"}/>;
+      return <UU5.Bricks.Header level="2" content= {"Stranger"}/>;
     }
     //@@viewOn:interface
     //@@viewOff:interface

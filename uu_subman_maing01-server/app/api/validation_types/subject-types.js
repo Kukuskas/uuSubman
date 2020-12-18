@@ -6,15 +6,15 @@ const subjectCreateDtoInType = shape({
     }).isRequired(),
     credits: integer(10).isRequired(),
     supervisor: string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/).isRequired(),
-    degree: oneOf(["Bachalor", "Magister"]).isRequired(),
+    degree: oneOf(["bachalor", "magister"]).isRequired(),
     desc: shape({
         cs: string(500).isRequired(),
         en: string(500).isRequired()
     }).isRequired(),
-    language: string(30).isRequired(),
-
-    teachers:
-        string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/),
+    language: shape().isRequired(),
+    /* edit it later */
+    teachers: array(
+        ),
     visibility: boolean()
 })
 

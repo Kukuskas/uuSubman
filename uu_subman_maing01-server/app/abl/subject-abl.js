@@ -63,6 +63,9 @@ class SubjectAbl {
 
 
   async create(awid, dtoIn, session, authorizationResult) {
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log(dtoIn);
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
     let validationResult = this.validator.validate("subjectCreateDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -72,7 +75,90 @@ class SubjectAbl {
     );
 
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
-
+//     if(dtoIn.language.en) {
+//       dtoIn.language.cz= {
+//   "studyForms": { 
+//       "fulltime": {
+//           "id": "...",
+//           "studyMaterialList": [
+//               "..."
+//           ],
+//           "topics": [
+//               {
+//                   "name": "...", 
+//                   "desc": "...", 
+//                   "id": "...", 
+//                   "studyMaterialList": [
+//                       {
+//                           "studyMateriaId": "...",
+//                           "url": "...",
+//                           "name": "..."
+//                       }
+//                   ]
+//               }
+//           ]
+//       },
+//       "parttime": {
+//           "id": "...",
+//           "studyMaterialList": [
+//               "..."
+//           ],
+//           "topics": [
+//               {
+//                   "name": "...", //name of the topic
+//                   "desc": "...", //description of the topic
+//                   "id": "...", //code of the topic
+//                   "studyMaterialList": [
+//                       {
+//                           "studyMateriaId": "...",
+//                           "url": "...",
+//                           "name": "..."
+//                       }
+//                   ]
+//               }
+//           ]
+//       }
+//   }
+// }}
+//     if(dtoIn.language.en) {
+//   dtoIn.language.en= {
+//   "studyForms": { 
+//       "fulltime": {
+//           "id": "...",
+//           "studyMaterialList": [
+//               "..."
+//           ],
+//           "topics": [
+//               {
+//                   "name": "...", 
+//                   "desc": "...", 
+//                   "id": "...", 
+//                   "studyMaterialList": [
+//                       {
+//                           "studyMateriaId": "...",
+//                           "url": "...",
+//                           "name": "..."
+//                       }
+//                   ]
+//               }
+//           ]
+//       },
+//       "parttime": {
+//           "id": "...",
+//           "studyMaterialList": [
+//               "..."
+//           ],
+//           "topics": [
+//               {
+//                   "name": "...", //name of the topic
+//                   "desc": "...", //description of the topic
+//                   "id": "...", //code of the topic
+//                   "studyMaterialList": [
+//                       {
+//                           "studyMateriaId": "...",
+//                           "url": "...",
+//                           "name": "..."
+//         }]}]}}}}
     dtoIn.awid = awid;
     let dtoOut;
 

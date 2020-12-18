@@ -6,9 +6,10 @@ import SubjectProvider from "../bricks/subject-provider";
 import SubjectCreate from "../bricks/subject-create";
 import SubjectsTitle from "../bricks/subject-title";
 import Css from "./subject.css";
-import SubjectDetail from "../bricks/subject-detail";
 import UU5 from "uu5g04";
-import SubjectRoute from "./subjectRoute";
+import Calls from "../calls"
+
+
 //@@viewOff:imports
 
 const Subjects = createVisualComponent({
@@ -17,7 +18,7 @@ const Subjects = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:render
-  render(props) {
+  render() {
     //@@viewOn:render
     const createSubjectRef = useRef();
     const updateSubjectRef = useRef();
@@ -31,13 +32,27 @@ const Subjects = createVisualComponent({
         colorSchema: "red",
       });
     }
+    function handleBack() {
+      return UU5.Environment.getRouter().setRoute({
+        url:"/subjects"
+        
+      })
+    }
+    function handleHome() {
+      return (UU5.Environment.getRouter().setRoute({
+        url:"/"
+        
+      }), handleBack())
+    }
 
     async function handleCreate(subject) {
-      try {
-        await createSubjectRef.current(subject);
-      } catch {
-        showError(`Creation of ${subject.name} failed!`);
+      console.log(subject);
+      try{ await Calls.createSubject(subject);
+        return handleHome()
+       } catch {
+        showError(`Create of ${subject.name.en} failed!`);
       }
+      
     }
 
     /* eslint no-unused-vars: "off" */
@@ -66,8 +81,6 @@ const Subjects = createVisualComponent({
           <SubjectsTitle subjects={subjects} />
           <SubjectCreate onCreate={handleCreate} />
           <SubjectList subjects={subjects} onDelete={handleDelete} />
-          <UU5.Bricks.Header detail />
-          <SubjectDetail />
         </>
       );
     }

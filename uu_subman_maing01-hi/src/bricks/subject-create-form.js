@@ -34,13 +34,12 @@ const SubjectCreateForm = createVisualComponent({
             content={<UU5.Bricks.Lsi lsi={{ en: "Create a new subject", cs: "Vytvořit nový předmět" }} />}
             info={<UU5.Bricks.Lsi lsi={{ cs: <UU5.Bricks.Paragraph style="margin: 0" />, en: "More info..." }} />}
           />
-          <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
-            <Form />
-            <UU5.Forms.ContextControls
-              buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Create", cs: "Vytvořit" }} /> }}
-              buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}
-            />
-          </UU5.Forms.ContextForm>
+
+          <Form onSave={onSave} onCancel={onCancel}/>
+          <UU5.Forms.ContextControls
+            buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Create", cs: "Vytvořit" }} /> }}
+            buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}
+          />
         </UU5.Forms.ContextModal>
       </UU5.Bricks.Container>
     );

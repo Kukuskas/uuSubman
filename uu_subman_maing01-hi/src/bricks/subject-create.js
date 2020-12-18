@@ -38,13 +38,41 @@ const SubjectCreate = createComponent({
     }
 
     function handleSave(opt) {
-      onCreate(opt.values);
+      let it = opt.values;
+      let lang = {}
+      if (it.language="cs") {
+        lang = {cs: ""}
+      }else if (it.language="en") {
+        lang = {en: ""}
+      }
+      
+      const input = {
+        name: { 
+          cs: it.nameCs, 
+          en: it.nameEn 
+        },
+        credits: parseInt(it.credits),
+        supervisor: it.supervisor,
+        degree: it.degree,
+        desc: {
+          cs: it.descCs,
+          en: it.descEn,
+        },
+        language: lang,
+
+        teachers: [it.teachers],
+        visibility: false,
+      };
+      console.log(input);
+
+      onCreate(input);
       setMode(Mode.BUTTON);
     }
 
     function handleCancel(subject) {
       setMode(Mode.BUTTON);
     }
+
     //@@viewOff:private
 
     //@@viewOn:render
