@@ -1,14 +1,13 @@
 //@@viewOn:imports
 import { createVisualComponent, useRef } from "uu5g04-hooks";
 import Config from "./config/config";
-import SubjectList from "../bricks/subject-list";
 import SubjectProvider from "../bricks/subject-provider";
 import SubjectCreate from "../bricks/subject-create";
 import SubjectsTitle from "../bricks/subject-title";
 import Css from "./subject.css";
 import SubjectDetail from "../bricks/subject-detail";
 import UU5, { PropTypes } from "uu5g04";
-import Subjects from "./subjects";
+
 
 //@@viewOff:imports
 
@@ -81,7 +80,7 @@ const SubjectRoute = createVisualComponent({
     }
     function handleBack() {
       return UU5.Environment.getRouter().setRoute({
-        component: <Subjects />,
+        url: "/subjects",
       });
     }
         async function handleDelete(subject) {

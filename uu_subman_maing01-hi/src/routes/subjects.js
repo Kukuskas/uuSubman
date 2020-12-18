@@ -46,7 +46,6 @@ const Subjects = createVisualComponent({
     }
 
     async function handleCreate(subject) {
-      console.log(subject);
       try{ await Calls.createSubject(subject);
         return handleHome()
        } catch {
