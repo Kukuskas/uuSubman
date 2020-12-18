@@ -34,7 +34,7 @@ const Form = createVisualComponent({
   render({ onSave, onCancel }) {
     //@@viewOn:render
     const degreeName = [
-      { content: <UU5.Bricks.Lsi lsi={{ en: "Bachalor", cs: "Bakalářské" }} />, value: "bachalor" },
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Bachalor", cs: "Bakalářské" }} />, value: "bachelor" },
       { content: <UU5.Bricks.Lsi lsi={{ en: "Master", cs: "Magisterské" }} />, value: "master" }
     ];
     const languageOfStudy = [
