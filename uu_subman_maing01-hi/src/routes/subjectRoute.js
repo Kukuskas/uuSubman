@@ -84,6 +84,14 @@ const SubjectRoute = createVisualComponent({
         component: <Subjects />,
       });
     }
+        async function handleDelete(subject) {
+      try {
+        await deleteSubjectRef.current({ id: subject.id });
+        handleBack()
+      } catch {
+        showError(`Deletion of ${subject.name} failed!`);
+      }
+    }
 
 
     return (

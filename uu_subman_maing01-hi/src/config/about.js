@@ -34,33 +34,33 @@ export const About = {
   },
   leadingAuthors: [
     {
-      name: "Some Name",
-      uuIdentity: "4-4-1",
+      name: "Alexandr Kozlov",
+      uuIdentity: "25-1622-1",
       role: {
-        en: "Chief Business Architect & Stakeholder",
+        en: "Business architect and main frontend developer.",
       },
     },
     {
-      name: "Other Name",
-      uuIdentity: "4-4-1",
+      name: "Tatsiana Sorokina",
+      uuIdentity: "24-9525-1",
       role: {
-        en: "Head of Development",
+        en: "Beauty of a team, serious business architect and developer.",
+      },
+    },
+    {
+      name: "Alexander Borvykh",
+      uuIdentity: "24-9941-1",
+      role: {
+        en: "Business architect and main backend developer.",
       },
     },
   ],
   otherAuthors: [
     {
-      name: "Your Name",
+      name: "Last member",
       uuIdentity: "4-4-1",
       role: {
-        en: "Developer",
-      },
-    },
-    {
-      name: "More Names",
-      uuIdentity: "4-4-1",
-      role: {
-        en: "Developer",
+        en: "Just being in team.",
       },
     },
   ],

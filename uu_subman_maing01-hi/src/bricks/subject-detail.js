@@ -73,7 +73,7 @@ const SubjectDetail = createVisualComponent({
           <UU5.Bricks.Text content= {subject.degree}/>
           <UU5.Bricks.Button content={<UU5.Bricks.Lsi lsi={Lsi.subjectChangeForm} />} />
           <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
-          {/* <UU5.Bricks.Button onClick={handleDelete} colorSchema="grey"><UU5.Bricks.Icon icon="mdi-delete" /></UU5.Bricks.Button> */}
+          <UU5.Bricks.Button onClick={handleDelete} colorSchema="grey"><UU5.Bricks.Icon icon="mdi-delete" /></UU5.Bricks.Button>
         </UU5.Bricks.Box>
       </UU5.Bricks.Section>
     );

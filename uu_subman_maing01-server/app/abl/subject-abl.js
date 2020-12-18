@@ -63,6 +63,9 @@ class SubjectAbl {
 
 
   async create(awid, dtoIn, session, authorizationResult) {
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log(dtoIn);
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
     let validationResult = this.validator.validate("subjectCreateDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -72,7 +75,7 @@ class SubjectAbl {
     );
 
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
-//     if(dToIn.language.en) {
+//     if(dtoIn.language.en) {
 //       dtoIn.language.cz= {
 //   "studyForms": { 
 //       "fulltime": {
@@ -117,7 +120,7 @@ class SubjectAbl {
 //       }
 //   }
 // }}
-//     if(dToIn.language.en) {
+//     if(dtoIn.language.en) {
 //   dtoIn.language.en= {
 //   "studyForms": { 
 //       "fulltime": {
