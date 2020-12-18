@@ -40,12 +40,11 @@ const SubjectCreate = createComponent({
     function handleSave(opt) {
       let it = opt.values;
       let lang = {}
-      if (it.language="cs") {
+      if (it.language=="cs") {
         lang = {cs: ""}
-      }else if (it.language="en") {
+      }else if (it.language=="en") {
         lang = {en: ""}
       }
-      
       const input = {
         name: { 
           cs: it.nameCs, 
@@ -63,7 +62,6 @@ const SubjectCreate = createComponent({
         teachers: [it.teachers],
         visibility: false,
       };
-      console.log(input);
 
       onCreate(input);
       setMode(Mode.BUTTON);
