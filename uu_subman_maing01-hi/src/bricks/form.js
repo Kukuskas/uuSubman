@@ -42,7 +42,7 @@ const Form = createVisualComponent({
       { content: <UU5.Bricks.Lsi lsi={{ en: "English", cs: "Anglický" }} />, value: "en" }
     ];
     return (
-      <UU5.Forms.ContextForm onSave={onSave}>
+      <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
         <UU5.Bricks.Container>
           <UU5.Bricks.Row>
             <UU5.Bricks.Column colWidth="s-6">
