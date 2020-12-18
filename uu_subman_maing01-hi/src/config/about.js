@@ -48,7 +48,7 @@ export const About = {
       },
     },
     {
-      name: "Alexander Borvykh",
+      name: "Alexander Borovykh",
       uuIdentity: "24-9941-1",
       role: {
         en: "Business architect and main backend developer.",
