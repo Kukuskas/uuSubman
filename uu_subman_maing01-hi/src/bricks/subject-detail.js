@@ -59,7 +59,41 @@ const SubjectDetail = createVisualComponent({
 
     // onClick in div could be subject detail
       return (
-      <UU5.Bricks.Section>
+
+                <UU5.Bricks.Container>
+          <UU5.Bricks.Row>
+            <UU5.Bricks.Column colWidth="s-3">
+
+              <UU5.Bricks.Text
+                borderRadius="8px"
+                content={<UU5.Bricks.Lsi lsi={Lsi.subjectCredits} />}
+              />
+                   <UU5.Bricks.Text
+                borderRadius="8px"
+                content={<UU5.Bricks.Lsi lsi={Lsi.subjectSupervisor} />}
+              />
+            </UU5.Bricks.Column>
+
+
+            <UU5.Bricks.Column colWidth="s-3">
+              <UU5.Bricks.Text
+                borderRadius="8px"
+                content={<UU5.Bricks.Lsi lsi={Lsi.subjectLanguage} />}
+              />
+                 <UU5.Bricks.Button
+                borderRadius="8px"
+                content={<UU5.Bricks.Lsi lsi={Lsi.subjectChangeForm} />}
+              />
+            </UU5.Bricks.Column>
+
+            <UU5.Bricks.Column colWidth="s-3">
+              <UU5.Bricks.Text
+                borderRadius="8px"
+                content={<UU5.Bricks.Lsi lsi={Lsi.subjectDegree} />}
+              />
+            </UU5.Bricks.Column>
+          </UU5.Bricks.Row>
+          
         <UU5.Bricks.Box colorSchema={colorSchema}>
           <UU5.Bricks.Strong content={<UU5.Bricks.Lsi lsi={subject.name} />} />
           <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={Lsi.subjectCredits} />} />
@@ -75,7 +109,7 @@ const SubjectDetail = createVisualComponent({
           <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
           <UU5.Bricks.Button onClick={handleDelete} colorSchema="grey"><UU5.Bricks.Icon icon="mdi-delete" /></UU5.Bricks.Button>
         </UU5.Bricks.Box>
-      </UU5.Bricks.Section>
+      </UU5.Bricks.Container>
     );
   },
   //@@viewOff:render
