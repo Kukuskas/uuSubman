@@ -37,9 +37,12 @@
     },
     "uuConfigMap": {
       "asid_license_owner_list": [
-        "26-4110-1"
-      ]
-    }
+      "26-4110-1"
+      ],
+      "uu_app_oidc_providers_oidcg02_enabled": true,
+      "uu_app_oidc_primary_provider": "oidcg02",
+      "uu_app_oidc_providers_oidcg01_enabled": true
+      }
   },
   "uuSubAppInstance": {
     "asid": "a7f4915cfaff45a5b58bc0ee1e9f567c",
