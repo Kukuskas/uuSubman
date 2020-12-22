@@ -79,7 +79,7 @@
       },
       "subject/list": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities"]
       },
       "subject/delete": {
         "sysStateList": ["active"],

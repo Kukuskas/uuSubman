@@ -3,7 +3,7 @@
   "schemaSpecificationUri": "https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-289fcd2e11d34f3e9b2184bedb236ded/book/page?code=uuSubAppInstanceDescriptor",
   "uuSubApp": {
     "code": "UUN.BPMI20WFT02.MAING01",
-    "version": "0.2.6-alpha.6",
+    "version": "0.2.6-alpha.9",
     "name": "uuSubmanMaing01",
     "description": "",
     "license": "License Commercial",
