@@ -19,9 +19,6 @@ const WARNINGS = {
   },
   deleteUnsupportedKeys: {
     code: `${Errors.Delete.UC_CODE}unsupportedKeys`
-  },
-  updateUnsupportedKeys: {
-    code: `${Errors.Update.UC_CODE}unsupportedKeys`
   }
 };
 
@@ -32,7 +29,6 @@ class SubjectAbl {
     this.subjectDao = DaoFactory.getDao("subject");
   }
 
-
   async delete(awid, dtoIn) {
     let validationResult = this.validator.validate("subjectDeleteDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
@@ -41,9 +37,9 @@ class SubjectAbl {
       WARNINGS.deleteUnsupportedKeys.code,
       Errors.Delete.InvalidDtoIn
     );
-    await this.dao.delete(awid, dtoIn.id);
-    return uuAppErrorMap;
-  };
+  await this.dao.delete(awid, dtoIn.id);
+  return uuAppErrorMap;
+};
 
   async list(awid, dtoIn, session, authorizationResult) {
 
@@ -58,7 +54,7 @@ class SubjectAbl {
     );
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
-
+    
     let dtoOut = await this.dao.list(awid)
     // hds 4
     dtoOut.uuAppErrorMap = uuAppErrorMap;
@@ -182,53 +178,13 @@ class SubjectAbl {
     // hds 3
     let subject = await this.dao.get(awid, dtoIn.id);
     if (!subject) {
-      throw new Errors.Get.SubjectDoesNotExist(uuAppErrorMap, { subjectId: dtoIn.id });
+      throw new Errors.Get.SubmanDoesNotExist(uuAppErrorMap, { subjectId: dtoIn.id });
     }
-    // hds 4
+   // hds 4
     subject.uuAppErrorMap = uuAppErrorMap;
     return subject;
   }
 
-
-  async update(awid, dtoIn, session, authorizationResult) {
-    // hds 2, 2.1
-    let validationResult = this.validator.validate("subjectUpdateDtoInType", dtoIn);
-    // hds 2.2, 2.3, A3, A4
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      WARNINGS.updateUnsupportedKeys.code,
-      Errors.Update.InvalidDtoIn
-    );
-
-    // hds 3
-    let subject = await this.dao.get(awid, dtoIn.id);
-    // A5
-    if (!subject) {
-      throw new Errors.Update.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
-    }
-
-    // hds 4
-    dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
-    dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
-
-
-    // hds 7
-    try {
-      dtoIn.awid = awid;
-      subject = await this.dao.update(dtoIn);
-    } catch (e) {
-      if (e instanceof ObjectStoreError) {
-        // A10
-        throw new Errors.Update.SubjectDaoUpdateFailed({ uuAppErrorMap }, e);
-      }
-      throw e;
-    }
-
-    // hds 8
-    subject.uuAppErrorMap = uuAppErrorMap;
-    return subject;
-  }
 
 }
 

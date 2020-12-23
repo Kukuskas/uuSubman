@@ -1,18 +1,19 @@
 {
   "name": "uu_subman_maing01-server",
-  "version": "0.2.6-DEV",
+  "version": "0.2.6-alpha.9",
   "description": "",
   "license": "License Commercial",
   "spec": "nodejs-app; uu_appg01@3.1.0",
   "dependencies": {
-    "uu5tilesg02": "^1.7.3",
     "uu_appg01_binarystore-cmd": "^3.0.0",
-    "uu_appg01_server": "^5.0.0",
-    "uu_apprepresentationg01": "^2.0.0"
+    "uu_appg01_server": "5.2.0",
+    "uu_apprepresentationg01": "^2.0.0",
+    "uu_appg01_oidc": "3.0.4",
+    "uu_appg01_oidc-cmd": "3.0.4"
   },
   "devDependencies": {
     "uu_appg01_devkit": "^3.1.0",
-    "uu_appg01_server-test": "^5.0.0"
+    "uu_appg01_server-test": "5.2.0"
   },
   "engines": {
     "node": ">=12.0.0"

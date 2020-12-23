@@ -32,6 +32,9 @@ class SubjectAbl {
     this.subjectDao = DaoFactory.getDao("subject");
   }
 
+  async update(awid, dtoIn) {
+
+  }
 
   async delete(awid, dtoIn) {
     let validationResult = this.validator.validate("subjectDeleteDtoInType", dtoIn);
@@ -79,6 +82,92 @@ class SubjectAbl {
     );
 
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+<<<<<<< HEAD
+    //     if(dtoIn.language.en) {
+    //       dtoIn.language.cz= {
+    //   "studyForms": { 
+    //       "fulltime": {
+    //           "id": "...",
+    //           "studyMaterialList": [
+    //               "..."
+    //           ],
+    //           "topics": [
+    //               {
+    //                   "name": "...", 
+    //                   "desc": "...", 
+    //                   "id": "...", 
+    //                   "studyMaterialList": [
+    //                       {
+    //                           "studyMateriaId": "...",
+    //                           "url": "...",
+    //                           "name": "..."
+    //                       }
+    //                   ]
+    //               }
+    //           ]
+    //       },
+    //       "parttime": {
+    //           "id": "...",
+    //           "studyMaterialList": [
+    //               "..."
+    //           ],
+    //           "topics": [
+    //               {
+    //                   "name": "...", //name of the topic
+    //                   "desc": "...", //description of the topic
+    //                   "id": "...", //code of the topic
+    //                   "studyMaterialList": [
+    //                       {
+    //                           "studyMateriaId": "...",
+    //                           "url": "...",
+    //                           "name": "..."
+    //                       }
+    //                   ]
+    //               }
+    //           ]
+    //       }
+    //   }
+    // }}
+    //     if(dtoIn.language.en) {
+    //   dtoIn.language.en= {
+    //   "studyForms": { 
+    //       "fulltime": {
+    //           "id": "...",
+    //           "studyMaterialList": [
+    //               "..."
+    //           ],
+    //           "topics": [
+    //               {
+    //                   "name": "...", 
+    //                   "desc": "...", 
+    //                   "id": "...", 
+    //                   "studyMaterialList": [
+    //                       {
+    //                           "studyMateriaId": "...",
+    //                           "url": "...",
+    //                           "name": "..."
+    //                       }
+    //                   ]
+    //               }
+    //           ]
+    //       },
+    //       "parttime": {
+    //           "id": "...",
+    //           "studyMaterialList": [
+    //               "..."
+    //           ],
+    //           "topics": [
+    //               {
+    //                   "name": "...", //name of the topic
+    //                   "desc": "...", //description of the topic
+    //                   "id": "...", //code of the topic
+    //                   "studyMaterialList": [
+    //                       {
+    //                           "studyMateriaId": "...",
+    //                           "url": "...",
+    //                           "name": "..."
+    //         }]}]}}}}
+=======
 //     if(dtoIn.language.cs) {
 //       dtoIn.language.cs= {
 //   studyForms: { 
@@ -148,6 +237,7 @@ class SubjectAbl {
 //                           "name": "..."
 //         }]}]}}}}
 
+>>>>>>> 73296d8548847e7dd9b3920a6cae83b522680d50
     dtoIn.awid = awid;
     let dtoOut;
 
