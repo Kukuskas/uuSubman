@@ -22,6 +22,11 @@ class SubjectMongo extends UuObjectDao {
     await super.deleteOne({ awid, id });
      
   }
+
+  async update(uuObject) {
+    let filter = { id: uuObject.id, awid: uuObject.awid };
+    return await super.findOneAndUpdate(filter, uuObject, "NONE");
+  }
 }
 
 module.exports = SubjectMongo;

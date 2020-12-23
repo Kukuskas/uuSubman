@@ -3,6 +3,11 @@ import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import Lsi from "./config/lsi";
+import "uu5g04-bricks";
+import "uu5g04-block-layout";
+import "uu5g04-forms";
+import Css from "../routes/detail.css";
+
 //@@viewOff:imports
 
 const SubjectDetail = createVisualComponent({
@@ -27,10 +32,11 @@ const SubjectDetail = createVisualComponent({
   defaultProps: {
     subject: null,
     colorSchema: "blue",
-    onUpdate: () => {},
-    onDelete: () => {},
+    onUpdate: () => { },
+    onDelete: () => { },
   },
   //@@viewOff:defaultProps
+
 
   render({ name, subject, colorSchema, onDelete, onUpdate }) {
     //@@viewOn:private
@@ -57,59 +63,68 @@ const SubjectDetail = createVisualComponent({
       );
     }
 
-    // onClick in div could be subject detail
-      return (
 
-                <UU5.Bricks.Container>
+    return (
+
+      <UU5.Bricks.Section >
+        <UU5.Bricks.Box colorSchema="green">
+      <UU5.Bricks.Header  className="uu5-common-center" 
+      level={1}> 
+      
+      {<UU5.Bricks.Lsi lsi={subject.name} />}</UU5.Bricks.Header>
+      </UU5.Bricks.Box>
+
+
           <UU5.Bricks.Row>
-            <UU5.Bricks.Column colWidth="s-3">
+            <UU5.Bricks.Column colWidth="s-4">
+              <UU5.BlockLayout.Tile  className={Css.detail()}>
+                <UU5.Bricks.Icon icon="uubml-diploma" />
+                {<UU5.Bricks.Lsi lsi={Lsi.subjectCredits}  />}
+                {subject.credits}
+               
+              </UU5.BlockLayout.Tile>
 
-              <UU5.Bricks.Text
-                borderRadius="8px"
-                content={<UU5.Bricks.Lsi lsi={Lsi.subjectCredits} />}
-              />
-                   <UU5.Bricks.Text
-                borderRadius="8px"
-                content={<UU5.Bricks.Lsi lsi={Lsi.subjectSupervisor} />}
-              />
+              <UU5.BlockLayout.Tile  className={Css.detail()}>
+              <UU5.Bricks.Icon icon="uubml-officer-junior-man" />
+                {<UU5.Bricks.Lsi lsi={Lsi.subjectTeachers}/>}
+  <Plus4U5.Bricks.BusinessCard uuIdentity="7-7948-1" visual="inline"/>
+              </UU5.BlockLayout.Tile>
             </UU5.Bricks.Column>
 
 
-            <UU5.Bricks.Column colWidth="s-3">
-              <UU5.Bricks.Text
-                borderRadius="8px"
-                content={<UU5.Bricks.Lsi lsi={Lsi.subjectLanguage} />}
-              />
-                 <UU5.Bricks.Button
-                borderRadius="8px"
-                content={<UU5.Bricks.Lsi lsi={Lsi.subjectChangeForm} />}
-              />
+            <UU5.Bricks.Column colWidth="s-4" >
+              <UU5.BlockLayout.Tile className={Css.detail()}>
+                <UU5.Bricks.Icon icon="uubml-idea" />
+                {<UU5.Bricks.Lsi lsi={Lsi.subjectLanguage} />}
+                {Object.keys(subject.language).join(" / ")}
+              </UU5.BlockLayout.Tile>
+              {<UU5.Bricks.Lsi lsi={Lsi.subjectChangeForm} />}
+                  <UU5.BlockLayout.Tile className={Css.detail()}>
+                   
+              </UU5.BlockLayout.Tile>    
             </UU5.Bricks.Column>
 
-            <UU5.Bricks.Column colWidth="s-3">
-              <UU5.Bricks.Text
-                borderRadius="8px"
-                content={<UU5.Bricks.Lsi lsi={Lsi.subjectDegree} />}
-              />
+            <UU5.Bricks.Column colWidth="s-4">
+              <UU5.BlockLayout.Tile className={Css.detail()}>
+              <UU5.Bricks.Icon icon="uubml-digital-workspace" />
+                {<UU5.Bricks.Lsi lsi={Lsi.subjectDegree} />}
+                {subject.degree}
+              </UU5.BlockLayout.Tile>
+
+              <UU5.BlockLayout.Tile className={Css.detail()}>
+                <UU5.Bricks.Icon icon="uubml-officer-junior-man" />
+                {<UU5.Bricks.Lsi lsi={Lsi.subjectSupervisor} />}
+                {subject.supervisor}
+              </UU5.BlockLayout.Tile>
             </UU5.Bricks.Column>
           </UU5.Bricks.Row>
-          
-        <UU5.Bricks.Box colorSchema={colorSchema}>
-          <UU5.Bricks.Strong content={<UU5.Bricks.Lsi lsi={subject.name} />} />
-          <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={Lsi.subjectCredits} />} />
-          <UU5.Bricks.Text content={subject.credits} />
 
-          <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={Lsi.subjectLanguage} />} />
-          <UU5.Bricks.Text content={Object.keys(subject.language).join(" / ")} />
-          <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={Lsi.subjectSupervisor} />} />
-          <UU5.Bricks.Text content= {subject.supervisor}/>
-          <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={Lsi.subjectDegree} />} />
-          <UU5.Bricks.Text content= {subject.degree}/>
-          <UU5.Bricks.Button content={<UU5.Bricks.Lsi lsi={Lsi.subjectChangeForm} />} />
-          <UU5.Bricks.Text content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
-          <UU5.Bricks.Button onClick={handleDelete} colorSchema="grey"><UU5.Bricks.Icon icon="mdi-delete" /></UU5.Bricks.Button>
+        <UU5.Bricks.Box >
+            <UU5.Bricks.Block 
+             content= {<UU5.Bricks.Lsi  lsi={subject.desc} />} colorSchema="green"/>
         </UU5.Bricks.Box>
-      </UU5.Bricks.Container>
+      </UU5.Bricks.Section>
+
     );
   },
   //@@viewOff:render

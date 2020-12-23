@@ -80,7 +80,27 @@ const Delete =
   }
 };
 
+const Update = {
+  UC_CODE: `${SUBJECT_ERROR_PREFIX}update/`,
+  InvalidDtoIn: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  SubjectDaoUpdateFailed: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}subjectDaoUpdateFailed`;
+      this.message = "Update subject by subject Dao update failed.";
+    }
+  }
+  
+};
+
 module.exports = {
+  Update,
   Delete,
   List,
   Get,

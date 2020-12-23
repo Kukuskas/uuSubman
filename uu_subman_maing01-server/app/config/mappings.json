@@ -40,6 +40,11 @@
         "realization": "api/controllers/SubjectController.delete",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "subject/update": {
+        "realization": "api/controllers/SubjectController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }
