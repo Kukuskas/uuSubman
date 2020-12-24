@@ -1,12 +1,13 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent} from "uu5g04-hooks";
 import Config from "./config/config";
 import Lsi from "./config/lsi";
 import "uu5g04-bricks";
 import "uu5g04-block-layout";
 import "uu5g04-forms";
 import Css from "../routes/detail.css";
+import TeacherList from "./teacher-list";
 
 //@@viewOff:imports
 
@@ -38,7 +39,9 @@ const SubjectDetail = createVisualComponent({
   //@@viewOff:defaultProps
 
 
+
   render({ name, subject, colorSchema, onDelete, onUpdate }) {
+
     //@@viewOn:private
     function handleDelete() {
       onDelete(subject);
@@ -48,6 +51,13 @@ const SubjectDetail = createVisualComponent({
     }
     function handleGet() {
       onGet(subject);
+    }
+    function handleSwitch() {
+
+    }
+
+    function handleClick() {
+       
     }
     //@@viewOff:private
 
@@ -62,8 +72,20 @@ const SubjectDetail = createVisualComponent({
         </>
       );
     }
+     
 
+      
+    // var teacherRender = subject.teachers.forEach(teacher=>{
+    //    return  itemRender(teacher)  
+    //  })
+     
 
+  // function itemRender(item){
+  //   console.log(item);
+  //   return (
+  //     console.log(<Plus4U5.Bricks.BusinessCard uuIdentity={item} visual="inline"/>)
+  // );
+  // }
     return (
 
       <UU5.Bricks.Section >
@@ -77,47 +99,61 @@ const SubjectDetail = createVisualComponent({
 
           <UU5.Bricks.Row>
             <UU5.Bricks.Column colWidth="s-4">
-              <UU5.BlockLayout.Tile  className={Css.detail()}>
+              <UU5.BlockLayout.Tile borderRadius="8px" margin="5px">
                 <UU5.Bricks.Icon icon="uubml-diploma" />
                 {<UU5.Bricks.Lsi lsi={Lsi.subjectCredits}  />}
                 {subject.credits}
                
               </UU5.BlockLayout.Tile>
 
-              <UU5.BlockLayout.Tile  className={Css.detail()}>
+                                 
+             <div onClick={handleClick}> 
+              <UU5.BlockLayout.Tile  borderRadius="8px" margin="5px">
               <UU5.Bricks.Icon icon="uubml-officer-junior-man" />
-                {<UU5.Bricks.Lsi lsi={Lsi.subjectTeachers}/>}
-  <Plus4U5.Bricks.BusinessCard uuIdentity="7-7948-1" visual="inline"/>
-              </UU5.BlockLayout.Tile>
+                {/* {<UU5.Bricks.Lsi lsi={Lsi.subjectTeachers}/>} */}
+  {/* <Plus4U5.Bricks.BusinessCard uuIdentity="7-7948-1" visual="inline"/> */}
+  {<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
+              </UU5.BlockLayout.Tile>   
+              </div>
             </UU5.Bricks.Column>
 
 
             <UU5.Bricks.Column colWidth="s-4" >
-              <UU5.BlockLayout.Tile className={Css.detail()}>
+              <UU5.BlockLayout.Tile borderRadius="8px" margin="5px">
                 <UU5.Bricks.Icon icon="uubml-idea" />
                 {<UU5.Bricks.Lsi lsi={Lsi.subjectLanguage} />}
                 {Object.keys(subject.language).join(" / ")}
               </UU5.BlockLayout.Tile>
-              {<UU5.Bricks.Lsi lsi={Lsi.subjectChangeForm} />}
-                  <UU5.BlockLayout.Tile className={Css.detail()}>
-                   
-              </UU5.BlockLayout.Tile>    
+              
+{/*                   
+             <div onClick={handleSwitch}> */}
+                  <UU5.BlockLayout.Tile borderRadius="8px" margin="5px">
+                  {<UU5.Bricks.Lsi lsi={Lsi.subjectChangeForm} />}  
+              </UU5.BlockLayout.Tile>  
+              {/* </div>   */}
             </UU5.Bricks.Column>
+      
+
+            
 
             <UU5.Bricks.Column colWidth="s-4">
-              <UU5.BlockLayout.Tile className={Css.detail()}>
+              <UU5.BlockLayout.Tile borderRadius="8px" margin="5px">
               <UU5.Bricks.Icon icon="uubml-digital-workspace" />
                 {<UU5.Bricks.Lsi lsi={Lsi.subjectDegree} />}
                 {subject.degree}
               </UU5.BlockLayout.Tile>
 
-              <UU5.BlockLayout.Tile className={Css.detail()}>
+              <UU5.BlockLayout.Tile borderRadius="8px" margin="5px">
                 <UU5.Bricks.Icon icon="uubml-officer-junior-man" />
                 {<UU5.Bricks.Lsi lsi={Lsi.subjectSupervisor} />}
                 {subject.supervisor}
               </UU5.BlockLayout.Tile>
             </UU5.Bricks.Column>
           </UU5.Bricks.Row>
+
+
+     <TeacherList teachers = {subject.teachers}/>
+     
 
         <UU5.Bricks.Box >
             <UU5.Bricks.Block 
