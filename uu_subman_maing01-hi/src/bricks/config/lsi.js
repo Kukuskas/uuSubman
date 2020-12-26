@@ -15,9 +15,13 @@ const Lsi = {
         cs: "Studijní program: ",
         en: "Type of study",
     },
-    subjectChangeForm: {
-        cs: "Dálkové",
-        en: "Remote",
+    subjectFullTime: {
+        cs: "Prezenční",
+        en: "Full-time",
+    },
+    subjectPartTime: {
+        cs: "Kombinované",
+        en: "Part-time"
     }
 
 };
