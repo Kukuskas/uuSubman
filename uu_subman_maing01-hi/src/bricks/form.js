@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5, { Bricks } from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent, useState, getState } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
 import "uu5g04-bricks";
@@ -42,19 +42,29 @@ const Form = createVisualComponent({
       { content: <UU5.Bricks.Lsi lsi={{ en: "English", cs: "Anglický" }} />, value: "en" }
     ];
 
+let value=""
     function _handleSupervisorOnBlur(opt) {
-      let uuIdentity = opt.value;
-      console.log(uuIdentity);
-    //   if(uuIdentity) {
-    // console.log(opt.value + "+++++++++++++++++++++");
-    //     useState({supervisorUuIdentity: uuIdentity}, ()=> opt.component.onBlurDefault(opt));
+      // let uuIdentity = opt.value;
+      // if(uuIdentity) {
+      //   useState({supervisor: uuIdentity}, ()=> opt.component.onBlurDefault(opt));
         
-    //   }else{
-    //     console.log(opt.value + "+++++++++++++++++++++555");
-    //     opt.component.onBlurDefault("hello");
-    //   }
+      // }else{
+      //   opt.component.onBlurDefault(opt);
+      // }
+      setSupervisor(opt.value)
+      value = opt.value
+      setDis(true)
+     return  value = opt.value
+
     }
-     
+    const [supervisorValue, setSupervisorValue] = useState(""
+
+    );
+    const [dis, setDis] = useState(false) 
+    const [supervisor, setSupervisor] = useState(
+
+      
+    ); 
     
     return (
       <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
@@ -66,6 +76,7 @@ const Form = createVisualComponent({
                 borderRadius="8px"
                 label={<UU5.Bricks.Lsi lsi={{ en: "Czech Name", cs: "Český Název" }} />}
                 name="nameCs"
+                value="Test one click"
                 required
               />
             </UU5.Bricks.Column>
@@ -74,6 +85,7 @@ const Form = createVisualComponent({
                 borderRadius="8px"
                 label={<UU5.Bricks.Lsi lsi={{ en: "English Name", cs: "Anglický Název" }} />}
                 name="nameEn"
+                value="Test one click"
                 required
               />
             </UU5.Bricks.Column>
@@ -88,6 +100,7 @@ const Form = createVisualComponent({
                 borderRadius="8px"
                 label={<UU5.Bricks.Lsi lsi={{ en: "Credits", cs: "Kredity" }} />}
                 name="credits"
+                value="2"
                 required
               />
             </UU5.Bricks.Column>
@@ -115,6 +128,7 @@ const Form = createVisualComponent({
                 radius="8px"
                 label={<UU5.Bricks.Lsi lsi={{ en: "Czech description", cs: "Český popis" }} />}
                 name="descCs"
+                value="Test one click"
                 required
               />
             </UU5.Bricks.Column>
@@ -123,21 +137,26 @@ const Form = createVisualComponent({
                 // maxHeight = "106px"
                 label={<UU5.Bricks.Lsi lsi={{ en: "English description", cs: "Anglický popis" }} />}
                 name="descEn"
+                value="Test one click"
                 required
               />
             </UU5.Bricks.Column>
-          </UU5.Bricks.Row>
+          </UU5.Bricks.Row >
           <UU5.Forms.Text
             borderRadius="8px"
             label={<UU5.Bricks.Lsi lsi={{ en: "Supervisor", cs: "Garant" }} />}
             name="supervisor"
             onBlur={_handleSupervisorOnBlur}
+            disabled = {dis}
+            value = {supervisorValue}
             required
           />
+          <UU5.Bricks.Text content = {supervisor}/>
           <UU5.Forms.Text
             borderRadius="8px"
             label={<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
             name="teachers"
+            value="25-1622-1,24-9525-1"
           />
         </UU5.Bricks.Container>
       </UU5.Forms.ContextForm>

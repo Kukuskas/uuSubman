@@ -59,10 +59,10 @@ const SubjectCreate = createComponent({
         },
         language: lang,
 
-        teachers: [it.teachers],
+        teachers: it.teachers.split(","),
         visibility: false,
       };
-
+      console.log(input.teachers);
       onCreate(input);
       setMode(Mode.BUTTON);
     }
