@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import UU5, { Bricks } from "uu5g04";
+import UU5 from "uu5g04";
 import { createVisualComponent, useState, getState } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
@@ -42,7 +42,6 @@ const Form = createVisualComponent({
       { content: <UU5.Bricks.Lsi lsi={{ en: "English", cs: "Anglický" }} />, value: "en" }
     ];
 
-let value=""
     function _handleSupervisorOnBlur(opt) {
       // let uuIdentity = opt.value;
       // if(uuIdentity) {
@@ -51,19 +50,18 @@ let value=""
       // }else{
       //   opt.component.onBlurDefault(opt);
       // }
-      setSupervisor(opt.value)
-      value = opt.value
+      setSupervisorValue(opt.value)
+      setSupervisor(<Plus4U5.Bricks.BusinessCard uuIdentity={25-1622-1} visual="micro" showUuIdentity={false}/>)
       setDis(true)
-     return  value = opt.value
 
     }
     const [supervisorValue, setSupervisorValue] = useState(""
 
     );
     const [dis, setDis] = useState(false) 
-    const [supervisor, setSupervisor] = useState(
+    const [supervisor, setSupervisor] = useState(""
 
-      
+
     ); 
     
     return (
@@ -151,7 +149,7 @@ let value=""
             value = {supervisorValue}
             required
           />
-          <UU5.Bricks.Text content = {supervisor}/>
+          <UU5.Bricks.Section content = {supervisor}/>
           <UU5.Forms.Text
             borderRadius="8px"
             label={<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}

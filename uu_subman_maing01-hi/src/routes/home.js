@@ -10,6 +10,7 @@ import Lsi from "../config/lsi.js";
 import WelcomeRow from "../bricks/welcome-row.js";
 //@@viewOff:imports
 
+
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "Home",
@@ -89,6 +90,24 @@ export const Home = createVisualComponent({
         <WelcomeRow textPadding="8px" icon="mdi-server">
           <UU5.Bricks.Lsi lsi={Lsi.auth.serverSide} />
         </WelcomeRow>
+
+<Plus4U5.Bricks.UserData uuIdentity={"25-1622-1"}>
+  {
+    ({ isLoading, isError, data }) => {
+      if (isLoading) {
+        return <UU5.Bricks.Loading />;
+      } else if (isError) {
+        return <UU5.Common.Error errorData={data} />;
+      } else {
+        return (
+          <UU5.Bricks.Pre className="margin">
+            {JSON.stringify(data, null, 2)}
+          </UU5.Bricks.Pre>
+        );
+      }
+    }
+  }
+</Plus4U5.Bricks.UserData>
       </div>
     );
     //@@viewOff:render
