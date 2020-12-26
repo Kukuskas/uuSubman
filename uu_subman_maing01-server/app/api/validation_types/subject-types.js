@@ -5,7 +5,7 @@ const subjectCreateDtoInType = shape({
         en: string(50).isRequired()
     }).isRequired(),
     credits: integer(10).isRequired(),
-    supervisor: string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/).isRequired(),
+    supervisor: uuIdentity().isRequired(),
     degree: oneOf(["bachelor", "master"]).isRequired(),
     desc: shape({
         cs: string(500).isRequired(),
