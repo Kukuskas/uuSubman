@@ -33,32 +33,6 @@ const subjectDeleteDtoInType = shape({
 });
 
 
-// const subjectUpdateDtoInType = shape({
-//     id: mongoId().isRequired(),
-//     name: shape({
-//         cs: string(50).isRequired(),
-//         en: string(50).isRequired()
-//     }).isRequired(),
-//     credits: integer(10).isRequired(),
-//     supervisor: string(/([0-9]{1,3})[-]([0-9]{2,4})[-]([0-9]{1,3})/).isRequired(),
-//     degree: oneOf(["bachelor", "master"]).isRequired(),
-//     desc: shape({
-//         cs: string(500).isRequired(),
-//         en: string(500).isRequired()
-//     }).isRequired(),
-//     language: shape().isRequired(),
-//     /* edit it later */
-//     teachers:array( 
-//         string (/([0-9]{1,3})[-]([0-9]{2,4})[-]([0-9]{1,3})/), 10),
-//     students: array(
-//             shape({
-//                 uuIdentity: string(/([0-9]{1,3})[-]([0-9]{2,4})[-]([0-9]{1,3})/),
-//                 formOfStudy: oneOf(["full-time", "part-time"])
-//             })
-//             ),
-//     visibility: boolean()
-// })
-
 
 const subjectUpdateDtoInType = shape({
     id: mongoId().isRequired(),
@@ -67,7 +41,7 @@ const subjectUpdateDtoInType = shape({
         en: string(50).isRequired()
     }).isRequired(),
     credits: integer(10).isRequired(),
-    supervisor: string(/([0-9]{1,3})[-]([0-9]{2,4})[-]([0-9]{1,3})/).isRequired(),
+    supervisor: uuIdentity().isRequired(),
     degree: oneOf(["bachelor", "master"]).isRequired(),
     desc: shape({
         cs: string(500).isRequired(),
@@ -137,10 +111,10 @@ const subjectUpdateDtoInType = shape({
         }),
     /* edit it later */
     teachers: array(
-        string(/([0-9]{1,3})[-]([0-9]{2,4})[-]([0-9]{1,3})/), 10),
+        uuIdentity()),
     students: array(
         shape({
-            uuIdentity: string(/([0-9]{1,3})[-]([0-9]{2,4})[-]([0-9]{1,3})/),
+            uuIdentity: uuIdentity(),
             formOfStudy: oneOf(["full-time", "part-time"])
         })
     ),

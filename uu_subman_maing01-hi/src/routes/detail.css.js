@@ -1,9 +1,8 @@
 import Config from "./config/config";
 
 const detail = () => Config.Css.css`
-border-radius: 7%;
-margin: 3%;  
+  display: block;   
 `;
 export default {
-detail
-};
+    detail
+  };
