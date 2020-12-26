@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5, { Bricks } from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useState } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
 import "uu5g04-bricks";
@@ -41,6 +41,21 @@ const Form = createVisualComponent({
       { content: <UU5.Bricks.Lsi lsi={{ en: "Czech", cs: "  Český" }} />, value: "cs" },
       { content: <UU5.Bricks.Lsi lsi={{ en: "English", cs: "Anglický" }} />, value: "en" }
     ];
+
+    function _handleSupervisorOnBlur(opt) {
+      let uuIdentity = opt.value;
+      console.log(uuIdentity);
+    //   if(uuIdentity) {
+    // console.log(opt.value + "+++++++++++++++++++++");
+    //     useState({supervisorUuIdentity: uuIdentity}, ()=> opt.component.onBlurDefault(opt));
+        
+    //   }else{
+    //     console.log(opt.value + "+++++++++++++++++++++555");
+    //     opt.component.onBlurDefault("hello");
+    //   }
+    }
+     
+    
     return (
       <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
         <UU5.Bricks.Container>
@@ -116,6 +131,7 @@ const Form = createVisualComponent({
             borderRadius="8px"
             label={<UU5.Bricks.Lsi lsi={{ en: "Supervisor", cs: "Garant" }} />}
             name="supervisor"
+            onBlur={_handleSupervisorOnBlur}
             required
           />
           <UU5.Forms.Text
