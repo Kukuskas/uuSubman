@@ -8,6 +8,7 @@ import "uu5g04-block-layout";
 import "uu5g04-forms";
 import Css from "../routes/detail.css";
 import TeacherList from "./teacher-list";
+import TopicList from "./topic-list";
 
 //@@viewOff:imports
 
@@ -73,9 +74,8 @@ const SubjectDetail = createVisualComponent({
       );
     }
 
-
     return (
-
+    
       <UU5.Bricks.Section >
         <UU5.Bricks.Box colorSchema="green">
           <UU5.Bricks.Header className="uu5-common-center"
@@ -139,12 +139,14 @@ const SubjectDetail = createVisualComponent({
 
 
         <TeacherList teachers={subject.teachers} />
-
+  
 
         <UU5.Bricks.Box >
           <UU5.Bricks.Block
             content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
         </UU5.Bricks.Box>
+
+        <TopicList subject = {subject} />
       </UU5.Bricks.Section>
 
     );
