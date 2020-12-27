@@ -9,9 +9,8 @@ import "uu5g04-forms";
 import TeacherList from "./teacher-list";
 import TopicList from "./topic-list";
 import Css from "../routes/detail.css";
-import form from "./form";
-import SubjectCreateForm from "./subject-create-form"
-import SubjectCreate from "./subject-create"
+import SubjectUpdate from "../bricks/subject-update";
+
 
 
 //@@viewOff:imports
@@ -46,25 +45,16 @@ const SubjectDetail = createVisualComponent({
     subject: null,
     colorSchema: "blue",
     onUpdate: () => { },
-    onDelete: () => { },
+     onDelete: () => { },
   },
   //@@viewOff:defaultProps
 
 
 
-  render({ name, subject, colorSchema, onDelete, onUpdate }) {
+  render({ subject, colorSchema, onDelete, onUpdate }) {
     const [studyForm,setStudyForm] = useState(Mode.FULLTIME);
 
     //@@viewOn:private
-    function handleDelete() {
-      onDelete(subject);
-    }
-    function handleUpdate() {
-    
-    }
-    function handleGet() {
-      onGet(subject);
-    }
     function handleClick() {
       SubjectDetail.modal.open()
     }
@@ -76,9 +66,6 @@ const SubjectDetail = createVisualComponent({
       studyForm == Mode.PARTTIME ? setStudyForm(Mode.FULLTIME):
        setStudyForm(Mode.PARTTIME)
     }
-
-
-
     //@@viewOff:private
 
     //@@viewOn:render
@@ -93,12 +80,7 @@ const SubjectDetail = createVisualComponent({
             level={1}>
             {<UU5.Bricks.Lsi lsi={subject.name} />}
             </UU5.Bricks.Header>
-            {/* <UU5.Bricks.Button onDelete={handleDelete} bgStyle="transparent" className={Css.trash()}>
-            <UU5.Bricks.Icon icon="glyphicon-trash" />
-            </UU5.Bricks.Button> */}
-            <UU5.Bricks.Button onUpdate={handleUpdate} bgStyle="transparent" className={Css.trash()} size="l">
-            <UU5.Bricks.Icon icon="glyphicon-edit"  />
-            </UU5.Bricks.Button>
+             <SubjectUpdate  onUpdate={onUpdate} onDelete={onDelete} subject={subject}/>
             </UU5.Bricks.Row>
         </UU5.Bricks.Box>
 

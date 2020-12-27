@@ -14,6 +14,11 @@ const Form = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    subject: UU5.PropTypes.shape({
+      name: UU5.PropTypes.shape.isRequired,
+      desc: UU5.PropTypes.shape.isRequired,
+      id: UU5.PropTypes.isRequired,
+    }),
     onSubmit: UU5.PropTypes.func,
     onCancel: UU5.PropTypes.func,
   },
@@ -21,6 +26,7 @@ const Form = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
+    subject: null,
     onSubmit: () => {},
     onCancel: () => {},
   },
@@ -30,8 +36,9 @@ const Form = createVisualComponent({
       size: "m",
     };
   },
-  render({ onSave, onCancel }) {
+  render({ onSave, onCancel, subject }) {
     //@@viewOn:render
+    console.log(subject);
     const degreeName = [
       { content: <UU5.Bricks.Lsi lsi={{ en: "Bachalor", cs: "Bakalářské" }} />, value: "bachelor" },
       { content: <UU5.Bricks.Lsi lsi={{ en: "Master", cs: "Magisterské" }} />, value: "master" },
@@ -42,14 +49,6 @@ const Form = createVisualComponent({
     ];
 
     function _handleSupervisorOnBlur(opt) {
-      // let uuIdentity = opt.value;
-      // if(uuIdentity) {
-      //   useState({supervisor: uuIdentity}, ()=> opt.component.onBlurDefault(opt));
-
-      // }else{
-      //   opt.component.onBlurDefault(opt);
-      // }
-
       if(/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(opt.value)){setSupervisorValue(opt.value);
       setSupervisor(
         <>
@@ -81,6 +80,10 @@ const Form = createVisualComponent({
       setDis(false)
       
     }
+    function _handleUpdate(subject) {
+      return "Hello subject"
+    }
+    //const [subjectUpdate, setSubjectUpdate] = useState(subject)
     const [supervisorValue, setSupervisorValue] = useState("");
     const [dis, setDis] = useState(false);
     const [supervisor, setSupervisor] = useState("");

@@ -9,6 +9,7 @@ import SubjectDetail from "../bricks/subject-detail";
 import UU5, { PropTypes } from "uu5g04";
 
 
+
 //@@viewOff:imports
 
 const SubjectRoute = createVisualComponent({
@@ -64,8 +65,7 @@ const SubjectRoute = createVisualComponent({
     function renderReady(subject) {
       return (
         <>
-          <SubjectDetail subject={subject} onDelete={handleDelete} />
-          
+          <SubjectDetail subject={subject} onDelete={handleDelete} onUpdate={handleUpdate} />
         </>
       );
     }
