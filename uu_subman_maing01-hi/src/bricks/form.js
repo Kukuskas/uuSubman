@@ -58,7 +58,8 @@ const Form = createVisualComponent({
               if (isLoading) {
                 return <UU5.Bricks.Loading />;
               } else {
-                return (
+                if(data.name) {setDis(true); 
+                  return (
                   <>
                     <UU5.Bricks.Row>
                     <Plus4U5.Bricks.UserPhoto width="80px" uuIdentity={opt.value} />{data.title} {data.name} {data.suffix}
@@ -68,12 +69,12 @@ const Form = createVisualComponent({
                     </UU5.Bricks.Row>
                   </>
                 );
-              }
+              }else{setDis(false); return <UU5.Bricks.Text color="red">UuIdentity doesn't exist!</UU5.Bricks.Text>  }}
             }}
           </Plus4U5.Bricks.UserData>
         </>
       );
-      setDis(true);}else if(opt.value!==""){alert("Please fill in Supervisor uuIdentity")}
+      ;}else if(opt.value!==""){alert("Please fill in Supervisor uuIdentity")}
     }
     function _handleSupervisorOnDelete() {
       setSupervisor("")
