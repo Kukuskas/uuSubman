@@ -91,23 +91,6 @@ export const Home = createVisualComponent({
           <UU5.Bricks.Lsi lsi={Lsi.auth.serverSide} />
         </WelcomeRow>
 
-<Plus4U5.Bricks.UserData uuIdentity={"25-1622-1"}>
-  {
-    ({ isLoading, isError, data }) => {
-      if (isLoading) {
-        return <UU5.Bricks.Loading />;
-      } else if (isError) {
-        return <UU5.Common.Error errorData={data} />;
-      } else {
-        return (
-          <UU5.Bricks.Pre className="margin">
-            {JSON.stringify(data, null, 2)}
-          </UU5.Bricks.Pre>
-        );
-      }
-    }
-  }
-</Plus4U5.Bricks.UserData>
       </div>
     );
     //@@viewOff:render

@@ -44,6 +44,8 @@ const SubjectCreate = createComponent({
         lang = {cs: ""}
       }else if (it.language=="en") {
         lang = {en: ""}
+      }else{
+        return alert("Opravte informaci")
       }
       const input = {
         name: { 
@@ -62,9 +64,11 @@ const SubjectCreate = createComponent({
         teachers: it.teachers.split(","),
         visibility: false,
       };
-      console.log(input.teachers);
+      if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
+        
       onCreate(input);
       setMode(Mode.BUTTON);
+      }else{return alert("fill in supervisor correctly")}
     }
 
     function handleCancel(subject) {
