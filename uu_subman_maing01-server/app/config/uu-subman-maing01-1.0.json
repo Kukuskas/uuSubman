@@ -94,6 +94,9 @@
     "uu-subman-maing01/submanMain/load": "11110000-00000000-00000000-00000000",
     "uu-subman-maing01/subject/create": "10000000-00000000-00000000-00000000",
     "uu-subman-maing01/subject/get": "10000000-00000000-00000000-00000000",
+    "uu-subman-maing01/subject/list": "10000000-00000000-00000000-00000000",
+     "uu-subman-maing01/subject/delete": "10000000-00000000-00000000-00000000",
+     "uu-subman-maing01/subject/update": "10000000-00000000-00000000-00000000",
 
     "uu-subman-maing01/sys/uuAppWorkspace/productInfo/set": "11000000-00000000-00000000-00000000",
     "uu-subman-maing01/setProductInfo": "11000000-00000000-00000000-00000000",

@@ -1,7 +1,7 @@
 "use strict";
 const Path = require("path");
 const { Validator } = require("uu_appg01_server").Validation;
-const { DaoFactory } = require("uu_appg01_server").ObjectStore;
+const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/subject-error.js");
 
@@ -16,6 +16,12 @@ const WARNINGS = {
   },
   listUnsupportedKeys: {
     code: `${Errors.List.UC_CODE}unsupportedKeys`
+  },
+  deleteUnsupportedKeys: {
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`
+  },
+  updateUnsupportedKeys: {
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`
   }
 };
 
@@ -25,6 +31,19 @@ class SubjectAbl {
     this.dao = DaoFactory.getDao("subject");
     this.subjectDao = DaoFactory.getDao("subject");
   }
+
+
+  async delete(awid, dtoIn) {
+    let validationResult = this.validator.validate("subjectDeleteDtoInType", dtoIn);
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.deleteUnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
+    );
+    await this.dao.delete(awid, dtoIn.id);
+    return uuAppErrorMap;
+  };
 
   async list(awid, dtoIn, session, authorizationResult) {
 
@@ -39,7 +58,7 @@ class SubjectAbl {
     );
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
-    
+
     let dtoOut = await this.dao.list(awid)
     // hds 4
     dtoOut.uuAppErrorMap = uuAppErrorMap;
@@ -48,6 +67,9 @@ class SubjectAbl {
 
 
   async create(awid, dtoIn, session, authorizationResult) {
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log(dtoIn);
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
     let validationResult = this.validator.validate("subjectCreateDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -57,6 +79,74 @@ class SubjectAbl {
     );
 
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+//     if(dtoIn.language.cs) {
+//       dtoIn.language.cs= {
+//   studyForms: { 
+//       fulltime: {
+//           id: "1",
+//           studyMaterialList: [],
+//           topics: [
+//               {
+//                   name: "Example fulltime", 
+//                   desc: "Lorem Ipsum", 
+//                   id: "1", 
+//                   studyMaterialList: []
+//               }
+//           ]
+//       },
+//       parttime: {
+//           id: "...",
+//           studyMaterialList: [],
+//           topics: [
+//               {
+//                   name: "Example parttime", 
+//                   desc: "lorem Ipsum", 
+//                   id: "2", 
+//                   studyMaterialList: []
+//               }
+//           ]
+//       }
+//   }
+// }}
+//     if(dtoIn.language.en) {
+//   dtoIn.language.en= {
+//   "studyForms": { 
+//       "fulltime": {
+//           "id": "...",
+//           "studyMaterialList": [
+//               "..."
+//           ],
+//           "topics": [
+//               {
+//                   "name": "...", 
+//                   "desc": "...", 
+//                   "id": "...", 
+//                   "studyMaterialList": [
+//                       {
+//                           "studyMateriaId": "...",
+//                           "url": "...",
+//                           "name": "..."
+//                       }
+//                   ]
+//               }
+//           ]
+//       },
+//       "parttime": {
+//           "id": "...",
+//           "studyMaterialList": [
+//               "..."
+//           ],
+//           "topics": [
+//               {
+//                   "name": "...", 
+//                   "desc": "...", 
+//                   "id": "...", 
+//                   "studyMaterialList": [
+//                       {
+//                           "studyMateriaId": "...",
+//                           "url": "...",
+//                           "name": "..."
+//         }]}]}}}}
 
     dtoIn.awid = awid;
     let dtoOut;
@@ -92,13 +182,53 @@ class SubjectAbl {
     // hds 3
     let subject = await this.dao.get(awid, dtoIn.id);
     if (!subject) {
-      throw new Errors.Get.SubmanDoesNotExist(uuAppErrorMap, { subjectId: dtoIn.id });
+      throw new Errors.Get.SubjectDoesNotExist(uuAppErrorMap, { subjectId: dtoIn.id });
     }
-   // hds 4
+    // hds 4
     subject.uuAppErrorMap = uuAppErrorMap;
     return subject;
   }
 
+
+  async update(awid, dtoIn, session, authorizationResult) {
+    // hds 2, 2.1
+    let validationResult = this.validator.validate("subjectUpdateDtoInType", dtoIn);
+    // hds 2.2, 2.3, A3, A4
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.updateUnsupportedKeys.code,
+      Errors.Update.InvalidDtoIn
+    );
+
+    // hds 3
+    let subject = await this.dao.get(awid, dtoIn.id);
+    // A5
+    if (!subject) {
+      throw new Errors.Update.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
+    }
+
+    // hds 4
+    dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+    dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
+
+
+    // hds 7
+    try {
+      dtoIn.awid = awid;
+      subject = await this.dao.update(dtoIn);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        // A10
+        throw new Errors.Update.SubjectDaoUpdateFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+
+    // hds 8
+    subject.uuAppErrorMap = uuAppErrorMap;
+    return subject;
+  }
 
 }
 

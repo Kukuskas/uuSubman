@@ -2,6 +2,6 @@
   "port": 1234,
   "autoOpenInBrowser": false,
   "basePath": "/uu-subman-main/0-0/",
-  "useMockData": true,
+  "useMockData": false,
   "uu5Environment": {}
 }

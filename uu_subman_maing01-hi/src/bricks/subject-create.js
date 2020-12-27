@@ -7,7 +7,7 @@ import SubjectCreateForm from "./subject-create-form";
 
 const Mode = {
   BUTTON: "BUTTON",
-  FORM: "FORM"
+  FORM: "FORM",
 };
 
 const SubjectCreate = createComponent({
@@ -17,13 +17,13 @@ const SubjectCreate = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    onCreate: UU5.PropTypes.func
+    onCreate: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    onCreate: () => {}
+    onCreate: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -38,18 +38,54 @@ const SubjectCreate = createComponent({
     }
 
     function handleSave(opt) {
-      onCreate(opt.values);
+      let it = opt.values;
+      let lang = {}
+      if (it.language=="cs") {
+        lang = {cs: ""}
+      }else if (it.language=="en") {
+        lang = {en: ""}
+      }else{
+        return alert("Opravte informaci")
+      }
+      const input = {
+        name: { 
+          cs: it.nameCs, 
+          en: it.nameEn 
+        },
+        credits: parseInt(it.credits),
+        supervisor: it.supervisor,
+        degree: it.degree,
+        desc: {
+          cs: it.descCs,
+          en: it.descEn,
+        },
+        language: lang,
+
+        teachers: it.teachers.split(","),
+        visibility: false,
+      };
+      if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
+        
+      onCreate(input);
       setMode(Mode.BUTTON);
+      }else{return alert("fill in supervisor correctly")}
     }
 
     function handleCancel(subject) {
       setMode(Mode.BUTTON);
     }
+
     //@@viewOff:private
 
     //@@viewOn:render
     function renderButton() {
-      return <UU5.Bricks.Button onClick={handleAddClick} colorSchema="primary" content="Add subject" />;
+      return (
+        <UU5.Bricks.Button
+          onClick={handleAddClick}
+          colorSchema="primary"
+          content={<UU5.Bricks.Lsi lsi={{ en: "Add subject", cs: "Přidat předmět" }} />}
+        />
+      );
     }
 
     function renderForm() {
@@ -63,7 +99,7 @@ const SubjectCreate = createComponent({
         return renderForm();
     }
     //@@viewOff:render
-  }
+  },
 });
 
 export default SubjectCreate;

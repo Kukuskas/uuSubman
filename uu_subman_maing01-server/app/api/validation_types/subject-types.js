@@ -1,20 +1,20 @@
 /* eslint-disable */
 const subjectCreateDtoInType = shape({
     name: shape({
-        cz: string(50).isRequired(),
+        cs: string(50).isRequired(),
         en: string(50).isRequired()
     }).isRequired(),
     credits: integer(10).isRequired(),
-    supervisor: string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/).isRequired(),
-    degree: oneOf(["Bachalor", "Magister"]).isRequired(),
+    supervisor: uuIdentity().isRequired(),
+    degree: oneOf(["bachelor", "master"]).isRequired(),
     desc: shape({
-        cz: string(500).isRequired(),
+        cs: string(500).isRequired(),
         en: string(500).isRequired()
     }).isRequired(),
-    language: string(30).isRequired(),
-
-    teachers:
-        string(/([0-9]{3})[-]([0-9]{2})[-]([0-9]{3})/),
+    language: shape().isRequired(),
+    /* edit it later */
+    teachers: array(
+    ),
     visibility: boolean()
 })
 
@@ -26,4 +26,97 @@ const subjectListDtoInType = shape({
         pageIndex: integer(),
         pageSize: integer()
     })
+})
+
+const subjectDeleteDtoInType = shape({
+    id: id().isRequired()
+});
+
+
+
+const subjectUpdateDtoInType = shape({
+    id: mongoId().isRequired(),
+    name: shape({
+        cs: string(50).isRequired(),
+        en: string(50).isRequired()
+    }).isRequired(),
+    credits: integer(10).isRequired(),
+    supervisor: uuIdentity().isRequired(),
+    degree: oneOf(["bachelor", "master"]).isRequired(),
+    desc: shape({
+        cs: string(500).isRequired(),
+        en: string(500).isRequired()
+    }).isRequired(),
+    language:
+        shape({
+            cs:
+                shape({
+                    formOfStudy:
+                        shape({
+                            fulltime:
+                                shape({
+                                    id: id().isRequired,
+                                    studyMaterialList: array(
+                                        shape({
+                                            subjectId: mongoId().isRequired,
+                                            baseUri: uri().isRequired(),
+                                            type: uu5String(50).isRequired(),
+                                            name: uu5String(50)
+                                        })
+                                    ),
+                                    topics: array(
+                                        shape({
+                                            name: mongoId().isRequired,
+                                            desc: uri().isRequired(),
+                                            id: id(),
+                                            studyMaterialList: array(
+                                                shape({
+                                                    studyMateriaId: id(),
+                                                    url: uri(),
+                                                    name: uu5String(50)
+                                                })
+                                            )
+                                        })
+                                    )
+                                }),
+                                parttime:
+                                shape({
+                                    id: id().isRequired,
+                                    studyMaterialList: array(
+                                        shape({
+                                            subjectId: mongoId().isRequired,
+                                            baseUri: uri().isRequired(),
+                                            type: uu5String(50).isRequired(),
+                                            name: uu5String(50)
+                                        })
+                                    ),
+                                    topics: array(
+                                        shape({
+                                            name: mongoId().isRequired,
+                                            desc: uri().isRequired(),
+                                            id: id(),
+                                            studyMaterialList: array(
+                                                shape({
+                                                    studyMateriaId: id(),
+                                                    url: uri(),
+                                                    name: uu5String(50)
+                                                })
+                                            )
+                                        })
+                                    )
+                                })
+                        })
+                })
+
+        }),
+    /* edit it later */
+    teachers: array(
+        uuIdentity()),
+    students: array(
+        shape({
+            uuIdentity: uuIdentity(),
+            formOfStudy: oneOf(["full-time", "part-time"])
+        })
+    ),
+    visibility: boolean()
 })

@@ -35,6 +35,16 @@
         "realization": "api/controllers/SubjectController.list",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "subject/delete": {
+        "realization": "api/controllers/SubjectController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "subject/update": {
+        "realization": "api/controllers/SubjectController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

@@ -51,7 +51,57 @@ const List = {
   }
 };
 
+const Delete = 
+  {UC_CODE: `${SUBJECT_ERROR_PREFIX}delete/`,
+
+  InvalidDtoIn: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Delete.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  SchemaDaoCreateSchemaFailed: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.status = 500;
+      this.code = `${Delete.UC_CODE}schemaDaoCreateSchemaFailed`;
+      this.message = "Delete schema by Dao createSchema failed.";
+    }
+  },
+
+  SubjectDaoDeleteFailed: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Delete.UC_CODE}subjectDaoDeleteFailed`;
+      this.message = "Delete subject by subject Dao delete failed.";
+    }
+  }
+};
+
+const Update = {
+  UC_CODE: `${SUBJECT_ERROR_PREFIX}update/`,
+  InvalidDtoIn: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  SubjectDaoUpdateFailed: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}subjectDaoUpdateFailed`;
+      this.message = "Update subject by subject Dao update failed.";
+    }
+  }
+  
+};
+
 module.exports = {
+  Update,
+  Delete,
   List,
   Get,
   Create

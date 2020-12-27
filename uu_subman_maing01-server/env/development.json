@@ -4,7 +4,14 @@
     "primary": "mongodb://127.0.0.1:27017/submanMainPrimary",
     "binary": "mongodb://127.0.0.1:27017/submanainBinary"
   },
-  "asid_license_owner_list": ["24-9525-1", "25-1622-1", "24-9941-1"],
+  "asid_license_owner_list": [
+    "24-9525-1",
+    "25-1622-1",
+    "24-9941-1"
+  ],
   "asid": "11111111111111111111111111111111",
-  "log_level": "INFO"
+  "log_level": "INFO",
+  "uu_app_oidc_providers_oidcg02_enabled": true,
+  "uu_app_oidc_primary_provider": "oidcg02",
+  "uu_app_oidc_providers_oidcg01_enabled": false
 }
