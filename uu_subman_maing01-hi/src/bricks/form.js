@@ -38,6 +38,7 @@ const Form = createVisualComponent({
   },
   render({ onSave, onCancel, subject }) {
     //@@viewOn:render
+    console.log("**********************************");
     console.log(subject);
     const degreeName = [
       { content: <UU5.Bricks.Lsi lsi={{ en: "Bachalor", cs: "Bakalářské" }} />, value: "bachelor" },

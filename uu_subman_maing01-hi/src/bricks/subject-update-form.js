@@ -39,6 +39,9 @@ const SubjectUpdateForm = createVisualComponent({
 
   render({ onSave, onCancel, onDelete, subject }) {
     //@@viewOn:render
+    function handleDelete() {
+      onDelete(subject);
+    }
 
     return (
       <UU5.Bricks.Container>
@@ -47,11 +50,11 @@ const SubjectUpdateForm = createVisualComponent({
             content={<UU5.Bricks.Lsi lsi={{ en: "Edit a new subject", cs: "Upravit nový předmět" }} />}
             info={<UU5.Bricks.Lsi lsi={{ cs: <UU5.Bricks.Paragraph style="margin: 0" />, en: "More info..." }} />}
           />
-             <UU5.Bricks.Button size="s" onClick={onDelete} bgStyle="transparent" >
+             <UU5.Bricks.Button size="s" onClick={handleDelete} bgStyle="transparent" >
             <UU5.Bricks.Icon icon="glyphicon-trash" />
             </UU5.Bricks.Button>
 
-          <Form onSave={onSave} onCancel={onCancel} subject={subject} />
+          <Form onSave={onSave} onCancel={onCancel} subject={subject} onDelete={onDelete}/>
           <UU5.Forms.ContextControls
             buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Edit", cs: "Upravit" }} /> }}
             buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}

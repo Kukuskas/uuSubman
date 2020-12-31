@@ -36,7 +36,7 @@ const SubjectUpdate = createComponent({
   },
   //@@viewOff:defaultProps
   
-  render({ onUpdate, onDelete }) {
+  render({ onUpdate, onDelete, subject }) {
     //@viewOn:hooks
     const [mode, setMode] = useState(Mode.BUTTON);
     //@viewOff:hooks
@@ -102,7 +102,7 @@ const SubjectUpdate = createComponent({
     }
 
     function renderForm() {
-      return <SubjectUpdateForm onSave={handleSave} onCancel={handleCancel} onDelete={handleDelete}  />;
+      return <SubjectUpdateForm onSave={handleSave} onCancel={handleCancel} onDelete={handleDelete} subject={subject}  />;
     }
 
     switch (mode) {

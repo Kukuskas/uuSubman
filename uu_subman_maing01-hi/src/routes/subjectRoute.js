@@ -2,7 +2,7 @@
 import { createVisualComponent, useRef } from "uu5g04-hooks";
 import Config from "./config/config";
 import SubjectProvider from "../bricks/subject-provider";
-import SubjectCreate from "../bricks/subject-create";
+import SubjectUpdate from "../bricks/subject-update";
 import SubjectsTitle from "../bricks/subject-title";
 import Css from "./subject.css";
 import SubjectDetail from "../bricks/subject-detail";

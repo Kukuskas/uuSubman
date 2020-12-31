@@ -42,7 +42,7 @@ const Subject = createVisualComponent({
 
     function handleDetail() {
       return UU5.Environment.getRouter().setRoute({
-        component: <SubjectRoute subject={subject} />,
+        component: <SubjectRoute subject={subject}  />,
       });
     }
     //@@viewOff:private
