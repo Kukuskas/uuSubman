@@ -148,7 +148,7 @@ const FormUpdate = createVisualComponent({
                 items={languageOfStudy}
                 label={<UU5.Bricks.Lsi lsi={{ en: "Language", cs: "Jazyk" }} />}
                 name="language"
-                // value = {subject.language.}
+                value={Object.keys(subject.language).join(" / ")} 
               />
             </UU5.Bricks.Column>
           </UU5.Bricks.Row>

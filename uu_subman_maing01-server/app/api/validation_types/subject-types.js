@@ -33,7 +33,7 @@ const subjectDeleteDtoInType = shape({
 });
 
 
-// const lang = oneOf(["cs", "en"]);
+const languages = {cs: string(100), en:string(100)}
 const subjectUpdateDtoInType = shape({
     id: mongoId().isRequired(),
     name: shape({
@@ -48,8 +48,8 @@ const subjectUpdateDtoInType = shape({
         en: string(500).isRequired()
     }).isRequired(),
     language: 
-        shape({
-            cs: string(100)
+        shape(
+            languages 
         //         shape({
         //             formOfStudy:
         //                 shape({
@@ -108,7 +108,7 @@ const subjectUpdateDtoInType = shape({
         //                 })
         //         })
 
-         }),
+         ),
     /* edit it later */
     teachers: array(
         uuIdentity()),
