@@ -3,7 +3,7 @@ import UU5, { Bricks } from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
-import Form from "./form";
+import FormUpdate from "./form-update";
 
 
 //@@viewOff:imports
@@ -37,7 +37,7 @@ const SubjectUpdateForm = createVisualComponent({
   //@@viewOff:defaultProps
  
 
-  render({ onSave, onCancel, onDelete, subject }) {
+  render({ onSave, onCancel, onDelete,  subject }) {
     //@@viewOn:render
     function handleDelete() {
       onDelete(subject);
@@ -54,7 +54,7 @@ const SubjectUpdateForm = createVisualComponent({
             <UU5.Bricks.Icon icon="glyphicon-trash" />
             </UU5.Bricks.Button>
 
-          <Form onSave={onSave} onCancel={onCancel} subject={subject} onDelete={onDelete}/>
+          <FormUpdate onSave={onSave} onCancel={onCancel} subject={subject} />
           <UU5.Forms.ContextControls
             buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Edit", cs: "Upravit" }} /> }}
             buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}

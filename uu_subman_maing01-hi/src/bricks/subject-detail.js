@@ -109,7 +109,7 @@ const SubjectDetail = createVisualComponent({
             <UU5.BlockLayout.Tile borderRadius="8px" margin="5px">
               <UU5.Bricks.Icon icon="uubml-idea" />
               {<UU5.Bricks.Lsi lsi={Lsi.subjectLanguage} />}
-              {Object.keys(subject.language).join(" / ")}
+              {Object.keys(subject.language).join(" / ")} 
             </UU5.BlockLayout.Tile>
 
 

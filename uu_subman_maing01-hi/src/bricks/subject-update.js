@@ -60,6 +60,8 @@ const SubjectUpdate = createComponent({
         return alert("Opravte informaci")
       }
       const input = {
+        id: subject.id,
+  
         name: { 
           cs: it.nameCs, 
           en: it.nameEn 
@@ -76,6 +78,8 @@ const SubjectUpdate = createComponent({
         teachers: it.teachers.split(","),
         visibility: false,
       };
+      console.log("++++++++++++++++");
+      console.log(input);
       if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
         
       onUpdate(input);

@@ -33,21 +33,23 @@ const SubjectRoute = createVisualComponent({
       });
     }
 
-    async function handleGet(id) {
-      try {
-        await getSubjectRef.current(subject);
-      } catch {
-        showError(`Getting of ${subject.name} failed!`);
-      }
-    }
 
+    function handleHome() {
+      return (UU5.Environment.getRouter().setRoute({
+        url:"/"
+        
+      }), handleBack())
+    }
     /* eslint no-unused-vars: "off" */
-    async function handleUpdate(subject, values) {
-      try {
-        await updateSubjectRef.current({ id: subject.id, ...values });
-      } catch {
-        showError(`Update of ${subject.name} failed!`);
+    async function handleUpdate(subject) {
+      console.log("/**************/********subject////////");
+      console.log(subject)
+      try{ await updateSubjectRef.current( subject);
+       return handleHome()
+       } catch {
+        showError(`Create of ${subject.name.en} failed!`);
       }
+      
     }
 
     async function handleDelete(subject) {
