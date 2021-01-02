@@ -7,7 +7,7 @@ import "uu5g04-bricks";
 
 //@@viewOff:imports
 
-const Form = createVisualComponent({
+const FormUpdate = createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "SubjectCreateForm",
   //@@viewOff:statics
@@ -38,16 +38,19 @@ const Form = createVisualComponent({
   },
   render({ onSave, onCancel, subject }) {
     //@@viewOn:render
-    console.log("**********************************");
+    console.log("----------------")
     console.log(subject);
+    console.log("----------------")
     const degreeName = [
       { content: <UU5.Bricks.Lsi lsi={{ en: "Bachalor", cs: "Bakalářské" }} />, value: "bachelor" },
-      { content: <UU5.Bricks.Lsi lsi={{ en: "Master", cs: "Magisterské" }} />, value: "master" },
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Master", cs: "Magisterské" }} />, value: "master" }
     ];
+
     const languageOfStudy = [
       { content: <UU5.Bricks.Lsi lsi={{ en: "Czech", cs: "  Český" }} />, value: "cs" },
       { content: <UU5.Bricks.Lsi lsi={{ en: "English", cs: "Anglický" }} />, value: "en" },
     ];
+
 
     function _handleSupervisorOnBlur(opt) {
       if(/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(opt.value)){setSupervisorValue(opt.value);
@@ -84,8 +87,12 @@ const Form = createVisualComponent({
     function _handleUpdate(subject) {
       return "Hello subject"
     }
-    //const [subjectUpdate, setSubjectUpdate] = useState(subject)
-    const [supervisorValue, setSupervisorValue] = useState("");
+     
+    console.log("/*****************teachers**********************/");
+    console.log(subject);
+
+   // const [subjectDegree, setSubjectDegree] = useState(degreeName.value1)
+   // const [supervisorValue, setSupervisorValue] = useState("");
     const [dis, setDis] = useState(false);
     const [supervisor, setSupervisor] = useState("");
 
@@ -98,7 +105,7 @@ const Form = createVisualComponent({
                 borderRadius="8px"
                 label={<UU5.Bricks.Lsi lsi={{ en: "Czech Name", cs: "Český Název" }} />}
                 name="nameCs"
-                value="Test one click"
+                value={subject.name.cs}
                 required
               />
             </UU5.Bricks.Column>
@@ -107,7 +114,7 @@ const Form = createVisualComponent({
                 borderRadius="8px"
                 label={<UU5.Bricks.Lsi lsi={{ en: "English Name", cs: "Anglický Název" }} />}
                 name="nameEn"
-                value="Test one click"
+                value={subject.name.en}
                 required
               />
             </UU5.Bricks.Column>
@@ -122,7 +129,7 @@ const Form = createVisualComponent({
                 borderRadius="8px"
                 label={<UU5.Bricks.Lsi lsi={{ en: "Credits", cs: "Kredity" }} />}
                 name="credits"
-                value="2"
+                value={subject.credits}
                 required
               />
             </UU5.Bricks.Column>
@@ -132,6 +139,7 @@ const Form = createVisualComponent({
                 items={degreeName}
                 label={<UU5.Bricks.Lsi lsi={{ en: "Type of study", cs: "Typ studia" }} />}
                 name="degree"
+                value={subject.degree}
               />
             </UU5.Bricks.Column>
             <UU5.Bricks.Column colWidth="s-5">
@@ -140,6 +148,7 @@ const Form = createVisualComponent({
                 items={languageOfStudy}
                 label={<UU5.Bricks.Lsi lsi={{ en: "Language", cs: "Jazyk" }} />}
                 name="language"
+                value={Object.keys(subject.language).join(" / ")} 
               />
             </UU5.Bricks.Column>
           </UU5.Bricks.Row>
@@ -149,7 +158,7 @@ const Form = createVisualComponent({
                 radius="8px"
                 label={<UU5.Bricks.Lsi lsi={{ en: "Czech description", cs: "Český popis" }} />}
                 name="descCs"
-                value="Test one click"
+                value={subject.desc.cs}
                 required
               />
             </UU5.Bricks.Column>
@@ -158,7 +167,7 @@ const Form = createVisualComponent({
                 // maxHeight = "106px"
                 label={<UU5.Bricks.Lsi lsi={{ en: "English description", cs: "Anglický popis" }} />}
                 name="descEn"
-                value="Test one click"
+                value={subject.desc.en}
                 required
               />
             </UU5.Bricks.Column>
@@ -169,7 +178,7 @@ const Form = createVisualComponent({
             name="supervisor"
             onBlur={_handleSupervisorOnBlur}
             disabled={dis}
-            value={supervisorValue}
+            value={subject.supervisor}
             validate={/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/}
             required
           />
@@ -178,7 +187,7 @@ const Form = createVisualComponent({
             borderRadius="8px"
             label={<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
             name="teachers"
-            value="25-1622-1,24-9525-1"
+            value={(subject.teachers).toString()}
           />
         </UU5.Bricks.Container>
       </UU5.Forms.ContextForm>
@@ -187,4 +196,4 @@ const Form = createVisualComponent({
   },
 });
 
-export default Form;
+export default FormUpdate;
