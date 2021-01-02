@@ -6,7 +6,7 @@ const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/subject-error.js");
 
 const AUTHORITIES_PROFILE = "Authorities";
-
+//
 const WARNINGS = {
   createUnsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`
@@ -210,10 +210,11 @@ class SubjectAbl {
 
     // hds 4
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
-    dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
+    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
 
 
-    // hds 7
+    // hds 7rs
+    
     try {
       dtoIn.awid = awid;
       subject = await this.dao.update(dtoIn);
