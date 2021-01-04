@@ -14,4 +14,9 @@ export default {
       .replace(/[^a-z-]/g, ""),
     process.env.NAME + "/" + process.env.OUTPUT_NAME + "@" + process.env.VERSION // this helps preserve proper order of styles among loaded libraries
   ),
+  Profiles: {
+    AUTHORITIES: "Authorities",
+    EXECUTIVES: "Executives",
+    TEACHERS: "Teachers"
+  }
 };
