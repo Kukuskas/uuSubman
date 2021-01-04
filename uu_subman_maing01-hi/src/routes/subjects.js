@@ -8,7 +8,7 @@ import SubjectsTitle from "../bricks/subject-title";
 import Css from "./subject.css";
 import UU5 from "uu5g04";
 import Calls from "../calls"
-
+import SubmanMainContext from "../bricks/subman-main-context";
 
 //@@viewOff:imports
 
@@ -20,6 +20,7 @@ const Subjects = createVisualComponent({
   //@@viewOn:render
   render() {
     //@@viewOn:render
+    const { data: { authorizedProfileList }} = useContext(SubmanMainContext);
     const createSubjectRef = useRef();
     const updateSubjectRef = useRef();
     const deleteSubjectRef = useRef();
@@ -44,6 +45,12 @@ const Subjects = createVisualComponent({
         
       }), handleBack())
     }
+    function isCreateAuthorized() {
+      return authorizedProfileList.some(
+        profile => profile === Config.Profiles.AUTHORITIES || profile === Config.Profiles.EXECUTIVES
+      );
+    }
+
 
     async function handleCreate(subject) {
       try{ await Calls.createSubject(subject);
@@ -78,7 +85,7 @@ const Subjects = createVisualComponent({
       return (
         <>
           <SubjectsTitle subjects={subjects} />
-          <SubjectCreate onCreate={handleCreate} />
+          {isCreateAuthorized() && <SubjectCreate onCreate={handleCreate} />}
           <SubjectList subjects={subjects} onDelete={handleDelete} />
         </>
       );
