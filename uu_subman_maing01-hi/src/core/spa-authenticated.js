@@ -5,7 +5,7 @@ import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config.js";
 import SubmanMainProvider from "../bricks/subman-main-provider";
 import SubmanMainContext from "../bricks/subman-main-context";
-import SpaReady from "./spa-ready";
+import Spa from "./spa";
 //@@viewOff:imports
 
 const SpaAuthenticated = createVisualComponent({
@@ -29,7 +29,7 @@ const SpaAuthenticated = createVisualComponent({
               case "ready":
               case "readyNoData":
               default:
-                return <SpaReady />;
+                return <Spa />;
             }
           }}
         </SubmanMainContext.Consumer>

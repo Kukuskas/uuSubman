@@ -17,6 +17,7 @@ export default {
   Profiles: {
     AUTHORITIES: "Authorities",
     EXECUTIVES: "Executives",
-    TEACHERS: "Teachers"
+    TEACHERS: "Teachers",
+    ASIDAUTHORITIES: "AsidAuthorities"
   }
 };

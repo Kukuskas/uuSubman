@@ -1,9 +1,10 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useState } from "uu5g04-hooks";
+import { createComponent, useState, useContext } from "uu5g04-hooks";
 import Config from "./config/config";
 import SubjectUpdateForm from "./subject-update-form";
 import Css from "../routes/detail.css";
+import SubmanMainContext from "./subman-main-context"
 //@@viewOff:imports
 
 const Mode = {
@@ -39,6 +40,7 @@ const SubjectUpdate = createComponent({
   render({ onUpdate, onDelete, subject }) {
     //@viewOn:hooks
     const [mode, setMode] = useState(Mode.BUTTON);
+    const contextData = useContext(SubmanMainContext)
     //@viewOff:hooks
 
     //@@viewOn:private
@@ -90,20 +92,30 @@ const SubjectUpdate = createComponent({
     function handleCancel() {
       setMode(Mode.BUTTON);
     }
+    function isCreateAuthorized() {
+      return contextData?.authorizedProfileList?.some(
+        profile => profile === Config.Profiles.AUTHORITIES || profile === Config.Profiles.EXECUTIVES
+      );
+    }
 
     //@@viewOff:private
 
     //@@viewOn:render
     function renderButton() {
       return (
+        <>
+         {isCreateAuthorized() &&
         <UU5.Bricks.Button
          onClick={handleUpdate} 
           bgStyle="transparent" 
          className={Css.update()} size="l"
          content = {<UU5.Bricks.Icon icon="glyphicon-edit"/>}
-        />
+        />}
+        </>
       );
     }
+
+    
 
     function renderForm() {
       return <SubjectUpdateForm onSave={handleSave} onCancel={handleCancel} onDelete={handleDelete} subject={subject}  />;

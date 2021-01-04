@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, useRef, useContext } from "uu5g04-hooks";
+import { createVisualComponent, useContext, useRef } from "uu5g04-hooks";
 import Config from "./config/config";
 import SubjectList from "../bricks/subject-list";
 import SubjectProvider from "../bricks/subject-provider";
@@ -20,7 +20,7 @@ const Subjects = createVisualComponent({
   //@@viewOn:render
   render() {
     //@@viewOn:render
-    const { data: { authorizedProfileList }} = useContext(SubmanMainContext);
+    const contextData = useContext(SubmanMainContext)
     const createSubjectRef = useRef();
     const updateSubjectRef = useRef();
     const deleteSubjectRef = useRef();
@@ -46,11 +46,10 @@ const Subjects = createVisualComponent({
       }), handleBack())
     }
     function isCreateAuthorized() {
-      return authorizedProfileList.some(
+      return contextData?.authorizedProfileList?.some(
         profile => profile === Config.Profiles.AUTHORITIES || profile === Config.Profiles.EXECUTIVES
       );
     }
-
 
     async function handleCreate(subject) {
       try{ await Calls.createSubject(subject);
