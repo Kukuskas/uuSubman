@@ -1,9 +1,10 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useState } from "uu5g04-hooks";
+import { createComponent, useState, useContext, useSession } from "uu5g04-hooks";
 import Config from "./config/config";
 import SubjectUpdateForm from "./subject-update-form";
 import Css from "../routes/detail.css";
+import SubmanMainContext from "../bricks/subman-main-context";
 //@@viewOff:imports
 
 const Mode = {
@@ -38,6 +39,8 @@ const SubjectUpdate = createComponent({
   
   render({ onUpdate, onDelete, subject }) {
     //@viewOn:hooks
+    const { identity } = useSession();
+    const contextData = useContext(SubmanMainContext);
     const [mode, setMode] = useState(Mode.BUTTON);
     //@viewOff:hooks
 
@@ -92,16 +95,27 @@ const SubjectUpdate = createComponent({
     }
 
     //@@viewOff:private
-
+    function canManage() {
+      const isTeacher = subject.teachers.some(teacher => teacher === identity.uuIdentity );
+      const isGarant = subject.supervisor === identity.uuIdentity;
+      console.log(subject);
+      const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
+      const isExecutive = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.EXECUTIVES);
+      //const isOwner = identity.uuIdentity === subject.uuIdentity;
+      return isAuthority && (isTeacher ||isGarant);
+    }
     //@@viewOn:render
     function renderButton() {
       return (
+        <>
+        {canManage() && ( 
         <UU5.Bricks.Button
          onClick={handleUpdate} 
           bgStyle="transparent" 
          className={Css.update()} size="l"
          content = {<UU5.Bricks.Icon icon="glyphicon-edit"/>}
-        />
+        />)}
+        </>
       );
     }
 
@@ -111,7 +125,7 @@ const SubjectUpdate = createComponent({
 
     switch (mode) {
       case Mode.BUTTON:
-        return renderButton();
+        return  renderButton();
       default:
         return renderForm();
     }

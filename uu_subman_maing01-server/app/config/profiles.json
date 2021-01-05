@@ -87,7 +87,7 @@
       },
       "subject/update": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Authorities"]
       }
     }
   }

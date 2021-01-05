@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, SessionProvider } from "uu5g04-hooks";
 
 import Config from "./config/config.js";
 import SubmanMainProvider from "../bricks/subman-main-provider";
@@ -23,6 +23,7 @@ const SpaAuthenticated = createVisualComponent({
   render(props) {
     //@@viewOn:render
     return (
+      <SessionProvider session={UU5.Environment.getSession()}>
       <SubmanMainProvider>
         <SubmanMainContext.Consumer>
           {({ state, errorData }) => {
@@ -41,6 +42,7 @@ const SpaAuthenticated = createVisualComponent({
           }}
         </SubmanMainContext.Consumer>
       </SubmanMainProvider>
+      </SessionProvider>
     );
     //@@viewOff:render
   }
