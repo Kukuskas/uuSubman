@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, useRef } from "uu5g04-hooks";
+import { createVisualComponent, useContext, useState, useRef } from "uu5g04-hooks";
 import Config from "./config/config";
 import SubjectList from "../bricks/subject-list";
 import SubjectProvider from "../bricks/subject-provider";
@@ -9,6 +9,7 @@ import Css from "./subject.css";
 import UU5 from "uu5g04";
 import Calls from "../calls"
 import SubmanMainContext from "../bricks/subman-main-context";
+import Plus4U5 from "uu_plus4u5g01";
 
 //@@viewOff:imports
 
@@ -20,7 +21,7 @@ const Subjects = createVisualComponent({
   //@@viewOn:render
   render() {
     //@@viewOn:render
-    const { data: { authorizedProfileList }} = useContext(SubmanMainContext);
+    const contextData = useContext(SubmanMainContext);
     const createSubjectRef = useRef();
     const updateSubjectRef = useRef();
     const deleteSubjectRef = useRef();
@@ -36,32 +37,33 @@ const Subjects = createVisualComponent({
     function handleBack() {
       return UU5.Environment.getRouter().setRoute({
         url:"/subjects"
-        
+
       })
     }
     function handleHome() {
       return (UU5.Environment.getRouter().setRoute({
         url:"/"
-        
+
       }), handleBack())
     }
+    
     function isCreateAuthorized() {
-      return authorizedProfileList.some(
+      return contextData?.data?.authorizedProfileList?.some(
         profile => profile === Config.Profiles.AUTHORITIES || profile === Config.Profiles.EXECUTIVES
       );
     }
 
 
     async function handleCreate(subject) {
-      try{ await Calls.createSubject(subject);
-        return handleHome()
+      try { 
+        await createSubjectRef.current(subject);
+        //return handleHome()
        } catch {
         showError(`Create of ${subject.name.en} failed!`);
       }
-      
+
     }
 
-    /* eslint no-unused-vars: "off" */
     async function handleUpdate(subject, values) {
       try {
         await updateSubjectRef.current({ id: subject.id, ...values });
@@ -84,9 +86,17 @@ const Subjects = createVisualComponent({
     function renderReady(subjects) {
       return (
         <>
+          <Plus4U5.App.ArtifactSetter 
+            header="Subjects"
+            breadcrumbList={[
+              {
+                content: "Home", href: "./subjects"
+              }
+            ]}    
+          />
           <SubjectsTitle subjects={subjects} />
           {isCreateAuthorized() && <SubjectCreate onCreate={handleCreate} />}
-          <SubjectList subjects={subjects} onDelete={handleDelete} />
+          <SubjectList subjects={subjects} onDelete={handleDelete} onCreate={handleCreate} showButton={isCreateAuthorized()} />
         </>
       );
     }

@@ -20,7 +20,6 @@ const SubmanMainProvider = createComponent({
     //@@viewOff:hooks
 
     //@@viewOn:render
-    console.log(state);
     return <SubmanMainContext.Provider value={state}>{children}</SubmanMainContext.Provider>;
     //@@viewOff:render
   }

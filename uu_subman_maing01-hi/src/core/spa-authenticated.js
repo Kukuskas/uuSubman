@@ -8,12 +8,19 @@ import SubmanMainContext from "../bricks/subman-main-context";
 import SpaReady from "./spa-ready";
 //@@viewOff:imports
 
-const SpaAuthenticated = createVisualComponent({
-  //@@viewOn:statics
-  displayName: Config.TAG + "SpaAuthenticated",
-  //@@viewOff:statics
+const STATICS = {
+  displayName: Config.TAG + "SpaAuthenticated",    
+}
 
-  render() {
+const SpaAuthenticated = createVisualComponent({
+  ...STATICS,
+  //@@viewOn:propTypes
+  //@@viewOff:propTypes
+
+  //@@viewOn:defaultProps
+  //@@viewOff:defaultProps
+
+  render(props) {
     //@@viewOn:render
     return (
       <SubmanMainProvider>
@@ -29,7 +36,7 @@ const SpaAuthenticated = createVisualComponent({
               case "ready":
               case "readyNoData":
               default:
-                return <SpaReady />;
+                return <SpaReady {...props} />;
             }
           }}
         </SubmanMainContext.Consumer>

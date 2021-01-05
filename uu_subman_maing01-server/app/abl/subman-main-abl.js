@@ -21,18 +21,23 @@ class SubmanMainAbl {
     this.validator = Validator.load();
   }
 
-  async load(awid, session) {
+  async load(awid, session, authResult) {
     let workspace = await UuAppWorkspace.get(awid);
+    let awscResponse;
 
-    let uuBtUriBuilder = UriBuilder.parse(workspace.artifactUri);
-    let awscId = uuBtUriBuilder.toUri().parameters.id;
-    let awscLoadUri = uuBtUriBuilder.setUseCase("uuAwsc/load").clearParameters().toUri();
+    if (workspace.artifactUri) {
+      let uuBtUriBuilder = UriBuilder.parse(workspace.artifactUri);
+      let awscId = uuBtUriBuilder.toUri().parameters.id;
+      let awscLoadUri = uuBtUriBuilder.setUseCase("uuAwsc/load").clearParameters().toUri();
+  
+      awscResponse = await AppClient.get(awscLoadUri, { id: awscId }, { session })  
+    }
 
-    let awscResponse = await AppClient.get(awscLoadUri, { id: awscId }, { session })
 
     return{
       workspace,
-      awsc: awscResponse.data
+      authorizedProfileList: authResult.getIdentityProfiles(),
+      awsc: awscResponse && awscResponse.data
     };
   }
 
