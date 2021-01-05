@@ -44,7 +44,7 @@ export const About = {
       name: "Tatsiana Sorokina",
       uuIdentity: "24-9525-1",
       role: {
-        en: "Beauty of a team, serious business architect and developer.",
+        en: "Beauty of the team, serious business architect and developer.",
       },
     },
     {
@@ -60,7 +60,7 @@ export const About = {
       name: "Last member",
       uuIdentity: "4-4-1",
       role: {
-        en: "Just being in team.",
+        en: "Just being in the team.",
       },
     },
   ],
