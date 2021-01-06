@@ -1,10 +1,11 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent, useState,  useContext, useSession  } from "uu5g04-hooks";
 import Config from "./config/config";
 import Subject from "./subject";
 import Uu5Tiles from "uu5tilesg02";
 import SubjectCreateForm from "./subject-create-form";
+import SubmanMainContext from "../bricks/subman-main-context";
 //@@viewOff:imports
 
 const SubjectList = createVisualComponent({
@@ -37,6 +38,8 @@ const SubjectList = createVisualComponent({
   render({ showButton, subjects, onCreate, onDetail, onUpdate, onDelete }) {
     //@@viewOn:hooks
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const { identity } = useSession();
+    const contextData = useContext(SubmanMainContext);
     //@@viewOff:hooks
 
     //@@viewOn:private
@@ -57,6 +60,12 @@ const SubjectList = createVisualComponent({
 
     function handleCloseCreateSubjectForm() {
       setShowCreateModal(false);
+    }
+
+    function canManage() {
+      const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
+      console.log(isAuthority);
+      return isAuthority;
     }
 
     function handleCreateSubjectSave(opt) {
@@ -107,9 +116,10 @@ const SubjectList = createVisualComponent({
     const GET_ACTIONS = ({ screenSize }) => {
       return [
         {
-          content: {
+            content: {
             en: "Add subject"
           },
+        
           onClick: handleOpenCreateSubjectForm,
           icon: "mdi-plus-circle",
           colorSchema: "primary",
@@ -121,9 +131,9 @@ const SubjectList = createVisualComponent({
 
     return (
         <>
-          <SubjectCreateForm shown={showCreateModal} onSave={handleCreateSubjectSave} onCancel={handleCloseCreateSubjectForm} />
+          <SubjectCreateForm shown={showCreateModal} onSave={handleCreateSubjectSave}  onCancel={handleCloseCreateSubjectForm} />
           <Uu5Tiles.ControllerProvider data={subjects}>
-            <Uu5Tiles.ActionBar actions={showButton ? GET_ACTIONS : []} />
+          {canManage() && (  <Uu5Tiles.ActionBar actions={showButton ? GET_ACTIONS : []} /> )}
             <Uu5Tiles.Grid          
               tileHeight="auto"
               tileMinWidth={200}

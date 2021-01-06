@@ -98,12 +98,11 @@ const SubjectUpdate = createComponent({
     function canManage() {
       const isTeacher = subject.teachers.some(teacher => teacher === identity.uuIdentity );
       const isGarant = subject.supervisor === identity.uuIdentity;
-      console.log(subject);
       const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
-      const isExecutive = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.EXECUTIVES);
-      //const isOwner = identity.uuIdentity === subject.uuIdentity;
       return isAuthority && (isTeacher ||isGarant);
     }
+
+ 
     //@@viewOn:render
     function renderButton() {
       return (
@@ -120,7 +119,11 @@ const SubjectUpdate = createComponent({
     }
 
     function renderForm() {
-      return <SubjectUpdateForm onSave={handleSave} onCancel={handleCancel} onDelete={handleDelete} subject={subject}  />;
+      return <SubjectUpdateForm 
+      onSave={handleSave} 
+      onCancel={handleCancel} 
+      onDelete={handleDelete}
+      subject={subject}  />;
     }
 
     switch (mode) {

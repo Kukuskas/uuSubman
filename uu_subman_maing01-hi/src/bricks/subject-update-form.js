@@ -1,9 +1,10 @@
 //@@viewOn:imports
 import UU5, { Bricks } from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useContext, useSession  } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
 import FormUpdate from "./form-update";
+import SubmanMainContext from "../bricks/subman-main-context";
 
 
 //@@viewOff:imports
@@ -37,11 +38,20 @@ const SubjectUpdateForm = createVisualComponent({
   //@@viewOff:defaultProps
  
 
-  render({ onSave, onCancel, onDelete,  subject }) {
+  render({ onSave, onCancel, onDelete,  subject, showButton }) {
     //@@viewOn:render
+    const { identity } = useSession();
+    const contextData = useContext(SubmanMainContext);
+
     function handleDelete() {
       onDelete(subject);
     }
+
+    function isAdministrator() {
+      const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
+      return isAuthority;
+    }
+    
 
     return (
       <UU5.Bricks.Container>
@@ -50,9 +60,11 @@ const SubjectUpdateForm = createVisualComponent({
             content={<UU5.Bricks.Lsi lsi={{ en: "Edit a new subject", cs: "Upravit nový předmět" }} />}
             info={<UU5.Bricks.Lsi lsi={{ cs: <UU5.Bricks.Paragraph style="margin: 0" />, en: "More info..." }} />}
           />
-             <UU5.Bricks.Button size="s" onClick={handleDelete} bgStyle="transparent" >
-            <UU5.Bricks.Icon icon="glyphicon-trash" />
-            </UU5.Bricks.Button>
+          <>
+          { isAdministrator() && ( <UU5.Bricks.Button size="s" onClick={handleDelete} bgStyle="transparent" >
+          <UU5.Bricks.Icon icon="glyphicon-trash" />
+            </UU5.Bricks.Button>)}
+            </>
 
           <FormUpdate onSave={onSave} onCancel={onCancel} subject={subject} />
           <UU5.Forms.ContextControls

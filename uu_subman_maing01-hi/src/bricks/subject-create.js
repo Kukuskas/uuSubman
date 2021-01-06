@@ -78,15 +78,15 @@ const SubjectCreate = createComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    function renderButton() {
-      return (
-        <UU5.Bricks.Button
-          onClick={handleAddClick}
-          colorSchema="primary"
-          content={<UU5.Bricks.Lsi lsi={{ en: "Add subject", cs: "Přidat předmět" }} />}
-        />
-      );
-    }
+    // function renderButton() {
+    //   return (
+    //     <UU5.Bricks.Button
+    //       onClick={handleAddClick}
+    //       colorSchema="primary"
+    //       content={<UU5.Bricks.Lsi lsi={{ en: "Add subject", cs: "Přidat předmět" }} />}
+    //     />
+    //   );
+    // }
 
     function renderForm() {
       return <SubjectCreateForm onSave={handleSave} onCancel={handleCancel} />;
@@ -94,7 +94,7 @@ const SubjectCreate = createComponent({
 
     switch (mode) {
       case Mode.BUTTON:
-        return renderButton();
+        // return renderButton();
       default:
         return renderForm();
     }
