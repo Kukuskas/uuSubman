@@ -1,14 +1,14 @@
 {
   "{asid}": {
-    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public","Administration"],
+    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public","Administrations"],
     "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Administration"],
+    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Administrations"],
     "useCaseMap": {
       "subject/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Administration"]
+        "profileList": ["Authorities", "Administrations"]
       },
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
@@ -83,11 +83,11 @@
       },
       "subject/delete": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Administration"]
+        "profileList": ["Authorities", "Administrations"]
       },
       "subject/update": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Administration"]
+        "profileList": ["Authorities", "Administrations"]
       }
     }
   }

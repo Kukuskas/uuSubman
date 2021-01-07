@@ -64,8 +64,8 @@ const SubjectList = createVisualComponent({
 
     function canManage() {
       const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
-      console.log(isAuthority);
-      return isAuthority;
+      const isAdministration = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.ADMINISTRATIONS);
+      return isAuthority || isAdministration;
     }
 
     function handleCreateSubjectSave(opt) {
