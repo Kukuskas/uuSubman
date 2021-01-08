@@ -73,9 +73,9 @@ const SubjectList = createVisualComponent({
       let it = opt.values;
       let lang = {}
       if (it.language=="cs") {
-        lang = {cs: ""}
+        lang = {cs: {}}
       }else if (it.language=="en") {
-        lang = {en: ""}
+        lang = {en: {}}
       }else{
         return alert("Opravte informaci")
       }

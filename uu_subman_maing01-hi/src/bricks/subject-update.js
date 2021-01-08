@@ -56,15 +56,24 @@ const SubjectUpdate = createComponent({
       let it = opt.values;
       let lang = {}
       if (it.language=="cs") {
-        lang = {cs: ""}
-      }else if (it.language=="en") {
-        lang = {en: ""}
+        if (subject.language.cs) {
+          lang = {cs:subject.language.cs}
+        }
+        lang = {en: subject.language.en,
+        cs: {}
+      }
+      }else if (it.language=="en" ) {
+        if (subject.language.en) {
+          lang = {en:subject.language.en}
+        }
+        lang = {cs: subject.language.cs,
+                en: {}
+        }
       }else{
         return alert("Opravte informaci")
       }
       const input = {
         id: subject.id,
-  
         name: { 
           cs: it.nameCs, 
           en: it.nameEn 
@@ -77,9 +86,13 @@ const SubjectUpdate = createComponent({
           en: it.descEn,
         },
         language: lang,
-
+        
         teachers: it.teachers.split(","),
         visibility: false,
+        students: [		{
+          uuIdentity: "1-25-256",
+          formOfStudy: "fulltime"
+          },]
       };
       console.log("++++++++++++++++");
       console.log(input);
