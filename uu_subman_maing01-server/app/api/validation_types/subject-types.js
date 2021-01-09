@@ -1,3 +1,4 @@
+
 /* eslint-disable */
 const subjectCreateDtoInType = shape({
     name: shape({
@@ -11,6 +12,7 @@ const subjectCreateDtoInType = shape({
         cs: string(500).isRequired(),
         en: string(500).isRequired()
     }).isRequired(),
+    languageOfStudy:oneOf(["english", "czech", "czech/english"]).isRequired(),
     language: shape().isRequired(),
     /* edit it later */
     teachers: array(
@@ -48,8 +50,9 @@ const subjectUpdateDtoInType = shape({
         cs: string(500).isRequired(),
         en: string(500).isRequired()
     }).isRequired(),
+    languageOfStudy:oneOf(["english", "czech", "czech/english"]).isRequired(),
     language:
-        map(oneOf(["cs", "en"]),
+        map(oneOf(["cs", "en"]), 
             shape({
                 formOfStudy:
                     map(oneOf(["fulltime", "parttime"]), any(
@@ -79,15 +82,16 @@ const subjectUpdateDtoInType = shape({
                             )
 
                         }))
-                    )
+                             )
             })
         ),
+ 
     teachers: array(
         uuIdentity()),
     students: array(
         shape({
             uuIdentity: uuIdentity(),
-            formOfStudy: oneOf(["full-time", "part-time"])
+            formOfStudy: oneOf(["fulltime", "parttime"])
         })
     ),
     visibility: boolean()

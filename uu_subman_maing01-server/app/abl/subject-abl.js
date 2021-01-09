@@ -67,9 +67,7 @@ class SubjectAbl {
 
 
   async create(awid, dtoIn, session, authorizationResult) {
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    console.log(dtoIn);
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+   
     let validationResult = this.validator.validate("subjectCreateDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -107,13 +105,10 @@ class SubjectAbl {
         }
       }
     }
-    if (dtoIn.language.cs) {
-      dtoIn.language.cs = studyForms
-    }
-    if (dtoIn.language.en) {
-
-      dtoIn.language.en = studyForms
-    }
+    
+      dtoIn.language =  {cs:studyForms, en: studyForms}
+    
+   
 
 
     dtoIn.awid = awid;

@@ -69,16 +69,7 @@ const SubjectList = createVisualComponent({
     }
 
     function handleCreateSubjectSave(opt) {
-      console.log(opt);
       let it = opt.values;
-      let lang = {}
-      if (it.language=="cs") {
-        lang = {cs: {}}
-      }else if (it.language=="en") {
-        lang = {en: {}}
-      }else{
-        return alert("Opravte informaci")
-      }
       const input = {
         name: { 
           cs: it.nameCs, 
@@ -91,8 +82,8 @@ const SubjectList = createVisualComponent({
           cs: it.descCs,
           en: it.descEn,
         },
-        language: lang,
-
+        languageOfStudy: it.languageOfStudy,
+        language: {},
         teachers: it.teachers.split(","),
         visibility: false,
       };

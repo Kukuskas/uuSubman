@@ -54,24 +54,7 @@ const SubjectUpdate = createComponent({
 
     function handleSave(opt) {
       let it = opt.values;
-      let lang = {}
-      if (it.language=="cs") {
-        if (subject.language.cs) {
-          lang = {cs:subject.language.cs}
-        }
-        lang = {en: subject.language.en,
-        cs: {}
-      }
-      }else if (it.language=="en" ) {
-        if (subject.language.en) {
-          lang = {en:subject.language.en}
-        }
-        lang = {cs: subject.language.cs,
-                en: {}
-        }
-      }else{
-        return alert("Opravte informaci")
-      }
+
       const input = {
         id: subject.id,
         name: { 
@@ -85,8 +68,8 @@ const SubjectUpdate = createComponent({
           cs: it.descCs,
           en: it.descEn,
         },
-        language: lang,
-        
+        languageOfStudy: it.languageOfStudy,
+        language: subject.language,
         teachers: it.teachers.split(","),
         visibility: false,
         students: [		{
@@ -94,8 +77,6 @@ const SubjectUpdate = createComponent({
           formOfStudy: "fulltime"
           },]
       };
-      console.log("++++++++++++++++");
-      console.log(input);
       if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
         
       onUpdate(input);
