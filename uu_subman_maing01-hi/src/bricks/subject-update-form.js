@@ -48,8 +48,9 @@ const SubjectUpdateForm = createVisualComponent({
     }
 
     function isAdministrator() {
+      const isAdministration = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.ADMINISTRATIONS);
       const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
-      return isAuthority;
+      return isAuthority || isAdministration;
     }
     
 

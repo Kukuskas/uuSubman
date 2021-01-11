@@ -53,15 +53,15 @@ const SubjectDetail = createVisualComponent({
 
   render({ subject, colorSchema, onDelete, onUpdate }) {
     const [studyForm,setStudyForm] = useState(Mode.FULLTIME);
-
+    const [teacherList,setTeacherList] = useState(true);
+    const teachers = [
+      <TeacherList teachers={subject.teachers}  />
+    ]
     //@@viewOn:private
     function handleClick() {
-      SubjectDetail.modal.open()
+      teacherList == true?  setTeacherList(false): setTeacherList(true);   
     }
-    function handleClose() {
-      SubjectDetail.modal.close()
-    }
-    
+
     function handleSwitch() {
       studyForm == Mode.PARTTIME ? setStudyForm(Mode.FULLTIME):
        setStudyForm(Mode.PARTTIME)
@@ -105,15 +105,12 @@ const SubjectDetail = createVisualComponent({
               {subject.credits}
             </UU5.BlockLayout.Tile>
 
-            <div onClick={handleClick}  >
+            <div onClick={handleClick}   >
               <UU5.BlockLayout.Tile borderRadius="8px" margin="5px" className={Css.cursor()}>
                 <UU5.Bricks.Icon icon="uubml-officer-junior-man" />
                 {<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
               </UU5.BlockLayout.Tile>
             </div>
-            <UU5.Bricks.Modal ref_={modal => SubjectDetail.modal = modal}  > 
-            <TeacherList teachers={subject.teachers}  /> <UU5.Bricks.Button  onClick= {handleClose} >close</UU5.Bricks.Button> 
-            </UU5.Bricks.Modal>
           </UU5.Bricks.Column>
 
 
@@ -150,11 +147,15 @@ const SubjectDetail = createVisualComponent({
         </UU5.Bricks.Row>
 
 
+          <UU5.Bricks.Text
+          hidden={teacherList}
+          content= {teachers} />
+
+
         <UU5.Bricks.Box >
           <UU5.Bricks.Block
             content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
         </UU5.Bricks.Box>
-
         <TopicList subject={subject} />
       </UU5.Bricks.Section>
       </>
