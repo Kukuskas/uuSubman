@@ -4,6 +4,7 @@ import { createVisualComponent, useState, getState } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
 import "uu5g04-bricks";
+import FormStudents from "../bricks/form-students"
 
 //@@viewOff:imports
 
@@ -48,15 +49,6 @@ const FormUpdate = createVisualComponent({
       { content: <UU5.Bricks.Lsi lsi={{ en: "Czech", cs: "Český" }} />, value: "czech" },
       { content: <UU5.Bricks.Lsi lsi={{ en: "Czech/English", cs: "Český/Anglický" }} />, value: "czech/english" },
     ];
- 
-    let studentId = UU5.Common.Tools.generateUUID();
-    const students = [
-      {
-        id: UU5.Common.Tools.generateUUID(),
-        uuIdentity: "",
-        studyForm: ""
-      }
-    ];
 
     function _handleSupervisorOnBlur(opt) {
       if(/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(opt.value)){setSupervisorValue(opt.value);
@@ -91,26 +83,9 @@ const FormUpdate = createVisualComponent({
       
     }
   
-     
-    function handleAdd() {
-      setStudentList([...studentList, { id: studentId }]);
-      
-    }
-console.log(students);
-    function handleRemove(opt) {
-      console.log(opt.id);
-     let student = [...studentList]
-     if(student.length>1)  {
-     student.pop() 
-     return  setStudentList(student);
-     }
-    }
 
-   // const [subjectDegree, setSubjectDegree] = useState(degreeName.value1)
-   // const [supervisorValue, setSupervisorValue] = useState("");
     const [dis, setDis] = useState(false);
     const [supervisor, setSupervisor] = useState("");
-    const [studentList, setStudentList] = useState(students);
 
     return (
       <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
@@ -205,41 +180,7 @@ console.log(students);
             name="teachers"
             value={(subject.teachers).toString()}
           />
-        
-      
-       <>
-          {studentList.map((student) => (
-        <div key={student.id}>
-           <UU5.Bricks.Row>
-      <UU5.Bricks.Column colWidth="s-6">
-      <UU5.Forms.Text
-        borderRadius="8px"
-        label={<UU5.Bricks.Lsi lsi={{ en: "Students ID", cs: "StudentsId" }} />}
-        name={oneStudent}
-        value="6-11-1"
-      />
-    </UU5.Bricks.Column>
-    <UU5.Bricks.Column colWidth="s-6">
-      <UU5.Forms.Radios
-        label="form of study"
-        inline
-        value={[
-          { label: 'full-time', name: 'fulltime',value: true}, { label: 'part-time', name: 'parttime' },
-        ]}
-      />
-    </UU5.Bricks.Column>   
-    </UU5.Bricks.Row>
-    </div>
-    ))}
-    </>
-            <UU5.Bricks.Button onClick={handleAdd}>
-            <UU5.Bricks.Icon icon="plus4u-plus" />
-            </UU5.Bricks.Button>
-
-            <UU5.Bricks.Button onClick={handleRemove}>
-            <UU5.Bricks.Icon icon="plus4u-minus" />
-            </UU5.Bricks.Button>
-            
+       <FormStudents /> 
         
         </UU5.Bricks.Container>
       </UU5.Forms.ContextForm>
