@@ -4,7 +4,7 @@ const SubmanMainAbl = require("../../abl/subman-main-abl.js");
 class SubmanMainController {
 
   load(ucEnv) {
-    return SubmanMainAbl.load(ucEnv.getUri().getAwid(), ucEnv.getSession());
+    return SubmanMainAbl.load(ucEnv.getUri().getAwid(), ucEnv.getSession(), ucEnv.getAuthorizationResult());
   }
   init(ucEnv) {
     return SubmanMainAbl.init(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());

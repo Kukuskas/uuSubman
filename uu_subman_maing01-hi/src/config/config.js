@@ -6,6 +6,13 @@ const TAG = "UuSubman.";
 
 export default {
   TAG,
+
+  Profiles: {
+    AUTHORITIES: "Authorities",
+    EXECUTIVES: "Executives",
+    ADMINISTRATION: "Administration"
+  },
+
   Css: UU5.Common.Css.createCssModule(
     TAG.replace(/\.$/, "")
       .toLowerCase()

@@ -73,6 +73,18 @@ const SubjectDetail = createVisualComponent({
 
     return (
 
+      <>
+      <Plus4U5.App.ArtifactSetter 
+        routeName="Subject Detail"
+        header={<UU5.Bricks.Lsi lsi={subject.name} />}
+        breadcrumbList={[
+          {
+            content: "Home", href: "./subjects"
+          }
+        ]}
+        showBackButton
+      />
+
       <UU5.Bricks.Section >
         <UU5.Bricks.Box colorSchema="green" className={Css.detail()} >
           <UU5.Bricks.Row>
@@ -109,7 +121,7 @@ const SubjectDetail = createVisualComponent({
             <UU5.BlockLayout.Tile borderRadius="8px" margin="5px">
               <UU5.Bricks.Icon icon="uubml-idea" />
               {<UU5.Bricks.Lsi lsi={Lsi.subjectLanguage} />}
-              {Object.keys(subject.language).join(" / ")} 
+              {subject.languageOfStudy} 
             </UU5.BlockLayout.Tile>
 
 
@@ -145,6 +157,7 @@ const SubjectDetail = createVisualComponent({
 
         <TopicList subject={subject} />
       </UU5.Bricks.Section>
+      </>
 
     );
   },

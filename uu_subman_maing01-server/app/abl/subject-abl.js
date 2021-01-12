@@ -67,9 +67,7 @@ class SubjectAbl {
 
 
   async create(awid, dtoIn, session, authorizationResult) {
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    console.log(dtoIn);
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+   
     let validationResult = this.validator.validate("subjectCreateDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -79,74 +77,39 @@ class SubjectAbl {
     );
 
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
-//     if(dtoIn.language.cs) {
-//       dtoIn.language.cs= {
-//   studyForms: { 
-//       fulltime: {
-//           id: "1",
-//           studyMaterialList: [],
-//           topics: [
-//               {
-//                   name: "Example fulltime", 
-//                   desc: "Lorem Ipsum", 
-//                   id: "1", 
-//                   studyMaterialList: []
-//               }
-//           ]
-//       },
-//       parttime: {
-//           id: "...",
-//           studyMaterialList: [],
-//           topics: [
-//               {
-//                   name: "Example parttime", 
-//                   desc: "lorem Ipsum", 
-//                   id: "2", 
-//                   studyMaterialList: []
-//               }
-//           ]
-//       }
-//   }
-// }}
-//     if(dtoIn.language.en) {
-//   dtoIn.language.en= {
-//   "studyForms": { 
-//       "fulltime": {
-//           "id": "...",
-//           "studyMaterialList": [
-//               "..."
-//           ],
-//           "topics": [
-//               {
-//                   "name": "...", 
-//                   "desc": "...", 
-//                   "id": "...", 
-//                   "studyMaterialList": [
-//                       {
-//                           "studyMateriaId": "...",
-//                           "url": "...",
-//                           "name": "..."
-//                       }
-//                   ]
-//               }
-//           ]
-//       },
-//       "parttime": {
-//           "id": "...",
-//           "studyMaterialList": [
-//               "..."
-//           ],
-//           "topics": [
-//               {
-//                   "name": "...", 
-//                   "desc": "...", 
-//                   "id": "...", 
-//                   "studyMaterialList": [
-//                       {
-//                           "studyMateriaId": "...",
-//                           "url": "...",
-//                           "name": "..."
-//         }]}]}}}}
+    const studyForms = {
+      studyForms: {
+        fulltime: {
+          id: "1",
+          studyMaterialList: [],
+          topics: [
+            {
+              name: "Example fulltime",
+              desc: "Lorem Ipsum",
+              id: "00",
+              studyMaterialList: []
+            }
+          ]
+        },
+        parttime: {
+          id: "2",
+          studyMaterialList: [],
+          topics: [
+            {
+              name: "Example parttime",
+              desc: "lorem Ipsum",
+              id: "00",
+              studyMaterialList: []
+            }
+          ]
+        }
+      }
+    }
+    
+      dtoIn.language =  {cs:studyForms, en: studyForms}
+    
+   
+
 
     dtoIn.awid = awid;
     let dtoOut;
@@ -214,7 +177,7 @@ class SubjectAbl {
 
 
     // hds 7rs
-    
+
     try {
       dtoIn.awid = awid;
       subject = await this.dao.update(dtoIn);

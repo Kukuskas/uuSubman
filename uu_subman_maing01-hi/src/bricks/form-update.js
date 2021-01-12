@@ -38,17 +38,15 @@ const FormUpdate = createVisualComponent({
   },
   render({ onSave, onCancel, subject }) {
     //@@viewOn:render
-    console.log("----------------")
-    console.log(subject);
-    console.log("----------------")
     const degreeName = [
       { content: <UU5.Bricks.Lsi lsi={{ en: "Bachalor", cs: "Bakalářské" }} />, value: "bachelor" },
       { content: <UU5.Bricks.Lsi lsi={{ en: "Master", cs: "Magisterské" }} />, value: "master" }
     ];
 
     const languageOfStudy = [
-      { content: <UU5.Bricks.Lsi lsi={{ en: "Czech", cs: "  Český" }} />, value: "cs" },
-      { content: <UU5.Bricks.Lsi lsi={{ en: "English", cs: "Anglický" }} />, value: "en" },
+      { content: <UU5.Bricks.Lsi lsi={{ en: "English", cs: "Anglický" }} />, value: "english" },
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Czech", cs: "Český" }} />, value: "czech" },
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Czech/English", cs: "Český/Anglický" }} />, value: "czech/english" },
     ];
 
 
@@ -88,8 +86,7 @@ const FormUpdate = createVisualComponent({
       return "Hello subject"
     }
      
-    console.log("/*****************teachers**********************/");
-    console.log(subject);
+  
 
    // const [subjectDegree, setSubjectDegree] = useState(degreeName.value1)
    // const [supervisorValue, setSupervisorValue] = useState("");
@@ -147,9 +144,9 @@ const FormUpdate = createVisualComponent({
                 borderRadius="8px"
                 items={languageOfStudy}
                 label={<UU5.Bricks.Lsi lsi={{ en: "Language", cs: "Jazyk" }} />}
-                name="language"
-                value={Object.keys(subject.language).join(" / ")} 
-              />
+                name="languageOfStudy"
+                value={subject.languageOfStudy} 
+              />            
             </UU5.Bricks.Column>
           </UU5.Bricks.Row>
           <UU5.Bricks.Row>

@@ -2,7 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
-import SubjectRoute from "../routes/subjectRoute";
+import SubjectRoute from "../routes/subject-route";
 //@@viewOff:imports
 
 const Subject = createVisualComponent({
@@ -70,9 +70,6 @@ const Subject = createVisualComponent({
           <UU5.Bricks.Text colorSchema="red">click to see detail</UU5.Bricks.Text>
         </UU5.Bricks.Card>
       </div>
-                <UU5.Bricks.Button size="s" onClick={handleDelete} bgStyle="transparent" >
-            <UU5.Bricks.Icon icon="glyphicon-trash" />
-            </UU5.Bricks.Button>{/* <UU5.Bricks.Button onClick={handleDelete} colorSchema="grey"><UU5.Bricks.Icon icon="mdi-delete" /></UU5.Bricks.Button> */}
       </>
     );
     //@@viewOff:render
