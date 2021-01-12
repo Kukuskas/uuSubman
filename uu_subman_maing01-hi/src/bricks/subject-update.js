@@ -102,7 +102,7 @@ const SubjectUpdate = createComponent({
       const isTeacher = subject.teachers.some(teacher => teacher === identity.uuIdentity );
       const isGarant = subject.supervisor === identity.uuIdentity;
       const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
-      return isAuthority && (isTeacher ||isGarant);
+      return isAuthority || isTeacher || isGarant;
     }
 
  

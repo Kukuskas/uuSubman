@@ -180,7 +180,7 @@ const FormUpdate = createVisualComponent({
             name="teachers"
             value={(subject.teachers).toString()}
           />
-       <FormStudents /> 
+       <FormStudents students={subject.students}/> 
         
         </UU5.Bricks.Container>
       </UU5.Forms.ContextForm>

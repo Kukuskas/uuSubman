@@ -4,20 +4,20 @@ import { createVisualComponent, useState, getState } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
 import "uu5g04-bricks";
+import Uu5Tiles from "uu5tilesg02";
 
 //@@viewOff:imports
 
-const FormUpdate = createVisualComponent({
+const FormStudents = createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "FormStudents",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    subject: UU5.PropTypes.shape({
-      name: UU5.PropTypes.shape.isRequired,
-      desc: UU5.PropTypes.shape.isRequired,
-      id: UU5.PropTypes.isRequired,
+    students: UU5.PropTypes.shape({
+      uuIdentity: UU5.PropTypes.shape.isRequired,
+      formOfStudy: UU5.PropTypes.shape.isRequired
     }),
     onSubmit: UU5.PropTypes.func,
     onCancel: UU5.PropTypes.func,
@@ -26,7 +26,7 @@ const FormUpdate = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    subject: null,
+    students: null,
     onSubmit: () => {},
     onCancel: () => {},
   },
@@ -36,75 +36,77 @@ const FormUpdate = createVisualComponent({
       size: "m",
     };
   },
-  render({ onSave, onCancel, subject }) {
+  render({ onSave, onCancel, students }) {
     //@@viewOn:render
- 
+
     function handleChange(event) {
       setUuIdentity(event.target.value);
-    
     }
 
     function handleChanges(event) {
-     
-      setFormOfStudy(event.target.value);
+      // setFormOfStudy(event.target.value);
     }
-     
+
     function handleAdd() {
-        const newStudentList = studentList.concat({ uuIdentity, formOfStudy });
- 
-        setStudentList (newStudentList);
-      
+      const newStudentsList = studentsList.concat({ uuIdentity, formOfStudy });
+
+      setstudentsList(newStudentsList);
     }
 
     function handleRemove(uuIdentity) {
-        const newStudentList = studentList.filter((item)=> item.uuIdentity !== uuIdentity);
- 
-        setStudentList (newStudentList)
+      const newStudentsList = studentsList.filter((item) => item.uuIdentity !== uuIdentity);
+
+      setStudentsList(newStudentsList);
     }
 
- 
-    const students = [
-      {
-        // id: "a",
-        uuIdentity: "",
-        formOfStudy: ""
-      }
+    const [studentsList, setStudentsList] = useState(students);
+    const [uuIdentity, setUuIdentity] = useState("");
+    const [formOfStudy, setFormOfStudy] = useState("fulltime");
+    console.log("********************");
+    console.log(studentsList);
+    const formOfStudyName = [
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Full-time", cs: "Prezenční" }} />, value: "fulltime" },
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Part-time", cs: "Dálkové" }} />, value: "parttime" }
     ];
 
-
-    const [studentList, setStudentList] = useState(students);
-    const [uuIdentity, setUuIdentity] = useState('');
-    const [formOfStudy, setFormOfStudy] = useState('');
-      console.log("********************");
-console.log(studentList);
-
     return (
-    <div>
-      <div>
-      <input type="text" name= "students" value={uuIdentity} onChange={handleChange} />
-      <input type="radio" id="fulltime"
-     name="student" value="fulltime"   />
-    <label for="fulltime">Full-time</label>
-    <input type="radio" id="parttime"
-     name="student" value="fulltime"  />
-    <label for="fulltime">Full-time</label>
-  
- 
-        <button type="button" onClick={handleAdd}>
-          Add
-        </button>
-      </div>
-            {studentList.map((student) => (
-        <div key={student.uuIdentity}>
+      <>
+                    {studentsList.map((student) => (
+        <>
+        
+        {/* <div key={student.uuIdentity}>
            <input  name="student" value={ student.uuIdentity}/>
              <input name ="student" value={formOfStudy}/>
-            <button type="button" onClick={() => handleRemove(student)}>Remove</button></div>
+            <button type="button" onClick={() => handleRemove(student)}>Remove</button></div> */}
+            
+            <UU5.Bricks.Row label="student">
+              <UU5.Bricks.Column colWidth="s-4">
+                <UU5.Forms.Text type="text" name="students" value={student.uuIdentity} onChange={handleChange} />
+              </UU5.Bricks.Column>
+              <UU5.Bricks.Column colWidth="s-4">
+              <UU5.Forms.SwitchSelector
+                    borderRadius="8px"
+                    items={formOfStudyName}
+                    value={formOfStudy}
+                    name="formOfStudy"
+                  />           
+                </UU5.Bricks.Column>
+                <UU5.Bricks.Column colWidth="s-4">
+                <UU5.Bricks.Button onClick={() => handleRemove(student)} content="Remove"/>
+                </UU5.Bricks.Column>
+            </UU5.Bricks.Row>
+          </>
 
-        ))}
-    </div>
+      ))}
+        <UU5.Bricks.Row>
+          <UU5.Bricks.Button onClick={handleAdd} content="Add"/>
+        </UU5.Bricks.Row>
+      </>
+
+
     );
     //@@viewOff:render
   },
 });
 
-export default FormUpdate;
+export default FormStudents;
