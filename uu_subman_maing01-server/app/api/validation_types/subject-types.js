@@ -90,8 +90,8 @@ const subjectUpdateDtoInType = shape({
         uuIdentity()),
     students: array(
         shape({
-            uuIdentity: uuIdentity(),
-            formOfStudy: oneOf(["fulltime", "parttime"])
+          uuIdentity: uuIdentity(),
+          formOfStudy: oneOf(["fulltime", "parttime"])
         })
     ),
     visibility: boolean()
