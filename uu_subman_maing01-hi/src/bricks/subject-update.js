@@ -84,14 +84,21 @@ const SubjectUpdate = createComponent({
         language: subject.language,
         teachers: it.teachers.split(","),
         visibility: false,
-        students:[]
+        students:[it.students]
       };
-      if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
+      // if (it.students==null|| it.students==undefined) {
+      //   input.students=[]      
+      //   }
         
+      if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
+        console.log(input.students);
+        console.log(it.students);
+        console.log("hahahahahahahahahahaha");
       onUpdate(input);
       setMode(Mode.BUTTON);
       }else{return alert("fill in supervisor correctly")}
     }
+
 
     function handleCancel() {
       setMode(Mode.BUTTON);

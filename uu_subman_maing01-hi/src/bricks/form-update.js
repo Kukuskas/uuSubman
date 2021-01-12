@@ -82,7 +82,32 @@ const FormUpdate = createVisualComponent({
       setDis(false)
       
     }
-  
+
+    function handleChange(value, index) {
+      studentsList[index].uuIdentity = value
+      console.log(studentsList);
+      setStudentsList(studentsList);
+    }
+
+    function handleAdd() {
+      subject.students=[]
+      const newStudentsList = studentsList.concat({ uuIdentity:"", formOfStudy });
+      setStudentsList(newStudentsList);
+    }
+
+    function handleRemove(uuIdentity) {
+      const newStudentsList = studentsList.filter((item) => item.uuIdentity !== uuIdentity);
+
+      setStudentsList(newStudentsList);
+    }
+
+    const [studentsList, setStudentsList] = useState(subject.students);
+    const [formOfStudy, setFormOfStudy] = useState("fulltime");
+
+    const formOfStudyName = [
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Full-time", cs: "Prezenční" }} />, value: "fulltime" },
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Part-time", cs: "Dálkové" }} />, value: "parttime" }
+    ];
 
     const [dis, setDis] = useState(false);
     const [supervisor, setSupervisor] = useState("");
@@ -180,7 +205,37 @@ const FormUpdate = createVisualComponent({
             name="teachers"
             value={(subject.teachers).toString()}
           />
-       <FormStudents students={subject.students}/> 
+             <>
+                    {studentsList.map((student, index) => (
+        <>
+        
+        {/* <div key={student.uuIdentity}>
+           <input  name="student" value={ student.uuIdentity}/>
+             <input name ="student" value={formOfStudy}/>
+            <button type="button" onClick={() => handleRemove(student)}>Remove</button></div> */}
+            <UU5.Bricks.Row label="student">
+              <UU5.Bricks.Column colWidth="s-4">
+                <UU5.Forms.Text type="text" name={"students"+ index} value={student==null?(student={uuIdentity:"", formOfStudy: "fulltime"}, student.uuIdentity):student.uuIdentity} onBlur={(value)=>handleChange(value.value, index)} />
+              </UU5.Bricks.Column>
+              <UU5.Bricks.Column colWidth="s-4">
+              <UU5.Forms.SwitchSelector
+                    borderRadius="8px"
+                    items={formOfStudyName}
+                    value={student==null?"":student.formOfStudy}
+                    name={"formOfStudy" + index}
+                  />           
+                </UU5.Bricks.Column>
+                <UU5.Bricks.Column colWidth="s-4">
+                <UU5.Bricks.Button onClick={()=>handleRemove(student==null?"":student.uuIdentity)} content="Remove"/>
+                </UU5.Bricks.Column>
+            </UU5.Bricks.Row>
+          </>
+
+      ))}
+        <UU5.Bricks.Row>
+          <UU5.Bricks.Button onClick={handleAdd} content="Add"/>
+        </UU5.Bricks.Row>
+      </>
         
         </UU5.Bricks.Container>
       </UU5.Forms.ContextForm>
