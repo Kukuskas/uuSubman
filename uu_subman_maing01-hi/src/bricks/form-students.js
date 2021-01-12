@@ -87,7 +87,7 @@ const FormStudents = createVisualComponent({
               <UU5.Forms.SwitchSelector
                     borderRadius="8px"
                     items={formOfStudyName}
-                    value={formOfStudy}
+                    value={student.formOfStudy}
                     name="formOfStudy"
                   />           
                 </UU5.Bricks.Column>
