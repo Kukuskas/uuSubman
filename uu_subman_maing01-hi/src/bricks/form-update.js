@@ -95,8 +95,8 @@ const FormUpdate = createVisualComponent({
       setStudentsList(newStudentsList);
     }
 
-    function handleRemove(uuIdentity) {
-      const newStudentsList = studentsList.filter((item) => item.uuIdentity !== uuIdentity);
+    function handleRemove(i) {
+      const newStudentsList = studentsList.filter((_, index) => index !== i);
 
       setStudentsList(newStudentsList);
     }
@@ -226,7 +226,7 @@ const FormUpdate = createVisualComponent({
                   />           
                 </UU5.Bricks.Column>
                 <UU5.Bricks.Column colWidth="s-4">
-                <UU5.Bricks.Button onClick={()=>handleRemove(student==null?"":student.uuIdentity)} content="Remove"/>
+                <UU5.Bricks.Button onClick={()=>handleRemove(index)} content="Remove"/>
                 </UU5.Bricks.Column>
             </UU5.Bricks.Row>
           </>
