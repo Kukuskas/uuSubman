@@ -34,7 +34,10 @@ const Topic = createVisualComponent({
 
     return (
         <>
-        {topic} {/* EDIT */}
+        <UU5.Bricks.Container>
+   <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={topic.name} />} />
+   <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={topic.desc} />} />
+   </UU5.Bricks.Container>
         </>
       );
     //@@viewOff:render

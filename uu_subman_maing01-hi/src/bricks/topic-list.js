@@ -43,7 +43,7 @@ const TopicList = createVisualComponent({
       return <UU5.Common.Error content="WTF No topics!" />;
     }  
     return (
-            <>Here will be topic</>// <Topic topic={item.data} colorSchema="green" onUpdate={onUpdate} onDelete={onDelete} />
+          <Topic topic={item.data} colorSchema="green" onUpdate={onUpdate} onDelete={onDelete} />
         );
       }
       
