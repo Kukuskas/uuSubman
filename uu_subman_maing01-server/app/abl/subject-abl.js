@@ -107,7 +107,7 @@ class SubjectAbl {
     }
     
       dtoIn.language =  {cs:studyForms, en: studyForms}
-    
+      dtoIn.students = [{ uuIdentity: "", formOfStudy: "fulltime" }]
    
 
 

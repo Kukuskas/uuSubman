@@ -96,17 +96,24 @@ const FormUpdate = createVisualComponent({
       setDis(false);
     }
 
-    function handleChange(value, index) {
-      studentsList[index].uuIdentity = value;
-      setStudentsList(studentsList);
-      setTestStudents(JSON.stringify(studentsList))
+    function handleUuIdentityChange(value, index) {
+       studentsList[index].uuIdentity = value;
+       setStudentsList(studentsList);
+       setTestStudents(JSON.stringify(studentsList))
+
     }
+    function handleFormOfStudyChange(value, index) {
+       studentsList[index].formOfStudy = value;
+       setStudentsList(studentsList);
+       setTestStudents(JSON.stringify(studentsList))
+    }
+
 
     function handleAdd() {
       const i = studentsList;
       if (i[i.length - 1].uuIdentity == "") {
       } else {
-        const newStudentsList = studentsList.concat({ uuIdentity: "", formOfStudy });
+        const newStudentsList = studentsList.concat({ uuIdentity: "", formOfStudy:"fulltime" });
         setStudentsList(newStudentsList);
       }
     }
@@ -118,14 +125,14 @@ const FormUpdate = createVisualComponent({
         setStudentsList(newStudentsList);
         setTestStudents(JSON.stringify(studentsList))
       } else {
-        setStudentsList([{ uuUdentity: "", formOfStudy }]);
+        setStudentsList([{ uuUdentity: "", formOfStudy:"" }]);
         setTestStudents("")
       }
 
     }
     const [testStudents, setTestStudents] = useState("")
     const [studentsList, setStudentsList] = useState(subject.students);
-    const [formOfStudy, setFormOfStudy] = useState("fulltime");
+    
 
     const formOfStudyName = [
       { content: <UU5.Bricks.Lsi lsi={{ en: "Full-time", cs: "Prezenční" }} />, value: "fulltime" },
@@ -240,7 +247,8 @@ const FormUpdate = createVisualComponent({
                         ? ((student = { uuIdentity: "", formOfStudy: "fulltime" }), student.uuIdentity)
                         : student.uuIdentity
                     }
-                    onBlur={(value) => handleChange(value.value, index)}
+                    onBlur={(value) => handleUuIdentityChange(value.value, index) }
+                    
                   />
                 </UU5.Bricks.Column>
                 <UU5.Bricks.Column colWidth="s-4">
@@ -249,6 +257,7 @@ const FormUpdate = createVisualComponent({
                     items={formOfStudyName}
                     value={student == null ? "" : student.formOfStudy}
                     name={"formOfStudy" + index}
+                    onChange={(value) => handleFormOfStudyChange(value.value, index)} 
                   />
                 </UU5.Bricks.Column>
                 <UU5.Bricks.Column colWidth="s-4">
