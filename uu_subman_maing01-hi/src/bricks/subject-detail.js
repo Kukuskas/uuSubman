@@ -63,8 +63,7 @@ const SubjectDetail = createVisualComponent({
     }
 
     function handleSwitch() {
-      studyForm == Mode.parttime ? setStudyForm(Mode.fulltime):
-       setStudyForm(Mode.parttime)
+      studyForm == Mode.parttime ? setStudyForm(Mode.fulltime):setStudyForm(Mode.parttime)
     }
     //@@viewOff:private
 
@@ -155,7 +154,7 @@ const SubjectDetail = createVisualComponent({
           <UU5.Bricks.Block
             content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
         </UU5.Bricks.Box>
-        <TopicList subject={subject} studyForm={studyForm.en}/>
+        <TopicList subject={subject} studyForm={studyForm.props.lsi.en} margin="5px"/>
       </UU5.Bricks.Section>
       </>
 

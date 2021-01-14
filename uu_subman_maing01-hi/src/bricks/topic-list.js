@@ -38,14 +38,11 @@ const TopicList = createVisualComponent({
   render({ subject, studyForm, onUpdate, onDelete }) {
     //@@viewOn:render
     function renderItem(item) {
-      console.log(item.data);
           if (item.length === 0) {
       return <UU5.Common.Error content="WTF No topics!" />;
-    }  
-    return (
-          <Topic topic={item.data} colorSchema="green" onUpdate={onUpdate} onDelete={onDelete} />
-        );
-      }
+    }else {
+      return <Topic topic={item.data} colorSchema="green" onUpdate={onUpdate} onDelete={onDelete} />
+      }}
       
       
     
@@ -55,9 +52,7 @@ const TopicList = createVisualComponent({
         <><Uu5Tiles.Grid
       data={studyForm=="Full-time"?subject.language.cs.studyForms.fulltime.topics:subject.language.cs.studyForms.parttime.topics}
       tileHeight="auto"
-      tileMinWidth={200}
-      tileMaxWidth={300}
-      tileSpacing={8}
+      tileMinWidth={"100%"}
       rowSpacing={8}
     >
         {renderItem}
