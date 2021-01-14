@@ -17,8 +17,8 @@ import SubjectUpdate from "../bricks/subject-update";
 
 
 const Mode = {
-  FULLTIME: <UU5.Bricks.Lsi lsi={Lsi.subjectFullTime} />,
-  PARTTIME: <UU5.Bricks.Lsi lsi={Lsi.subjectPartTime} />,
+  fulltime: <UU5.Bricks.Lsi lsi={Lsi.subjectFullTime} />,
+  parttime: <UU5.Bricks.Lsi lsi={Lsi.subjectPartTime} />,
 };
 
 const SubjectDetail = createVisualComponent({
@@ -52,7 +52,7 @@ const SubjectDetail = createVisualComponent({
 
 
   render({ subject, colorSchema, onDelete, onUpdate }) {
-    const [studyForm,setStudyForm] = useState(Mode.FULLTIME);
+    const [studyForm,setStudyForm] = useState(Mode.fulltime);
     const [teacherList,setTeacherList] = useState(true);
     const teachers = [
       <TeacherList teachers={subject.teachers}  />
@@ -63,13 +63,12 @@ const SubjectDetail = createVisualComponent({
     }
 
     function handleSwitch() {
-      studyForm == Mode.PARTTIME ? setStudyForm(Mode.FULLTIME):
-       setStudyForm(Mode.PARTTIME)
+      studyForm == Mode.parttime ? setStudyForm(Mode.fulltime):
+       setStudyForm(Mode.parttime)
     }
     //@@viewOff:private
 
     //@@viewOn:render
-
 
     return (
 
@@ -156,7 +155,7 @@ const SubjectDetail = createVisualComponent({
           <UU5.Bricks.Block
             content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
         </UU5.Bricks.Box>
-        <TopicList subject={subject} />
+        <TopicList subject={subject} studyForm={studyForm.en}/>
       </UU5.Bricks.Section>
       </>
 

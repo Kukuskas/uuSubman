@@ -13,7 +13,12 @@ const TopicList = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    topics: UU5.PropTypes.array.isRequired,
+    subject: UU5.PropTypes.shape({
+      name: UU5.PropTypes.shape.isRequired,
+      desc: UU5.PropTypes.shape.isRequired,
+      id: UU5.PropTypes.isRequired,
+    }),
+    studyForm: UU5.PropTypes.string,
     onDetail: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func
@@ -22,31 +27,33 @@ const TopicList = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    topics: [],
+    subject: {},
+    studyForm: "Full-time",
     onDetail: () => {},
     onUpdate: () => {},
     onDelete: () => {}
   },
   //@@viewOff:defaultProps
 
-  render({ topics, onDetail, onUpdate, onDelete }) {
+  render({ subject, studyForm, onUpdate, onDelete }) {
     //@@viewOn:render
-    
     function renderItem(item) {
-        return (
-            <Topic topic={item.data.data} colorSchema="green" onDetail={onDetail} onUpdate={onUpdate} onDelete={onDelete} />
+      console.log(item.data);
+          if (item.length === 0) {
+      return <UU5.Common.Error content="WTF No topics!" />;
+    }  
+    return (
+            <>Here will be topic</>// <Topic topic={item.data} colorSchema="green" onUpdate={onUpdate} onDelete={onDelete} />
         );
       }
       
       
     
-    if (topics.length === 0) {
-      return <UU5.Common.Error content="WTF No topics!" />;
-    }
+
 
     return (
         <><Uu5Tiles.Grid
-      data={topics}
+      data={studyForm=="Full-time"?subject.language.cs.studyForms.fulltime.topics:subject.language.cs.studyForms.parttime.topics}
       tileHeight="auto"
       tileMinWidth={200}
       tileMaxWidth={300}
