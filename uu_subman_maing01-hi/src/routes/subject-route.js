@@ -42,8 +42,9 @@ const SubjectRoute = createVisualComponent({
     }
     /* eslint no-unused-vars: "off" */
     async function handleUpdate(subject) {
-      console.log("/**************/********subject////////");
+      console.log("to the update passed////////////////");
       console.log(subject)
+      console.log("to the update passed////////////////");
       try{ await updateSubjectRef.current( subject);
        return handleHome()
        } catch {

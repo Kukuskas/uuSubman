@@ -98,8 +98,8 @@ const FormUpdate = createVisualComponent({
 
     function handleChange(value, index) {
       studentsList[index].uuIdentity = value;
-      console.log(studentsList);
       setStudentsList(studentsList);
+      setTestStudents(JSON.stringify(studentsList))
     }
 
     function handleAdd() {
@@ -116,11 +116,14 @@ const FormUpdate = createVisualComponent({
         const newStudentsList = studentsList.filter((_, index) => index !== i);
 
         setStudentsList(newStudentsList);
+        setTestStudents(JSON.stringify(studentsList))
       } else {
         setStudentsList([{ uuUdentity: "", formOfStudy }]);
+        setTestStudents("")
       }
-    }
 
+    }
+    const [testStudents, setTestStudents] = useState("")
     const [studentsList, setStudentsList] = useState(subject.students);
     const [formOfStudy, setFormOfStudy] = useState("fulltime");
 
@@ -239,7 +242,6 @@ const FormUpdate = createVisualComponent({
                     }
                     onBlur={(value) => handleChange(value.value, index)}
                   />
-                  <UU5.Bricks.Button onClick={() => handleRemove(index)} content="Remove" />
                 </UU5.Bricks.Column>
                 <UU5.Bricks.Column colWidth="s-4">
                   <UU5.Forms.SwitchSelector
@@ -248,7 +250,6 @@ const FormUpdate = createVisualComponent({
                     value={student == null ? "" : student.formOfStudy}
                     name={"formOfStudy" + index}
                   />
-                  <UU5.Bricks.Button onClick={() => handleRemove(index)} content="Remove" />
                 </UU5.Bricks.Column>
                 <UU5.Bricks.Column colWidth="s-4">
                   <UU5.Bricks.Button onClick={() => handleRemove(index)} content="Remove" />
@@ -260,6 +261,10 @@ const FormUpdate = createVisualComponent({
           <UU5.Bricks.Row>
             <UU5.Bricks.Button onClick={() => handleAdd(studentsList)} content="Add" />
           </UU5.Bricks.Row>
+          <UU5.Bricks.Row>
+            <UU5.Bricks.Button onClick={console.log("")} content="Test" />
+          </UU5.Bricks.Row>
+          <UU5.Forms.Text name="test" value={testStudents} hidden={true}/>
         </UU5.Bricks.Container>
       </UU5.Forms.ContextForm>
     );

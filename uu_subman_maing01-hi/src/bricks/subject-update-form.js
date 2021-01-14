@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import UU5, { Bricks } from "uu5g04";
+import UU5 from "uu5g04";
 import { createVisualComponent, useContext, useSession  } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
@@ -9,7 +9,7 @@ import SubmanMainContext from "../bricks/subman-main-context";
 
 //@@viewOff:imports
 
-const SubjectUpdateForm = createVisualComponent({
+const SubjectUpdateForm =  createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "SubjectUpdateForm",
   //@@viewOff:statics
@@ -68,6 +68,7 @@ const SubjectUpdateForm = createVisualComponent({
             </>
 
           <FormUpdate onSave={onSave} onCancel={onCancel} subject={subject} />
+          
           <UU5.Forms.ContextControls
             buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Edit", cs: "Upravit" }} /> }}
             buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}

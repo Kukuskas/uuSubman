@@ -52,7 +52,6 @@ const Form = createVisualComponent({
     function _handleSupervisorOnBlur(opt) {
       if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(opt.value)){
         setSupervisor(opt.value);
-        console.log(opt);
         opt.component.setValueDefault(opt.value);
       ;}else if(opt.value!==""){alert("Please fill in Supervisor uuIdentity")}
     }

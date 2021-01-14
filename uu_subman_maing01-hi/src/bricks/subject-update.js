@@ -54,18 +54,7 @@ const SubjectUpdate = createComponent({
 
     function handleSave(opt) {
       let it = opt.values;
-      console.log("+++++++++++++++++");
-      console.log(it);
-
-      // let student = {},
-      // {
-      //   uuIdentity: it.student,
-      //  formOfStudy: it.fulltime
-      // }
-      // for (let i = 0; i < array.length; i++) {
-      //   const element = array[i];
-        
-      // }
+      it.test==""?it.test=[{uuIdentity:"", formOfStudy: "fulltime"}]: it.test= JSON.parse(it.test)
       
       const input = {
         id: subject.id,
@@ -84,7 +73,7 @@ const SubjectUpdate = createComponent({
         language: subject.language,
         teachers: it.teachers.split(","),
         visibility: false,
-        students:[{uuIdentity:"", formOfStudy: "fulltime"}]
+        students: it.test
       };
       // if (it.students==null|| it.students==undefined) {
       //   input.students=[]      
