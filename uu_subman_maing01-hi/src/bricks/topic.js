@@ -12,7 +12,7 @@ const Topic = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    topic: UU5.PropTypes.array.isRequired, //EDIT
+    // topic: UU5.PropTypes.array.isRequired, //EDIT
     onDetail: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func
@@ -35,8 +35,8 @@ const Topic = createVisualComponent({
     return (
         <>
         <UU5.Bricks.Container>
-   <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={topic.name} />} />
-   <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={topic.desc} />} />
+   <UU5.Bricks.Section content={topic.name} />
+   <UU5.Bricks.Section content={topic.desc} />
    </UU5.Bricks.Container>
         </>
       );

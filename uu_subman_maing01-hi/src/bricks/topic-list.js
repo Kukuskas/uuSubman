@@ -52,7 +52,7 @@ const TopicList = createVisualComponent({
         <><Uu5Tiles.Grid
       data={studyForm=="Full-time"?subject.language.cs.formOfStudy.fulltime.topics:subject.language.cs.formOfStudy.parttime.topics}
       tileHeight="auto"
-      tileMinWidth={"100%"}
+      tileWidth={"100%"}
       rowSpacing={8}
     >
         {renderItem}
