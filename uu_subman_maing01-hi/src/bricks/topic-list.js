@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useLsi } from "uu5g04-hooks";
 import Config from "./config/config";
 import Topic from "./topic";
 import Uu5Tiles from "uu5tilesg02";
@@ -37,6 +37,8 @@ const TopicList = createVisualComponent({
 
   render({ subject, studyForm, onUpdate, onDelete }) {
     //@@viewOn:render
+    const fullTime =  useLsi({ cs:subject.language.cs.formOfStudy.fulltime.topics, en:subject.language.en.formOfStudy.fulltime.topics })
+    const partTime = useLsi({ cs:subject.language.cs.formOfStudy.parttime.topics, en:subject.language.cs.formOfStudy.parttime.topics })
     function renderItem(item) {
           if (item.length === 0) {
       return <UU5.Common.Error content="WTF No topics!" />;
@@ -50,7 +52,8 @@ const TopicList = createVisualComponent({
 
     return (
         <><Uu5Tiles.Grid
-      data={studyForm=="Full-time"?subject.language.cs.formOfStudy.fulltime.topics:subject.language.cs.formOfStudy.parttime.topics}
+       
+      data={studyForm=="Full-time"?fullTime:partTime}
       tileHeight="auto"
       tileWidth={"100%"}
       rowSpacing={8}
