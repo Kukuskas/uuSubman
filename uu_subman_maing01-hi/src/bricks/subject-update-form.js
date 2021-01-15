@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useContext, useSession  } from "uu5g04-hooks";
+import { createVisualComponent, useContext } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
 import FormUpdate from "./form-update";
@@ -40,7 +40,6 @@ const SubjectUpdateForm =  createVisualComponent({
 
   render({ onSave, onCancel, onDelete,  subject, showButton }) {
     //@@viewOn:render
-    const { identity } = useSession();
     const contextData = useContext(SubmanMainContext);
 
     function handleDelete() {
