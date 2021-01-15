@@ -59,12 +59,7 @@ const subjectUpdateDtoInType = shape({
                         shape({
                             id: id().isRequired,
                             studyMaterialList: array(
-                                shape({
-                                    subjectId: mongoId(),
-                                    url: uri(),
-                                    type: uu5String(50),
-                                    name: uu5String(50),
-                                })
+                                mongoId()
                             ),
                             topics: array(
                                 shape({

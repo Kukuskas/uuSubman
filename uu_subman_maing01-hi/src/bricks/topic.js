@@ -33,12 +33,12 @@ const Topic = createVisualComponent({
     
 
     return (
+       
         <>
-        <UU5.Bricks.Container>
-   <UU5.Bricks.Section content={topic.name} />
-   <UU5.Bricks.Section content={topic.desc} />
-   </UU5.Bricks.Container>
-        </>
+   <UU5.Bricks.Section content={topic.name} margin="5px"/>
+   <UU5.Bricks.Section content={topic.desc} margin="5px"/>
+   </>
+        
       );
     //@@viewOff:render
   }

@@ -38,15 +38,14 @@ const TopicList = createVisualComponent({
   render({ subject, studyForm, onUpdate, onDelete }) {
     //@@viewOn:render
     const fullTime =  useLsi({ cs:subject.language.cs.formOfStudy.fulltime.topics, en:subject.language.en.formOfStudy.fulltime.topics })
-    const partTime = useLsi({ cs:subject.language.cs.formOfStudy.parttime.topics, en:subject.language.cs.formOfStudy.parttime.topics })
+    const partTime = useLsi({ cs:subject.language.cs.formOfStudy.parttime.topics, en:subject.language.en.formOfStudy.parttime.topics })
     function renderItem(item) {
           if (item.length === 0) {
       return <UU5.Common.Error content="WTF No topics!" />;
     }else {
+      console.log(item.data);
       return <Topic topic={item.data} colorSchema="green" onUpdate={onUpdate} onDelete={onDelete} />
       }}
-      
-      
     
 
 
@@ -55,7 +54,6 @@ const TopicList = createVisualComponent({
        
       data={studyForm=="Full-time"?fullTime:partTime}
       tileHeight="auto"
-      tileWidth={"100%"}
       rowSpacing={8}
     >
         {renderItem}
