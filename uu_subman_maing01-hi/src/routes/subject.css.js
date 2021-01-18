@@ -6,6 +6,11 @@ const main = () => Config.Css.css`
     padding-bottom:2%;
     margin: 0;    
 `;
+const topic = () => Config.Css.css`
+ font-size: large;
+ font-weight: bold;
+`;
 export default {
-    main
+    main,
+    topic
   };

@@ -103,8 +103,8 @@ const SubjectDetail = createVisualComponent({
               {subject.credits}
             </UU5.BlockLayout.Tile>
 
-            <div onClick={handleClick}   >
-              <UU5.BlockLayout.Tile borderRadius="8px" margin="5px" className={Css.cursor()}>
+            <div onClick={handleClick} className={Css.cursor()}   >
+              <UU5.BlockLayout.Tile borderRadius="8px" margin="5px" className="uu5-elevation-hover-1" >
                 <UU5.Bricks.Icon icon="uubml-officer-junior-man" />
                 {<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
               </UU5.BlockLayout.Tile>
@@ -122,7 +122,7 @@ const SubjectDetail = createVisualComponent({
 
   
               <div onClick={handleSwitch} className={Css.cursor()}>
-            <UU5.BlockLayout.Tile borderRadius="8px" margin="5px">
+            <UU5.BlockLayout.Tile borderRadius="8px" margin="5px" className="uu5-elevation-hover-1">
              {studyForm}
             </UU5.BlockLayout.Tile>
             </div>
