@@ -51,7 +51,6 @@ const FormUpdate = createVisualComponent({
 
     function _handleSupervisorOnBlur(opt) {
       if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(opt.value)) {
-        setSupervisorValue(opt.value);
         setSupervisor(
           <>
             <Plus4U5.Bricks.UserData uuIdentity={opt.value} detail={true} visible="all">
