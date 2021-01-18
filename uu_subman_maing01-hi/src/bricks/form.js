@@ -23,7 +23,6 @@ const Form = createVisualComponent({
     onCancel: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
-
   //@@viewOn:defaultProps
   defaultProps: {
     subject: null,
