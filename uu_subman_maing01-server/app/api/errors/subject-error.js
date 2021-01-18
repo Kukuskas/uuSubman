@@ -2,6 +2,7 @@
 
 const SubmanMainUseCaseError = require("./subman-main-use-case-error.js");
 const SUBJECT_ERROR_PREFIX = `${SubmanMainUseCaseError.ERROR_PREFIX}subject/`;
+const STUDY_MATERIALS_ERROR_PREFIX = `${SubmanMainUseCaseError.ERROR_PREFIX}studyMaterials/`
 
 const Create = {
   UC_CODE: `${SUBJECT_ERROR_PREFIX}create/`,
@@ -95,7 +96,12 @@ const Update = {
       this.code = `${Update.UC_CODE}subjectDaoUpdateFailed`;
       this.message = "Update subject by subject Dao update failed.";
     }
-  }
+  },
+  
+};
+
+const AddStudyMaterial = {
+  UC_CODE: `${STUDY_MATERIALS_ERROR_PREFIX}addStudyMaterial/`,
   
 };
 
@@ -104,5 +110,6 @@ module.exports = {
   Delete,
   List,
   Get,
-  Create
+  Create,
+  AddStudyMaterial
 };

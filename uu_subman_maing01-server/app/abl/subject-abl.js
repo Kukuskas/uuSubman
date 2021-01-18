@@ -29,6 +29,7 @@ class SubjectAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("subject");
+    this.studyMaterialDao = DaoFactory.getDao("studyMaterials");
     this.subjectDao = DaoFactory.getDao("subject");
   }
 
@@ -182,6 +183,32 @@ class SubjectAbl {
     // hds 8
     subject.uuAppErrorMap = uuAppErrorMap;
     return subject;
+  }
+  async addStudyMaterial(awid, dtoIn) {
+    let validationResult = this.validator.validate("subjectCreateDtoInType", dtoIn);
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.createUnsupportedKeys.code,
+      Errors.Create.InvalidDtoIn
+    );
+
+    dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+
+
+    dtoIn.awid = awid;
+    let dtoOut;
+
+    try {
+      dtoOut = await this.dao.create(dtoIn);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        // A3
+        throw new Errors.Update.SubjectDaoUpdateFailed({ uuAppErrorMap }, e);
+      }
+    }
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
   }
 }
 

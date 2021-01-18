@@ -23,6 +23,10 @@ class SubjectController {
     return SubjectAbl.create(ucEnv.getUri().getAwid(), ucEnv.getDtoIn(), ucEnv.getSession(), ucEnv.getAuthorizationResult());
   }
 
+  addStudyMaterial(ucEnv) {
+    return SubjectAbl.addStudyMaterial(ucEnv.getUri().getAwid(), ucEnv.getDtoIn(), ucEnv.getAuthorizationResult());
+  }
+
 }
 
 module.exports = new SubjectController();
