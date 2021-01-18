@@ -185,7 +185,7 @@ class SubjectAbl {
     return subject;
   }
   async addStudyMaterial(awid, dtoIn) {
-    let validationResult = this.validator.validate("subjectCreateDtoInType", dtoIn);
+    let validationResult = this.validator.validate("addStudyMaterialDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
@@ -195,20 +195,48 @@ class SubjectAbl {
 
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
 
+    let sub = await this.dao.get(awid, dtoIn.id);
 
-    dtoIn.awid = awid;
+    if (!sub) {
+      // throw new Errors..SubjectDaoGetFailed({ uuAppErrorMap }, { id });
+    }
+    let id = id;
+    let studyMaterial = dtoIn.data;
+    studyMaterial.id = id;
+    let lang = dtoIn.language;
+    let form = dtoIn.formOfStudy;
+    
+    lang == cs
+      ? form == fulltime
+        ? sub.language.cs.formOfStudy.fulltime.studyMaterialList.push(id)
+        : sub.language.cs.formOfStudy.parttime.studyMaterialList.push(id)
+      : form == fulltime
+      ? sub.language.en.formOfStudy.fulltime.studyMaterialList.push(id)
+      : sub.language.en.formOfStudy.parttime.studyMaterialList.push(id);
+
+    studyMaterial.awid = awid;
+    
     let dtoOut;
-
+    let dtoOut2;
     try {
-      dtoOut = await this.dao.create(dtoIn);
+      dtoOut = await this.studyMaterialDao.create(studyMaterial);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        // A3
+        throw new Errors.AddStudyMaterial.SubjectDaoUpdateFailed({ uuAppErrorMap }, e);
+      }
+    }
+    try {
+      dtoOut2 = await this.dao.update(sub)
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         // A3
         throw new Errors.Update.SubjectDaoUpdateFailed({ uuAppErrorMap }, e);
       }
     }
+    
     dtoOut.uuAppErrorMap = uuAppErrorMap;
-    return dtoOut;
+    return dtoOut, dtoOut2;
   }
 }
 
