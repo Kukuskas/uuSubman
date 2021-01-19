@@ -41,13 +41,13 @@ display:none;
 `;
 
 export default {
-    main,
-    topic,
-    cursor,
-    detail,
-    update,
-    trash,
-    accordion,
-    updateTopic,
-    visibility
+  main,
+  topic,
+  cursor,
+  detail,
+  update,
+  trash,
+  accordion,
+  updateTopic,
+  visibility,
 };

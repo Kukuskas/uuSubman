@@ -11,13 +11,13 @@ const SubjectsTitle = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    subjects: UU5.PropTypes.array.isRequired
+    subjects: UU5.PropTypes.array.isRequired,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    subjects: []
+    subjects: [],
   },
   //@@viewOff:defaultProps
 
@@ -36,7 +36,7 @@ const SubjectsTitle = createComponent({
     //@@viewOn:render
     return null;
     //@@viewOff:render
-  }
+  },
 });
 
 export default SubjectsTitle;

@@ -20,10 +20,10 @@ const SubjectUpdateTopic = createComponent({
   //@@viewOn:propTypes
   propTypes: {
     subject: UU5.PropTypes.shape({
-        name: UU5.PropTypes.shape.isRequired,
-        desc: UU5.PropTypes.shape.isRequired,
-        id: UU5.PropTypes.isRequired,
-      }),
+      name: UU5.PropTypes.shape.isRequired,
+      desc: UU5.PropTypes.shape.isRequired,
+      id: UU5.PropTypes.isRequired,
+    }),
     onUpdate: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
   },
@@ -31,13 +31,13 @@ const SubjectUpdateTopic = createComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-      subject: null,
+    subject: null,
     onUpdate: () => {},
     onDelete: () => {},
   },
   //@@viewOff:defaultProps
-  
-  render({ onUpdate, onDelete, subject }) {
+
+  render({ onUpdate, onDelete, subject, topic }) {
     //@viewOn:hooks
     const [mode, setMode] = useState(Mode.BUTTON);
     //@viewOff:hooks
@@ -46,78 +46,57 @@ const SubjectUpdateTopic = createComponent({
     function handleUpdate() {
       setMode(Mode.FORM);
     }
-    function handleDelete(subject) {
-        onDelete(subject); ;
-      }
-
-    function handleSave(opt) {
-    //   let it = opt.values;
-    //   it.test==""?it.test=[{uuIdentity:"", formOfStudy: "fulltime"}]: it.test= JSON.parse(it.test)
-      
-    //   const input = {
-    //     id: subject.id,
-    //     name: { 
-    //       cs: it.nameCs, 
-    //       en: it.nameEn 
-    //     },
-    //     credits: parseInt(it.credits),
-    //     supervisor: it.supervisor,
-    //     degree: it.degree,
-    //     desc: {
-    //       cs: it.descCs,
-    //       en: it.descEn,
-    //     },
-    //     //languageOfStudy: it.languageOfStudy,
-    //    // language: subject.language,
-    //   // teachers: it.teachers.split(","),
-    //     // visibility: false,
-    //     // students: it.test
-    //   };
-    //   // if (it.students==null|| it.students==undefined) {
-    //   //   input.students=[]      
-    //   //   }
-        
-    //   if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
-    //     console.log("hahahahahahahahahahaha");
-    //   onUpdate(input);
-    //   setMode(Mode.BUTTON);
-    //   }else{return alert("fill in supervisor correctly")}
+    function handleDelete(topic) {
+      onDelete(topic);
     }
 
+    function handleSave(opt) {
+      let it = opt.values;
+      console.log("+++++++it+++++");
+      console.log(it);
+      const input = {
+        id: subject.id,
+        name: it.name,
+        desc: it.desc,
+        id: topic.id,
+        studyMaterialList: [],
+      };
+
+      onUpdate(input);
+      setMode(Mode.BUTTON);
+    }
 
     function handleCancel() {
       setMode(Mode.BUTTON);
     }
 
     //@@viewOff:private
- 
+
     //@@viewOn:render
     function renderButton() {
       return (
         <>
-    
-        <UU5.Bricks.Button
-         onClick={handleUpdate} 
-          bgStyle="transparent" 
-          colorSchema="blue"
-          className={Css.updateTopic()} size="m"
-          content = {<UU5.Bricks.Icon icon="glyphicon-edit"/>}
-        />
+          <UU5.Bricks.Button
+            onClick={handleUpdate}
+            bgStyle="transparent"
+            colorSchema="blue"
+            className={Css.updateTopic()}
+            size="m"
+            content={<UU5.Bricks.Icon icon="glyphicon-edit" />}
+          />
         </>
       );
     }
 
     function renderForm() {
-      return <SubjectUpdateFormTopic 
-      onSave={handleSave} 
-      onCancel={handleCancel} 
-      onDelete={handleDelete}
-      subject={subject}  />;
+      return (
+        <SubjectUpdateFormTopic onSave={handleSave} onCancel={handleCancel} onDelete={handleDelete} topic={topic} />
+      );
     }
 
     switch (mode) {
       case Mode.BUTTON:
-        return  renderButton();
+        return renderButton();
       default:
         return renderForm();
     }

@@ -8,7 +8,6 @@ let Calls = {
   /** URL containing app base, e.g. "https://uuos9.plus4u.net/vnd-app/awid/". */
 
   APP_BASE_URI: location.protocol + "//" + location.host + UU5.Environment.getAppBasePath(),
-  
 
   async call(method, url, dtoIn, clientOptions) {
     const response = await Plus4U5.Common.Calls.call(method, url, dtoIn, clientOptions);
@@ -18,22 +17,27 @@ let Calls = {
     let commandUri = Calls.getCommandUri("submanMain/load");
     return Calls.call("get", commandUri, dtoIn);
   },
-  
+
   listSubjects(dtoIn) {
     let commandUri = Calls.getCommandUri("subject/list");
     return Calls.call("get", commandUri, dtoIn);
   },
-  
+
   createSubject(dtoIn) {
     let commandUri = Calls.getCommandUri("subject/create");
     return Calls.call("post", commandUri, dtoIn);
   },
-  
+
   updateSubject(dtoIn) {
     let commandUri = Calls.getCommandUri("subject/update");
     return Calls.call("post", commandUri, dtoIn);
   },
-  
+
+  addTopicSubject(dtoIn) {
+    let commandUri = Calls.getCommandUri("subject/addTopic");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
   deleteSubject(dtoIn) {
     let commandUri = Calls.getCommandUri("subject/delete");
     return Calls.call("post", commandUri, dtoIn);

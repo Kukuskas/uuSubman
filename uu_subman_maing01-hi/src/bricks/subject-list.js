@@ -28,10 +28,10 @@ const SubjectList = createVisualComponent({
   defaultProps: {
     subjects: [],
     showButton: false,
-    onDetail: () => { },
-    onUpdate: () => { },
-    onDelete: () => { },
-    onCreate: () => { },
+    onDetail: () => {},
+    onUpdate: () => {},
+    onDelete: () => {},
+    onCreate: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -45,33 +45,41 @@ const SubjectList = createVisualComponent({
 
     //@@viewOn:private
     //@@viewOff:private
-   
-    const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
-    const isAdministration = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.ADMINISTRATIONS);
-    function canManage() { 
-      return isAuthority || isAdministration;     
-    }
- 
 
- function visibility() {
-  if (isAuthority||isAdministration){
-  subjects.map((data,index) => {
-  const isGarant = data.data.supervisor === identity.uuIdentity;
-  const isTeacher = data.data.teachers.some(teacher => teacher === identity.uuIdentity);
-  console.log(isGarant, isTeacher);
-    if ((!isGarant&&!isTeacher)&& data.data.visibility == false ){
-      subjects.splice(index,1)
+    const isAuthority = contextData?.data?.authorizedProfileList?.some(
+      (profile) => profile === Config.Profiles.AUTHORITIES
+    );
+    const isAdministration = contextData?.data?.authorizedProfileList?.some(
+      (profile) => profile === Config.Profiles.ADMINISTRATIONS
+    );
+    function canManage() {
+      return isAuthority || isAdministration;
     }
-  })}
-  return subjects
- }
-    
+
+    function visibility() {
+      if (isAuthority || isAdministration) {
+        subjects.map((data, index) => {
+          const isGarant = data.data.supervisor === identity.uuIdentity;
+          const isTeacher = data.data.teachers.some((teacher) => teacher === identity.uuIdentity);
+          console.log(isGarant, isTeacher);
+          if (!isGarant && !isTeacher && data.data.visibility == false) {
+            subjects.splice(index, 1);
+          }
+        });
+      }
+      return subjects;
+    }
 
     //@@viewOn:interface
     function renderItem(item) {
-
       return (
-        <Subject subject={item.data.data} colorSchema="green" onDetail={onDetail} onUpdate={onUpdate} onDelete={onDelete} />
+        <Subject
+          subject={item.data.data}
+          colorSchema="green"
+          onDetail={onDetail}
+          onUpdate={onUpdate}
+          onDelete={onDelete}
+        />
       );
     }
     //@@viewOn:interface
@@ -85,13 +93,12 @@ const SubjectList = createVisualComponent({
       setShowCreateModal(false);
     }
 
-
     function handleCreateSubjectSave(opt) {
       let it = opt.values;
       const input = {
         name: {
           cs: it.nameCs,
-          en: it.nameEn
+          en: it.nameEn,
         },
         credits: parseInt(it.credits),
         supervisor: it.supervisor,
@@ -108,15 +115,13 @@ const SubjectList = createVisualComponent({
       if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
         onCreate(input);
       } else {
-        return alert("fill in supervisor correctly")
+        return alert("fill in supervisor correctly");
       }
       setShowCreateModal(false);
     }
     //@@viewOff:handlers
 
-
     //@@viewOn:render
-
 
     if (subjects.length === 0) {
       return <UU5.Common.Error content="WTF No subjects!" />;
@@ -126,37 +131,37 @@ const SubjectList = createVisualComponent({
       return [
         {
           content: {
-            en: "Add subject"
+            en: "Add subject",
           },
 
           onClick: handleOpenCreateSubjectForm,
           icon: "mdi-plus-circle",
           colorSchema: "primary",
           bgStyle: "filled",
-          active: true
-        }
+          active: true,
+        },
       ];
     };
 
     return (
       <>
-        <SubjectCreateForm shown={showCreateModal} onSave={handleCreateSubjectSave} onCancel={handleCloseCreateSubjectForm} />
-       {visibility()&&( <Uu5Tiles.ControllerProvider data={subjects}>
-          {canManage() && (<Uu5Tiles.ActionBar actions={showButton ? GET_ACTIONS : []} />)}
-          <Uu5Tiles.Grid
-            tileHeight="auto"
-            tileMinWidth={200}
-            tileMaxWidth={300}
-            tileSpacing={8}
-            rowSpacing={8}
-          >
-            {renderItem}
-          </Uu5Tiles.Grid>
-        </Uu5Tiles.ControllerProvider>)}
+        <SubjectCreateForm
+          shown={showCreateModal}
+          onSave={handleCreateSubjectSave}
+          onCancel={handleCloseCreateSubjectForm}
+        />
+        {visibility() && (
+          <Uu5Tiles.ControllerProvider data={subjects}>
+            {canManage() && <Uu5Tiles.ActionBar actions={showButton ? GET_ACTIONS : []} />}
+            <Uu5Tiles.Grid tileHeight="auto" tileMinWidth={200} tileMaxWidth={300} tileSpacing={8} rowSpacing={8}>
+              {renderItem}
+            </Uu5Tiles.Grid>
+          </Uu5Tiles.ControllerProvider>
+        )}
       </>
     );
     //@@viewOff:render
-  }
+  },
 });
 
 export default SubjectList;

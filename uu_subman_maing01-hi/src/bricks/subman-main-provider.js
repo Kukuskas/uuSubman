@@ -14,15 +14,15 @@ const SubmanMainProvider = createComponent({
     //@@viewOn:hooks
     const state = useDataObject({
       handlerMap: {
-        load: Calls.loadSubmanMain
-      }
+        load: Calls.loadSubmanMain,
+      },
     });
     //@@viewOff:hooks
 
     //@@viewOn:render
     return <SubmanMainContext.Provider value={state}>{children}</SubmanMainContext.Provider>;
     //@@viewOff:render
-  }
+  },
 });
 
 export default SubmanMainProvider;

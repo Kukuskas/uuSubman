@@ -21,30 +21,22 @@ const FormUpdate = createVisualComponent({
     }),
     onSubmit: UU5.PropTypes.func,
     onCancel: UU5.PropTypes.func,
-   
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     subject: null,
-    onSubmit: () => { },
-    onCancel: () => { },
+    onSubmit: () => {},
+    onCancel: () => {},
   },
   //@@viewOff:defaultProps
-  
 
   getInitialState() {
     return {
       size: "m",
-
     };
-    
-  }, 
-   componentDidMount(){
-    UU5.Environment.EventListener.triggerEvent("onBlur", "subject.supervisor")
-    },
- 
+  },
 
   render({ onSave, onCancel, subject }) {
     //@@viewOn:render
@@ -52,24 +44,22 @@ const FormUpdate = createVisualComponent({
       { content: <UU5.Bricks.Lsi lsi={{ en: "Bachalor", cs: "Bakalářské" }} />, value: "bachelor" },
       { content: <UU5.Bricks.Lsi lsi={{ en: "Master", cs: "Magisterské" }} />, value: "master" },
     ];
-    
 
     const languageOfStudy = [
       { content: <UU5.Bricks.Lsi lsi={{ en: "English", cs: "Anglický" }} />, value: "english" },
       { content: <UU5.Bricks.Lsi lsi={{ en: "Czech", cs: "Český" }} />, value: "czech" },
       { content: <UU5.Bricks.Lsi lsi={{ en: "Czech/English", cs: "Český/Anglický" }} />, value: "czech/english" },
     ];
- 
-  
 
     function _handleSupervisorOnBlur(opt) {
-      if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(opt.value)){
+      if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(opt.value)) {
         setSupervisor(opt.value);
         opt.component.setValueDefault(opt.value);
-      ;}else if(opt.value!==""){alert("Please fill in Supervisor uuIdentity")}
+      } else if (opt.value !== "") {
+        alert("Please fill in Supervisor uuIdentity");
+      }
     }
 
-    
     function _handleSupervisorOnDelete() {
       setSupervisor("");
       setDis(false);
@@ -78,13 +68,12 @@ const FormUpdate = createVisualComponent({
     function handleUuIdentityChange(value, index) {
       studentsList[index].uuIdentity = value;
       setStudentsList(studentsList);
-      setTestStudents(JSON.stringify(studentsList))
-
+      setTestStudents(JSON.stringify(studentsList));
     }
     function handleFormOfStudyChange(value, index) {
       studentsList[index].formOfStudy = value;
       setStudentsList(studentsList);
-      setTestStudents(JSON.stringify(studentsList))
+      setTestStudents(JSON.stringify(studentsList));
     }
 
     function handleAdd() {
@@ -101,18 +90,15 @@ const FormUpdate = createVisualComponent({
         const newStudentsList = studentsList.filter((_, index) => index !== i);
 
         setStudentsList(newStudentsList);
-        setTestStudents(JSON.stringify(studentsList))
+        setTestStudents(JSON.stringify(studentsList));
       } else {
         setStudentsList([{ uuUdentity: "", formOfStudy: "" }]);
-        setTestStudents("")
+        setTestStudents("");
       }
-
     }
-  
 
-    const [testStudents, setTestStudents] = useState("")
+    const [testStudents, setTestStudents] = useState("");
     const [studentsList, setStudentsList] = useState(subject.students);
-
 
     const formOfStudyName = [
       { content: <UU5.Bricks.Lsi lsi={{ en: "Full-time", cs: "Prezenční" }} />, value: "fulltime" },
@@ -123,7 +109,7 @@ const FormUpdate = createVisualComponent({
     const [supervisor, setSupervisor] = useState("");
 
     return (
-      <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel} >
+      <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
         <UU5.Bricks.Container>
           <UU5.Bricks.Row>
             <UU5.Bricks.Column colWidth="s-6">
@@ -199,32 +185,31 @@ const FormUpdate = createVisualComponent({
             </UU5.Bricks.Column>
           </UU5.Bricks.Row>
           <UU5.Bricks.Column>
-          <UU5.Forms.Text
-            borderRadius="8px"
-            label={<UU5.Bricks.Lsi lsi={{ en: "Supervisor", cs: "Garant" }} />}
-            name="supervisor"
-            disabled={dis}
-            value={subject.supervisor}         
-            onBlur={_handleSupervisorOnBlur}
-            validate={/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/}
-            required
-          />
+            <UU5.Forms.Text
+              borderRadius="8px"
+              label={<UU5.Bricks.Lsi lsi={{ en: "Supervisor", cs: "Garant" }} />}
+              name="supervisor"
+              disabled={dis}
+              value={subject.supervisor}
+              onBlur={_handleSupervisorOnBlur}
+              validate={/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/}
+              required
+            />
           </UU5.Bricks.Column>
-          {supervisor && (<UU5.Bricks.Column colWidth="s-6" style={{alignSelf: "flex-end"}}><Plus4U5.Bricks.BusinessCard uuIdentity={supervisor} visual={"micro"} /></UU5.Bricks.Column>)}
-             <UU5.Bricks.Column>
-          <UU5.Forms.Text
-            borderRadius="8px"
-            label={<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
-            name="teachers"
-            value={subject.teachers.toString()}
-          />
-      </UU5.Bricks.Column>
-          <UU5.Forms.Checkbox
-            name="visibility"
-            value={true}
-            label="Visibility"
-            size="m"
-          />
+          {supervisor && (
+            <UU5.Bricks.Column colWidth="s-6" style={{ alignSelf: "flex-end" }}>
+              <Plus4U5.Bricks.BusinessCard uuIdentity={supervisor} visual={"micro"} />
+            </UU5.Bricks.Column>
+          )}
+          <UU5.Bricks.Column>
+            <UU5.Forms.Text
+              borderRadius="8px"
+              label={<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
+              name="teachers"
+              value={subject.teachers.toString()}
+            />
+          </UU5.Bricks.Column>
+          <UU5.Forms.Checkbox name="visibility" value={true} label="Visibility" size="m" />
 
           {studentsList.map((student, index) => (
             <div key={index}>
@@ -239,7 +224,6 @@ const FormUpdate = createVisualComponent({
                         : student.uuIdentity
                     }
                     onBlur={(value) => handleUuIdentityChange(value.value, index)}
-
                   />
                 </UU5.Bricks.Column>
                 <UU5.Bricks.Column colWidth="s-4">

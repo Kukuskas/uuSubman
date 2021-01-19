@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
 import "uu5g04-bricks";
@@ -9,7 +9,7 @@ import "uu5g04-bricks";
 
 const FormUpdateTopic = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "SubjectCreateForm",
+  displayName: Config.TAG + "FormUpdateTopic",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -26,7 +26,7 @@ const FormUpdateTopic = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    subject: null,
+    topics: [], //EDIT
     onSubmit: () => {},
     onCancel: () => {},
   },
@@ -36,23 +36,29 @@ const FormUpdateTopic = createVisualComponent({
       size: "m",
     };
   },
-  render({ onSave, onCancel, subject }) {
-    //@@viewOn:render
 
+  render({ onSave, onCancel, topic, subject }) {
+    //@@viewOn:render
+    console.log("test");
+    console.log(subject);
+    console.log("+++++++topic+++++++++++");
+    console.log(topic);
     return (
       <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
         <UU5.Bricks.Container>
-          <UU5.Bricks.Row>
-            <UU5.Bricks.Column colWidth="s-6">
-              <UU5.Forms.Text
-                borderRadius="8px"
-                label={<UU5.Bricks.Lsi lsi={{ en: "Add Topic", cs: "Přidat téma" }} />}
-                name="nameCs"
-                value={subject.name.cs}
-                required
-              />
-            </UU5.Bricks.Column>
-            </UU5.Bricks.Row>
+          <UU5.Forms.Text
+            borderRadius="8px"
+            label={<UU5.Bricks.Lsi lsi={{ en: "Edit Name", cs: "Upravit Téma" }} />}
+            name="name"
+            value={topic.name}
+          />
+          <UU5.Forms.Text
+            borderRadius="8px"
+            label={<UU5.Bricks.Lsi lsi={{ en: "Edit Description", cs: "Upravit Popis" }} />}
+            name="desc"
+            value={topic.desc}
+            required
+          />
         </UU5.Bricks.Container>
       </UU5.Forms.ContextForm>
     );

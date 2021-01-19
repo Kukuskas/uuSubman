@@ -16,7 +16,7 @@ const Lsi = {
     subjects: {
       cs: "Předměty",
       en: "Subjects",
-    }
+    },
   },
 
   about: {

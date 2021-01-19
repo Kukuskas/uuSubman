@@ -22,7 +22,7 @@ const TopicList = createVisualComponent({
     studyForm: UU5.PropTypes.string,
     onDetail: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func
+    onDelete: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -32,39 +32,52 @@ const TopicList = createVisualComponent({
     studyForm: "Full-time",
     onDetail: () => {},
     onUpdate: () => {},
-    onDelete: () => {}
+    onDelete: () => {},
   },
   //@@viewOff:defaultProps
 
   render({ subject, studyForm, onUpdate, onDelete }) {
     //@@viewOn:render
-    const fullTime =  useLsi({ cs:subject.language.cs.formOfStudy.fulltime.topics, en:subject.language.en.formOfStudy.fulltime.topics })
-    const partTime = useLsi({ cs:subject.language.cs.formOfStudy.parttime.topics, en:subject.language.en.formOfStudy.parttime.topics })
+    const fullTime = useLsi({
+      cs: subject.language.cs.formOfStudy.fulltime.topics,
+      en: subject.language.en.formOfStudy.fulltime.topics,
+    });
+    const partTime = useLsi({
+      cs: subject.language.cs.formOfStudy.parttime.topics,
+      en: subject.language.en.formOfStudy.parttime.topics,
+    });
     function renderItem(item) {
-          if (item.length === 0) {
-      return <UU5.Common.Error content="WTF No topics!" />;
-    }else {
-      console.log(item.data);
-      return <Topic topic={item.data} colorSchema="green" onUpdate={onUpdate} onDelete={onDelete} teachers={subject.teachers} supervisor={subject.supervisor} />
-      }}
-    
-
+      if (item.length === 0) {
+        return <UU5.Common.Error content="WTF No topics!" />;
+      } else {
+        console.log(item.data);
+        return (
+          <Topic
+            topic={item.data}
+            colorSchema="green"
+            onUpdate={onUpdate}
+            onDelete={onDelete}
+            teachers={subject.teachers}
+            supervisor={subject.supervisor}
+            subject={subject}
+          />
+        );
+      }
+    }
 
     return (
-    <>
-     
-      <Uu5Tiles.Grid
-      data={studyForm=="Full-time"?fullTime:partTime}
-      tileHeight="auto"
-      rowSpacing={8}
-    >
-        {renderItem}
-    </Uu5Tiles.Grid>
-    
-</>
-      );
+      <>
+        {/* <Uu5Tiles.ControllerProvider data={topic}> */}
+        <Uu5Tiles.Grid data={studyForm == "Full-time" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
+          {renderItem}
+        </Uu5Tiles.Grid>
+        {/* </Uu5Tiles.ControllerProvider> */}
+      </>
+    );
     //@@viewOff:render
-  }
+  },
 });
 
 export default TopicList;
+
+//@@viewOn:imports

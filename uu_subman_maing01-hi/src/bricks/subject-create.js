@@ -39,9 +39,9 @@ const SubjectCreate = createComponent({
     function handleSave(opt) {
       let it = opt.values;
       const input = {
-        name: { 
-          cs: it.nameCs, 
-          en: it.nameEn 
+        name: {
+          cs: it.nameCs,
+          en: it.nameEn,
         },
         credits: parseInt(it.credits),
         supervisor: it.supervisor,
@@ -55,10 +55,11 @@ const SubjectCreate = createComponent({
         visibility: false,
       };
       if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
-        
-      onCreate(input);
-      setMode(Mode.BUTTON);
-      }else{return alert("fill in supervisor correctly")}
+        onCreate(input);
+        setMode(Mode.BUTTON);
+      } else {
+        return alert("fill in supervisor correctly");
+      }
     }
 
     function handleCancel(subject) {
@@ -84,7 +85,7 @@ const SubjectCreate = createComponent({
 
     switch (mode) {
       case Mode.BUTTON:
-        // return renderButton();
+      // return renderButton();
       default:
         return renderForm();
     }

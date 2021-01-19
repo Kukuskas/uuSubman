@@ -45,6 +45,21 @@
         "realization": "api/controllers/SubjectController.update",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "subject/addTopic": {
+        "realization": "api/controllers/SubjectController.addTopic",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "subject/deleteTopic": {
+        "realization": "api/controllers/SubjectController.deleteTopic",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "subject/updateTopic": {
+        "realization": "api/controllers/SubjectController.updateTopic",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

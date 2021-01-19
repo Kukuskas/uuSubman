@@ -4,6 +4,7 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/subject-error.js");
+const ObjectId = require('mongodb').ObjectID;
 
 const AUTHORITIES_PROFILE = "Authorities";
 
@@ -23,6 +24,12 @@ const WARNINGS = {
   updateUnsupportedKeys: {
     code: `${Errors.Update.UC_CODE}unsupportedKeys`,
   },
+  addTopicUnsupportedKeys:{
+    code: `${Errors.AddTopic.UC_CODE}unsupportedKeys`,
+  },
+  deleteTopicUnsupportedKeys:{
+    code: `${Errors.DeleteTopic.UC_CODE}unsupportedKeys`,
+  }
 };
 
 class SubjectAbl {
@@ -31,6 +38,161 @@ class SubjectAbl {
     this.dao = DaoFactory.getDao("subject");
     this.subjectDao = DaoFactory.getDao("subject");
   }
+
+  async updateTopic(awid, dtoIn) {
+    let validationResult = this.validator.validate("subjectAddTopicDtoInType", dtoIn);
+    // hds 2.2, 2.3, A3, A4
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.addTopicUnsupportedKeys.code,
+      Errors.AddTopic.InvalidDtoIn
+    );
+
+    // hds 3
+    let subject = await this.dao.get(awid, dtoIn.id);
+    // A5
+    if (!subject) {
+      throw new Errors.AddTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
+    }
+
+    // hds 4
+    //dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
+
+    // hds 7rs
+    // let lang = dtoIn.language;
+    // let form = dtoIn.formOfStudy;
+    // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
+    
+    // dtoIn.data.id= ObjectId();
+    // lang == "cs"
+    //   ? form == "fulltime"
+    //     ? subject.language.cs.formOfStudy.fulltime.topics.push(dtoIn.data)
+    //     : subject.language.cs.formOfStudy.parttime.topics.push(dtoIn.data)
+    //   : form == "fulltime"
+    //   ? subject.language.en.formOfStudy.fulltime.topics.push(dtoIn.data)
+    //   : subject.language.en.formOfStudy.parttime.topics.push(dtoIn.data);
+    let dtoOut;
+    try {
+      dtoIn.awid = awid;
+      dtoOut = await this.dao.update(subject);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        // A10
+        throw new Errors.AddTopic.SubjectDaoAddTopicFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+
+    // hds 8
+    subject.uuAppErrorMap = uuAppErrorMap;
+    return subject;
+    
+  }
+
+  async deleteTopic(awid, dtoIn) {
+    let validationResult = this.validator.validate("subjectDeleteTopicDtoInType", dtoIn);
+    // hds 2.2, 2.3, A3, A4
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.deleteTopicUnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
+    );
+
+    // hds 3
+    let subject = await this.dao.get(awid, dtoIn.id);
+    // A5
+    if (!subject) {
+      throw new Errors.DeleteTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
+    }
+
+    // hds 4
+    //dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
+
+    // hds 7rs
+    let lang = dtoIn.language;
+    let form = dtoIn.formOfStudy;
+    // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
+    let x = dtoIn.data.id
+    
+
+    lang == "cs"
+      ? form == "fulltime"
+        ? subject.language.cs.formOfStudy.fulltime.topics.filter((topic) => topic.id !== x)
+       : subject.language.cs.formOfStudy.parttime.topics= subject.language.cs.formOfStudy.parttime.topics.filter((topic) => topic.id !== x)
+      : form == "fulltime"
+      ? subject.language.en.formOfStudy.fulltime.topics.filter((topic) => topic.id !== x)
+      : subject.language.en.formOfStudy.parttime.topics.filter((topic) => topic.id !== x);
+    let dtoOut;
+    try {
+      dtoIn.awid = awid;
+      dtoOut = await this.dao.update(subject);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        // A10
+        throw new Errors.DeleteTopic.SubjectDaoDeleteTopicFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+
+    // hds 8
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return (subject.language.cs.formOfStudy.parttime.topics.filter((topic) => topic.ObjectId(id) !== "60074853fd10b940b0571190"));
+  }
+
+  async addTopic(awid, dtoIn) {
+    let validationResult = this.validator.validate("subjectAddTopicDtoInType", dtoIn);
+    // hds 2.2, 2.3, A3, A4
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.addTopicUnsupportedKeys.code,
+      Errors.AddTopic.InvalidDtoIn
+    );
+
+    // hds 3
+    let subject = await this.dao.get(awid, dtoIn.id);
+    // A5
+    if (!subject) {
+      throw new Errors.AddTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
+    }
+
+    // hds 4
+    //dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
+
+    // hds 7rs
+    let lang = dtoIn.language;
+    let form = dtoIn.formOfStudy;
+    // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
+    
+    dtoIn.data.id= ObjectId();
+    lang == "cs"
+      ? form == "fulltime"
+        ? subject.language.cs.formOfStudy.fulltime.topics.splice(dtoIn.data,1)
+        : subject.language.cs.formOfStudy.parttime.topics.splice(dtoIn.data,1)
+      : form == "fulltime"
+      ? subject.language.en.formOfStudy.fulltime.topics.splice(dtoIn.data,1)
+      : subject.language.en.formOfStudy.parttime.topics.splice(dtoIn.data,1);
+    let dtoOut;
+    try {
+      dtoIn.awid = awid;
+      dtoOut = await this.dao.update(subject);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        // A10
+        throw new Errors.AddTopic.SubjectDaoAddTopicFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+    // hds 8
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
+  }  
+  
 
   async delete(awid, dtoIn) {
     let validationResult = this.validator.validate("subjectDeleteDtoInType", dtoIn);

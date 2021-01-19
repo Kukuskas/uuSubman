@@ -9,16 +9,13 @@ const Test = createComponent({
   displayName: Config.TAG + "Test",
   //@@viewOff:statics
 
-
   //@@viewOff:defaultProps
 
-  render({  }) {
-
-
+  render({}) {
     //@@viewOn:render
     return "Hey you";
     //@@viewOff:render
-  }
+  },
 });
 
 export default Test;
