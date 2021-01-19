@@ -98,11 +98,11 @@ const SubjectRoute = createVisualComponent({
 
     return (
       <UU5.Bricks.Section className={Css.main()}>
-        <UU5.Bricks.Button
+        {/* <UU5.Bricks.Button
           colorSchema="primary"
           content={<UU5.Bricks.Lsi lsi={{ en: "Back", cs: "Zpět" }} />}
           onClick={handleBack}
-        />
+        /> */}
         <UU5.Bricks.Section className={Css.main()}>
           <SubjectProvider>
             {({ state, data, errorData, pendingData, handlerMap }) => {

@@ -1,10 +1,12 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent, useSession, useContext} from "uu5g04-hooks";
 import Config from "./config/config";
 import Uu5Tiles from "uu5tilesg02";
 import Css from "../routes/subject.css";
 import Test from "./test";
+import SubjectUpdateTopic from "./subject-update-topic";
+import SubmanMainContext from "../bricks/subman-main-context";
 //@@viewOff:imports
 
 const Topic = createVisualComponent({
@@ -31,26 +33,33 @@ const Topic = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ topic, onDetail, onUpdate, onDelete }) { //EDIT
+  render({ topic, onDetail, onUpdate, onDelete, teachers, supervisor }) { //EDIT
     //@@viewOn:render
-    const [studyMaterials, setStudyMaterials] = useState(true);
-    function handleClick() {
-      studyMaterials == true ? setStudyMaterials(false) : setStudyMaterials(true)
-    }
-    return (
-      <>
+     const { identity } = useSession();
+     const contextData = useContext(SubmanMainContext);
 
-        <div onClick={handleClick}  >
-          <UU5.Bricks.Box colorSchema="green" borderRadius="8px">
-            <UU5.Bricks.Section content={topic.name} margin="5px" className={Css.topic()} icon="uu5-arrow-down" />
-            <UU5.Bricks.Section content={topic.desc} margin="5px" />
-          </UU5.Bricks.Box>
-        </div>
-        <UU5.Bricks.Section
-          hidden={studyMaterials}
-          content={<Test />}
-        >
-        </UU5.Bricks.Section>
+      function canManage() {
+      const isTeacher = teachers.some(teacher => teacher === identity.uuIdentity );
+      const isGarant = supervisor === identity.uuIdentity;
+     const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
+      return  isAuthority ||isTeacher || isGarant;
+    }
+
+    return (
+      <>   
+{canManage() && ( <SubjectUpdateTopic  onUpdate={onUpdate} onDelete={onDelete} topic={topic}  />)}
+        <UU5.Bricks.Section content={topic.name}/>
+<UU5.Bricks.Accordion >
+<UU5.Bricks.Panel
+    borderRadius="8px"
+    header={topic.desc}
+    content = {<Test />}
+    colorSchema="grey"
+    iconExpanded="mdi-chevron-up"
+    iconCollapsed="mdi-chevron-down"
+/>
+
+</UU5.Bricks.Accordion>
       </>
 
     );

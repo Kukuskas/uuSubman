@@ -4,6 +4,7 @@ import { createVisualComponent, useLsi } from "uu5g04-hooks";
 import Config from "./config/config";
 import Topic from "./topic";
 import Uu5Tiles from "uu5tilesg02";
+
 //@@viewOff:imports
 
 const TopicList = createVisualComponent({
@@ -44,14 +45,15 @@ const TopicList = createVisualComponent({
       return <UU5.Common.Error content="WTF No topics!" />;
     }else {
       console.log(item.data);
-      return <Topic topic={item.data} colorSchema="green" onUpdate={onUpdate} onDelete={onDelete} />
+      return <Topic topic={item.data} colorSchema="green" onUpdate={onUpdate} onDelete={onDelete} teachers={subject.teachers} supervisor={subject.supervisor} />
       }}
     
 
 
     return (
-        <><Uu5Tiles.Grid
-       
+    <>
+     
+      <Uu5Tiles.Grid
       data={studyForm=="Full-time"?fullTime:partTime}
       tileHeight="auto"
       rowSpacing={8}

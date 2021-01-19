@@ -2,7 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
-import Css from "../routes/detail.css";
+import Css from "../routes/subject.css";
 import Uu5Tiles from "uu5tilesg02";
 //@@viewOff:imports
 
@@ -30,6 +30,7 @@ const TeacherList = createVisualComponent({
 
 
     function renderItem(item) {
+      
         return (
             <Plus4U5.Bricks.BusinessCard uuIdentity={item.data} hidePhoto={true} visual="micro" />
         );

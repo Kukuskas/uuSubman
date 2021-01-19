@@ -8,7 +8,7 @@ import "uu5g04-block-layout";
 import "uu5g04-forms";
 import TeacherList from "./teacher-list";
 import TopicList from "./topic-list";
-import Css from "../routes/detail.css";
+import Css from "../routes/subject.css";
 import SubjectUpdate from "../bricks/subject-update";
 
 

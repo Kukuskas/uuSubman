@@ -3,7 +3,7 @@ import UU5 from "uu5g04";
 import { createComponent, useState, useContext, useSession } from "uu5g04-hooks";
 import Config from "./config/config";
 import SubjectUpdateForm from "./subject-update-form";
-import Css from "../routes/detail.css";
+import Css from "../routes/subject.css";
 import SubmanMainContext from "../bricks/subman-main-context";
 //@@viewOff:imports
 
@@ -72,7 +72,7 @@ const SubjectUpdate = createComponent({
         languageOfStudy: it.languageOfStudy,
         language: subject.language,
         teachers: it.teachers.split(","),
-        visibility: false,
+        visibility: it.visibility,
         students: it.test
       };
       // if (it.students==null|| it.students==undefined) {
@@ -96,7 +96,8 @@ const SubjectUpdate = createComponent({
       const isTeacher = subject.teachers.some(teacher => teacher === identity.uuIdentity );
       const isGarant = subject.supervisor === identity.uuIdentity;
       const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
-      return isAuthority || isTeacher || isGarant;
+      const isAdministration = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.ADMINISTRATIONS);
+      return isAuthority || isTeacher || isGarant ||isAdministration;
     }
 
  
@@ -108,6 +109,7 @@ const SubjectUpdate = createComponent({
         <UU5.Bricks.Button
          onClick={handleUpdate} 
           bgStyle="transparent" 
+          colorSchema="blue"
          className={Css.update()} size="l"
          content = {<UU5.Bricks.Icon icon="glyphicon-edit"/>}
         />)}
