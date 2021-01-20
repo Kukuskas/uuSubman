@@ -14,6 +14,10 @@ let Calls = {
     const response = await Plus4U5.Common.Calls.call(method, url, dtoIn, clientOptions);
     return response.data;
   },
+  loadSubmanMain(dtoIn) {
+    let commandUri = Calls.getCommandUri("submanMain/load");
+    return Calls.call("get", commandUri, dtoIn);
+  },
   
   listSubjects(dtoIn) {
     let commandUri = Calls.getCommandUri("subject/list");

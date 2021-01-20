@@ -1,0 +1,284 @@
+//@@viewOn:imports
+import UU5 from "uu5g04";
+import { createVisualComponent, useState, getState } from "uu5g04-hooks";
+import Config from "./config/config";
+import "uu5g04-forms";
+import "uu5g04-bricks";
+
+//@@viewOff:imports
+
+const FormUpdate = createVisualComponent({
+  //@@viewOn:statics
+  displayName: Config.TAG + "SubjectCreateForm",
+  //@@viewOff:statics
+
+  //@@viewOn:propTypes
+  propTypes: {
+    subject: UU5.PropTypes.shape({
+      name: UU5.PropTypes.shape.isRequired,
+      desc: UU5.PropTypes.shape.isRequired,
+      id: UU5.PropTypes.isRequired,
+    }),
+    onSubmit: UU5.PropTypes.func,
+    onCancel: UU5.PropTypes.func,
+  },
+  //@@viewOff:propTypes
+
+  //@@viewOn:defaultProps
+  defaultProps: {
+    subject: null,
+    onSubmit: () => {},
+    onCancel: () => {},
+  },
+  //@@viewOff:defaultProps
+  getInitialState() {
+    return {
+      size: "m",
+    };
+  },
+  render({ onSave, onCancel, subject }) {
+    //@@viewOn:render
+    const degreeName = [
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Bachalor", cs: "Bakalářské" }} />, value: "bachelor" },
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Master", cs: "Magisterské" }} />, value: "master" },
+    ];
+
+    const languageOfStudy = [
+      { content: <UU5.Bricks.Lsi lsi={{ en: "English", cs: "Anglický" }} />, value: "english" },
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Czech", cs: "Český" }} />, value: "czech" },
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Czech/English", cs: "Český/Anglický" }} />, value: "czech/english" },
+    ];
+
+    function _handleSupervisorOnBlur(opt) {
+      if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(opt.value)) {
+        setSupervisorValue(opt.value);
+        setSupervisor(
+          <>
+            <Plus4U5.Bricks.UserData uuIdentity={opt.value} detail={true} visible="all">
+              {({ isLoading, data }) => {
+                if (isLoading) {
+                  return <UU5.Bricks.Loading />;
+                } else {
+                  if (data.name) {
+                    setDis(true);
+                    return (
+                      <>
+                        <UU5.Bricks.Row>
+                          <Plus4U5.Bricks.UserPhoto width="80px" uuIdentity={opt.value} />
+                          {data.title} {data.name} {data.suffix}
+                          <UU5.Bricks.Button
+                            onClick={_handleSupervisorOnDelete}
+                            size="s"
+                            bgStyle="transparent"
+                            borderRadius="800px"
+                            className="uu5-common-center"
+                          >
+                            <UU5.Bricks.Icon icon="fa-times" />
+                          </UU5.Bricks.Button>
+                        </UU5.Bricks.Row>
+                      </>
+                    );
+                  } else {
+                    setDis(false);
+                    return <UU5.Bricks.Text color="red">UuIdentity doesn't exist!</UU5.Bricks.Text>;
+                  }
+                }
+              }}
+            </Plus4U5.Bricks.UserData>
+          </>
+        );
+      } else if (opt.value !== "") {
+        alert("Please fill in Supervisor uuIdentity");
+      }
+    }
+    function _handleSupervisorOnDelete() {
+      setSupervisor("");
+      setDis(false);
+    }
+
+    function handleUuIdentityChange(value, index) {
+       studentsList[index].uuIdentity = value;
+       setStudentsList(studentsList);
+       setTestStudents(JSON.stringify(studentsList))
+
+    }
+    function handleFormOfStudyChange(value, index) {
+       studentsList[index].formOfStudy = value;
+       setStudentsList(studentsList);
+       setTestStudents(JSON.stringify(studentsList))
+    }
+
+
+    function handleAdd() {
+      const i = studentsList;
+      if (i[i.length - 1].uuIdentity == "") {
+      } else {
+        const newStudentsList = studentsList.concat({ uuIdentity: "", formOfStudy:"fulltime" });
+        setStudentsList(newStudentsList);
+      }
+    }
+
+    function handleRemove(i) {
+      if (studentsList.length>1) {
+        const newStudentsList = studentsList.filter((_, index) => index !== i);
+
+        setStudentsList(newStudentsList);
+        setTestStudents(JSON.stringify(studentsList))
+      } else {
+        setStudentsList([{ uuUdentity: "", formOfStudy:"" }]);
+        setTestStudents("")
+      }
+
+    }
+    const [testStudents, setTestStudents] = useState("")
+    const [studentsList, setStudentsList] = useState(subject.students);
+    
+
+    const formOfStudyName = [
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Full-time", cs: "Prezenční" }} />, value: "fulltime" },
+      { content: <UU5.Bricks.Lsi lsi={{ en: "Part-time", cs: "Dálkové" }} />, value: "parttime" },
+    ];
+
+    const [dis, setDis] = useState(false);
+    const [supervisor, setSupervisor] = useState("");
+
+    return (
+      <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
+        <UU5.Bricks.Container>
+          <UU5.Bricks.Row>
+            <UU5.Bricks.Column colWidth="s-6">
+              <UU5.Forms.Text
+                borderRadius="8px"
+                label={<UU5.Bricks.Lsi lsi={{ en: "Czech Name", cs: "Český Název" }} />}
+                name="nameCs"
+                value={subject.name.cs}
+                required
+              />
+            </UU5.Bricks.Column>
+            <UU5.Bricks.Column colWidth="s-6">
+              <UU5.Forms.Text
+                borderRadius="8px"
+                label={<UU5.Bricks.Lsi lsi={{ en: "English Name", cs: "Anglický Název" }} />}
+                name="nameEn"
+                value={subject.name.en}
+                required
+              />
+            </UU5.Bricks.Column>
+          </UU5.Bricks.Row>
+          <UU5.Bricks.Row>
+            <UU5.Bricks.Column colWidth="s-2">
+              <UU5.Forms.Number
+                placeholder="0"
+                min={0}
+                max={40}
+                buttonHidden={true}
+                borderRadius="8px"
+                label={<UU5.Bricks.Lsi lsi={{ en: "Credits", cs: "Kredity" }} />}
+                name="credits"
+                value={subject.credits}
+                required
+              />
+            </UU5.Bricks.Column>
+            <UU5.Bricks.Column colWidth="s-5">
+              <UU5.Forms.SwitchSelector
+                borderRadius="8px"
+                items={degreeName}
+                label={<UU5.Bricks.Lsi lsi={{ en: "Type of study", cs: "Typ studia" }} />}
+                name="degree"
+                value={subject.degree}
+              />
+            </UU5.Bricks.Column>
+            <UU5.Bricks.Column colWidth="s-5">
+              <UU5.Forms.SwitchSelector
+                borderRadius="8px"
+                items={languageOfStudy}
+                label={<UU5.Bricks.Lsi lsi={{ en: "Language", cs: "Jazyk" }} />}
+                name="languageOfStudy"
+                value={subject.languageOfStudy}
+              />
+            </UU5.Bricks.Column>
+          </UU5.Bricks.Row>
+          <UU5.Bricks.Row>
+            <UU5.Bricks.Column colWidth="s-6">
+              <UU5.RichText.EditorInput
+                radius="8px"
+                label={<UU5.Bricks.Lsi lsi={{ en: "Czech description", cs: "Český popis" }} />}
+                name="descCs"
+                value={subject.desc.cs}
+                required
+              />
+            </UU5.Bricks.Column>
+            <UU5.Bricks.Column colWidth="s-6">
+              <UU5.RichText.EditorInput
+                // maxHeight = "106px"
+                label={<UU5.Bricks.Lsi lsi={{ en: "English description", cs: "Anglický popis" }} />}
+                name="descEn"
+                value={subject.desc.en}
+                required
+              />
+            </UU5.Bricks.Column>
+          </UU5.Bricks.Row>
+          <UU5.Forms.Text
+            borderRadius="8px"
+            label={<UU5.Bricks.Lsi lsi={{ en: "Supervisor", cs: "Garant" }} />}
+            name="supervisor"
+            onBlur={_handleSupervisorOnBlur}
+            disabled={dis}
+            value={subject.supervisor}
+            validate={/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/}
+            required
+          />
+          <UU5.Bricks.Section content={supervisor} />
+          <UU5.Forms.Text
+            borderRadius="8px"
+            label={<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
+            name="teachers"
+            value={subject.teachers.toString()}
+          />
+          {studentsList.map((student, index) => (
+            <div key={index}>
+              <UU5.Bricks.Row label="student">
+                <UU5.Bricks.Column colWidth="s-4">
+                  <UU5.Forms.Text
+                    type="text"
+                    name={"students" + index}
+                    value={
+                      student == null
+                        ? ((student = { uuIdentity: "", formOfStudy: "fulltime" }), student.uuIdentity)
+                        : student.uuIdentity
+                    }
+                    onBlur={(value) => handleUuIdentityChange(value.value, index) }
+                    
+                  />
+                </UU5.Bricks.Column>
+                <UU5.Bricks.Column colWidth="s-4">
+                  <UU5.Forms.SwitchSelector
+                    borderRadius="8px"
+                    items={formOfStudyName}
+                    value={student == null ? "" : student.formOfStudy}
+                    name={"formOfStudy" + index}
+                    onChange={(value) => handleFormOfStudyChange(value.value, index)} 
+                  />
+                </UU5.Bricks.Column>
+                <UU5.Bricks.Column colWidth="s-4">
+                  <UU5.Bricks.Button onClick={() => handleRemove(index)} content="Remove" />
+                </UU5.Bricks.Column>
+              </UU5.Bricks.Row>
+            </div>
+          ))}
+
+          <UU5.Bricks.Row>
+            <UU5.Bricks.Button onClick={() => handleAdd(studentsList)} content="Add" />
+          </UU5.Bricks.Row>
+          <UU5.Bricks.Row>
+            <UU5.Bricks.Button onClick={console.log("")} content="Test" />
+          </UU5.Bricks.Row>
+          <UU5.Forms.Text name="test" value={testStudents} hidden={true}/>
+        </UU5.Bricks.Container>
+      </UU5.Forms.ContextForm>
+    );
+    //@@viewOff:render
+  },
+});
+
+export default FormUpdate;

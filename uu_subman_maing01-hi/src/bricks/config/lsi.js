@@ -13,7 +13,7 @@ const Lsi = {
     },
     subjectDegree: {
         cs: "Studijní program: ",
-        en: "Type of study",
+        en: "Type of study: ",
     },
     subjectFullTime: {
         cs: "Prezenční",
