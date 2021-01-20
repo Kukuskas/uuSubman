@@ -14,11 +14,9 @@ import SubjectUpdate from "../bricks/subject-update";
 
 
 //@@viewOff:imports
-
-
 const Mode = {
-  FULLTIME: <UU5.Bricks.Lsi lsi={Lsi.subjectFullTime} />,
-  PARTTIME: <UU5.Bricks.Lsi lsi={Lsi.subjectPartTime} />,
+  fulltime: <UU5.Bricks.Lsi lsi={Lsi.subjectFullTime} />,
+  parttime: <UU5.Bricks.Lsi lsi={Lsi.subjectPartTime} />,
 };
 
 const SubjectDetail = createVisualComponent({
@@ -52,26 +50,37 @@ const SubjectDetail = createVisualComponent({
 
 
   render({ subject, colorSchema, onDelete, onUpdate }) {
-    const [studyForm,setStudyForm] = useState(Mode.FULLTIME);
 
+    const [studyForm,setStudyForm] = useState(Mode.fulltime);
+    const [teacherList,setTeacherList] = useState(true);
+    const teachers = [
+      <TeacherList teachers={subject.teachers}  />
+    ]
     //@@viewOn:private
     function handleClick() {
-      SubjectDetail.modal.open()
+      teacherList == true?  setTeacherList(false): setTeacherList(true);   
     }
-    function handleClose() {
-      SubjectDetail.modal.close()
-    }
-    
+
     function handleSwitch() {
-      studyForm == Mode.PARTTIME ? setStudyForm(Mode.FULLTIME):
-       setStudyForm(Mode.PARTTIME)
+      studyForm == Mode.parttime ? setStudyForm(Mode.fulltime):setStudyForm(Mode.parttime)
     }
     //@@viewOff:private
 
     //@@viewOn:render
 
-
     return (
+
+      <>
+      <Plus4U5.App.ArtifactSetter 
+        routeName="Subject Detail"
+        header={<UU5.Bricks.Lsi lsi={subject.name} />}
+        breadcrumbList={[
+          {
+            content: "Home", href: "./subjects"
+          }
+        ]}
+        showBackButton
+      />
 
       <UU5.Bricks.Section >
         <UU5.Bricks.Box colorSchema="green" className={Css.detail()} >
@@ -93,15 +102,12 @@ const SubjectDetail = createVisualComponent({
               {subject.credits}
             </UU5.BlockLayout.Tile>
 
-            <div onClick={handleClick}  >
-              <UU5.BlockLayout.Tile borderRadius="8px" margin="5px" className={Css.cursor()}>
+            <div onClick={handleClick} className={Css.cursor()}   >
+              <UU5.BlockLayout.Tile borderRadius="8px" margin="5px" className="uu5-elevation-hover-1" >
                 <UU5.Bricks.Icon icon="uubml-officer-junior-man" />
                 {<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
               </UU5.BlockLayout.Tile>
             </div>
-            <UU5.Bricks.Modal ref_={modal => SubjectDetail.modal = modal}  > 
-            <TeacherList teachers={subject.teachers}  /> <UU5.Bricks.Button  onClick= {handleClose} >close</UU5.Bricks.Button> 
-            </UU5.Bricks.Modal>
           </UU5.Bricks.Column>
 
 
@@ -109,13 +115,13 @@ const SubjectDetail = createVisualComponent({
             <UU5.BlockLayout.Tile borderRadius="8px" margin="5px">
               <UU5.Bricks.Icon icon="uubml-idea" />
               {<UU5.Bricks.Lsi lsi={Lsi.subjectLanguage} />}
-              {Object.keys(subject.language).join(" / ")} 
+              {subject.languageOfStudy} 
             </UU5.BlockLayout.Tile>
 
 
   
               <div onClick={handleSwitch} className={Css.cursor()}>
-            <UU5.BlockLayout.Tile borderRadius="8px" margin="5px">
+            <UU5.BlockLayout.Tile borderRadius="8px" margin="5px" className="uu5-elevation-hover-1">
              {studyForm}
             </UU5.BlockLayout.Tile>
             </div>
@@ -138,13 +144,18 @@ const SubjectDetail = createVisualComponent({
         </UU5.Bricks.Row>
 
 
+          <UU5.Bricks.Text
+          hidden={teacherList}
+          content= {teachers} />
+
+
         <UU5.Bricks.Box >
           <UU5.Bricks.Block
             content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
         </UU5.Bricks.Box>
-
-        <TopicList subject={subject} />
+        <TopicList subject={subject} studyForm={studyForm.props.lsi.en} margin="5px"/>
       </UU5.Bricks.Section>
+      </>
 
     );
   },

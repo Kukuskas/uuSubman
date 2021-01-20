@@ -1,9 +1,10 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useState } from "uu5g04-hooks";
+import { createComponent, useState, useContext, useSession } from "uu5g04-hooks";
 import Config from "./config/config";
 import SubjectUpdateForm from "./subject-update-form";
 import Css from "../routes/detail.css";
+import SubmanMainContext from "../bricks/subman-main-context";
 //@@viewOff:imports
 
 const Mode = {
@@ -38,6 +39,8 @@ const SubjectUpdate = createComponent({
   
   render({ onUpdate, onDelete, subject }) {
     //@viewOn:hooks
+    const { identity } = useSession();
+    const contextData = useContext(SubmanMainContext);
     const [mode, setMode] = useState(Mode.BUTTON);
     //@viewOff:hooks
 
@@ -51,17 +54,10 @@ const SubjectUpdate = createComponent({
 
     function handleSave(opt) {
       let it = opt.values;
-      let lang = {}
-      if (it.language=="cs") {
-        lang = {cs: ""}
-      }else if (it.language=="en") {
-        lang = {en: ""}
-      }else{
-        return alert("Opravte informaci")
-      }
+      it.test==""?it.test=[{uuIdentity:"", formOfStudy: "fulltime"}]: it.test= JSON.parse(it.test)
+      
       const input = {
         id: subject.id,
-  
         name: { 
           cs: it.nameCs, 
           en: it.nameEn 
@@ -73,45 +69,62 @@ const SubjectUpdate = createComponent({
           cs: it.descCs,
           en: it.descEn,
         },
-        language: lang,
-
+        languageOfStudy: it.languageOfStudy,
+        language: subject.language,
         teachers: it.teachers.split(","),
         visibility: false,
+        students: it.test
       };
-      console.log("++++++++++++++++");
-      console.log(input);
-      if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
+      // if (it.students==null|| it.students==undefined) {
+      //   input.students=[]      
+      //   }
         
-      onUpdate(input);
-      setMode(Mode.BUTTON);
+      if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
+        console.log("hahahahahahahahahahaha");
+        onUpdate(input);
+        setMode(Mode.BUTTON);
       }else{return alert("fill in supervisor correctly")}
     }
-
     function handleCancel() {
       setMode(Mode.BUTTON);
     }
 
     //@@viewOff:private
+    function canManage() {
+      const isTeacher = subject.teachers.some(teacher => teacher === identity.uuIdentity );
+      const isGarant = subject.supervisor === identity.uuIdentity;
+      const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
+      return isAuthority || isTeacher || isGarant;
+    }
 
+ 
     //@@viewOn:render
     function renderButton() {
       return (
+        <>
+        {canManage() && ( 
         <UU5.Bricks.Button
          onClick={handleUpdate} 
           bgStyle="transparent" 
          className={Css.update()} size="l"
          content = {<UU5.Bricks.Icon icon="glyphicon-edit"/>}
-        />
+
+        />)}
+        </>
       );
     }
 
     function renderForm() {
-      return <SubjectUpdateForm onSave={handleSave} onCancel={handleCancel} onDelete={handleDelete} subject={subject}  />;
+      return <SubjectUpdateForm 
+      onSave={handleSave} 
+      onCancel={handleCancel} 
+      onDelete={handleDelete}
+      subject={subject}  />;
     }
 
     switch (mode) {
       case Mode.BUTTON:
-        return renderButton();
+        return  renderButton();
       default:
         return renderForm();
     }

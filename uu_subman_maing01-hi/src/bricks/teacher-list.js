@@ -30,9 +30,6 @@ const TeacherList = createVisualComponent({
 
 
     function renderItem(item) {
-        console.log("+++++++++++++++++++++++++++++++++");
-        console.log(item);
-       
         return (
             <Plus4U5.Bricks.BusinessCard uuIdentity={item.data} hidePhoto={true} visual="micro" />
         );

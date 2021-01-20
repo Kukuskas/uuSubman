@@ -36,17 +36,8 @@ const SubjectCreate = createComponent({
     function handleAddClick() {
       setMode(Mode.FORM);
     }
-
     function handleSave(opt) {
       let it = opt.values;
-      let lang = {}
-      if (it.language=="cs") {
-        lang = {cs: ""}
-      }else if (it.language=="en") {
-        lang = {en: ""}
-      }else{
-        return alert("Opravte informaci")
-      }
       const input = {
         name: { 
           cs: it.nameCs, 
@@ -59,8 +50,7 @@ const SubjectCreate = createComponent({
           cs: it.descCs,
           en: it.descEn,
         },
-        language: lang,
-
+        languageOfStudy: it.languageOfStudy,
         teachers: it.teachers.split(","),
         visibility: false,
       };
@@ -78,15 +68,15 @@ const SubjectCreate = createComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    function renderButton() {
-      return (
-        <UU5.Bricks.Button
-          onClick={handleAddClick}
-          colorSchema="primary"
-          content={<UU5.Bricks.Lsi lsi={{ en: "Add subject", cs: "Přidat předmět" }} />}
-        />
-      );
-    }
+    // function renderButton() {
+    //   return (
+    //     <UU5.Bricks.Button
+    //       onClick={handleAddClick}
+    //       colorSchema="primary"
+    //       content={<UU5.Bricks.Lsi lsi={{ en: "Add subject", cs: "Přidat předmět" }} />}
+    //     />
+    //   );
+    // }
 
     function renderForm() {
       return <SubjectCreateForm onSave={handleSave} onCancel={handleCancel} />;
@@ -94,7 +84,7 @@ const SubjectCreate = createComponent({
 
     switch (mode) {
       case Mode.BUTTON:
-        return renderButton();
+        // return renderButton();
       default:
         return renderForm();
     }

@@ -57,9 +57,9 @@
       "desc": "Executives"
     },
     {
-      "code": "Auditors",
-      "name": "Auditors",
-      "desc": "Auditors"
+      "code": "Administrations",
+      "name": "Administrations",
+      "desc": "Administrations"
     },
     {
       "code": "StandardUsers",

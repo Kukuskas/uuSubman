@@ -9,20 +9,20 @@ const AUTHORITIES_PROFILE = "Authorities";
 //
 const WARNINGS = {
   createUnsupportedKeys: {
-    code: `${Errors.Create.UC_CODE}unsupportedKeys`
+    code: `${Errors.Create.UC_CODE}unsupportedKeys`,
   },
   getUnsupportedKeys: {
-    code: `${Errors.Get.UC_CODE}unsupportedKeys`
+    code: `${Errors.Get.UC_CODE}unsupportedKeys`,
   },
   listUnsupportedKeys: {
-    code: `${Errors.List.UC_CODE}unsupportedKeys`
+    code: `${Errors.List.UC_CODE}unsupportedKeys`,
   },
   deleteUnsupportedKeys: {
-    code: `${Errors.Delete.UC_CODE}unsupportedKeys`
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
   },
   updateUnsupportedKeys: {
-    code: `${Errors.Update.UC_CODE}unsupportedKeys`
-  }
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
+  },
 };
 
 class SubjectAbl {
@@ -31,7 +31,6 @@ class SubjectAbl {
     this.dao = DaoFactory.getDao("subject");
     this.subjectDao = DaoFactory.getDao("subject");
   }
-
 
   async delete(awid, dtoIn) {
     let validationResult = this.validator.validate("subjectDeleteDtoInType", dtoIn);
@@ -43,10 +42,9 @@ class SubjectAbl {
     );
     await this.dao.delete(awid, dtoIn.id);
     return uuAppErrorMap;
-  };
+  }
 
   async list(awid, dtoIn, session, authorizationResult) {
-
     // hds 2, 2.1
     let validationResult = this.validator.validate("subjectListDtoInType", dtoIn);
     // hds 2.2, 2.3, A4, A5
@@ -59,17 +57,13 @@ class SubjectAbl {
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
 
-    let dtoOut = await this.dao.list(awid)
+    let dtoOut = await this.dao.list(awid);
     // hds 4
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }
 
-
   async create(awid, dtoIn, session, authorizationResult) {
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    console.log(dtoIn);
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
     let validationResult = this.validator.validate("subjectCreateDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -79,74 +73,37 @@ class SubjectAbl {
     );
 
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
-//     if(dtoIn.language.cs) {
-//       dtoIn.language.cs= {
-//   studyForms: { 
-//       fulltime: {
-//           id: "1",
-//           studyMaterialList: [],
-//           topics: [
-//               {
-//                   name: "Example fulltime", 
-//                   desc: "Lorem Ipsum", 
-//                   id: "1", 
-//                   studyMaterialList: []
-//               }
-//           ]
-//       },
-//       parttime: {
-//           id: "...",
-//           studyMaterialList: [],
-//           topics: [
-//               {
-//                   name: "Example parttime", 
-//                   desc: "lorem Ipsum", 
-//                   id: "2", 
-//                   studyMaterialList: []
-//               }
-//           ]
-//       }
-//   }
-// }}
-//     if(dtoIn.language.en) {
-//   dtoIn.language.en= {
-//   "studyForms": { 
-//       "fulltime": {
-//           "id": "...",
-//           "studyMaterialList": [
-//               "..."
-//           ],
-//           "topics": [
-//               {
-//                   "name": "...", 
-//                   "desc": "...", 
-//                   "id": "...", 
-//                   "studyMaterialList": [
-//                       {
-//                           "studyMateriaId": "...",
-//                           "url": "...",
-//                           "name": "..."
-//                       }
-//                   ]
-//               }
-//           ]
-//       },
-//       "parttime": {
-//           "id": "...",
-//           "studyMaterialList": [
-//               "..."
-//           ],
-//           "topics": [
-//               {
-//                   "name": "...", 
-//                   "desc": "...", 
-//                   "id": "...", 
-//                   "studyMaterialList": [
-//                       {
-//                           "studyMateriaId": "...",
-//                           "url": "...",
-//                           "name": "..."
-//         }]}]}}}}
+    const studyForms = {
+      formOfStudy: {
+        fulltime: {
+          id: "1",
+          studyMaterialList: [],
+          topics: [
+            {
+              name: "Example fulltime",
+              desc: "Lorem Ipsum",
+              id: "00",
+              studyMaterialList: [],
+            },
+          ],
+        },
+        parttime: {
+          id: "2",
+          studyMaterialList: [],
+          topics: [
+            {
+              name: "Example parttime",
+              desc: "lorem Ipsum",
+              id: "00",
+              studyMaterialList: [],
+            },
+          ],
+        },
+      },
+    };
+
+    dtoIn.language = { cs: studyForms, en: studyForms };
+    dtoIn.students = [{ uuIdentity: "", formOfStudy: "fulltime" }];
 
     dtoIn.awid = awid;
     let dtoOut;
@@ -164,7 +121,6 @@ class SubjectAbl {
   }
 
   async get(awid, dtoIn, session, authorizationResult) {
-
     // hds 2, 2.1
     let validationResult = this.validator.validate("subjectGetDtoInType", dtoIn);
     // hds 2.2, 2.3, A4, A5
@@ -178,7 +134,6 @@ class SubjectAbl {
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
 
-
     // hds 3
     let subject = await this.dao.get(awid, dtoIn.id);
     if (!subject) {
@@ -188,7 +143,6 @@ class SubjectAbl {
     subject.uuAppErrorMap = uuAppErrorMap;
     return subject;
   }
-
 
   async update(awid, dtoIn, session, authorizationResult) {
     // hds 2, 2.1
@@ -212,9 +166,8 @@ class SubjectAbl {
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
 
-
     // hds 7rs
-    
+
     try {
       dtoIn.awid = awid;
       subject = await this.dao.update(dtoIn);
@@ -230,7 +183,6 @@ class SubjectAbl {
     subject.uuAppErrorMap = uuAppErrorMap;
     return subject;
   }
-
 }
 
 module.exports = new SubjectAbl();

@@ -1,3 +1,4 @@
+
 /* eslint-disable */
 const subjectCreateDtoInType = shape({
     name: shape({
@@ -11,6 +12,7 @@ const subjectCreateDtoInType = shape({
         cs: string(500).isRequired(),
         en: string(500).isRequired()
     }).isRequired(),
+    languageOfStudy:oneOf(["english", "czech", "czech/english"]).isRequired(),
     language: shape().isRequired(),
     /* edit it later */
     teachers: array(
@@ -21,6 +23,7 @@ const subjectCreateDtoInType = shape({
 const subjectGetDtoInType = shape({
     id: mongoId().isRequired()
 })
+
 const subjectListDtoInType = shape({
     pageInfo: shape({
         pageIndex: integer(),
@@ -32,8 +35,6 @@ const subjectDeleteDtoInType = shape({
     id: id().isRequired()
 });
 
-
-const languages = {cs: string(100), en:string(100)}
 const subjectUpdateDtoInType = shape({
     id: mongoId().isRequired(),
     name: shape({
@@ -47,76 +48,44 @@ const subjectUpdateDtoInType = shape({
         cs: string(500).isRequired(),
         en: string(500).isRequired()
     }).isRequired(),
-    language: 
-        shape(
-            languages 
-        //         shape({
-        //             formOfStudy:
-        //                 shape({
-        //                     fulltime:
-        //                         shape({
-        //                             id: id().isRequired,
-        //                             studyMaterialList: array(
-        //                                 shape({
-        //                                     subjectId: mongoId().isRequired,
-        //                                     baseUri: uri().isRequired(),
-        //                                     type: uu5String(50).isRequired(),
-        //                                     name: uu5String(50)
-        //                                 })
-        //                             ),
-        //                             topics: array(
-        //                                 shape({
-        //                                     name: mongoId().isRequired,
-        //                                     desc: uri().isRequired(),
-        //                                     id: id(),
-        //                                     studyMaterialList: array(
-        //                                         shape({
-        //                                             studyMateriaId: id(),
-        //                                             url: uri(),
-        //                                             name: uu5String(50)
-        //                                         })
-        //                                     )
-        //                                 })
-        //                             )
-        //                         }),
-        //                         parttime:
-        //                         shape({
-        //                             id: id().isRequired,
-        //                             studyMaterialList: array(
-        //                                 shape({
-        //                                     subjectId: mongoId().isRequired,
-        //                                     baseUri: uri().isRequired(),
-        //                                     type: uu5String(50).isRequired(),
-        //                                     name: uu5String(50)
-        //                                 })
-        //                             ),
-        //                             topics: array(
-        //                                 shape({
-        //                                     name: mongoId().isRequired,
-        //                                     desc: uri().isRequired(),
-        //                                     id: id(),
-        //                                     studyMaterialList: array(
-        //                                         shape({
-        //                                             studyMateriaId: id(),
-        //                                             url: uri(),
-        //                                             name: uu5String(50)
-        //                                         })
-        //                                     )
-        //                                 })
-        //                             )
-        //                         })
-        //                 })
-        //         })
+    languageOfStudy:oneOf(["english", "czech", "czech/english"]).isRequired(),
+    language:
+        map(oneOf(["cs", "en"]), 
+            shape({
+                formOfStudy:
+                    map(oneOf(["fulltime", "parttime"]), any(
+                        shape({
+                            id: id().isRequired,
+                            studyMaterialList: array(
+                                mongoId()
+                            ),
+                            topics: array(
+                                shape({
+                                    name: uu5String(50),
+                                    desc: uu5String(500),
+                                    id: id().isRequired(),
+                                    studyMaterialList: array(
+                                        shape({
+                                            studyMateriaId: id(),
+                                            baseUri: uri(),
+                                            name: string(50)
+                                        })
+                                    )
+                                })
+                            )
 
-         ),
-    /* edit it later */
+                        }))
+                             )
+            })
+        ),
+ 
     teachers: array(
         uuIdentity()),
-    // students: array(
-    //     shape({
-    //         uuIdentity: uuIdentity(),
-    //         formOfStudy: oneOf(["full-time", "part-time"])
-    //     })
-    // ),
+    students: array(
+        shape({
+          uuIdentity: oneOf([uuIdentity(), ""]),
+          formOfStudy: oneOf(["fulltime", "parttime"])
+        })
+    ),
     visibility: boolean()
 })
