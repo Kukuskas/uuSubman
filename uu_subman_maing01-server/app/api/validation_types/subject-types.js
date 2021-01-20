@@ -92,7 +92,7 @@ const subjectUpdateDtoInType = shape({
     visibility: boolean()
 });
 
-const subjectAddStudyMaterial = shape({
+const subjectAddStudyMaterialDtoInType = shape({
     id: mongoId().isRequired(),
     data: shape({
         baseUri: string(50).isRequired(),
