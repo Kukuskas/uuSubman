@@ -45,7 +45,7 @@ const SubjectDetail = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ subject, colorSchema, onDelete, onUpdate }) {
+  render({ subject, colorSchema, onDelete, onUpdate, onUpdateTopic }) {
     const [studyForm, setStudyForm] = useState(Mode.fulltime);
     const [teacherList, setTeacherList] = useState(true);
     const teachers = [<TeacherList teachers={subject.teachers} />];
@@ -135,7 +135,7 @@ const SubjectDetail = createVisualComponent({
           <UU5.Bricks.Box>
             <UU5.Bricks.Block content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
           </UU5.Bricks.Box>
-          <TopicList subject={subject} studyForm={studyForm.props.lsi.en} margin="5px" />
+          <TopicList subject={subject} studyForm={studyForm.props.lsi.en} onUpdateTopic={onUpdateTopic}  margin="5px" />
         </UU5.Bricks.Section>
       </>
     );

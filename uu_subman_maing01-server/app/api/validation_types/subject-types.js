@@ -118,3 +118,15 @@ const subjectDeleteTopicDtoInType  = shape({
     formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
 
 })
+const subjectUpdateTopicDtoInType  = shape({
+    id: mongoId().isRequired(),
+    data: shape({
+        name: uu5String(50),
+        desc: uu5String(500),
+        id: mongoId().isRequired(),
+        studyMaterialList: array(),
+    }),
+    language: oneOf(["cs", "en"]).isRequired(),
+    formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
+
+})

@@ -14,9 +14,10 @@ const FormUpdateTopic = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    subject: UU5.PropTypes.shape({
-      name: UU5.PropTypes.shape.isRequired,
-      desc: UU5.PropTypes.shape.isRequired,
+    topic: UU5.PropTypes.shape({
+      name: UU5.PropTypes.string,
+      desc: UU5.PropTypes.string.isRequired,
+      studyMaterialList: UU5.PropTypes.array,
       id: UU5.PropTypes.isRequired,
     }),
     onSubmit: UU5.PropTypes.func,
@@ -26,7 +27,7 @@ const FormUpdateTopic = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    topics: [], //EDIT
+    topic: {}, 
     onSubmit: () => {},
     onCancel: () => {},
   },
@@ -37,10 +38,8 @@ const FormUpdateTopic = createVisualComponent({
     };
   },
 
-  render({ onSave, onCancel, topic, subject }) {
+  render({ onSave, onCancel, topic, id, language, formOfStudy }) {
     //@@viewOn:render
-    console.log("test");
-    console.log(subject);
     console.log("+++++++topic+++++++++++");
     console.log(topic);
     return (
@@ -59,6 +58,10 @@ const FormUpdateTopic = createVisualComponent({
             value={topic.desc}
             required
           />
+
+          <UU5.Forms.Text name="language" value={language} hidden={true} />
+          <UU5.Forms.Text name="formOfStudy" value={formOfStudy} hidden={true} />
+
         </UU5.Bricks.Container>
       </UU5.Forms.ContextForm>
     );

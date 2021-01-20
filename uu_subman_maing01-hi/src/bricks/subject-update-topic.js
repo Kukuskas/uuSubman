@@ -32,18 +32,18 @@ const SubjectUpdateTopic = createComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     subject: null,
-    onUpdate: () => {},
-    onDelete: () => {},
+    onUpdate: () => { },
+    onDelete: () => { },
   },
   //@@viewOff:defaultProps
 
-  render({ onUpdate, onDelete, subject, topic }) {
+  render({ onUpdateTopic, onDelete, id, topic, language, formOfStudy }) {
     //@viewOn:hooks
     const [mode, setMode] = useState(Mode.BUTTON);
     //@viewOff:hooks
 
     //@@viewOn:private
-    function handleUpdate() {
+    function handleUpdateTopic() {
       setMode(Mode.FORM);
     }
     function handleDelete(topic) {
@@ -55,20 +55,25 @@ const SubjectUpdateTopic = createComponent({
       console.log("+++++++it+++++");
       console.log(it);
       const input = {
-        id: subject.id,
-        name: it.name,
-        desc: it.desc,
-        id: topic.id,
-        studyMaterialList: [],
+        id: id,
+        date: {
+          name: it.name,
+          desc: it.desc,
+          id: topic.id,
+          studyMaterialList: [],
+        },
+        language: language,
+        formOfStudy: formOfStudy
       };
 
-      onUpdate(input);
+      onUpdateTopic(input);
       setMode(Mode.BUTTON);
     }
 
     function handleCancel() {
       setMode(Mode.BUTTON);
     }
+    console.log(language);
 
     //@@viewOff:private
 
@@ -77,7 +82,7 @@ const SubjectUpdateTopic = createComponent({
       return (
         <>
           <UU5.Bricks.Button
-            onClick={handleUpdate}
+            onClick={handleUpdateTopic}
             bgStyle="transparent"
             colorSchema="blue"
             className={Css.updateTopic()}
@@ -90,7 +95,15 @@ const SubjectUpdateTopic = createComponent({
 
     function renderForm() {
       return (
-        <SubjectUpdateFormTopic onSave={handleSave} onCancel={handleCancel} onDelete={handleDelete} topic={topic} />
+        <SubjectUpdateFormTopic
+          onSave={handleSave} 
+          onCancel={handleCancel}
+          onDelete={handleDelete}
+          topic={topic}
+          language={language}
+          formOfStudy={formOfStudy}
+          id={id}
+        />
       );
     }
 

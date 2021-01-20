@@ -21,7 +21,7 @@ const TopicList = createVisualComponent({
     }),
     studyForm: UU5.PropTypes.string,
     onDetail: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
+    onUpdateTopic: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
@@ -31,12 +31,12 @@ const TopicList = createVisualComponent({
     subject: {},
     studyForm: "Full-time",
     onDetail: () => {},
-    onUpdate: () => {},
+    onUpdateTopic: () => {},
     onDelete: () => {},
   },
   //@@viewOff:defaultProps
 
-  render({ subject, studyForm, onUpdate, onDelete }) {
+  render({ subject, studyForm, onUpdateTopic, onDelete }) {
     //@@viewOn:render
     const fullTime = useLsi({
       cs: subject.language.cs.formOfStudy.fulltime.topics,
@@ -55,11 +55,16 @@ const TopicList = createVisualComponent({
           <Topic
             topic={item.data}
             colorSchema="green"
-            onUpdate={onUpdate}
+            onUpdateTopic={onUpdateTopic}
             onDelete={onDelete}
             teachers={subject.teachers}
             supervisor={subject.supervisor}
-            subject={subject}
+            id={subject.id}
+            formOfStudy={studyForm == "Full-time"?"fulltime":"parttime"}
+            language= {useLsi({
+              cs: "cs",
+              en: "en",
+            })}
           />
         );
       }
@@ -71,7 +76,7 @@ const TopicList = createVisualComponent({
         <Uu5Tiles.Grid data={studyForm == "Full-time" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
           {renderItem}
         </Uu5Tiles.Grid>
-        {/* </Uu5Tiles.ControllerProvider> */}
+
       </>
     );
     //@@viewOff:render

@@ -33,8 +33,8 @@ let Calls = {
     return Calls.call("post", commandUri, dtoIn);
   },
 
-  addTopicSubject(dtoIn) {
-    let commandUri = Calls.getCommandUri("subject/addTopic");
+  updateTopicSubject(dtoIn) {
+    let commandUri = Calls.getCommandUri("subject/updateTopic");
     return Calls.call("post", commandUri, dtoIn);
   },
 

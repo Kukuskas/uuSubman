@@ -138,7 +138,20 @@ const DeleteTopic = {
 
 const UpdateTopic = {
   UC_CODE: `${SUBJECT_ERROR_PREFIX}updateTopic/`,
-  
+  InvalidDtoIn: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${UpdateTopic.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  SubjectDaoDeleteTopicFailed: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${UpdateTopic.UC_CODE}subjectDaoAddTopicFailed`;
+      this.message = "UpdateTopic subject by subject Dao update failed.";
+    }
+  }
 };
 
 module.exports = {

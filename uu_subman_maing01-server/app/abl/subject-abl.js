@@ -24,11 +24,14 @@ const WARNINGS = {
   updateUnsupportedKeys: {
     code: `${Errors.Update.UC_CODE}unsupportedKeys`,
   },
-  addTopicUnsupportedKeys:{
+  addTopicUnsupportedKeys: {
     code: `${Errors.AddTopic.UC_CODE}unsupportedKeys`,
   },
-  deleteTopicUnsupportedKeys:{
+  deleteTopicUnsupportedKeys: {
     code: `${Errors.DeleteTopic.UC_CODE}unsupportedKeys`,
+  },
+  updateTopicUnsupportedKeys: {
+    code: `${Errors.UpdateTopic.UC_CODE}unsupportedKeys`,
   }
 };
 
@@ -40,20 +43,20 @@ class SubjectAbl {
   }
 
   async updateTopic(awid, dtoIn) {
-    let validationResult = this.validator.validate("subjectAddTopicDtoInType", dtoIn);
+    let validationResult = this.validator.validate("subjectUpdateTopicDtoInType", dtoIn);
     // hds 2.2, 2.3, A3, A4
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.addTopicUnsupportedKeys.code,
-      Errors.AddTopic.InvalidDtoIn
+      WARNINGS.updateTopicUnsupportedKeys.code,
+      Errors.UpdateTopic.InvalidDtoIn
     );
 
     // hds 3
     let subject = await this.dao.get(awid, dtoIn.id);
     // A5
     if (!subject) {
-      throw new Errors.AddTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
+      throw new Errors.UpdateTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
     }
 
     // hds 4
@@ -61,18 +64,24 @@ class SubjectAbl {
     //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
 
     // hds 7rs
-    // let lang = dtoIn.language;
-    // let form = dtoIn.formOfStudy;
+    let lang = dtoIn.language;
+    let form = dtoIn.formOfStudy;
     // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
-    
-    // dtoIn.data.id= ObjectId();
-    // lang == "cs"
-    //   ? form == "fulltime"
-    //     ? subject.language.cs.formOfStudy.fulltime.topics.push(dtoIn.data)
-    //     : subject.language.cs.formOfStudy.parttime.topics.push(dtoIn.data)
-    //   : form == "fulltime"
-    //   ? subject.language.en.formOfStudy.fulltime.topics.push(dtoIn.data)
-    //   : subject.language.en.formOfStudy.parttime.topics.push(dtoIn.data);
+    let x = dtoIn.data.id
+
+
+
+    lang == "cs"
+      ? form == "fulltime"
+        ? subject.language.cs.formOfStudy.fulltime.topics = 
+        subject.language.cs.formOfStudy.fulltime.topics.map(topic => topic.id == x ? dtoIn.data : topic)
+        : subject.language.cs.formOfStudy.parttime.topics =
+         subject.language.cs.formOfStudy.parttime.topics.map(topic => topic.id == x ? dtoIn.data : topic)
+      : form == "fulltime"
+        ? subject.language.en.formOfStudy.fulltime.topics =
+         subject.language.en.formOfStudy.fulltime.topics.map(topic => topic.id == x ? dtoIn.data : topic)
+        : subject.language.en.formOfStudy.parttime.topics =
+        subject.language.en.formOfStudy.parttime.topics.map(topic => topic.id == x ? dtoIn.data : topic)
     let dtoOut;
     try {
       dtoIn.awid = awid;
@@ -80,16 +89,17 @@ class SubjectAbl {
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         // A10
-        throw new Errors.AddTopic.SubjectDaoAddTopicFailed({ uuAppErrorMap }, e);
+        throw new Errors.UpdateTopic.SubjectDaoUpdateTopicFailed({ uuAppErrorMap }, e);
       }
       throw e;
     }
 
     // hds 8
-    subject.uuAppErrorMap = uuAppErrorMap;
-    return subject;
-    
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
   }
+
+
 
   async deleteTopic(awid, dtoIn) {
     let validationResult = this.validator.validate("subjectDeleteTopicDtoInType", dtoIn);
@@ -117,15 +127,20 @@ class SubjectAbl {
     let form = dtoIn.formOfStudy;
     // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
     let x = dtoIn.data.id
-    
+
+
 
     lang == "cs"
       ? form == "fulltime"
-        ? subject.language.cs.formOfStudy.fulltime.topics.filter((topic) => topic.id !== x)
-       : subject.language.cs.formOfStudy.parttime.topics= subject.language.cs.formOfStudy.parttime.topics.filter((topic) => topic.id !== x)
+        ? subject.language.cs.formOfStudy.fulltime.topics =
+         subject.language.cs.formOfStudy.fulltime.topics.filter(topic => topic.id !== x)
+        : subject.language.cs.formOfStudy.parttime.topics = 
+        subject.language.cs.formOfStudy.parttime.topics.filter(topic => topic.id !== x)
       : form == "fulltime"
-      ? subject.language.en.formOfStudy.fulltime.topics.filter((topic) => topic.id !== x)
-      : subject.language.en.formOfStudy.parttime.topics.filter((topic) => topic.id !== x);
+        ? subject.language.en.formOfStudy.fulltime.topics =
+         subject.language.en.formOfStudy.fulltime.topics.filter(topic => topic.id !== x)
+        : subject.language.en.formOfStudy.parttime.topics = 
+        subject.language.en.formOfStudy.parttime.topics.filter(topic => topic.id !== x)
     let dtoOut;
     try {
       dtoIn.awid = awid;
@@ -140,7 +155,7 @@ class SubjectAbl {
 
     // hds 8
     dtoOut.uuAppErrorMap = uuAppErrorMap;
-    return (subject.language.cs.formOfStudy.parttime.topics.filter((topic) => topic.ObjectId(id) !== "60074853fd10b940b0571190"));
+    return dtoOut;
   }
 
   async addTopic(awid, dtoIn) {
@@ -168,15 +183,15 @@ class SubjectAbl {
     let lang = dtoIn.language;
     let form = dtoIn.formOfStudy;
     // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
-    
-    dtoIn.data.id= ObjectId();
+
+    dtoIn.data.id = ObjectId().toHexString();
     lang == "cs"
       ? form == "fulltime"
-        ? subject.language.cs.formOfStudy.fulltime.topics.splice(dtoIn.data,1)
-        : subject.language.cs.formOfStudy.parttime.topics.splice(dtoIn.data,1)
+        ? subject.language.cs.formOfStudy.fulltime.topics.push(dtoIn.data)
+        : subject.language.cs.formOfStudy.parttime.topics.push(dtoIn.data)
       : form == "fulltime"
-      ? subject.language.en.formOfStudy.fulltime.topics.splice(dtoIn.data,1)
-      : subject.language.en.formOfStudy.parttime.topics.splice(dtoIn.data,1);
+        ? subject.language.en.formOfStudy.fulltime.topics.push(dtoIn.data)
+        : subject.language.en.formOfStudy.parttime.topics.push(dtoIn.data);
     let dtoOut;
     try {
       dtoIn.awid = awid;
@@ -191,8 +206,8 @@ class SubjectAbl {
     // hds 8
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
-  }  
-  
+  }
+
 
   async delete(awid, dtoIn) {
     let validationResult = this.validator.validate("subjectDeleteDtoInType", dtoIn);

@@ -22,7 +22,7 @@ const SubjectRoute = createVisualComponent({
     const getSubjectRef = useRef();
     const updateSubjectRef = useRef();
     const deleteSubjectRef = useRef();
-    const addTopicSubjectRef = useRef();
+    const updateTopicSubjectRef = useRef();
     //@viewOff:hooks
 
     //@@viewOn:private
@@ -43,9 +43,6 @@ const SubjectRoute = createVisualComponent({
     }
     /* eslint no-unused-vars: "off" */
     async function handleUpdate(subject) {
-      console.log("to the update passed////////////////");
-      console.log(subject);
-      console.log("to the update passed////////////////");
       try {
         await updateSubjectRef.current(subject);
         return handleHome();
@@ -62,15 +59,14 @@ const SubjectRoute = createVisualComponent({
       }
     }
 
-    async function handleUpdateTopic(topic) {
+    async function handleUpdateTopic(inputTopicUpdate) {
       console.log("to the update passed////////////////");
-      console.log(topic);
+      console.log(inputTopicUpdate);
       console.log("to the update passed////////////////");
       try {
-        await addTopicSubjectRef.current({ id: topic.id });
-        return handleHome();
+        await updateTopicSubjectRef.current({ inputTopicUpdate});
       } catch {
-        showError(`Create of ${topic.name} failed!`);
+        showError(`Update of topic failed!`);
       }
     }
 
@@ -86,11 +82,10 @@ const SubjectRoute = createVisualComponent({
       return <UU5.Bricks.Loading />;
     }
 
-    function renderReady(subject, topic) {
+    function renderReady(subject) {
       return (
         <>
-          <SubjectDetail subject={subject} onDelete={handleDelete} onUpdate={handleUpdate} />
-          <TopicList topic={topic} onDelete={handleDeleteTopic} onUpdate={handleUpdateTopic} />
+          <SubjectDetail subject={subject} onDelete={handleDelete} onUpdate={handleUpdate} onUpdateTopic={handleUpdateTopic}  />
         </>
       );
     }
@@ -130,6 +125,7 @@ const SubjectRoute = createVisualComponent({
               getSubjectRef.current = handlerMap.getSubject;
               updateSubjectRef.current = handlerMap.updateSubject;
               deleteSubjectRef.current = handlerMap.deleteSubject;
+              updateTopicSubjectRef.current = handlerMap.updateTopicSubject;
               data = subject.subject;
 
               switch (state) {

@@ -17,7 +17,7 @@ const Topic = createVisualComponent({
   propTypes: {
     // topic: UU5.PropTypes.array.isRequired, //EDIT
     onDetail: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
+    onUpdateTopic: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
@@ -26,12 +26,12 @@ const Topic = createVisualComponent({
   defaultProps: {
     topics: [], //EDIT
     onDetail: () => {},
-    onUpdate: () => {},
+    onUpdateTopic: () => {},
     onDelete: () => {},
   },
   //@@viewOff:defaultProps
 
-  render({ topic, onDetail, onSave, onUpdate, onDelete, teachers, supervisor, subject }) {
+  render({ topic, onSave, onUpdateTopic, onDelete, teachers, supervisor, id, language, formOfStudy }) {
     //EDIT
     //@@viewOn:render
     const { identity } = useSession();
@@ -50,7 +50,14 @@ const Topic = createVisualComponent({
     return (
       <>
         {canManage() && (
-          <SubjectUpdateTopic onSave={onSave} onUpdate={onUpdate} onDelete={onDelete} topic={topic} subject={subject} />
+          <SubjectUpdateTopic onSave={onSave} 
+          onUpdateTopic={onUpdateTopic} 
+          onDelete={onDelete} 
+          topic={topic}  
+          language={language}
+          formOfStudy={formOfStudy}
+          id={id}
+          />
         )}
         <UU5.Bricks.Section content={topic.name} />
         <UU5.Bricks.Accordion>
