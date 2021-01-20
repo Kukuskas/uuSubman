@@ -8,7 +8,6 @@ import SubmanMainContext from "../bricks/subman-main-context";
 
 
 //@@viewOff:imports
-
 const SubjectUpdateForm =  createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "SubjectUpdateForm",
@@ -46,13 +45,13 @@ const SubjectUpdateForm =  createVisualComponent({
       onDelete(subject);
     }
 
+
     function isAdministrator() {
       const isAdministration = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.ADMINISTRATIONS);
       const isAuthority = contextData?.data?.authorizedProfileList?.some(profile => profile === Config.Profiles.AUTHORITIES);
       return isAuthority || isAdministration;
     }
     
-
     return (
       <UU5.Bricks.Container>
         <UU5.Forms.ContextModal size="l" shown={true}>
@@ -60,14 +59,15 @@ const SubjectUpdateForm =  createVisualComponent({
             content={<UU5.Bricks.Lsi lsi={{ en: "Edit a new subject", cs: "Upravit nový předmět" }} />}
             info={<UU5.Bricks.Lsi lsi={{ cs: <UU5.Bricks.Paragraph style="margin: 0" />, en: "More info..." }} />}
           />
+
           <>
           { isAdministrator() && ( <UU5.Bricks.Button size="s" onClick={handleDelete} bgStyle="transparent" >
           <UU5.Bricks.Icon icon="glyphicon-trash" />
             </UU5.Bricks.Button>)}
-            </>
+          </>
 
           <FormUpdate onSave={onSave} onCancel={onCancel} subject={subject} />
-          
+
           <UU5.Forms.ContextControls
             buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Edit", cs: "Upravit" }} /> }}
             buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}

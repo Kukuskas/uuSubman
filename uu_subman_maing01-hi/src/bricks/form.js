@@ -30,6 +30,8 @@ const Form = createVisualComponent({
     onCancel: () => {},
   },
   //@@viewOff:defaultProps
+
+
   render({ onSave, onCancel, subject }) {
 
     const [dis, setDis] = useState(false);
@@ -37,11 +39,11 @@ const Form = createVisualComponent({
 
 
     //@@viewOn:render
- 
     const degreeName = [
       { content: <UU5.Bricks.Lsi lsi={{ en: "Bachalor", cs: "Bakalářské" }} />, value: "bachelor" },
       { content: <UU5.Bricks.Lsi lsi={{ en: "Master", cs: "Magisterské" }} />, value: "master" },
     ];
+
     const languageOfStudy = [
       { content: <UU5.Bricks.Lsi lsi={{ en: "English", cs: "Anglický" }} />, value: "english" },
       { content: <UU5.Bricks.Lsi lsi={{ en: "Czech", cs: "Český" }} />, value: "czech" },
@@ -54,11 +56,12 @@ const Form = createVisualComponent({
         opt.component.setValueDefault(opt.value);
       ;}else if(opt.value!==""){alert("Please fill in Supervisor uuIdentity")}
     }
+
     function _handleSupervisorOnDelete() {
       setSupervisor("")
       setDis(false)
-      
     }
+
     function _handleUpdate(subject) {
       return "Hello subject"
     }
@@ -66,6 +69,7 @@ const Form = createVisualComponent({
     return (
       <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
           <UU5.Bricks.Row>
+
             <UU5.Bricks.Column colWidth="s-6">
               <UU5.Forms.Text
                 borderRadius="8px"
@@ -76,6 +80,7 @@ const Form = createVisualComponent({
                 required
               />
             </UU5.Bricks.Column>
+
             <UU5.Bricks.Column colWidth="s-6">
               <UU5.Forms.Text
                 borderRadius="8px"
@@ -86,8 +91,10 @@ const Form = createVisualComponent({
                 required
               />
             </UU5.Bricks.Column>
+
           </UU5.Bricks.Row>
           <UU5.Bricks.Row>
+
             <UU5.Bricks.Column colWidth="s-2">
               <UU5.Forms.Number
                 placeholder="0"
@@ -102,6 +109,7 @@ const Form = createVisualComponent({
                 required
               />
             </UU5.Bricks.Column>
+
             <UU5.Bricks.Column colWidth="s-5">
               <UU5.Forms.SwitchSelector
                 borderRadius="8px"
@@ -111,6 +119,7 @@ const Form = createVisualComponent({
                 controlled={false}
               />
             </UU5.Bricks.Column>
+            
             <UU5.Bricks.Column colWidth="s-5">
               <UU5.Forms.SwitchSelector
                 borderRadius="8px"

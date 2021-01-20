@@ -9,9 +9,7 @@ import SubjectDetail from "../bricks/subject-detail";
 import UU5, { PropTypes } from "uu5g04";
 
 
-
 //@@viewOff:imports
-
 const SubjectRoute = createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "Subjects",
@@ -103,6 +101,7 @@ const SubjectRoute = createVisualComponent({
           content={<UU5.Bricks.Lsi lsi={{ en: "Back", cs: "Zpět" }} />}
           onClick={handleBack}
         />
+
         <UU5.Bricks.Section className={Css.main()}>
           <SubjectProvider>
             {({ state, data, errorData, pendingData, handlerMap }) => {
@@ -127,6 +126,7 @@ const SubjectRoute = createVisualComponent({
             }}
           </SubjectProvider>
         </UU5.Bricks.Section>
+        
       </UU5.Bricks.Section>
     );
     //@@viewOff:render

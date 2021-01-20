@@ -23,6 +23,7 @@ const subjectCreateDtoInType = shape({
 const subjectGetDtoInType = shape({
     id: mongoId().isRequired()
 })
+
 const subjectListDtoInType = shape({
     pageInfo: shape({
         pageIndex: integer(),
@@ -33,9 +34,6 @@ const subjectListDtoInType = shape({
 const subjectDeleteDtoInType = shape({
     id: id().isRequired()
 });
-
-
-
 
 const subjectUpdateDtoInType = shape({
     id: mongoId().isRequired(),

@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 //@@viewOn:imports 
@@ -100,6 +101,8 @@ const Topic = createVisualComponent({
 
 export default Topic; 
 =======
+=======
+>>>>>>> 2d233819f600349ea1cb86f2d03a72865f36a88a
 import { createVisualComponent, useState } from "uu5g04-hooks";
 import Config from "./config/config";
 import Uu5Tiles from "uu5tilesg02";
@@ -159,4 +162,7 @@ const Topic = createVisualComponent({
 });
 
 export default Topic;
+<<<<<<< HEAD
 >>>>>>> bfef33d17a37f17233c864caccfa76fbc86b96c8
+=======
+>>>>>>> 2d233819f600349ea1cb86f2d03a72865f36a88a

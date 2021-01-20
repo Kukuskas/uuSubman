@@ -98,8 +98,6 @@ const SubjectList = createVisualComponent({
 
 
     //@@viewOn:render
-      
-    
     if (subjects.length === 0) {
       return <UU5.Common.Error content="WTF No subjects!" />;
     }

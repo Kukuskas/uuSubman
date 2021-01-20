@@ -14,8 +14,6 @@ import SubjectUpdate from "../bricks/subject-update";
 
 
 //@@viewOff:imports
-
-
 const Mode = {
   fulltime: <UU5.Bricks.Lsi lsi={Lsi.subjectFullTime} />,
   parttime: <UU5.Bricks.Lsi lsi={Lsi.subjectPartTime} />,
@@ -52,6 +50,7 @@ const SubjectDetail = createVisualComponent({
 
 
   render({ subject, colorSchema, onDelete, onUpdate }) {
+
     const [studyForm,setStudyForm] = useState(Mode.fulltime);
     const [teacherList,setTeacherList] = useState(true);
     const teachers = [

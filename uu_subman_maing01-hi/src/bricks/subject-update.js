@@ -81,12 +81,10 @@ const SubjectUpdate = createComponent({
         
       if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
         console.log("hahahahahahahahahahaha");
-      onUpdate(input);
-      setMode(Mode.BUTTON);
+        onUpdate(input);
+        setMode(Mode.BUTTON);
       }else{return alert("fill in supervisor correctly")}
     }
-
-
     function handleCancel() {
       setMode(Mode.BUTTON);
     }
@@ -110,6 +108,7 @@ const SubjectUpdate = createComponent({
           bgStyle="transparent" 
          className={Css.update()} size="l"
          content = {<UU5.Bricks.Icon icon="glyphicon-edit"/>}
+
         />)}
         </>
       );
