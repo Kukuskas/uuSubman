@@ -3,7 +3,7 @@ import { createVisualComponent, useContext, useState, useRef } from "uu5g04-hook
 import Config from "./config/config";
 import SubjectList from "../bricks/subject-list";
 import SubjectProvider from "../bricks/subject-provider";
-import SubjectCreate from "../bricks/subject-create";
+
 import SubjectsTitle from "../bricks/subject-title";
 import Css from "./subject.css";
 import UU5 from "uu5g04";
@@ -96,7 +96,6 @@ const Subjects = createVisualComponent({
             ]}
           />
           <SubjectsTitle subjects={subjects} />
-          {isCreateAuthorized() && <SubjectCreate onCreate={handleCreate} />}
           <SubjectList
             subjects={subjects}
             onDelete={handleDelete}
