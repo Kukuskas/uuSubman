@@ -50,7 +50,6 @@ const TopicList = createVisualComponent({
       if (item.length === 0) {
         return <UU5.Common.Error content="WTF No topics!" />;
       } else {
-        console.log(item.data);
         return (
           <Topic
             topic={item.data}

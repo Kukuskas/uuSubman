@@ -64,7 +64,7 @@ const SubjectRoute = createVisualComponent({
       console.log(inputTopicUpdate);
       console.log("to the update passed////////////////");
       try {
-        await updateTopicSubjectRef.current({ inputTopicUpdate});
+        await updateTopicSubjectRef.current( inputTopicUpdate);
       } catch {
         showError(`Update of topic failed!`);
       }

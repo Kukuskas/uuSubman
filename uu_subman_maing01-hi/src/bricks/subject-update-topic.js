@@ -2,8 +2,8 @@
 import UU5 from "uu5g04";
 import { createComponent, useState, useContext, useSession } from "uu5g04-hooks";
 import Config from "./config/config";
-import SubjectUpdateFormTopic from "./subject-update-form-topic";
 import Css from "../routes/subject.css";
+import SubmanMainContext from "../bricks/subman-main-context";
 
 //@@viewOff:imports
 
@@ -19,26 +19,28 @@ const SubjectUpdateTopic = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    subject: UU5.PropTypes.shape({
-      name: UU5.PropTypes.shape.isRequired,
-      desc: UU5.PropTypes.shape.isRequired,
+    topic: UU5.PropTypes.shape({
+      name: UU5.PropTypes.string,
+      desc: UU5.PropTypes.string.isRequired,
+      studyMaterialList: UU5.PropTypes.array,
       id: UU5.PropTypes.isRequired,
     }),
-    onUpdate: UU5.PropTypes.func,
+    onUpdateTopic: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    subject: null,
+    topic: {},
     onUpdate: () => { },
     onDelete: () => { },
   },
   //@@viewOff:defaultProps
 
-  render({ onUpdateTopic, onDelete, id, topic, language, formOfStudy }) {
+  render({ onUpdateTopic, changedTopic, onDelete, id, topic, language, formOfStudy }) {
     //@viewOn:hooks
+
     const [mode, setMode] = useState(Mode.BUTTON);
     //@viewOff:hooks
 
@@ -52,11 +54,9 @@ const SubjectUpdateTopic = createComponent({
 
     function handleSave(opt) {
       let it = opt.values;
-      console.log("+++++++it+++++");
-      console.log(it);
       const input = {
         id: id,
-        date: {
+        data: {
           name: it.name,
           desc: it.desc,
           id: topic.id,
@@ -67,13 +67,26 @@ const SubjectUpdateTopic = createComponent({
       };
 
       onUpdateTopic(input);
+      changedTopic(input.data)
       setMode(Mode.BUTTON);
     }
 
     function handleCancel() {
       setMode(Mode.BUTTON);
     }
-    console.log(language);
+
+    const contextData = useContext(SubmanMainContext);
+
+    function isAdministrator() {
+      const isAdministration = contextData?.data?.authorizedProfileList?.some(
+        (profile) => profile === Config.Profiles.ADMINISTRATIONS
+      );
+      const isAuthority = contextData?.data?.authorizedProfileList?.some(
+        (profile) => profile === Config.Profiles.AUTHORITIES
+      );
+      return isAuthority || isAdministration;
+    }
+
 
     //@@viewOff:private
 
@@ -95,15 +108,46 @@ const SubjectUpdateTopic = createComponent({
 
     function renderForm() {
       return (
-        <SubjectUpdateFormTopic
-          onSave={handleSave} 
-          onCancel={handleCancel}
-          onDelete={handleDelete}
-          topic={topic}
-          language={language}
-          formOfStudy={formOfStudy}
-          id={id}
-        />
+
+        <UU5.Bricks.Container>
+        <UU5.Forms.ContextModal size="l" shown={true}>
+          <UU5.Forms.ContextHeader
+            content={<UU5.Bricks.Lsi lsi={{ en: "Edit topic", cs: "Upravit téma" }} />}
+            info={<UU5.Bricks.Lsi lsi={{ cs: <UU5.Bricks.Paragraph style="margin: 0" />, en: "More info..." }} />}
+          />
+          <>
+            {isAdministrator() && (
+              <UU5.Bricks.Button size="s" onClick={handleDelete} bgStyle="transparent">
+                <UU5.Bricks.Icon icon="glyphicon-trash" />
+              </UU5.Bricks.Button>
+            )}
+          </>
+
+          <UU5.Forms.ContextForm onSave={handleSave} onCancel={handleCancel}>
+        <UU5.Bricks.Container>
+          <UU5.Forms.Text
+            borderRadius="8px"
+            label={<UU5.Bricks.Lsi lsi={{ en: "Edit Name", cs: "Upravit Téma" }} />}
+            name="name"
+            value={topic.name}
+          />
+          <UU5.Forms.Text
+            borderRadius="8px"
+            label={<UU5.Bricks.Lsi lsi={{ en: "Edit Description", cs: "Upravit Popis" }} />}
+            name="desc"
+            value={topic.desc}
+            required
+          />
+
+        </UU5.Bricks.Container>
+      </UU5.Forms.ContextForm>
+
+          <UU5.Forms.ContextControls
+            buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Edit", cs: "Upravit" }} /> }}
+            buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}
+          />
+        </UU5.Forms.ContextModal>
+      </UU5.Bricks.Container>
       );
     }
 

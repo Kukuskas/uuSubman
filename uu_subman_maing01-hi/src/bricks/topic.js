@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useSession, useContext } from "uu5g04-hooks";
+import { createVisualComponent, useSession, useContext, useState } from "uu5g04-hooks";
 import Config from "./config/config";
 import Uu5Tiles from "uu5tilesg02";
 import Test from "./test";
@@ -31,11 +31,13 @@ const Topic = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ topic, onSave, onUpdateTopic, onDelete, teachers, supervisor, id, language, formOfStudy }) {
+  render({ topic, onUpdateTopic, onDelete, teachers, supervisor, id, language, formOfStudy }) {
     //EDIT
     //@@viewOn:render
     const { identity } = useSession();
     const contextData = useContext(SubmanMainContext);
+    const [changeTopic, setChangeTopic] = useState(topic)
+    const [changeTopicName, setChangeTopicName] = useState(topic.name)
 
     function canManage() {
       const isTeacher = teachers.some((teacher) => teacher === identity.uuIdentity);
@@ -45,25 +47,31 @@ const Topic = createVisualComponent({
       );
       return isAuthority || isTeacher || isGarant;
     }
-    console.log("its topic");
-    console.log(topic);
+    function handleChange(input){
+      console.log(input);
+      setChangeTopic(input)
+      console.log(changeTopic);
+      console.log("++++++++++++++++++++++t+++++++++++o++++++++p++++++++++++i++++++++++c+++++++++");
+      // return onUpdateTopic(input)
+    };
     return (
       <>
         {canManage() && (
-          <SubjectUpdateTopic onSave={onSave} 
+          <SubjectUpdateTopic  
           onUpdateTopic={onUpdateTopic} 
           onDelete={onDelete} 
           topic={topic}  
           language={language}
           formOfStudy={formOfStudy}
           id={id}
+          changedTopic={handleChange}
           />
         )}
-        <UU5.Bricks.Section content={topic.name} />
+        <UU5.Bricks.Section content={changeTopic.name} />
         <UU5.Bricks.Accordion>
           <UU5.Bricks.Panel
             borderRadius="8px"
-            header={topic.desc}
+            header={changeTopic.desc}
             content={<Test />}
             colorSchema="grey"
             iconExpanded="mdi-chevron-up"
