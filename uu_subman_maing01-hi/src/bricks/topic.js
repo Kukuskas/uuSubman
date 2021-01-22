@@ -40,6 +40,9 @@ const Topic = createVisualComponent({
     const [changeTopicName, setChangeTopicName] = useState(topic.name);
 
     function canManage() {
+      if (identity==null) {
+        return false        
+      }
       const isTeacher = teachers.some((teacher) => teacher === identity.uuIdentity);
       const isGarant = supervisor === identity.uuIdentity;
       const isAuthority = contextData?.data?.authorizedProfileList?.some(

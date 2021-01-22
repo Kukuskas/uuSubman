@@ -61,7 +61,10 @@ const SubjectList = createVisualComponent({
         subjects.map((data, index) => {
           const isGarant = data.data.supervisor === identity.uuIdentity;
           const isTeacher = data.data.teachers.some((teacher) => teacher === identity.uuIdentity);
-          console.log(isGarant, isTeacher);
+          console.log(
+            "God mode: ", isAuthority, 
+            "Is administraton: ", isAdministration?true:false, 
+            "Is teacher: ", isTeacher || isGarant);
           if (!isGarant && !isTeacher && data.data.visibility == false) {
             subjects.splice(index, 1);
           }

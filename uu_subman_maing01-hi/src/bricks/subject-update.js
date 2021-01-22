@@ -95,6 +95,9 @@ const SubjectUpdate = createComponent({
 
     //@@viewOff:private
     function canManage() {
+      if (identity==null) {
+        return false        
+      }
       const isTeacher = subject.teachers.some((teacher) => teacher === identity.uuIdentity);
       const isGarant = subject.supervisor === identity.uuIdentity;
       const isAuthority = contextData?.data?.authorizedProfileList?.some(
