@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent, useState, useEffect } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
 import "uu5g04-bricks";
@@ -84,7 +84,7 @@ const FormUpdate = createVisualComponent({
         setStudentsList(newStudentsList);
       }
     }
-
+   
     function handleRemove(i) {
       if (studentsList.length > 1) {
         const newStudentsList = studentsList.filter((_, index) => index !== i);
@@ -106,7 +106,19 @@ const FormUpdate = createVisualComponent({
     ];
 
     const [dis, setDis] = useState(false);
-    const [supervisor, setSupervisor] = useState("");
+    const [supervisor, setSupervisor] = useState(subject.supervisor);
+    function SuperviseronLoad() {
+      // Pass useEffect a function
+      useEffect(() => {
+        console.log('render!');
+        return () =>  console.log("lala");;
+      })
+    
+      return supervisor && (<UU5.Bricks.Column colWidth="s-6" style={{ alignSelf: "flex-end" }}>
+      <Plus4U5.Bricks.BusinessCard uuIdentity={supervisor} visual={"micro"} />
+    </UU5.Bricks.Column> )
+    }
+
 
     return (
       <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
@@ -196,11 +208,7 @@ const FormUpdate = createVisualComponent({
               required
             />
           </UU5.Bricks.Column>
-          {supervisor && (
-            <UU5.Bricks.Column colWidth="s-6" style={{ alignSelf: "flex-end" }}>
-              <Plus4U5.Bricks.BusinessCard uuIdentity={supervisor} visual={"micro"} />
-            </UU5.Bricks.Column>
-          )}
+          <SuperviseronLoad/>
           <UU5.Bricks.Column>
             <UU5.Forms.Text
               borderRadius="8px"
