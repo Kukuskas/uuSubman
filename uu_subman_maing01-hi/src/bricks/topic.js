@@ -18,7 +18,7 @@ const Topic = createVisualComponent({
     // topic: UU5.PropTypes.array.isRequired, //EDIT
     onDetail: UU5.PropTypes.func,
     onUpdateTopic: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
+    onDeleteTopic: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -27,17 +27,17 @@ const Topic = createVisualComponent({
     topics: [], //EDIT
     onDetail: () => {},
     onUpdateTopic: () => {},
-    onDelete: () => {},
+    onDeleteTopic: () => {},
   },
   //@@viewOff:defaultProps
 
-  render({ topic, onUpdateTopic, onDelete, teachers, supervisor, id, language, formOfStudy }) {
+  render({ topic, onUpdateTopic, onDeleteTopic, teachers, supervisor, id, language, formOfStudy }) {
     //EDIT
     //@@viewOn:render
     const { identity } = useSession();
     const contextData = useContext(SubmanMainContext);
-    const [changeTopic, setChangeTopic] = useState(topic)
-    const [changeTopicName, setChangeTopicName] = useState(topic.name)
+    const [changeTopic, setChangeTopic] = useState(topic);
+    const [changeTopicName, setChangeTopicName] = useState(topic.name);
 
     function canManage() {
       const isTeacher = teachers.some((teacher) => teacher === identity.uuIdentity);
@@ -47,27 +47,40 @@ const Topic = createVisualComponent({
       );
       return isAuthority || isTeacher || isGarant;
     }
-    function handleChange(input){
-      console.log(input);
-      setChangeTopic(input)
-      console.log(changeTopic);
-      console.log("++++++++++++++++++++++t+++++++++++o++++++++p++++++++++++i++++++++++c+++++++++");
-      // return onUpdateTopic(input)
-    };
+    let inpute;
+    function handleChange(input) {
+      inpute = input;
+      setChangeTopic(inpute);
+
+      return onUpdateTopic(input);
+    }
+
+    function deleteTopicParams() {
+      onDeleteTopic({
+        id: id,
+        data: { id: topic.id },
+        formOfStudy: formOfStudy,
+        language: language,
+      });
+    }
+
     return (
       <>
         {canManage() && (
-          <SubjectUpdateTopic  
-          onUpdateTopic={onUpdateTopic} 
-          onDelete={onDelete} 
-          topic={topic}  
-          language={language}
-          formOfStudy={formOfStudy}
-          id={id}
-          changedTopic={handleChange}
-          />
+          <UU5.Bricks.Row>
+            <SubjectUpdateTopic
+              onUpdateTopic={handleChange}
+              topic={topic}
+              language={language}
+              formOfStudy={formOfStudy}
+              id={id}
+            />
+            <UU5.Bricks.Button size="s" onClick={deleteTopicParams} bgStyle="transparent">
+              <UU5.Bricks.Icon icon="glyphicon-trash" />
+            </UU5.Bricks.Button>
+          </UU5.Bricks.Row>
         )}
-        <UU5.Bricks.Section content={changeTopic.name} />
+        <UU5.Bricks.Section content={changeTopicName} />
         <UU5.Bricks.Accordion>
           <UU5.Bricks.Panel
             borderRadius="8px"

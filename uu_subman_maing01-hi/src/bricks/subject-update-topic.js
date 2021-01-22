@@ -38,7 +38,7 @@ const SubjectUpdateTopic = createComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ onUpdateTopic, changedTopic, onDelete, id, topic, language, formOfStudy }) {
+  render({ onUpdateTopic, id, topic, language, formOfStudy }) {
     //@viewOn:hooks
 
     const [mode, setMode] = useState(Mode.BUTTON);
@@ -48,9 +48,7 @@ const SubjectUpdateTopic = createComponent({
     function handleUpdateTopic() {
       setMode(Mode.FORM);
     }
-    function handleDelete(topic) {
-      onDelete(topic);
-    }
+
 
     function handleSave(opt) {
       let it = opt.values;
@@ -67,7 +65,7 @@ const SubjectUpdateTopic = createComponent({
       };
 
       onUpdateTopic(input);
-      changedTopic(input.data)
+      topic = input.data
       setMode(Mode.BUTTON);
     }
 
@@ -77,15 +75,7 @@ const SubjectUpdateTopic = createComponent({
 
     const contextData = useContext(SubmanMainContext);
 
-    function isAdministrator() {
-      const isAdministration = contextData?.data?.authorizedProfileList?.some(
-        (profile) => profile === Config.Profiles.ADMINISTRATIONS
-      );
-      const isAuthority = contextData?.data?.authorizedProfileList?.some(
-        (profile) => profile === Config.Profiles.AUTHORITIES
-      );
-      return isAuthority || isAdministration;
-    }
+
 
 
     //@@viewOff:private
@@ -115,13 +105,7 @@ const SubjectUpdateTopic = createComponent({
             content={<UU5.Bricks.Lsi lsi={{ en: "Edit topic", cs: "Upravit téma" }} />}
             info={<UU5.Bricks.Lsi lsi={{ cs: <UU5.Bricks.Paragraph style="margin: 0" />, en: "More info..." }} />}
           />
-          <>
-            {isAdministrator() && (
-              <UU5.Bricks.Button size="s" onClick={handleDelete} bgStyle="transparent">
-                <UU5.Bricks.Icon icon="glyphicon-trash" />
-              </UU5.Bricks.Button>
-            )}
-          </>
+
 
           <UU5.Forms.ContextForm onSave={handleSave} onCancel={handleCancel}>
         <UU5.Bricks.Container>

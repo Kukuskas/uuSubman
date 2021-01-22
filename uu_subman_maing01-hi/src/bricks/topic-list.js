@@ -22,7 +22,7 @@ const TopicList = createVisualComponent({
     studyForm: UU5.PropTypes.string,
     onDetail: UU5.PropTypes.func,
     onUpdateTopic: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
+    onDeleteTopic: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -32,11 +32,11 @@ const TopicList = createVisualComponent({
     studyForm: "Full-time",
     onDetail: () => {},
     onUpdateTopic: () => {},
-    onDelete: () => {},
+    onDeleteTopic: () => {},
   },
   //@@viewOff:defaultProps
 
-  render({ subject, studyForm, onUpdateTopic, onDelete }) {
+  render({ subject, studyForm, onUpdateTopic, onDeleteTopic, onAddTopic }) {
     //@@viewOn:render
     const fullTime = useLsi({
       cs: subject.language.cs.formOfStudy.fulltime.topics,
@@ -45,6 +45,10 @@ const TopicList = createVisualComponent({
     const partTime = useLsi({
       cs: subject.language.cs.formOfStudy.parttime.topics,
       en: subject.language.en.formOfStudy.parttime.topics,
+    });
+    const language = useLsi({
+      cs: "cs",
+      en: "en",
     });
     function renderItem(item) {
       if (item.length === 0) {
@@ -55,23 +59,29 @@ const TopicList = createVisualComponent({
             topic={item.data}
             colorSchema="green"
             onUpdateTopic={onUpdateTopic}
-            onDelete={onDelete}
+            onDeleteTopic={onDeleteTopic}
             teachers={subject.teachers}
             supervisor={subject.supervisor}
             id={subject.id}
             formOfStudy={studyForm == "Full-time"?"fulltime":"parttime"}
-            language= {useLsi({
-              cs: "cs",
-              en: "en",
-            })}
+            language= {language}
           />
         );
       }
     }
 
+    function addTopicParams() {
+      onAddTopic({
+        id: subject.id,
+        formOfStudy: studyForm == "Full-time"?"fulltime":"parttime",
+        language: language,
+      });
+    }
+
     return (
       <>
         {/* <Uu5Tiles.ControllerProvider data={topic}> */}
+        <UU5.Bricks.Button content="Add New Topic" onClick={addTopicParams}/>
         <Uu5Tiles.Grid data={studyForm == "Full-time" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
           {renderItem}
         </Uu5Tiles.Grid>

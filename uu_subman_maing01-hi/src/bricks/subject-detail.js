@@ -33,6 +33,8 @@ const SubjectDetail = createVisualComponent({
     colorSchema: UU5.PropTypes.string,
     onUpdate: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
+    onDeleteTopic: UU5.PropTypes.func,
+    onAddTopic: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -42,10 +44,12 @@ const SubjectDetail = createVisualComponent({
     colorSchema: "blue",
     onUpdate: () => {},
     onDelete: () => {},
+    onDeleteTopic: () => {},
+    onAddTopic: () => {},
   },
   //@@viewOff:defaultProps
 
-  render({ subject, colorSchema, onDelete, onUpdate, onUpdateTopic }) {
+  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic }) {
     const [studyForm, setStudyForm] = useState(Mode.fulltime);
     const [teacherList, setTeacherList] = useState(true);
     const teachers = [<TeacherList teachers={subject.teachers} />];
@@ -135,7 +139,14 @@ const SubjectDetail = createVisualComponent({
           <UU5.Bricks.Box>
             <UU5.Bricks.Block content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
           </UU5.Bricks.Box>
-          <TopicList subject={subject} studyForm={studyForm.props.lsi.en} onUpdateTopic={onUpdateTopic}  margin="5px" />
+          <TopicList 
+          subject={subject} 
+          studyForm={studyForm.props.lsi.en} 
+          onUpdateTopic={onUpdateTopic}  
+          onDeleteTopic={onDeleteTopic} 
+          onAddTopic={onAddTopic}
+          margin="5px" 
+          />
         </UU5.Bricks.Section>
       </>
     );

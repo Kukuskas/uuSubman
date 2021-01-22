@@ -23,6 +23,8 @@ const SubjectRoute = createVisualComponent({
     const updateSubjectRef = useRef();
     const deleteSubjectRef = useRef();
     const updateTopicSubjectRef = useRef();
+    const deleteTopicSubjectRef = useRef();
+    const addTopicSubjectRef = useRef();
     //@viewOff:hooks
 
     //@@viewOn:private
@@ -59,22 +61,27 @@ const SubjectRoute = createVisualComponent({
       }
     }
 
-    async function handleUpdateTopic(inputTopicUpdate) {
-      console.log("to the update passed////////////////");
-      console.log(inputTopicUpdate);
-      console.log("to the update passed////////////////");
+    async function handleAddTopic(inputTopic) {
       try {
-        await updateTopicSubjectRef.current( inputTopicUpdate);
+        await addTopicSubjectRef.current(inputTopic);
       } catch {
-        showError(`Update of topic failed!`);
+        showError(`Adding of the topic failed!`);
       }
     }
 
-    async function handleDeleteTopic(subject) {
+    async function handleDeleteTopic(inputTopic) {
       try {
-        await deleteSubjectRef.current({ id: subject.id });
+        await deleteTopicSubjectRef.current(inputTopic);
       } catch {
-        showError(`Deletion of ${subject.name} failed!`);
+        showError(`Deletion of the topic failed!`);
+      }
+    }
+
+    async function handleUpdateTopic(inputTopic) {
+      try {
+        await updateTopicSubjectRef.current(inputTopic);
+      } catch {
+        showError(`Update of the topic failed!`);
       }
     }
 
@@ -84,9 +91,14 @@ const SubjectRoute = createVisualComponent({
 
     function renderReady(subject) {
       return (
-        <>
-          <SubjectDetail subject={subject} onDelete={handleDelete} onUpdate={handleUpdate} onUpdateTopic={handleUpdateTopic}  />
-        </>
+        <SubjectDetail
+          subject={subject}
+          onDelete={handleDelete}
+          onUpdate={handleUpdate}
+          onUpdateTopic={handleUpdateTopic}
+          onDeleteTopic={handleDeleteTopic}
+          onAddTopic={handleAddTopic}
+        />
       );
     }
 
@@ -126,6 +138,8 @@ const SubjectRoute = createVisualComponent({
               updateSubjectRef.current = handlerMap.updateSubject;
               deleteSubjectRef.current = handlerMap.deleteSubject;
               updateTopicSubjectRef.current = handlerMap.updateTopicSubject;
+              deleteTopicSubjectRef.current = handlerMap.deleteTopicSubject;
+              addTopicSubjectRef.current = handlerMap.addTopicSubject;
               data = subject.subject;
 
               switch (state) {

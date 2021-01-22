@@ -183,15 +183,20 @@ class SubjectAbl {
     let lang = dtoIn.language;
     let form = dtoIn.formOfStudy;
     // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
-
-    dtoIn.data.id = ObjectId().toHexString();
+    let newTopic={
+      id: ObjectId().toHexString(),
+      name: "",
+      desc: "example",
+      studyMaterialList:[]
+    }
+    
     lang == "cs"
       ? form == "fulltime"
-        ? subject.language.cs.formOfStudy.fulltime.topics.push(dtoIn.data)
-        : subject.language.cs.formOfStudy.parttime.topics.push(dtoIn.data)
+        ? subject.language.cs.formOfStudy.fulltime.topics.push(newTopic)
+        : subject.language.cs.formOfStudy.parttime.topics.push(newTopic)
       : form == "fulltime"
-        ? subject.language.en.formOfStudy.fulltime.topics.push(dtoIn.data)
-        : subject.language.en.formOfStudy.parttime.topics.push(dtoIn.data);
+        ? subject.language.en.formOfStudy.fulltime.topics.push(newTopic)
+        : subject.language.en.formOfStudy.parttime.topics.push(newTopic);
     let dtoOut;
     try {
       dtoIn.awid = awid;

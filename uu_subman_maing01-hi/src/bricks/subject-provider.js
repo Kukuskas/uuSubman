@@ -19,6 +19,8 @@ const SubjectProvider = createComponent({
         updateSubject: Calls.updateSubject,
         deleteSubject: Calls.deleteSubject,
         updateTopicSubject: Calls.updateTopicSubject,
+        deleteTopicSubject: Calls.deleteTopicSubject,
+        addTopicSubject: Calls.addTopicSubject,
       },
     });
 

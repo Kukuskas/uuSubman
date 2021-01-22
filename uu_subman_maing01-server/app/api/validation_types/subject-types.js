@@ -94,17 +94,6 @@ const subjectUpdateDtoInType = shape({
 
 const subjectAddTopicDtoInType = shape({
     id: mongoId().isRequired(),
-    data: shape({
-        name: uu5String(50),
-        desc: uu5String(500).isRequired(),
-        studyMaterialList: array(
-            // shape({
-            //     studyMateriaId: id(),
-            //     baseUri: uri(),
-            //     name: string(50)
-            // })
-        )
-    }),
     language: oneOf(["cs", "en"]).isRequired(),
     formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
 });
@@ -112,8 +101,8 @@ const subjectAddTopicDtoInType = shape({
 const subjectDeleteTopicDtoInType  = shape({
     id: mongoId().isRequired(),
     data: shape({
-        id: mongoId().isRequired()
-    }),
+        id: string(50).isRequired()
+    }).isRequired(),
     language: oneOf(["cs", "en"]).isRequired(),
     formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
 
