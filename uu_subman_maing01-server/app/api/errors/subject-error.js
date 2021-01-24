@@ -154,7 +154,52 @@ const UpdateTopic = {
   }
 };
 
+const AddStudyMaterial = {
+  UC_CODE: `${SUBJECT_ERROR_PREFIX}addStudyMaterial/`,
+    InvalidDtoIn: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${AddStudyMaterial.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  SubjectDaoAddStudyMaterialFailed: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${AddStudyMaterial.UC_CODE}subjectDaoAddStudyMaterialFailed`;
+      this.message = "AddStudyMaterial subject by subject Dao update failed.";
+    }
+  },
+  StudyMaterialAlreadyExist: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${AddStudyMaterial.UC_CODE}subjectDaoAddStudyMaterialFailed`;
+      this.message = "AddStudyMaterial subject by studyMaterial Dao update failed.";
+    }
+  }
+};
+
+const DeleteStudyMaterial = {
+  UC_CODE: `${SUBJECT_ERROR_PREFIX}deleteStudyMaterial/`,
+  InvalidDtoIn: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${DeleteStudyMaterial.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  SubjectDaoDeleteStudyMaterialFailed: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${DeleteStudyMaterial.UC_CODE}subjectDaoDeleteStudyMaterialFailed`;
+      this.message = "DeleteStudyMaterial subject by subject Dao update failed.";
+    }
+  }
+};
+
 module.exports = {
+  DeleteStudyMaterial,
+  AddStudyMaterial,
   UpdateTopic,
   DeleteTopic,
   AddTopic,
