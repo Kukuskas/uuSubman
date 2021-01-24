@@ -139,13 +139,29 @@ class SubjectAbl {
    return  studyMaterials.baseUri == dtoIn.data.baseUri
   })
 
-  if (studyMaterials) {
-    throw  new Errors.AddStudyMaterial.StudyMaterialAlreadyExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
-  }else {
+  // if (studyMaterials) {
+  //   throw  new Errors.AddStudyMaterial.StudyMaterialAlreadyExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
+  // }else {
+  //   try {
+      
+  //     dtoIn.awid = awid;
+  //     dtoOut = await this.dao.update(subject) &&
+  //     (dtoOut = await this.studyMaterialDao.create(dtoIn.data))
+      
+  //   } catch (e) {
+  //     if (e instanceof ObjectStoreError) {
+  //       // A10
+  //       throw new Errors.AddStudyMaterial.SubjectDaoAddStudyMaterialFailed({ uuAppErrorMap }, e);
+  //     }
+  //     throw e;
+  //   }
+  // }
+
+ 
     try {
       
       dtoIn.awid = awid;
-      dtoOut = await this.dao.update(subject) &&
+      studyMaterials? dtoOut = await this.dao.update(subject) : await this.dao.update(subject)&&
       (dtoOut = await this.studyMaterialDao.create(dtoIn.data))
       
     } catch (e) {
@@ -155,7 +171,6 @@ class SubjectAbl {
       }
       throw e;
     }
-  }
 
     // hds 8
     dtoOut.uuAppErrorMap = uuAppErrorMap;
