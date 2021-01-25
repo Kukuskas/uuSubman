@@ -47,7 +47,7 @@ const SubjectRoute = createVisualComponent({
     async function handleUpdate(subject) {
       try {
         await updateSubjectRef.current(subject);
-        return handleHome();
+        // return handleHome();
       } catch {
         showError(`Create of ${subject.name.en} failed!`);
       }

@@ -55,6 +55,7 @@ const SubjectList = createVisualComponent({
     function canManage() {
      return isAuthority || isAdministration
     }
+    
 
     function visibility() {
          if (!isAuthority || !isAdministration) {
@@ -127,9 +128,7 @@ const SubjectList = createVisualComponent({
 
     //@@viewOn:render
 
-    if (subjects.length === 0) {
-      return <UU5.Common.Error content="WTF No subjects!" />;
-    }
+ 
 
     const GET_ACTIONS = ({ screenSize }) => {
       return [
@@ -147,6 +146,23 @@ const SubjectList = createVisualComponent({
       ];
     };
 
+    if (subjects.length === 0) {
+   
+      
+       return <> 
+       
+        <Uu5Tiles.ControllerProvider data={subjects}>
+         <Uu5Tiles.ActionBar actions={ canManage() && showButton ? GET_ACTIONS : []} />
+         </Uu5Tiles.ControllerProvider>
+         <SubjectCreateForm
+          shown={showCreateModal}
+          onSave={handleCreateSubjectSave}
+          onCancel={handleCloseCreateSubjectForm}
+        />
+         <UU5.Common.Error content="WTF No subjects!" /> 
+        </>
+      }
+
     return (
       <>
         <SubjectCreateForm
@@ -157,7 +173,7 @@ const SubjectList = createVisualComponent({
         {visibility() && (
           <Uu5Tiles.ControllerProvider data={subjects}>
            
-            <Uu5Tiles.ActionBar actions={  canManage() && showButton ? GET_ACTIONS : []} />
+             <Uu5Tiles.ActionBar actions={canManage() && showButton ? GET_ACTIONS : []} />
             <Uu5Tiles.Grid tileHeight="auto" tileMinWidth={200} tileMaxWidth={300} tileSpacing={8} rowSpacing={8}>
               {renderItem}
             </Uu5Tiles.Grid>
