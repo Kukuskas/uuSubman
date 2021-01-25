@@ -53,11 +53,11 @@ const SubjectList = createVisualComponent({
       (profile) => profile === Config.Profiles.ADMINISTRATIONS
     );
     function canManage() {
-      return isAuthority || isAdministration;
+     return isAuthority || isAdministration
     }
 
     function visibility() {
-      if (isAuthority || isAdministration) {
+         if (!isAuthority || !isAdministration) {
         subjects.map((data, index) => {
           const isGarant = data.data.supervisor === identity.uuIdentity;
           const isTeacher = data.data.teachers.some((teacher) => teacher === identity.uuIdentity);
@@ -68,8 +68,9 @@ const SubjectList = createVisualComponent({
           if (!isGarant && !isTeacher && data.data.visibility == false) {
             subjects.splice(index, 1);
           }
-        });
-      }
+        }
+        );
+       }
       return subjects;
     }
 
@@ -155,7 +156,8 @@ const SubjectList = createVisualComponent({
         />
         {visibility() && (
           <Uu5Tiles.ControllerProvider data={subjects}>
-            {canManage() && <Uu5Tiles.ActionBar actions={showButton ? GET_ACTIONS : []} />}
+           
+            <Uu5Tiles.ActionBar actions={  canManage() && showButton ? GET_ACTIONS : []} />
             <Uu5Tiles.Grid tileHeight="auto" tileMinWidth={200} tileMaxWidth={300} tileSpacing={8} rowSpacing={8}>
               {renderItem}
             </Uu5Tiles.Grid>
