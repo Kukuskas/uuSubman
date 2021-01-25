@@ -134,26 +134,30 @@ class SubjectAbl {
         : subject.language.en.formOfStudy.parttime.studyMaterialList.push(dtoIn.data);
     let dtoOut;
 
+    let dtoInlink = dtoIn.data.baseUri.replace(/^https?:\/\/(www\.)?/, "")
+    // let subjectStudyMaterialsLink = .baseUri.replace(/^https?:\/\/(www\.)?/, "")
+
+
     let studyMaterials = await this.studyMaterialDao.list()
     studyMaterials = studyMaterials.itemList.some(studyMaterials => {
-      return studyMaterials.baseUri == dtoIn.data.baseUri
+      return studyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
     })
     let subjectStudyMaterials = await this.dao.get(awid, dtoIn.id)
     lang == "cs"
       ? form == "fulltime"
         ? subjectStudyMaterials = subjectStudyMaterials.language.cs.formOfStudy.fulltime.studyMaterialList
           .some(subjectStudyMaterials => {
-            return subjectStudyMaterials.baseUri == dtoIn.data.baseUri
+            return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
           }) : subjectStudyMaterials = subjectStudyMaterials.language.cs.formOfStudy.parttime.studyMaterialList
             .some(subjectStudyMaterials => {
-              return subjectStudyMaterials.baseUri == dtoIn.data.baseUri
+              return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
             }) : form == "fulltime"
         ? subjectStudyMaterials = subjectStudyMaterials.language.en.formOfStudy.fulltime.studyMaterialList
           .some(subjectStudyMaterials => {
-            return subjectStudyMaterials.baseUri == dtoIn.data.baseUri
+            return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
           }) : subjectStudyMaterials = subjectStudyMaterials.language.en.formOfStudy.parttime.studyMaterialList
             .some(subjectStudyMaterials => {
-              return subjectStudyMaterials.baseUri == dtoIn.data.baseUri
+              return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
             })
     if (studyMaterials && subjectStudyMaterials) {
       throw new Errors.AddStudyMaterial.StudyMaterialAlreadyExist({ uuAppErrorMap }, { subjectId: dtoIn.id })
@@ -176,8 +180,7 @@ class SubjectAbl {
 
     // hds 8
     dtoOut.uuAppErrorMap = uuAppErrorMap;
-    return dtoOut;
-
+    return dtoOut
   }
 
 
