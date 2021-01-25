@@ -125,7 +125,6 @@ const subjectAddStudyMaterialDtoInType = shape({
         data: shape ({
         baseUri: uri().isRequired(),
         type: uu5String(50).isRequired(),
-        id: string(50),
         name: uu5String(50).isRequired(),
         }),
     language: oneOf(["cs", "en"]).isRequired(),

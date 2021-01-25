@@ -36,7 +36,7 @@ const WARNINGS = {
   addStudyMaterialUnsupportedKeys: {
     code: `${Errors.AddStudyMaterial.UC_CODE}unsupportedKeys`,
   },
-  
+
   deleteStudyMaterialUnsupportedKeys: {
     code: `${Errors.AddStudyMaterial.UC_CODE}unsupportedKeys`,
   }
@@ -111,7 +111,7 @@ class SubjectAbl {
       Errors.AddStudyMaterial.InvalidDtoIn
     );
 
-  
+
     // hds 3
     let subject = await this.dao.get(awid, dtoIn.id);
     // A5
@@ -123,7 +123,7 @@ class SubjectAbl {
     let lang = dtoIn.language;
     let form = dtoIn.formOfStudy;
 
-      dtoIn.data.id= ObjectId().toHexString();
+    dtoIn.data.id = ObjectId().toHexString();
 
     lang == "cs"
       ? form == "fulltime"
@@ -134,33 +134,51 @@ class SubjectAbl {
         : subject.language.en.formOfStudy.parttime.studyMaterialList.push(dtoIn.data);
     let dtoOut;
 
-  let studyMaterials = await this.studyMaterialDao.list()
- studyMaterials = studyMaterials.itemList.some(studyMaterials=> {
-   return  studyMaterials.baseUri == dtoIn.data.baseUri
-  })
+    let dtoInlink = dtoIn.data.baseUri.replace(/^https?:\/\/(www\.)?/, "")
 
-  if (studyMaterials) {
-    throw  new Errors.AddStudyMaterial.StudyMaterialAlreadyExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
-  }else {
-    try {
-      
-      dtoIn.awid = awid;
-      dtoOut = await this.dao.update(subject) &&
-      (dtoOut = await this.studyMaterialDao.create(dtoIn.data))
-      
-    } catch (e) {
-      if (e instanceof ObjectStoreError) {
-        // A10
-        throw new Errors.AddStudyMaterial.SubjectDaoAddStudyMaterialFailed({ uuAppErrorMap }, e);
+    let studyMaterials = await this.studyMaterialDao.list()
+    studyMaterials = studyMaterials.itemList.some(studyMaterials => {
+      return studyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
+    })
+    let subjectStudyMaterials = await this.dao.get(awid, dtoIn.id)
+    lang == "cs"
+      ? form == "fulltime"
+        ? subjectStudyMaterials = subjectStudyMaterials.language.cs.formOfStudy.fulltime.studyMaterialList
+          .some(subjectStudyMaterials => {
+            return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
+          }) : subjectStudyMaterials = subjectStudyMaterials.language.cs.formOfStudy.parttime.studyMaterialList
+            .some(subjectStudyMaterials => {
+              return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
+            }) : form == "fulltime"
+        ? subjectStudyMaterials = subjectStudyMaterials.language.en.formOfStudy.fulltime.studyMaterialList
+          .some(subjectStudyMaterials => {
+            return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
+          }) : subjectStudyMaterials = subjectStudyMaterials.language.en.formOfStudy.parttime.studyMaterialList
+            .some(subjectStudyMaterials => {
+              return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
+            })
+    if (studyMaterials && subjectStudyMaterials) {
+      throw new Errors.AddStudyMaterial.StudyMaterialAlreadyExist({ uuAppErrorMap }, { subjectId: dtoIn.id })
+    } else {
+
+      try {
+
+        dtoIn.awid = awid;
+        studyMaterials && !subjectStudyMaterials ? dtoOut = await this.dao.update(subject) : await this.dao.update(subject) &&
+          (dtoOut = await this.studyMaterialDao.create(dtoIn.data))
+
+      } catch (e) {
+        if (e instanceof ObjectStoreError) {
+          // A10
+          throw new Errors.AddStudyMaterial.SubjectDaoAddStudyMaterialFailed({ uuAppErrorMap }, e);
+        }
+        throw e;
       }
-      throw e;
     }
-  }
 
     // hds 8
     dtoOut.uuAppErrorMap = uuAppErrorMap;
-    return dtoOut;
-
+    return dtoOut
   }
 
 
@@ -182,8 +200,6 @@ class SubjectAbl {
     }
 
     // hds 4
-    //dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
-    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
 
     // hds 7rs
     let lang = dtoIn.language;
@@ -240,9 +256,6 @@ class SubjectAbl {
       throw new Errors.DeleteTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
     }
 
-    // hds 4
-    //dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
-    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
 
     // hds 7rs
     let lang = dtoIn.language;
@@ -296,10 +309,6 @@ class SubjectAbl {
     if (!subject) {
       throw new Errors.AddTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
     }
-
-    // hds 4
-    //dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
-    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
 
     // hds 7rs
     let lang = dtoIn.language;
