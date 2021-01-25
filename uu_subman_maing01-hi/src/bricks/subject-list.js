@@ -127,20 +127,6 @@ const SubjectList = createVisualComponent({
 
     //@@viewOn:render
 
-    if (subjects.length === 0) {  
-      return <> 
-       <Uu5Tiles.ControllerProvider data={subjects}>
-        <Uu5Tiles.ActionBar actions={ canManage() && showButton ? GET_ACTIONS : []} />
-        </Uu5Tiles.ControllerProvider>
-        <SubjectCreateForm
-         shown={showCreateModal}
-         onSave={handleCreateSubjectSave}
-         onCancel={handleCloseCreateSubjectForm}
-       />
-        <UU5.Common.Error content="WTF No subjects!" /> 
-       </>
-     }
-
     const GET_ACTIONS = ({ screenSize }) => {
       return [
         {
@@ -156,6 +142,21 @@ const SubjectList = createVisualComponent({
         },
       ];
     };
+
+    if (subjects.length === 0) {
+      return <>
+        {console.log(isAuthority)}
+        <Uu5Tiles.ControllerProvider data={subjects}>
+          <Uu5Tiles.ActionBar actions={canManage() && showButton ? GET_ACTIONS : []} />
+        </Uu5Tiles.ControllerProvider>
+        <SubjectCreateForm
+          shown={showCreateModal}
+          onSave={handleCreateSubjectSave}
+          onCancel={handleCloseCreateSubjectForm}
+        />
+        <UU5.Common.Error content="WTF No subjects!" />
+      </>
+    }
 
     return (
       <>
