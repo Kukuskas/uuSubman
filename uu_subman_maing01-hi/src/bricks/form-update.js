@@ -216,8 +216,8 @@ const FormUpdate = createVisualComponent({
               name="teachers"
               value={subject.teachers.toString()}
             />
+             <UU5.Forms.Checkbox name="visibility" value={subject.visibility} label="Visibility" size="m" />
           </UU5.Bricks.Column>
-          <UU5.Forms.Checkbox name="visibility" value={true} label="Visibility" size="m" />
 
           {studentsList.map((student, index) => (
             <div key={index}>

@@ -98,7 +98,7 @@ const subjectAddTopicDtoInType = shape({
     formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
 });
 
-const subjectDeleteTopicDtoInType  = shape({
+const subjectDeleteTopicDtoInType = shape({
     id: mongoId().isRequired(),
     data: shape({
         id: string(50).isRequired()
@@ -107,7 +107,7 @@ const subjectDeleteTopicDtoInType  = shape({
     formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
 
 })
-const subjectUpdateTopicDtoInType  = shape({
+const subjectUpdateTopicDtoInType = shape({
     id: mongoId().isRequired(),
     data: shape({
         name: string(50),
@@ -115,6 +115,27 @@ const subjectUpdateTopicDtoInType  = shape({
         id: string(50).isRequired(),
         studyMaterialList: array(),
     }),
+    language: oneOf(["cs", "en"]).isRequired(),
+    formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
+
+})
+
+const subjectAddStudyMaterialDtoInType = shape({
+        id: mongoId().isRequired(),
+        data: shape ({
+        baseUri: uri().isRequired(),
+        type: uu5String(50).isRequired(),
+        name: uu5String(50).isRequired(),
+        }),
+    language: oneOf(["cs", "en"]).isRequired(),
+    formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
+})
+
+const subjectDeleteStudyMaterialDtoInType = shape({
+    id: mongoId().isRequired(),
+    data: shape({
+        id: string(50).isRequired()
+    }).isRequired(),
     language: oneOf(["cs", "en"]).isRequired(),
     formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
 
