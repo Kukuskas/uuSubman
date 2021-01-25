@@ -61,10 +61,10 @@ const SubjectList = createVisualComponent({
         subjects.map((data, index) => {
           const isGarant = data.data.supervisor === identity.uuIdentity;
           const isTeacher = data.data.teachers.some((teacher) => teacher === identity.uuIdentity);
-          console.log(
-            "God mode: ", isAuthority, 
-            "Is administraton: ", isAdministration?true:false, 
-            "Is teacher: ", isTeacher || isGarant);
+          // console.log(
+          //   "God mode: ", isAuthority, 
+          //   "Is administraton: ", isAdministration?true:false, 
+          //   "Is teacher: ", isTeacher || isGarant);
           if (!isGarant && !isTeacher && data.data.visibility == false) {
             subjects.splice(index, 1);
           }
@@ -127,9 +127,19 @@ const SubjectList = createVisualComponent({
 
     //@@viewOn:render
 
-    if (subjects.length === 0) {
-      return <UU5.Common.Error content="WTF No subjects!" />;
-    }
+    if (subjects.length === 0) {  
+      return <> 
+       <Uu5Tiles.ControllerProvider data={subjects}>
+        <Uu5Tiles.ActionBar actions={ canManage() && showButton ? GET_ACTIONS : []} />
+        </Uu5Tiles.ControllerProvider>
+        <SubjectCreateForm
+         shown={showCreateModal}
+         onSave={handleCreateSubjectSave}
+         onCancel={handleCloseCreateSubjectForm}
+       />
+        <UU5.Common.Error content="WTF No subjects!" /> 
+       </>
+     }
 
     const GET_ACTIONS = ({ screenSize }) => {
       return [
@@ -156,7 +166,6 @@ const SubjectList = createVisualComponent({
         />
         {visibility() && (
           <Uu5Tiles.ControllerProvider data={subjects}>
-           
             <Uu5Tiles.ActionBar actions={  canManage() && showButton ? GET_ACTIONS : []} />
             <Uu5Tiles.Grid tileHeight="auto" tileMinWidth={200} tileMaxWidth={300} tileSpacing={8} rowSpacing={8}>
               {renderItem}
