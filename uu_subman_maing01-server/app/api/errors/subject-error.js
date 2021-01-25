@@ -99,7 +99,65 @@ const Update = {
   
 };
 
+const AddTopic = {
+  UC_CODE: `${SUBJECT_ERROR_PREFIX}addTopic/`,
+  InvalidDtoIn: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${AddTopic.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  SubjectDaoAddTopicFailed: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${AddTopic.UC_CODE}subjectDaoAddTopicFailed`;
+      this.message = "AddTopic subject by subject Dao update failed.";
+    }
+  }
+};
+
+const DeleteTopic = {
+  UC_CODE: `${SUBJECT_ERROR_PREFIX}deleteTopic/`,
+  InvalidDtoIn: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${DeleteTopic.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  SubjectDaoDeleteTopicFailed: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${DeleteTopic.UC_CODE}subjectDaoAddTopicFailed`;
+      this.message = "DeleteTopic subject by subject Dao update failed.";
+    }
+  }
+  
+};
+
+const UpdateTopic = {
+  UC_CODE: `${SUBJECT_ERROR_PREFIX}updateTopic/`,
+  InvalidDtoIn: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${UpdateTopic.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  SubjectDaoDeleteTopicFailed: class extends SubmanMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${UpdateTopic.UC_CODE}subjectDaoAddTopicFailed`;
+      this.message = "UpdateTopic subject by subject Dao update failed.";
+    }
+  }
+};
+
 module.exports = {
+  UpdateTopic,
+  DeleteTopic,
+  AddTopic,
   Update,
   Delete,
   List,

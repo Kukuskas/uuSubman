@@ -23,32 +23,31 @@ const SubjectCreateForm = createVisualComponent({
   defaultProps: {
     onSave: () => {},
     onCancel: () => {},
-    shown: false
+    shown: false,
   },
   //@@viewOff:defaultProps
 
   render({ shown, onSave, onCancel }) {
     //@@viewOn:render
     return (
-        <UU5.Forms.ContextModal 
-          shown={shown} 
-          size="l" 
-          header={
-            <UU5.Forms.ContextHeader
+      <UU5.Forms.ContextModal
+        shown={shown}
+        size="l"
+        header={
+          <UU5.Forms.ContextHeader
             content={<UU5.Bricks.Lsi lsi={{ en: "Create a new subject", cs: "Vytvořit nový předmět" }} />}
             info={<UU5.Bricks.Lsi lsi={{ cs: "Více informací...", en: "More info..." }} />}
-            />
-          }
-          footer={
-            <UU5.Forms.ContextControls
+          />
+        }
+        footer={
+          <UU5.Forms.ContextControls
             buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Create", cs: "Vytvořit" }} /> }}
             buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}
           />
-          }
-        >
-          <Form onSave={onSave} onCancel={onCancel}/>
-          
-        </UU5.Forms.ContextModal>
+        }
+      >
+        <Form onSave={onSave} onCancel={onCancel} />
+      </UU5.Forms.ContextModal>
     );
     //@@viewOff:render
   },

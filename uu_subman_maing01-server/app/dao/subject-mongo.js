@@ -23,9 +23,9 @@ class SubjectMongo extends UuObjectDao {
      
   }
 
-  async update(uuObject) {
-    let filter = { id: uuObject.id, awid: uuObject.awid };
-    return await super.findOneAndUpdate(filter, uuObject, "NONE");
+  async update(subject) {
+    let filter = { id: subject.id, awid: subject.awid };
+    return await super.findOneAndUpdate(filter, subject, "NONE");
   }
 }
 

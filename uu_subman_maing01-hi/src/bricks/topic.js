@@ -1,82 +1,103 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useSession, useContext, useState } from "uu5g04-hooks";
 import Config from "./config/config";
-import topicRoute from "../routes/topicRoute";
+import Uu5Tiles from "uu5tilesg02";
+import Test from "./test";
+import SubjectUpdateTopic from "./subject-update-topic";
+import SubmanMainContext from "../bricks/subman-main-context";
 //@@viewOff:imports
 
-const topic = createVisualComponent({
+const Topic = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "topic",
+  displayName: Config.TAG + "TopicList",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    topic: UU5.PropTypes.shape({
-      name: UU5.PropTypes.shape.isRequired,
-      desc: UU5.PropTypes.shape.isRequired,
-    }),
-    colorSchema: UU5.PropTypes.string,
+    // topic: UU5.PropTypes.array.isRequired, //EDIT
     onDetail: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
+    onUpdateTopic: UU5.PropTypes.func,
+    onDeleteTopic: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    topic: null,
-    colorSchema: "blue",
+    topics: [], //EDIT
     onDetail: () => {},
-    onUpdate: () => {},
-    onDelete: () => {},
+    onUpdateTopic: () => {},
+    onDeleteTopic: () => {},
   },
   //@@viewOff:defaultProps
 
-  render({ topic, colorSchema, onDelete, onDetail }) {
-    //@@viewOn:private
+  render({ topic, onUpdateTopic, onDeleteTopic, teachers, supervisor, id, language, formOfStudy }) {
+    //EDIT
+    //@@viewOn:render
+    const { identity } = useSession();
+    const contextData = useContext(SubmanMainContext);
+    const [changeTopic, setChangeTopic] = useState(topic);
+    const [changeTopicName, setChangeTopicName] = useState(topic.name);
 
-    function handleDelete() {
-      onDelete(topic);
+    function canManage() {
+      if (identity==null) {
+        return false
+      }
+      const isTeacher = teachers.some((teacher) => teacher === identity.uuIdentity);
+      const isGarant = supervisor === identity.uuIdentity;
+      const isAuthority = contextData?.data?.authorizedProfileList?.some(
+        (profile) => profile === Config.Profiles.AUTHORITIES
+      );
+      return isAuthority || isTeacher || isGarant;
+    }
+    let inpute;
+    function handleChange(input) {
+      inpute = input;
+      setChangeTopic(inpute);
+
+      return onUpdateTopic(input);
     }
 
-    function handleDetail() {
-      return UU5.Environment.getRouter().setRoute({
-        component: <topicRoute topic={topic} />,
+    function deleteTopicParams() {
+      onDeleteTopic({
+        id: id,
+        data: { id: topic.id },
+        formOfStudy: formOfStudy,
+        language: language,
       });
     }
-    //@@viewOff:private
-
-    //@@viewOn:render
-    function renderHeader() {
-      return (
-        <>
-          {<UU5.Bricks.Lsi lsi={topic.name} />}
-        </>
-      );
-    }
-
-    if (!topic) {
-      return null;
-    }
-    // onClick in div could be topic detail
 
     return (
-     <> <div onClick={handleDetail}>
-        <UU5.Bricks.Card colorSchema={colorSchema}>
-          <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
-          <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={topic.desc} />} />
-          <UU5.Bricks.Text content={topic.credits}/>
-          <UU5.Bricks.Text colorSchema="red">click to see detail</UU5.Bricks.Text>
-        </UU5.Bricks.Card>
-      </div>
-                <UU5.Bricks.Button size="s" onClick={handleDelete} bgStyle="transparent" >
-            <UU5.Bricks.Icon icon="glyphicon-trash" />
-            </UU5.Bricks.Button>{/* <UU5.Bricks.Button onClick={handleDelete} colorSchema="grey"><UU5.Bricks.Icon icon="mdi-delete" /></UU5.Bricks.Button> */}
+      <>
+        {canManage() && (
+          <UU5.Bricks.Row>
+            <SubjectUpdateTopic
+              onUpdateTopic={handleChange}
+              topic={topic}
+              language={language}
+              formOfStudy={formOfStudy}
+              id={id}
+            />
+            <UU5.Bricks.Button size="s" onClick={deleteTopicParams} bgStyle="transparent">
+              <UU5.Bricks.Icon icon="glyphicon-trash" />
+            </UU5.Bricks.Button>
+          </UU5.Bricks.Row>
+        )}
+        <UU5.Bricks.Section content={changeTopicName} />
+        <UU5.Bricks.Accordion>
+          <UU5.Bricks.Panel
+            borderRadius="8px"
+            header={changeTopic.desc}
+            content={<Test />}
+            colorSchema="grey"
+            iconExpanded="mdi-chevron-up"
+            iconCollapsed="mdi-chevron-down"
+          />
+        </UU5.Bricks.Accordion>
       </>
     );
     //@@viewOff:render
   },
 });
 
-export default topic;
+export default Topic;

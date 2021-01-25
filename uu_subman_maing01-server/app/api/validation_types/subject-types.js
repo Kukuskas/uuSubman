@@ -12,7 +12,7 @@ const subjectCreateDtoInType = shape({
         cs: string(500).isRequired(),
         en: string(500).isRequired()
     }).isRequired(),
-    languageOfStudy:oneOf(["english", "czech", "czech/english"]).isRequired(),
+    languageOfStudy: oneOf(["english", "czech", "czech/english"]).isRequired(),
     language: shape().isRequired(),
     /* edit it later */
     teachers: array(
@@ -50,49 +50,72 @@ const subjectUpdateDtoInType = shape({
         cs: string(500).isRequired(),
         en: string(500).isRequired()
     }).isRequired(),
-    languageOfStudy:oneOf(["english", "czech", "czech/english"]).isRequired(),
+    languageOfStudy: oneOf(["english", "czech", "czech/english"]).isRequired(),
     language:
-        map(oneOf(["cs", "en"]), 
+        map(oneOf(["cs", "en"]),
             shape({
                 formOfStudy:
                     map(oneOf(["fulltime", "parttime"]), any(
                         shape({
                             id: id().isRequired,
                             studyMaterialList: array(
-                                shape({
-                                    subjectId: mongoId(),
-                                    url: uri(),
-                                    type: uu5String(50),
-                                    name: uu5String(50),
-                                })
+                                mongoId()
                             ),
                             topics: array(
                                 shape({
                                     name: uu5String(50),
                                     desc: uu5String(500),
-                                    id: id().isRequired(),
+                                    id: id(),
                                     studyMaterialList: array(
-                                        shape({
-                                            studyMateriaId: id(),
-                                            baseUri: uri(),
-                                            name: string(50)
-                                        })
+                                        // shape({
+                                        //     studyMateriaId: id(),
+                                        //     baseUri: uri(),
+                                        //     name: string(50)
+                                        // })
                                     )
                                 })
                             )
 
                         }))
-                             )
+                    )
             })
         ),
- 
+
     teachers: array(
         uuIdentity()),
     students: array(
         shape({
-            uuIdentity: uuIdentity(),
+            uuIdentity: oneOf([uuIdentity(), ""]),
             formOfStudy: oneOf(["fulltime", "parttime"])
         })
     ),
     visibility: boolean()
+});
+
+const subjectAddTopicDtoInType = shape({
+    id: mongoId().isRequired(),
+    language: oneOf(["cs", "en"]).isRequired(),
+    formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
+});
+
+const subjectDeleteTopicDtoInType  = shape({
+    id: mongoId().isRequired(),
+    data: shape({
+        id: string(50).isRequired()
+    }).isRequired(),
+    language: oneOf(["cs", "en"]).isRequired(),
+    formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
+
+})
+const subjectUpdateTopicDtoInType  = shape({
+    id: mongoId().isRequired(),
+    data: shape({
+        name: string(50),
+        desc: string(500),
+        id: string(50).isRequired(),
+        studyMaterialList: array(),
+    }),
+    language: oneOf(["cs", "en"]).isRequired(),
+    formOfStudy: oneOf(["fulltime", "parttime"]).isRequired()
+
 })

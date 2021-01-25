@@ -6,6 +6,48 @@ const main = () => Config.Css.css`
     padding-bottom:2%;
     margin: 0;    
 `;
+const detail = () => Config.Css.css`
+position: relative;
+`;
+const update = () => Config.Css.css`
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 18px;
+`;
+const updateTopic = () => Config.Css.css`
+  top:-20px;
+  float:right;
+  box-sizing:border-box;
+`;
+const trash = () => Config.Css.css`
+  position: absolute;
+  top: 8px;
+  right: 60px;
+  font-size: 18px;
+`;
+const topic = () => Config.Css.css` 
+ font-size: large;
+ font-weight: bold;
+`;
+const cursor = () => Config.Css.css`
+cursor: pointer;
+`;
+const accordion = () => Config.Css.css`
+background-color: rgb(250, 250, 250);
+`;
+const visibility = () => Config.Css.css`
+display:none;
+`;
+
 export default {
-    main
-  };
+  main,
+  topic,
+  cursor,
+  detail,
+  update,
+  trash,
+  accordion,
+  updateTopic,
+  visibility,
+};

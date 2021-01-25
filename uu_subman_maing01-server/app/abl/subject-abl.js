@@ -4,24 +4,34 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/subject-error.js");
+const ObjectId = require('mongodb').ObjectID;
 
 const AUTHORITIES_PROFILE = "Authorities";
 
 const WARNINGS = {
   createUnsupportedKeys: {
-    code: `${Errors.Create.UC_CODE}unsupportedKeys`
+    code: `${Errors.Create.UC_CODE}unsupportedKeys`,
   },
   getUnsupportedKeys: {
-    code: `${Errors.Get.UC_CODE}unsupportedKeys`
+    code: `${Errors.Get.UC_CODE}unsupportedKeys`,
   },
   listUnsupportedKeys: {
-    code: `${Errors.List.UC_CODE}unsupportedKeys`
+    code: `${Errors.List.UC_CODE}unsupportedKeys`,
   },
   deleteUnsupportedKeys: {
-    code: `${Errors.Delete.UC_CODE}unsupportedKeys`
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
   },
   updateUnsupportedKeys: {
-    code: `${Errors.Update.UC_CODE}unsupportedKeys`
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
+  },
+  addTopicUnsupportedKeys: {
+    code: `${Errors.AddTopic.UC_CODE}unsupportedKeys`,
+  },
+  deleteTopicUnsupportedKeys: {
+    code: `${Errors.DeleteTopic.UC_CODE}unsupportedKeys`,
+  },
+  updateTopicUnsupportedKeys: {
+    code: `${Errors.UpdateTopic.UC_CODE}unsupportedKeys`,
   }
 };
 
@@ -30,6 +40,177 @@ class SubjectAbl {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("subject");
     this.subjectDao = DaoFactory.getDao("subject");
+  }
+
+  async updateTopic(awid, dtoIn) {
+    let validationResult = this.validator.validate("subjectUpdateTopicDtoInType", dtoIn);
+    // hds 2.2, 2.3, A3, A4
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.updateTopicUnsupportedKeys.code,
+      Errors.UpdateTopic.InvalidDtoIn
+    );
+
+    // hds 3
+    let subject = await this.dao.get(awid, dtoIn.id);
+    // A5
+    if (!subject) {
+      throw new Errors.UpdateTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
+    }
+
+    // hds 4
+    //dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
+
+    // hds 7rs
+    let lang = dtoIn.language;
+    let form = dtoIn.formOfStudy;
+    // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
+    let x = dtoIn.data.id
+
+
+
+    lang == "cs"
+      ? form == "fulltime"
+        ? subject.language.cs.formOfStudy.fulltime.topics = 
+        subject.language.cs.formOfStudy.fulltime.topics.map(topic => topic.id == x ? dtoIn.data : topic)
+        : subject.language.cs.formOfStudy.parttime.topics =
+         subject.language.cs.formOfStudy.parttime.topics.map(topic => topic.id == x ? dtoIn.data : topic)
+      : form == "fulltime"
+        ? subject.language.en.formOfStudy.fulltime.topics =
+         subject.language.en.formOfStudy.fulltime.topics.map(topic => topic.id == x ? dtoIn.data : topic)
+        : subject.language.en.formOfStudy.parttime.topics =
+        subject.language.en.formOfStudy.parttime.topics.map(topic => topic.id == x ? dtoIn.data : topic)
+    let dtoOut;
+    try {
+      dtoIn.awid = awid;
+      dtoOut = await this.dao.update(subject);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        // A10
+        throw new Errors.UpdateTopic.SubjectDaoUpdateTopicFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+
+    // hds 8
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
+  }
+
+
+
+  async deleteTopic(awid, dtoIn) {
+    let validationResult = this.validator.validate("subjectDeleteTopicDtoInType", dtoIn);
+    // hds 2.2, 2.3, A3, A4
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.deleteTopicUnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
+    );
+
+    // hds 3
+    let subject = await this.dao.get(awid, dtoIn.id);
+    // A5
+    if (!subject) {
+      throw new Errors.DeleteTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
+    }
+
+    // hds 4
+    //dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
+
+    // hds 7rs
+    let lang = dtoIn.language;
+    let form = dtoIn.formOfStudy;
+    // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
+    let x = dtoIn.data.id
+
+
+
+    lang == "cs"
+      ? form == "fulltime"
+        ? subject.language.cs.formOfStudy.fulltime.topics =
+         subject.language.cs.formOfStudy.fulltime.topics.filter(topic => topic.id !== x)
+        : subject.language.cs.formOfStudy.parttime.topics = 
+        subject.language.cs.formOfStudy.parttime.topics.filter(topic => topic.id !== x)
+      : form == "fulltime"
+        ? subject.language.en.formOfStudy.fulltime.topics =
+         subject.language.en.formOfStudy.fulltime.topics.filter(topic => topic.id !== x)
+        : subject.language.en.formOfStudy.parttime.topics = 
+        subject.language.en.formOfStudy.parttime.topics.filter(topic => topic.id !== x)
+    let dtoOut;
+    try {
+      dtoIn.awid = awid;
+      dtoOut = await this.dao.update(subject);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        // A10
+        throw new Errors.DeleteTopic.SubjectDaoDeleteTopicFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+
+    // hds 8
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
+  }
+
+  async addTopic(awid, dtoIn) {
+    let validationResult = this.validator.validate("subjectAddTopicDtoInType", dtoIn);
+    // hds 2.2, 2.3, A3, A4
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.addTopicUnsupportedKeys.code,
+      Errors.AddTopic.InvalidDtoIn
+    );
+
+    // hds 3
+    let subject = await this.dao.get(awid, dtoIn.id);
+    // A5
+    if (!subject) {
+      throw new Errors.AddTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
+    }
+
+    // hds 4
+    //dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
+    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
+
+    // hds 7rs
+    let lang = dtoIn.language;
+    let form = dtoIn.formOfStudy;
+    // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
+    let newTopic={
+      id: ObjectId().toHexString(),
+      name: "",
+      desc: "example",
+      studyMaterialList:[]
+    }
+    
+    lang == "cs"
+      ? form == "fulltime"
+        ? subject.language.cs.formOfStudy.fulltime.topics.push(newTopic)
+        : subject.language.cs.formOfStudy.parttime.topics.push(newTopic)
+      : form == "fulltime"
+        ? subject.language.en.formOfStudy.fulltime.topics.push(newTopic)
+        : subject.language.en.formOfStudy.parttime.topics.push(newTopic);
+    let dtoOut;
+    try {
+      dtoIn.awid = awid;
+      dtoOut = await this.dao.update(subject);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        // A10
+        throw new Errors.AddTopic.SubjectDaoAddTopicFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+    // hds 8
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
   }
 
 
@@ -43,10 +224,9 @@ class SubjectAbl {
     );
     await this.dao.delete(awid, dtoIn.id);
     return uuAppErrorMap;
-  };
+  }
 
   async list(awid, dtoIn, session, authorizationResult) {
-
     // hds 2, 2.1
     let validationResult = this.validator.validate("subjectListDtoInType", dtoIn);
     // hds 2.2, 2.3, A4, A5
@@ -59,15 +239,13 @@ class SubjectAbl {
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
 
-    let dtoOut = await this.dao.list(awid)
+    let dtoOut = await this.dao.list(awid);
     // hds 4
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }
 
-
   async create(awid, dtoIn, session, authorizationResult) {
-   
     let validationResult = this.validator.validate("subjectCreateDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -78,7 +256,7 @@ class SubjectAbl {
 
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     const studyForms = {
-      studyForms: {
+      formOfStudy: {
         fulltime: {
           id: "1",
           studyMaterialList: [],
@@ -87,9 +265,9 @@ class SubjectAbl {
               name: "Example fulltime",
               desc: "Lorem Ipsum",
               id: "00",
-              studyMaterialList: []
-            }
-          ]
+              studyMaterialList: [],
+            },
+          ],
         },
         parttime: {
           id: "2",
@@ -99,17 +277,15 @@ class SubjectAbl {
               name: "Example parttime",
               desc: "lorem Ipsum",
               id: "00",
-              studyMaterialList: []
-            }
-          ]
-        }
-      }
-    }
-    
-      dtoIn.language =  {cs:studyForms, en: studyForms}
-    
-   
+              studyMaterialList: [],
+            },
+          ],
+        },
+      },
+    };
 
+    dtoIn.language = { cs: studyForms, en: studyForms };
+    dtoIn.students = [{ uuIdentity: "", formOfStudy: "fulltime" }];
 
     dtoIn.awid = awid;
     let dtoOut;
@@ -127,7 +303,6 @@ class SubjectAbl {
   }
 
   async get(awid, dtoIn, session, authorizationResult) {
-
     // hds 2, 2.1
     let validationResult = this.validator.validate("subjectGetDtoInType", dtoIn);
     // hds 2.2, 2.3, A4, A5
@@ -141,7 +316,6 @@ class SubjectAbl {
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
 
-
     // hds 3
     let subject = await this.dao.get(awid, dtoIn.id);
     if (!subject) {
@@ -151,7 +325,6 @@ class SubjectAbl {
     subject.uuAppErrorMap = uuAppErrorMap;
     return subject;
   }
-
 
   async update(awid, dtoIn, session, authorizationResult) {
     // hds 2, 2.1
@@ -175,7 +348,6 @@ class SubjectAbl {
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(AUTHORITIES_PROFILE);
 
-
     // hds 7rs
 
     try {
@@ -193,7 +365,6 @@ class SubjectAbl {
     subject.uuAppErrorMap = uuAppErrorMap;
     return subject;
   }
-
 }
 
 module.exports = new SubjectAbl();

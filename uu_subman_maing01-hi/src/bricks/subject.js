@@ -42,34 +42,32 @@ const Subject = createVisualComponent({
 
     function handleDetail() {
       return UU5.Environment.getRouter().setRoute({
-        component: <SubjectRoute subject={subject}  />,
+        component: <SubjectRoute subject={subject} />,
       });
     }
     //@@viewOff:private
 
     //@@viewOn:render
     function renderHeader() {
-      return (
-        <>
-          {<UU5.Bricks.Lsi lsi={subject.name} />}
-        </>
-      );
+      return <>{<UU5.Bricks.Lsi lsi={subject.name} />}</>;
     }
 
     if (!subject) {
       return null;
     }
     // onClick in div could be subject detail
-    
+
     return (
-     <> <div onClick={handleDetail}>
-        <UU5.Bricks.Card colorSchema={colorSchema}>
-          <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
-          <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
-          <UU5.Bricks.Text content={subject.credits}/>
-          <UU5.Bricks.Text colorSchema="red">click to see detail</UU5.Bricks.Text>
-        </UU5.Bricks.Card>
-      </div>
+      <>
+        {" "}
+        <div onClick={handleDetail}>
+          <UU5.Bricks.Card colorSchema={colorSchema}>
+            <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
+            <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
+            <UU5.Bricks.Text content={subject.credits} />
+            <UU5.Bricks.Text colorSchema="red">click to see detail</UU5.Bricks.Text>
+          </UU5.Bricks.Card>
+        </div>
       </>
     );
     //@@viewOff:render
