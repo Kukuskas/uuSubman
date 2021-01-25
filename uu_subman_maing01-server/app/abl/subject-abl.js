@@ -135,8 +135,6 @@ class SubjectAbl {
     let dtoOut;
 
     let dtoInlink = dtoIn.data.baseUri.replace(/^https?:\/\/(www\.)?/, "")
-    // let subjectStudyMaterialsLink = .baseUri.replace(/^https?:\/\/(www\.)?/, "")
-
 
     let studyMaterials = await this.studyMaterialDao.list()
     studyMaterials = studyMaterials.itemList.some(studyMaterials => {
