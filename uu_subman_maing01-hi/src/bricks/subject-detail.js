@@ -10,6 +10,7 @@ import TeacherList from "./teacher-list";
 import TopicList from "./topic-list";
 import Css from "../routes/subject.css";
 import SubjectUpdate from "../bricks/subject-update";
+import StudyMaterialList from "../bricks/study-material-list";
 
 //@@viewOff:imports
 
@@ -145,6 +146,11 @@ const SubjectDetail = createVisualComponent({
           onUpdateTopic={onUpdateTopic}  
           onDeleteTopic={onDeleteTopic} 
           onAddTopic={onAddTopic}
+          margin="5px" 
+          />
+           <StudyMaterialList 
+          subject={subject} 
+          studyForm={studyForm.props.lsi.en} 
           margin="5px" 
           />
         </UU5.Bricks.Section>

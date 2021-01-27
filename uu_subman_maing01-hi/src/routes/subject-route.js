@@ -47,7 +47,6 @@ const SubjectRoute = createVisualComponent({
     async function handleUpdate(subject) {
       try {
         await updateSubjectRef.current(subject);
-        return handleHome();
       } catch {
         showError(`Create of ${subject.name.en} failed!`);
       }
@@ -134,13 +133,14 @@ const SubjectRoute = createVisualComponent({
         <UU5.Bricks.Section className={Css.main()}>
           <SubjectProvider>
             {({ state, data, errorData, pendingData, handlerMap }) => {
+               data = subject.subject;
               getSubjectRef.current = handlerMap.getSubject;
               updateSubjectRef.current = handlerMap.updateSubject;
               deleteSubjectRef.current = handlerMap.deleteSubject;
               updateTopicSubjectRef.current = handlerMap.updateTopicSubject;
               deleteTopicSubjectRef.current = handlerMap.deleteTopicSubject;
               addTopicSubjectRef.current = handlerMap.addTopicSubject;
-              data = subject.subject;
+             
 
               switch (state) {
                 case "pending":

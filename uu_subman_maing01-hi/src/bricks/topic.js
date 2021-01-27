@@ -37,7 +37,7 @@ const Topic = createVisualComponent({
     const { identity } = useSession();
     const contextData = useContext(SubmanMainContext);
     const [changeTopic, setChangeTopic] = useState(topic);
-    const [changeTopicName, setChangeTopicName] = useState(topic.name);
+   // const [changeTopicName, setChangeTopicName] = useState(topic.name);
 
     function canManage() {
       if (identity==null) {
@@ -50,13 +50,13 @@ const Topic = createVisualComponent({
       );
       return isAuthority || isTeacher || isGarant;
     }
-    let inpute;
-    function handleChange(input) {
-      inpute = input;
-      setChangeTopic(inpute);
+    // let inpute;
+    // function handleChange(input) {
+    //   inpute = input;
+    //   setChangeTopic(inpute);
 
-      return onUpdateTopic(input);
-    }
+    //   return onUpdateTopic(input);
+    // }
 
     function deleteTopicParams() {
       onDeleteTopic({
@@ -72,7 +72,7 @@ const Topic = createVisualComponent({
         {canManage() && (
           <UU5.Bricks.Row>
             <SubjectUpdateTopic
-              onUpdateTopic={handleChange}
+              onUpdateTopic={onUpdateTopic}
               topic={topic}
               language={language}
               formOfStudy={formOfStudy}
@@ -83,11 +83,11 @@ const Topic = createVisualComponent({
             </UU5.Bricks.Button>
           </UU5.Bricks.Row>
         )}
-        <UU5.Bricks.Section content={changeTopicName} />
+        <UU5.Bricks.Section content={topic.name} />
         <UU5.Bricks.Accordion>
           <UU5.Bricks.Panel
             borderRadius="8px"
-            header={changeTopic.desc}
+            header={topic.desc}
             content={<Test />}
             colorSchema="grey"
             iconExpanded="mdi-chevron-up"
