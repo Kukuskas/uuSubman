@@ -66,15 +66,10 @@ const StudyMaterialList = createVisualComponent({
     }
  
 
-
-
-    return (
-    
+    return (    
          <Uu5Tiles.Grid data={studyForm == "Full-time" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
           {renderItem}
         </Uu5Tiles.Grid>
-
-      
     );
     //@@viewOff:render
   },
