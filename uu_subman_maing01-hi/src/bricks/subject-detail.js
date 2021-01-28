@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent, useState, useLsi, studyMaterial } from "uu5g04-hooks";
 import Config from "./config/config";
 import Lsi from "./config/lsi";
 import "uu5g04-bricks";
@@ -10,7 +10,9 @@ import TeacherList from "./teacher-list";
 import TopicList from "./topic-list";
 import Css from "../routes/subject.css";
 import SubjectUpdate from "../bricks/subject-update";
-import StudyMaterialList from "../bricks/study-material-list";
+import StudyMaterialBooksList from "../bricks/study-material-books-list";
+import StudyMaterialCoursesList from "../bricks/study-material-courses-list";
+import StudyMaterialVideosList from "../bricks/study-material-videos-list";
 
 //@@viewOff:imports
 
@@ -43,10 +45,10 @@ const SubjectDetail = createVisualComponent({
   defaultProps: {
     subject: null,
     colorSchema: "blue",
-    onUpdate: () => {},
-    onDelete: () => {},
-    onDeleteTopic: () => {},
-    onAddTopic: () => {},
+    onUpdate: () => { },
+    onDelete: () => { },
+    onDeleteTopic: () => { },
+    onAddTopic: () => { },
   },
   //@@viewOff:defaultProps
 
@@ -66,6 +68,8 @@ const SubjectDetail = createVisualComponent({
 
     //@@viewOn:render
 
+    //@@viewOn:render
+
     return (
       <>
         <Plus4U5.App.ArtifactSetter
@@ -81,7 +85,7 @@ const SubjectDetail = createVisualComponent({
         />
 
         <UU5.Bricks.Section>
-          <UU5.Bricks.Box colorSchema="green" className={Css.detail()}>
+          <UU5.Bricks.Box colorSchema="light-blue" className={Css.detail()}>
             <UU5.Bricks.Row>
               <UU5.Bricks.Header className="uu5-common-center" level={1}>
                 {<UU5.Bricks.Lsi lsi={subject.name} />}
@@ -140,19 +144,51 @@ const SubjectDetail = createVisualComponent({
           <UU5.Bricks.Box>
             <UU5.Bricks.Block content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
           </UU5.Bricks.Box>
-          <TopicList 
-          subject={subject} 
-          studyForm={studyForm.props.lsi.en} 
-          onUpdateTopic={onUpdateTopic}  
-          onDeleteTopic={onDeleteTopic} 
-          onAddTopic={onAddTopic}
-          margin="5px" 
+          <TopicList
+            subject={subject}
+            studyForm={studyForm.props.lsi.en}
+            onUpdateTopic={onUpdateTopic}
+            onDeleteTopic={onDeleteTopic}
+            onAddTopic={onAddTopic}
+            margin="5px"
           />
-           <StudyMaterialList 
-          subject={subject} 
-          studyForm={studyForm.props.lsi.en} 
-          margin="5px" 
-          />
+          <UU5.Bricks.Accordion>
+            <UU5.Bricks.Panel
+              header={<UU5.Bricks.Lsi lsi={{ en: "Books", cs: "Knihy" }} />}
+              content={<StudyMaterialBooksList
+                subject={subject}
+              />}
+              style={"font-size:large"}
+              colorSchema="blue"
+              iconExpanded="mdi-chevron-up"
+              iconCollapsed="mdi-chevron-down"
+            />
+          </UU5.Bricks.Accordion>
+          <UU5.Bricks.Accordion>
+            <UU5.Bricks.Panel
+              header={<UU5.Bricks.Lsi lsi={{ en: "Courses", cs: "Kurzy" }} />}
+              content={<StudyMaterialCoursesList
+                subject={subject}
+              />}
+              style={"font-size:large"}
+              colorSchema="blue"
+              iconExpanded="mdi-chevron-up"
+              iconCollapsed="mdi-chevron-down"
+            />
+          </UU5.Bricks.Accordion>
+          <UU5.Bricks.Accordion>
+            <UU5.Bricks.Panel
+              header={<UU5.Bricks.Lsi lsi={{ en: "Videos", cs: "Videa" }} />}
+              content={<StudyMaterialVideosList
+                subject={subject}
+              />}
+              style={"font-size:large"}
+              colorSchema="blue"
+              iconExpanded="mdi-chevron-up"
+              iconCollapsed="mdi-chevron-down"
+            />
+          </UU5.Bricks.Accordion>
+
         </UU5.Bricks.Section>
       </>
     );

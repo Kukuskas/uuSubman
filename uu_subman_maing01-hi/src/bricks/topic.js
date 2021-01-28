@@ -86,7 +86,6 @@ const Topic = createVisualComponent({
         <UU5.Bricks.Section content={topic.name} />
         <UU5.Bricks.Accordion>
           <UU5.Bricks.Panel
-            borderRadius="8px"
             header={topic.desc}
             content={<Test />}
             colorSchema="grey"
