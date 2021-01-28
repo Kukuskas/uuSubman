@@ -33,10 +33,8 @@ const Form = createVisualComponent({
 
 
   render({ onSave, onCancel, subject }) {
-
     const [dis, setDis] = useState(false);
     const [supervisor, setSupervisor] = useState();
-
 
     //@@viewOn:render
     const degreeName = [
@@ -51,129 +49,129 @@ const Form = createVisualComponent({
     ];
 
     function _handleSupervisorOnBlur(opt) {
-      if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(opt.value)){
+      if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(opt.value)) {
         setSupervisor(opt.value);
         opt.component.setValueDefault(opt.value);
-      ;}else if(opt.value!==""){alert("Please fill in Supervisor uuIdentity")}
+      } else if (opt.value !== "") {
+        alert("Please fill in Supervisor uuIdentity");
+      }
     }
 
     function _handleSupervisorOnDelete() {
-      setSupervisor("")
-      setDis(false)
+      setSupervisor("");
+      setDis(false);
     }
 
     function _handleUpdate(subject) {
-      return "Hello subject"
+      return "Hello subject";
     }
 
     return (
       <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
-          <UU5.Bricks.Row>
-
-            <UU5.Bricks.Column colWidth="s-6">
-              <UU5.Forms.Text
-                borderRadius="8px"
-                label={<UU5.Bricks.Lsi lsi={{ en: "Czech Name", cs: "Český Název" }} />}
-                name="nameCs"
-                value="Test one click"
-                controlled={false}
-                required
-              />
+        <UU5.Bricks.Row>
+          <UU5.Bricks.Column colWidth="s-6">
+            <UU5.Forms.Text
+              borderRadius="8px"
+              label={<UU5.Bricks.Lsi lsi={{ en: "Czech Name", cs: "Český Název" }} />}
+              name="nameCs"
+              value="Test one click"
+              controlled={false}
+              required
+            />
+          </UU5.Bricks.Column>
+          <UU5.Bricks.Column colWidth="s-6">
+            <UU5.Forms.Text
+              borderRadius="8px"
+              label={<UU5.Bricks.Lsi lsi={{ en: "English Name", cs: "Anglický Název" }} />}
+              name="nameEn"
+              value="Test one click"
+              controlled={false}
+              required
+            />
+          </UU5.Bricks.Column>
+        </UU5.Bricks.Row>
+        <UU5.Bricks.Row>
+          <UU5.Bricks.Column colWidth="s-2">
+            <UU5.Forms.Number
+              placeholder="0"
+              min={0}
+              max={40}
+              buttonHidden={true}
+              borderRadius="8px"
+              label={<UU5.Bricks.Lsi lsi={{ en: "Credits", cs: "Kredity" }} />}
+              name="credits"
+              controlled={false}
+              value="2"
+              required
+            />
+          </UU5.Bricks.Column>
+          <UU5.Bricks.Column colWidth="s-5">
+            <UU5.Forms.SwitchSelector
+              borderRadius="8px"
+              items={degreeName}
+              label={<UU5.Bricks.Lsi lsi={{ en: "Type of study", cs: "Typ studia" }} />}
+              name="degree"
+              controlled={false}
+            />
+          </UU5.Bricks.Column>
+          <UU5.Bricks.Column colWidth="s-5">
+            <UU5.Forms.SwitchSelector
+              borderRadius="8px"
+              items={languageOfStudy}
+              label={<UU5.Bricks.Lsi lsi={{ en: "Language", cs: "Jazyk" }} />}
+              name="languageOfStudy"
+              controlled={false}
+            />
+          </UU5.Bricks.Column>
+        </UU5.Bricks.Row>
+        <UU5.Bricks.Row>
+          <UU5.Bricks.Column colWidth="s-6">
+            <UU5.RichText.EditorInput
+              radius="8px"
+              label={<UU5.Bricks.Lsi lsi={{ en: "Czech description", cs: "Český popis" }} />}
+              name="descCs"
+              value="Test one click"
+              required
+              controlled={false}
+            />
+          </UU5.Bricks.Column>
+          <UU5.Bricks.Column colWidth="s-6">
+            <UU5.RichText.EditorInput
+              // maxHeight = "106px"
+              label={<UU5.Bricks.Lsi lsi={{ en: "English description", cs: "Anglický popis" }} />}
+              name="descEn"
+              value="Test one click"
+              required
+              controlled={false}
+            />
+          </UU5.Bricks.Column>
+        </UU5.Bricks.Row>
+        <UU5.Bricks.Row display="flex">
+          <UU5.Bricks.Column colWidth="s-6">
+            <UU5.Forms.Text
+              borderRadius="8px"
+              label={<UU5.Bricks.Lsi lsi={{ en: "Supervisor", cs: "Garant" }} />}
+              name="supervisor"
+              onBlur={_handleSupervisorOnBlur}
+              disabled={dis}
+              validate={/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/}
+              controlled={false}
+              required
+            />
+          </UU5.Bricks.Column>
+          {supervisor && (
+            <UU5.Bricks.Column colWidth="s-6" style={{ alignSelf: "flex-end" }}>
+              <Plus4U5.Bricks.BusinessCard uuIdentity={supervisor} visual={"micro"} />
             </UU5.Bricks.Column>
-
-            <UU5.Bricks.Column colWidth="s-6">
-              <UU5.Forms.Text
-                borderRadius="8px"
-                label={<UU5.Bricks.Lsi lsi={{ en: "English Name", cs: "Anglický Název" }} />}
-                name="nameEn"
-                value="Test one click"
-                controlled={false}
-                required
-              />
-            </UU5.Bricks.Column>
-
-          </UU5.Bricks.Row>
-          <UU5.Bricks.Row>
-
-            <UU5.Bricks.Column colWidth="s-2">
-              <UU5.Forms.Number
-                placeholder="0"
-                min={0}
-                max={40}
-                buttonHidden={true}
-                borderRadius="8px"
-                label={<UU5.Bricks.Lsi lsi={{ en: "Credits", cs: "Kredity" }} />}
-                name="credits"
-                controlled={false}
-                value="2"
-                required
-              />
-            </UU5.Bricks.Column>
-
-            <UU5.Bricks.Column colWidth="s-5">
-              <UU5.Forms.SwitchSelector
-                borderRadius="8px"
-                items={degreeName}
-                label={<UU5.Bricks.Lsi lsi={{ en: "Type of study", cs: "Typ studia" }} />}
-                name="degree"
-                controlled={false}
-              />
-            </UU5.Bricks.Column>
-            
-            <UU5.Bricks.Column colWidth="s-5">
-              <UU5.Forms.SwitchSelector
-                borderRadius="8px"
-                items={languageOfStudy}
-                label={<UU5.Bricks.Lsi lsi={{ en: "Language", cs: "Jazyk" }} />}
-                name="languageOfStudy"
-                controlled={false}
-              />
-            </UU5.Bricks.Column>
-          </UU5.Bricks.Row>
-          <UU5.Bricks.Row>
-            <UU5.Bricks.Column colWidth="s-6">
-              <UU5.RichText.EditorInput
-                radius="8px"
-                label={<UU5.Bricks.Lsi lsi={{ en: "Czech description", cs: "Český popis" }} />}
-                name="descCs"
-                value="Test one click"
-                required
-                controlled={false}
-              />
-            </UU5.Bricks.Column>
-            <UU5.Bricks.Column colWidth="s-6">
-              <UU5.RichText.EditorInput
-                // maxHeight = "106px"
-                label={<UU5.Bricks.Lsi lsi={{ en: "English description", cs: "Anglický popis" }} />}
-                name="descEn"
-                value="Test one click"
-                required
-                controlled={false}
-              />
-            </UU5.Bricks.Column>
-          </UU5.Bricks.Row>
-          <UU5.Bricks.Row display="flex">
-            <UU5.Bricks.Column colWidth="s-6">
-              <UU5.Forms.Text
-                borderRadius="8px"
-                label={<UU5.Bricks.Lsi lsi={{ en: "Supervisor", cs: "Garant" }} />}
-                name="supervisor"
-                onBlur={_handleSupervisorOnBlur}
-                disabled={dis}
-                validate={/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/}
-                controlled={false}
-                required
-              />
-            </UU5.Bricks.Column>
-            {supervisor && (<UU5.Bricks.Column colWidth="s-6" style={{alignSelf: "flex-end"}}><Plus4U5.Bricks.BusinessCard uuIdentity={supervisor} visual={"micro"} /></UU5.Bricks.Column>)}
-            </UU5.Bricks.Row>
-          <UU5.Forms.Text
-            borderRadius="8px"
-            label={<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
-            name="teachers"
-            value="25-1622-1,24-9525-1"
-            controlled={false}
-          />
+          )}
+        </UU5.Bricks.Row>
+        <UU5.Forms.Text
+          borderRadius="8px"
+          label={<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
+          name="teachers"
+          value="25-1622-1,24-9525-1"
+          controlled={false}
+        />
       </UU5.Forms.ContextForm>
     );
     //@@viewOff:render

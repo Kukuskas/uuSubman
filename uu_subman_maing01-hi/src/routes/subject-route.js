@@ -7,7 +7,7 @@ import SubjectsTitle from "../bricks/subject-title";
 import Css from "./subject.css";
 import SubjectDetail from "../bricks/subject-detail";
 import UU5, { PropTypes } from "uu5g04";
-
+import TopicList from "../bricks/topic-list";
 
 //@@viewOff:imports
 const SubjectRoute = createVisualComponent({
@@ -21,6 +21,9 @@ const SubjectRoute = createVisualComponent({
     const getSubjectRef = useRef();
     const updateSubjectRef = useRef();
     const deleteSubjectRef = useRef();
+    const updateTopicSubjectRef = useRef();
+    const deleteTopicSubjectRef = useRef();
+    const addTopicSubjectRef = useRef();
     //@viewOff:hooks
 
     //@@viewOn:private
@@ -31,24 +34,22 @@ const SubjectRoute = createVisualComponent({
       });
     }
 
-
     function handleHome() {
-      return (UU5.Environment.getRouter().setRoute({
-        url:"/"
-        
-      }), handleBack())
+      return (
+        UU5.Environment.getRouter().setRoute({
+          url: "/",
+        }),
+        handleBack()
+      );
     }
     /* eslint no-unused-vars: "off" */
     async function handleUpdate(subject) {
-      console.log("to the update passed////////////////");
-      console.log(subject)
-      console.log("to the update passed////////////////");
-      try{ await updateSubjectRef.current( subject);
-       return handleHome()
-       } catch {
+      try {
+        await updateSubjectRef.current(subject);
+        return handleHome();
+      } catch {
         showError(`Create of ${subject.name.en} failed!`);
       }
-      
     }
 
     async function handleDelete(subject) {
@@ -59,15 +60,44 @@ const SubjectRoute = createVisualComponent({
       }
     }
 
+    async function handleAddTopic(inputTopic) {
+      try {
+        await addTopicSubjectRef.current(inputTopic);
+      } catch {
+        showError(`Adding of the topic failed!`);
+      }
+    }
+
+    async function handleDeleteTopic(inputTopic) {
+      try {
+        await deleteTopicSubjectRef.current(inputTopic);
+      } catch {
+        showError(`Deletion of the topic failed!`);
+      }
+    }
+
+    async function handleUpdateTopic(inputTopic) {
+      try {
+        await updateTopicSubjectRef.current(inputTopic);
+      } catch {
+        showError(`Update of the topic failed!`);
+      }
+    }
+
     function renderLoad() {
       return <UU5.Bricks.Loading />;
     }
 
     function renderReady(subject) {
       return (
-        <>
-          <SubjectDetail subject={subject} onDelete={handleDelete} onUpdate={handleUpdate} />
-        </>
+        <SubjectDetail
+          subject={subject}
+          onDelete={handleDelete}
+          onUpdate={handleUpdate}
+          onUpdateTopic={handleUpdateTopic}
+          onDeleteTopic={handleDeleteTopic}
+          onAddTopic={handleAddTopic}
+        />
       );
     }
 
@@ -84,31 +114,32 @@ const SubjectRoute = createVisualComponent({
         url: "/subjects",
       });
     }
-        async function handleDelete(subject) {
+    async function handleDelete(subject) {
       try {
         await deleteSubjectRef.current({ id: subject.id });
-        handleBack()
+        handleBack();
       } catch {
         showError(`Deletion of ${subject.name} failed!`);
       }
     }
 
-
     return (
       <UU5.Bricks.Section className={Css.main()}>
-        <UU5.Bricks.Button
+        {/* <UU5.Bricks.Button
           colorSchema="primary"
           content={<UU5.Bricks.Lsi lsi={{ en: "Back", cs: "Zpět" }} />}
           onClick={handleBack}
-        />
-
+        /> */}
         <UU5.Bricks.Section className={Css.main()}>
           <SubjectProvider>
             {({ state, data, errorData, pendingData, handlerMap }) => {
               getSubjectRef.current = handlerMap.getSubject;
               updateSubjectRef.current = handlerMap.updateSubject;
               deleteSubjectRef.current = handlerMap.deleteSubject;
-              data=subject.subject
+              updateTopicSubjectRef.current = handlerMap.updateTopicSubject;
+              deleteTopicSubjectRef.current = handlerMap.deleteTopicSubject;
+              addTopicSubjectRef.current = handlerMap.addTopicSubject;
+              data = subject.subject;
 
               switch (state) {
                 case "pending":
@@ -121,7 +152,7 @@ const SubjectRoute = createVisualComponent({
                 case "ready":
                 case "readyNoData":
                 default:
-                  return (renderReady(data));
+                  return renderReady(data);
               }
             }}
           </SubjectProvider>

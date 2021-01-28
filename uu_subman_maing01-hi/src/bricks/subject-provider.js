@@ -11,7 +11,6 @@ const SubjectProvider = createComponent({
   //@@viewOff:statics
 
   render({ children }) {
-
     let listDataValues = useDataList({
       pageSize: 200,
       handlerMap: {
@@ -19,6 +18,9 @@ const SubjectProvider = createComponent({
         createSubject: Calls.createSubject,
         updateSubject: Calls.updateSubject,
         deleteSubject: Calls.deleteSubject,
+        updateTopicSubject: Calls.updateTopicSubject,
+        deleteTopicSubject: Calls.deleteTopicSubject,
+        addTopicSubject: Calls.addTopicSubject,
       },
     });
 

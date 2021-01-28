@@ -10,7 +10,7 @@ export default {
   Profiles: {
     AUTHORITIES: "Authorities",
     EXECUTIVES: "Executives",
-    ADMINISTRATION: "Administration"
+    ADMINISTRATION: "Administration",
   },
 
   Css: UU5.Common.Css.createCssModule(

@@ -2,7 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
-import Css from "../routes/detail.css";
+import Css from "../routes/subject.css";
 import Uu5Tiles from "uu5tilesg02";
 //@@viewOff:imports
 
@@ -19,41 +19,35 @@ const TeacherList = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    teachers: []
+    teachers: [],
   },
   //@@viewOff:defaultProps
 
-  render({ teachers}) {
+  render({ teachers }) {
     //@@viewOn:render
-    
-
-
 
     function renderItem(item) {
-        return (
-            <Plus4U5.Bricks.BusinessCard uuIdentity={item.data} hidePhoto={true} visual="micro" />
-        );
-      }
-    
+      return <Plus4U5.Bricks.BusinessCard uuIdentity={item.data} hidePhoto={true} visual="micro" />;
+    }
+
     if (teachers.length === 0) {
-      return <UU5.Common.Error content={<UU5.Bricks.Lsi lsi={{ en: "No teachers", cs: "Žadní učitelé" }} />}/>
+      return <UU5.Common.Error content={<UU5.Bricks.Lsi lsi={{ en: "No teachers", cs: "Žadní učitelé" }} />} />;
     }
     return (
-<Uu5Tiles.Grid
-      data={teachers}
-      className={Css.detail()} 
-      tileHeight="auto"
-      tileMinWidth="auto"
-      tileMaxWidth={150}
-      tileSpacing={0}
-      rowSpacing={0}
-    >
+      <Uu5Tiles.Grid
+        data={teachers}
+        className={Css.detail()}
+        tileHeight="auto"
+        tileMinWidth="auto"
+        tileMaxWidth={150}
+        tileSpacing={0}
+        rowSpacing={0}
+      >
         {renderItem}
-    </Uu5Tiles.Grid>
-      );
+      </Uu5Tiles.Grid>
+    );
     //@@viewOff:render
-  }
+  },
 });
 
 export default TeacherList;
-

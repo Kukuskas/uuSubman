@@ -45,6 +45,36 @@
         "realization": "api/controllers/SubjectController.update",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "subject/addTopic": {
+        "realization": "api/controllers/SubjectController.addTopic",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "subject/deleteTopic": {
+        "realization": "api/controllers/SubjectController.deleteTopic",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "subject/updateTopic": {
+        "realization": "api/controllers/SubjectController.updateTopic",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "subject/addStudyMaterial": {
+        "realization": "api/controllers/SubjectController.addStudyMaterial",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "studyMaterial/create": {
+        "realization": "api/controllers/StudyMaterialController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "subject/deleteStudyMaterial": {
+        "realization": "api/controllers/SubjectController.deleteStudyMaterial",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

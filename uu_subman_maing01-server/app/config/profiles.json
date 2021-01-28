@@ -8,7 +8,7 @@
     "useCaseMap": {
       "subject/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Administrations", "Public"]
+        "profileList": ["Authorities","Administrations","Public"]
       },
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
@@ -23,7 +23,7 @@
       },
       "submanMain/load": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives", "Public"]
+        "profileList": ["Authorities","Executives","Public"]
       },
       "uu-app-binarystore/createBinary": {
         "sysStateList": ["active"],
@@ -83,11 +83,35 @@
       },
       "subject/delete": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Administrations"]
+        "profileList": ["Authorities","Administrations"]
       },
       "subject/update": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Administrations", "Public"]
+        "profileList": ["Authorities","Administrations","Public"]
+      },
+      "subject/addTopic": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "subject/deleteTopic": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities"]
+      },
+      "subject/updateTopic": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities"]
+      },
+      "subject/addStudyMaterial": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "studyMaterial/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "subject/deleteStudyMaterial": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

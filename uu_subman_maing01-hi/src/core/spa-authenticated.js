@@ -9,8 +9,8 @@ import SpaReady from "./spa-ready";
 //@@viewOff:imports
 
 const STATICS = {
-  displayName: Config.TAG + "SpaAuthenticated",    
-}
+  displayName: Config.TAG + "SpaAuthenticated",
+};
 
 const SpaAuthenticated = createVisualComponent({
   ...STATICS,
@@ -24,28 +24,28 @@ const SpaAuthenticated = createVisualComponent({
     //@@viewOn:render
     return (
       <SessionProvider session={UU5.Environment.getSession()}>
-      <SubmanMainProvider>
-        <SubmanMainContext.Consumer>
-          {({ state, errorData }) => {
-            switch (state) {
-              case "pending":
-              case "pendingNoData":
-                return <UU5.Bricks.Loading />;
-              case "error":
-              case "errorNoData":
-                return <UU5.Bricks.Error error={errorData.error} />;
-              case "ready":
-              case "readyNoData":
-              default:
-                return <SpaReady {...props} />;
-            }
-          }}
-        </SubmanMainContext.Consumer>
-      </SubmanMainProvider>
+        <SubmanMainProvider>
+          <SubmanMainContext.Consumer>
+            {({ state, errorData }) => {
+              switch (state) {
+                case "pending":
+                case "pendingNoData":
+                  return <UU5.Bricks.Loading />;
+                case "error":
+                case "errorNoData":
+                  return <UU5.Bricks.Error error={errorData.error} />;
+                case "ready":
+                case "readyNoData":
+                default:
+                  return <SpaReady {...props} />;
+              }
+            }}
+          </SubmanMainContext.Consumer>
+        </SubmanMainProvider>
       </SessionProvider>
     );
     //@@viewOff:render
-  }
+  },
 });
 
 export default SpaAuthenticated;

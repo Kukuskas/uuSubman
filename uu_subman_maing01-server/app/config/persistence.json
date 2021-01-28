@@ -9,6 +9,9 @@
         },
         "subject": {
           "realization": "dao/SubjectMongo"
+        },
+        "studyMaterial": {
+          "realization": "dao/StudyMaterialMongo"
         }
       }
     }

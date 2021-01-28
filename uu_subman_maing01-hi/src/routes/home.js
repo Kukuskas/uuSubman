@@ -48,7 +48,7 @@ export const Home = createVisualComponent({
   render(props) {
     //@@viewOn:private
     //@@viewOff:private
-    let { identity } = useSession();
+    let { identity } = useSession()?useSession():0-0;;
     function foto() {
       if (identity) {
         return <Plus4U5.Bricks.UserPhoto width="100px" />;

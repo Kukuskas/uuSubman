@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState, getState } from "uu5g04-hooks";
+import { createVisualComponent, useState, useEffect } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
 import "uu5g04-bricks";
@@ -31,11 +31,13 @@ const FormUpdate = createVisualComponent({
     onCancel: () => {},
   },
   //@@viewOff:defaultProps
+
   getInitialState() {
     return {
       size: "m",
     };
   },
+
   render({ onSave, onCancel, subject }) {
     //@@viewOn:render
     const degreeName = [
@@ -51,88 +53,52 @@ const FormUpdate = createVisualComponent({
 
     function _handleSupervisorOnBlur(opt) {
       if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(opt.value)) {
-        setSupervisorValue(opt.value);
-        setSupervisor(
-          <>
-            <Plus4U5.Bricks.UserData uuIdentity={opt.value} detail={true} visible="all">
-              {({ isLoading, data }) => {
-                if (isLoading) {
-                  return <UU5.Bricks.Loading />;
-                } else {
-                  if (data.name) {
-                    setDis(true);
-                    return (
-                      <>
-                        <UU5.Bricks.Row>
-                          <Plus4U5.Bricks.UserPhoto width="80px" uuIdentity={opt.value} />
-                          {data.title} {data.name} {data.suffix}
-                          <UU5.Bricks.Button
-                            onClick={_handleSupervisorOnDelete}
-                            size="s"
-                            bgStyle="transparent"
-                            borderRadius="800px"
-                            className="uu5-common-center"
-                          >
-                            <UU5.Bricks.Icon icon="fa-times" />
-                          </UU5.Bricks.Button>
-                        </UU5.Bricks.Row>
-                      </>
-                    );
-                  } else {
-                    setDis(false);
-                    return <UU5.Bricks.Text color="red">UuIdentity doesn't exist!</UU5.Bricks.Text>;
-                  }
-                }
-              }}
-            </Plus4U5.Bricks.UserData>
-          </>
-        );
+        setSupervisor(opt.value);
+        opt.component.setValueDefault(opt.value);
       } else if (opt.value !== "") {
         alert("Please fill in Supervisor uuIdentity");
       }
     }
+
     function _handleSupervisorOnDelete() {
       setSupervisor("");
       setDis(false);
     }
 
     function handleUuIdentityChange(value, index) {
-       studentsList[index].uuIdentity = value;
-       setStudentsList(studentsList);
-       setTestStudents(JSON.stringify(studentsList))
-
+      studentsList[index].uuIdentity = value;
+      setStudentsList(studentsList);
+      setTestStudents(JSON.stringify(studentsList));
     }
     function handleFormOfStudyChange(value, index) {
-       studentsList[index].formOfStudy = value;
-       setStudentsList(studentsList);
-       setTestStudents(JSON.stringify(studentsList))
+      studentsList[index].formOfStudy = value;
+      setStudentsList(studentsList);
+      setTestStudents(JSON.stringify(studentsList));
     }
-
 
     function handleAdd() {
       const i = studentsList;
       if (i[i.length - 1].uuIdentity == "") {
       } else {
-        const newStudentsList = studentsList.concat({ uuIdentity: "", formOfStudy:"fulltime" });
+        const newStudentsList = studentsList.concat({ uuIdentity: "", formOfStudy: "fulltime" });
         setStudentsList(newStudentsList);
       }
     }
-
+   
     function handleRemove(i) {
-      if (studentsList.length>1) {
+      if (studentsList.length > 1) {
         const newStudentsList = studentsList.filter((_, index) => index !== i);
 
         setStudentsList(newStudentsList);
-        setTestStudents(JSON.stringify(studentsList))
+        setTestStudents(JSON.stringify(studentsList));
       } else {
-        setStudentsList([{ uuUdentity: "", formOfStudy:"" }]);
-        setTestStudents("")
+        setStudentsList([{ uuUdentity: "", formOfStudy: "" }]);
+        setTestStudents("");
       }
-
     }
-    const [testStudents, setTestStudents] = useState("")
+
+    const [testStudents, setTestStudents] = useState("");
     const [studentsList, setStudentsList] = useState(subject.students);
-    
 
     const formOfStudyName = [
       { content: <UU5.Bricks.Lsi lsi={{ en: "Full-time", cs: "Prezenční" }} />, value: "fulltime" },
@@ -140,7 +106,19 @@ const FormUpdate = createVisualComponent({
     ];
 
     const [dis, setDis] = useState(false);
-    const [supervisor, setSupervisor] = useState("");
+    const [supervisor, setSupervisor] = useState(subject.supervisor);
+    function SuperviseronLoad() {
+      // Pass useEffect a function
+      useEffect(() => {
+        console.log('render!');
+        return () =>  console.log("lala");;
+      })
+    
+      return supervisor && (<UU5.Bricks.Column colWidth="s-6" style={{ alignSelf: "flex-end" }}>
+      <Plus4U5.Bricks.BusinessCard uuIdentity={supervisor} visual={"micro"} />
+    </UU5.Bricks.Column> )
+    }
+
 
     return (
       <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
@@ -218,23 +196,29 @@ const FormUpdate = createVisualComponent({
               />
             </UU5.Bricks.Column>
           </UU5.Bricks.Row>
-          <UU5.Forms.Text
-            borderRadius="8px"
-            label={<UU5.Bricks.Lsi lsi={{ en: "Supervisor", cs: "Garant" }} />}
-            name="supervisor"
-            onBlur={_handleSupervisorOnBlur}
-            disabled={dis}
-            value={subject.supervisor}
-            validate={/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/}
-            required
-          />
-          <UU5.Bricks.Section content={supervisor} />
-          <UU5.Forms.Text
-            borderRadius="8px"
-            label={<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
-            name="teachers"
-            value={subject.teachers.toString()}
-          />
+          <UU5.Bricks.Column>
+            <UU5.Forms.Text
+              borderRadius="8px"
+              label={<UU5.Bricks.Lsi lsi={{ en: "Supervisor", cs: "Garant" }} />}
+              name="supervisor"
+              disabled={dis}
+              value={subject.supervisor}
+              onBlur={_handleSupervisorOnBlur}
+              validate={/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/}
+              required
+            />
+          </UU5.Bricks.Column>
+          <SuperviseronLoad/>
+          <UU5.Bricks.Column>
+            <UU5.Forms.Text
+              borderRadius="8px"
+              label={<UU5.Bricks.Lsi lsi={{ en: "Teachers", cs: "Učitelé" }} />}
+              name="teachers"
+              value={subject.teachers.toString()}
+            />
+             <UU5.Forms.Checkbox name="visibility" value={subject.visibility} label="Visibility" size="m" />
+          </UU5.Bricks.Column>
+
           {studentsList.map((student, index) => (
             <div key={index}>
               <UU5.Bricks.Row label="student">
@@ -247,8 +231,7 @@ const FormUpdate = createVisualComponent({
                         ? ((student = { uuIdentity: "", formOfStudy: "fulltime" }), student.uuIdentity)
                         : student.uuIdentity
                     }
-                    onBlur={(value) => handleUuIdentityChange(value.value, index) }
-                    
+                    onBlur={(value) => handleUuIdentityChange(value.value, index)}
                   />
                 </UU5.Bricks.Column>
                 <UU5.Bricks.Column colWidth="s-4">
@@ -257,7 +240,7 @@ const FormUpdate = createVisualComponent({
                     items={formOfStudyName}
                     value={student == null ? "" : student.formOfStudy}
                     name={"formOfStudy" + index}
-                    onChange={(value) => handleFormOfStudyChange(value.value, index)} 
+                    onChange={(value) => handleFormOfStudyChange(value.value, index)}
                   />
                 </UU5.Bricks.Column>
                 <UU5.Bricks.Column colWidth="s-4">
@@ -273,7 +256,7 @@ const FormUpdate = createVisualComponent({
           <UU5.Bricks.Row>
             <UU5.Bricks.Button onClick={console.log("")} content="Test" />
           </UU5.Bricks.Row>
-          <UU5.Forms.Text name="test" value={testStudents} hidden={true}/>
+          <UU5.Forms.Text name="test" value={testStudents} hidden={true} />
         </UU5.Bricks.Container>
       </UU5.Forms.ContextForm>
     );

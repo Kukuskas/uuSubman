@@ -19,7 +19,7 @@ import SubmanMainContext from "../bricks/subman-main-context";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "SpaAuthenticated"
+  displayName: Config.TAG + "SpaAuthenticated",
   //@@viewOff:statics
 };
 
@@ -60,7 +60,6 @@ export const SpaReady = createVisualComponent({
     //@@viewOff:interface
     //@@viewOn:render
     return (
-      
       <Plus4U5.App.MenuProvider activeItemId={initialActiveItemId}>
         <Plus4U5.App.Page
           {...props}
@@ -83,20 +82,14 @@ export const SpaReady = createVisualComponent({
           <Plus4U5.App.MenuConsumer>
             {({ setActiveItemId }) => {
               let handleRouteChanged = ({ useCase, parameters }) => setActiveItemId(useCase || DEFAULT_USE_CASE);
-              return (
-                <UU5.Common.Router
-                  routes={ROUTES}
-                  controlled={false}
-                  onRouteChanged={handleRouteChanged}
-                />
-              );
+              return <UU5.Common.Router routes={ROUTES} controlled={false} onRouteChanged={handleRouteChanged} />;
             }}
           </Plus4U5.App.MenuConsumer>
         </Plus4U5.App.Page>
       </Plus4U5.App.MenuProvider>
     );
     //@@viewOff:render
-  }
+  },
 });
 
 export default SpaReady;
