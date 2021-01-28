@@ -10,6 +10,7 @@ import TeacherList from "./teacher-list";
 import TopicList from "./topic-list";
 import Css from "../routes/subject.css";
 import SubjectUpdate from "../bricks/subject-update";
+import StudyMaterialList from "../bricks/study-material-list";
 
 //@@viewOff:imports
 
@@ -80,7 +81,7 @@ const SubjectDetail = createVisualComponent({
         />
 
         <UU5.Bricks.Section>
-          <UU5.Bricks.Box colorSchema="green" className={Css.detail()}>
+          <UU5.Bricks.Box colorSchema="light-blue" className={Css.detail()}>
             <UU5.Bricks.Row>
               <UU5.Bricks.Header className="uu5-common-center" level={1}>
                 {<UU5.Bricks.Lsi lsi={subject.name} />}
@@ -139,14 +140,31 @@ const SubjectDetail = createVisualComponent({
           <UU5.Bricks.Box>
             <UU5.Bricks.Block content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
           </UU5.Bricks.Box>
-          <TopicList 
-          subject={subject} 
-          studyForm={studyForm.props.lsi.en} 
-          onUpdateTopic={onUpdateTopic}  
-          onDeleteTopic={onDeleteTopic} 
+          <TopicList
+          subject={subject}
+          studyForm={studyForm.props.lsi.en}
+          onUpdateTopic={onUpdateTopic}
+          onDeleteTopic={onDeleteTopic}
           onAddTopic={onAddTopic}
-          margin="5px" 
+          margin="5px"
           />
+               <UU5.Bricks.Accordion>
+
+           <UU5.Bricks.Panel
+             header={<UU5.Bricks.Lsi lsi={{ en: "Books", cs: "Knihy" }} />}
+             content={ <StudyMaterialList
+              subject={subject}
+               studyForm={studyForm.props.lsi.en}
+
+               />}
+              style={"font-size:large"}
+             colorSchema="blue"
+             iconExpanded="mdi-chevron-up"
+             iconCollapsed="mdi-chevron-down"
+
+           />
+         </UU5.Bricks.Accordion>
+
         </UU5.Bricks.Section>
       </>
     );
