@@ -31,7 +31,7 @@ const descCard = () => Config.Css.css`
 const labelCard = () => Config.Css.css`
     width: 2em; 
     margin-top: -3em;  
-    background-color: grey; 
+    background-color: #2196F3; 
 `;
 
 const footerCard = () => Config.Css.css`
