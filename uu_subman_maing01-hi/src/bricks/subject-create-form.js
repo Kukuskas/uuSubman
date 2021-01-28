@@ -33,6 +33,7 @@ const SubjectCreateForm = createVisualComponent({
       <UU5.Forms.ContextModal
         shown={shown}
         size="l"
+        
         header={
           <UU5.Forms.ContextHeader
             content={<UU5.Bricks.Lsi lsi={{ en: "Create a new subject", cs: "Vytvořit nový předmět" }} />}
@@ -41,8 +42,8 @@ const SubjectCreateForm = createVisualComponent({
         }
         footer={
           <UU5.Forms.ContextControls
-            buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Create", cs: "Vytvořit" }} /> }}
-            buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}
+            buttonSubmitProps={{colorSchema:"red", content:<UU5.Bricks.Lsi lsi={{ en: "Create", cs: "Vytvořit" } }/> }}
+            buttonCancelProps={{content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}
           />
         }
       >

@@ -107,6 +107,7 @@ const Form = createVisualComponent({
           </UU5.Bricks.Column>
           <UU5.Bricks.Column colWidth="s-5">
             <UU5.Forms.SwitchSelector
+              colorSchema="red"
               borderRadius="8px"
               items={degreeName}
               label={<UU5.Bricks.Lsi lsi={{ en: "Type of study", cs: "Typ studia" }} />}
@@ -116,6 +117,7 @@ const Form = createVisualComponent({
           </UU5.Bricks.Column>
           <UU5.Bricks.Column colWidth="s-5">
             <UU5.Forms.SwitchSelector
+              colorSchema="red"
               borderRadius="8px"
               items={languageOfStudy}
               label={<UU5.Bricks.Lsi lsi={{ en: "Language", cs: "Jazyk" }} />}
