@@ -25,6 +25,7 @@ const SubjectRoute = createVisualComponent({
     const updateTopicSubjectRef = useRef();
     const deleteTopicSubjectRef = useRef();
     const addTopicSubjectRef = useRef();
+    const deleteStudyMaterialSubjectRef =  useRef();
     //@viewOff:hooks
 
     //@@viewOn:private
@@ -83,7 +84,14 @@ const SubjectRoute = createVisualComponent({
         showError(`Update of the topic failed!`);
       }
     }
-
+    async function handleDeleteStudyMaterial(studyMaterial) {
+      try {
+        console.log("///////////////////passed to del////////////");
+        await deleteStudyMaterialSubjectRef.current(studyMaterial);
+      } catch {
+        showError(`Deletion of the topic failed!`);
+      }
+    }
     function renderLoad() {
       return <UU5.Bricks.Loading />;
     }
@@ -97,6 +105,7 @@ const SubjectRoute = createVisualComponent({
           onUpdateTopic={handleUpdateTopic}
           onDeleteTopic={handleDeleteTopic}
           onAddTopic={handleAddTopic}
+          onDeleteStudyMaterial={handleDeleteStudyMaterial}
         />
       );
     }
@@ -140,6 +149,7 @@ const SubjectRoute = createVisualComponent({
               updateTopicSubjectRef.current = handlerMap.updateTopicSubject;
               deleteTopicSubjectRef.current = handlerMap.deleteTopicSubject;
               addTopicSubjectRef.current = handlerMap.addTopicSubject;
+              deleteStudyMaterialSubjectRef.current = handlerMap.deleteStudyMaterialSubject;
              
 
               switch (state) {

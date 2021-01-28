@@ -47,6 +47,12 @@ let Calls = {
     return Calls.call("post", commandUri, dtoIn);
   },
 
+  deleteStudyMaterialSubject(dtoIn) {
+    let commandUri = Calls.getCommandUri("subject/deleteStudyMaterial");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
+
   deleteSubject(dtoIn) {
     let commandUri = Calls.getCommandUri("subject/delete");
     return Calls.call("post", commandUri, dtoIn);

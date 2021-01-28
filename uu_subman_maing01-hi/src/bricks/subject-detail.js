@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState, useLsi, studyMaterial } from "uu5g04-hooks";
+import { createVisualComponent, useState } from "uu5g04-hooks";
 import Config from "./config/config";
 import Lsi from "./config/lsi";
 import "uu5g04-bricks";
@@ -49,10 +49,11 @@ const SubjectDetail = createVisualComponent({
     onDelete: () => { },
     onDeleteTopic: () => { },
     onAddTopic: () => { },
+    onDeleteStudyMaterial: () => {}
   },
   //@@viewOff:defaultProps
 
-  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic }) {
+  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic, onDeleteStudyMaterial }) {
     const [studyForm, setStudyForm] = useState(Mode.fulltime);
     const [teacherList, setTeacherList] = useState(true);
     const teachers = [<TeacherList teachers={subject.teachers} />];
@@ -157,6 +158,7 @@ const SubjectDetail = createVisualComponent({
               header={<UU5.Bricks.Lsi lsi={{ en: "Books", cs: "Knihy" }} />}
               content={<StudyMaterialBooksList
                 subject={subject}
+                onDeleteStudyMaterial={onDeleteStudyMaterial}
               />}
               style={"font-size:large"}
               colorSchema="blue"
@@ -169,6 +171,7 @@ const SubjectDetail = createVisualComponent({
               header={<UU5.Bricks.Lsi lsi={{ en: "Courses", cs: "Kurzy" }} />}
               content={<StudyMaterialCoursesList
                 subject={subject}
+                onDeleteStudyMaterial={onDeleteStudyMaterial}
               />}
               style={"font-size:large"}
               colorSchema="blue"
@@ -181,6 +184,7 @@ const SubjectDetail = createVisualComponent({
               header={<UU5.Bricks.Lsi lsi={{ en: "Videos", cs: "Videa" }} />}
               content={<StudyMaterialVideosList
                 subject={subject}
+                onDeleteStudyMaterial={onDeleteStudyMaterial}
               />}
               style={"font-size:large"}
               colorSchema="blue"
