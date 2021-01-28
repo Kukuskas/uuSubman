@@ -3,6 +3,7 @@ import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import SubjectRoute from "../routes/subject-route";
+import CssSubject from "./css/subjectCard.css";
 //@@viewOff:imports
 
 const Subject = createVisualComponent({
@@ -61,11 +62,11 @@ const Subject = createVisualComponent({
       <>
         {" "}
         <div onClick={handleDetail}>
-          <UU5.Bricks.Card colorSchema={colorSchema}>
-            <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
-            <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
-            <UU5.Bricks.Text content={subject.credits} />
-            <UU5.Bricks.Text colorSchema="red">click to see detail</UU5.Bricks.Text>
+          <UU5.Bricks.Card elevation="1" elevationHover="2" className={CssSubject.card()}>
+            <UU5.Bricks.Strong className={CssSubject.headerCard()}>{renderHeader()}</UU5.Bricks.Strong>
+            <UU5.Bricks.Label className={CssSubject.labelCard()} content={subject.credits}/>
+            <UU5.Bricks.Section className={CssSubject.descCard()} content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
+            <UU5.Bricks.Text className={CssSubject.footerCard()}>click to see detail</UU5.Bricks.Text>
           </UU5.Bricks.Card>
         </div>
       </>

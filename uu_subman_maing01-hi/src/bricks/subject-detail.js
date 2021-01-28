@@ -40,7 +40,7 @@ const SubjectDetail = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     subject: null,
-    colorSchema: "blue",
+    colorSchema: "red",
     onUpdate: () => {},
     onDelete: () => {},
     onDeleteTopic: () => {},

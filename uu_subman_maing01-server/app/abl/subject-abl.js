@@ -36,11 +36,9 @@ const WARNINGS = {
   addStudyMaterialUnsupportedKeys: {
     code: `${Errors.AddStudyMaterial.UC_CODE}unsupportedKeys`,
   },
-
   deleteStudyMaterialUnsupportedKeys: {
     code: `${Errors.AddStudyMaterial.UC_CODE}unsupportedKeys`,
   }
-
 };
 
 class SubjectAbl {
@@ -63,6 +61,7 @@ class SubjectAbl {
 
     // hds 3
     let subject = await this.dao.get(awid, dtoIn.id);
+
     // A5
     if (!subject) {
       throw new Errors.DeleteStudyMaterial.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
@@ -84,7 +83,9 @@ class SubjectAbl {
         subject.language.en.formOfStudy.fulltime.studyMaterialList.filter(studyMaterialList => studyMaterialList.id !== x)
         : subject.language.en.formOfStudy.parttime.studyMaterialList =
         subject.language.en.formOfStudy.parttime.studyMaterialList.filter(studyMaterialList => studyMaterialList.id !== x)
+
     let dtoOut;
+
     try {
       dtoIn.awid = awid;
       dtoOut = await this.dao.update(subject);
@@ -137,9 +138,11 @@ class SubjectAbl {
     let dtoInlink = dtoIn.data.baseUri.replace(/^https?:\/\/(www\.)?/, "")
 
     let studyMaterials = await this.studyMaterialDao.list()
+    
     studyMaterials = studyMaterials.itemList.some(studyMaterials => {
       return studyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
     })
+
     let subjectStudyMaterials = await this.dao.get(awid, dtoIn.id)
     lang == "cs"
       ? form == "fulltime"

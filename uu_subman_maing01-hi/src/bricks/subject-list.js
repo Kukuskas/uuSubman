@@ -115,7 +115,8 @@ const SubjectList = createVisualComponent({
         language: {},
         teachers: it.teachers.split(","),
         visibility: false,
-      };
+      }
+
       if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
         onCreate(input);
       } else {
@@ -136,7 +137,7 @@ const SubjectList = createVisualComponent({
 
           onClick: handleOpenCreateSubjectForm,
           icon: "mdi-plus-circle",
-          colorSchema: "primary",
+          colorSchema: "red",
           bgStyle: "filled",
           active: true,
         },
@@ -167,7 +168,7 @@ const SubjectList = createVisualComponent({
         />
         {visibility() && (
           <Uu5Tiles.ControllerProvider data={subjects}>
-            <Uu5Tiles.ActionBar actions={  canManage() && showButton ? GET_ACTIONS : []} />
+            <Uu5Tiles.ActionBar actions={canManage() && showButton ? GET_ACTIONS : []} />
             <Uu5Tiles.Grid tileHeight="auto" tileMinWidth={200} tileMaxWidth={300} tileSpacing={8} rowSpacing={8}>
               {renderItem}
             </Uu5Tiles.Grid>
