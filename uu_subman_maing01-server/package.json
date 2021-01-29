@@ -1,6 +1,6 @@
 {
   "name": "uu_subman_maing01-server",
-  "version": "0.2.7-alpha",
+  "version": "0.2.7-alpha.1",
   "description": "",
   "license": "License Commercial",
   "spec": "nodejs-app; uu_appg01@3.1.0",
