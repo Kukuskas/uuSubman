@@ -14,6 +14,7 @@ class StudyMaterialMongo extends UuObjectDao {
   async get(awid, id) {
     return await super.findOne({ awid, id });
   }
+  
   async list(awid, pageInfo) {
     return await super.find({ awid }, pageInfo);
   }
