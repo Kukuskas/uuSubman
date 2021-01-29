@@ -6,6 +6,7 @@ import Uu5Tiles from "uu5tilesg02";
 import Test from "./test";
 import SubjectUpdateTopic from "./subject-update-topic";
 import SubmanMainContext from "../bricks/subman-main-context";
+import subjectCss from "../routes/subject.css";
 //@@viewOff:imports
 
 const Topic = createVisualComponent({
@@ -31,13 +32,12 @@ const Topic = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ topic, onUpdateTopic, onDeleteTopic, teachers, supervisor, id, language, formOfStudy }) {
+  render({ topic, onUpdateTopic, onDeleteTopic, teachers, supervisor, id, language, formOfStudy, onChange }) {
     //EDIT
     //@@viewOn:render
     const { identity } = useSession();
     const contextData = useContext(SubmanMainContext);
     const [changeTopic, setChangeTopic] = useState(topic);
-    const [changeTopicName, setChangeTopicName] = useState(topic.name);
 
     function canManage() {
       if (identity==null) {
@@ -50,12 +50,10 @@ const Topic = createVisualComponent({
       );
       return isAuthority || isTeacher || isGarant;
     }
-    let inpute;
+    
     function handleChange(input) {
-      inpute = input;
-      setChangeTopic(inpute);
-
-      return onUpdateTopic(input);
+      setChangeTopic(input);
+      onUpdateTopic(input);
     }
 
     function deleteTopicParams() {
@@ -65,6 +63,7 @@ const Topic = createVisualComponent({
         formOfStudy: formOfStudy,
         language: language,
       });
+      onChange()
     }
 
     return (
@@ -77,17 +76,18 @@ const Topic = createVisualComponent({
               language={language}
               formOfStudy={formOfStudy}
               id={id}
+              onChange={onChange}
             />
             <UU5.Bricks.Button size="s" onClick={deleteTopicParams} bgStyle="transparent">
               <UU5.Bricks.Icon icon="glyphicon-trash" />
             </UU5.Bricks.Button>
           </UU5.Bricks.Row>
         )}
-        <UU5.Bricks.Section content={changeTopicName} />
+        <UU5.Bricks.Section content={topic.name} />
         <UU5.Bricks.Accordion>
           <UU5.Bricks.Panel
             borderRadius="8px"
-            header={changeTopic.desc}
+            header={topic.desc}
             content={<Test />}
             colorSchema="grey"
             iconExpanded="mdi-chevron-up"

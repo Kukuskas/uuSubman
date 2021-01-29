@@ -36,7 +36,7 @@ const TopicList = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ subject, studyForm, onUpdateTopic, onDeleteTopic, onAddTopic }) {
+  render({ subject, studyForm, onUpdateTopic, onDeleteTopic, onAddTopic, onChange }) {
     //@@viewOn:render
     const fullTime = useLsi({
       cs: subject.language.cs.formOfStudy.fulltime.topics,
@@ -65,6 +65,7 @@ const TopicList = createVisualComponent({
             id={subject.id}
             formOfStudy={studyForm == "Full-time"?"fulltime":"parttime"}
             language= {language}
+            onChange={onChange}
           />
         );
       }
@@ -76,6 +77,9 @@ const TopicList = createVisualComponent({
         formOfStudy: studyForm == "Full-time"?"fulltime":"parttime",
         language: language,
       });
+      onChange()
+     
+      
     }
 
     return (
