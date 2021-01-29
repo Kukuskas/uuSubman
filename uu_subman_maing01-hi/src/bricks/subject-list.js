@@ -58,9 +58,14 @@ const SubjectList = createVisualComponent({
 
     function visibility() {
          if (!isAuthority || !isAdministration) {
-        subjects.map((data, index) => {
-          const isGarant = data.data.supervisor === identity.uuIdentity;
-          const isTeacher = data.data.teachers.some((teacher) => teacher === identity.uuIdentity);
+          
+          subjects.map((data, index) => {
+            let isGarant = false;
+            let isTeacher = false;
+            if(identity !== null){
+             isGarant = data.data.supervisor === identity.uuIdentity;
+             isTeacher = data.data.teachers.some((teacher) => teacher === identity.uuIdentity);
+        };
           // console.log(
           //   "God mode: ", isAuthority, 
           //   "Is administraton: ", isAdministration?true:false, 
