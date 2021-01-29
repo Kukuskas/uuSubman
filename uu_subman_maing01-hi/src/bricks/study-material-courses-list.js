@@ -29,10 +29,11 @@ const StudyMaterialCoursesList = createVisualComponent({
   defaultProps: {
     subject: {},
     studyForm: "Full-time",
+    onDeleteStudyMaterial: () => { },
   },
   //@@viewOff:defaultProps
 
-  render({ subject, studyForm}) {
+  render({ subject, studyForm, onDeleteStudyMaterial}) {
   console.log();
     console.log(subject);
     console.log(studyForm);
@@ -50,7 +51,14 @@ const StudyMaterialCoursesList = createVisualComponent({
       en: "en",
     });
 
-    
+    function handleDeleteStudyMaterial(item) {
+      onDeleteStudyMaterial({
+          id: subject.id,
+          data: { id: item.data.id },
+          language: language,
+          formOfStudy: studyForm == "Full-time" ? "fulltime" : "parttime",
+       } );
+    }
     function renderItem(item) {
    
       if (item.length === 0) {
@@ -58,6 +66,7 @@ const StudyMaterialCoursesList = createVisualComponent({
       } else {
         return (
           item.data.productCode !=="Books" &&  item.data.productCode !== "Videos" ?
+          <>
           <UuMall.Bricks.Product
             productCode={item.data.productCode}
             type ={item.data.type}
@@ -67,7 +76,10 @@ const StudyMaterialCoursesList = createVisualComponent({
             id={subject.id}
             formOfStudy={studyForm == "Full-time"?"fulltime":"parttime"}
             language= {language}
-          />: null
+          /><UU5.Bricks.Button size="s" onClick={() => handleDeleteStudyMaterial(item)} bgStyle="transparent">
+          <UU5.Bricks.Icon icon="glyphicon-trash" />
+        </UU5.Bricks.Button>
+        </>: null
         
         ); 
       }

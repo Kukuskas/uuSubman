@@ -28,10 +28,11 @@ const StudyMaterialVideosList = createVisualComponent({
     defaultProps: {
         subject: {},
         studyForm: "Full-time",
+        onDeleteStudyMaterial: () => { },
     },
     //@@viewOff:defaultProps
 
-    render({ subject, studyForm }) {
+    render({ subject, studyForm, onDeleteStudyMaterial }) {
         console.log();
         console.log(subject);
         console.log(studyForm);
@@ -48,7 +49,14 @@ const StudyMaterialVideosList = createVisualComponent({
             cs: "cs",
             en: "en",
         });
-
+        function handleDeleteStudyMaterial(item) {
+            onDeleteStudyMaterial({
+                id: subject.id,
+                data: { id: item.data.id },
+                language: language,
+                formOfStudy: studyForm == "Full-time" ? "fulltime" : "parttime",
+             } );
+          }
 
         function renderItem(item) {
 
@@ -57,6 +65,7 @@ const StudyMaterialVideosList = createVisualComponent({
             } else {
                 return (
                     item.data.productCode == "Videos" ?
+                    <>
                         <UU5.Bricks.Video
                             src={item.data.baseUri}
                             studyMaterial={item.data}
@@ -64,7 +73,11 @@ const StudyMaterialVideosList = createVisualComponent({
                             id={subject.id}
                             formOfStudy={studyForm == "Full-time" ? "fulltime" : "parttime"}
                             language={language}
-                        /> : null
+                        />
+                        <UU5.Bricks.Button size="s" onClick={() => handleDeleteStudyMaterial(item)} bgStyle="transparent">
+            <UU5.Bricks.Icon icon="glyphicon-trash" />
+          </UU5.Bricks.Button>
+          </> : null
                 );
             }
         }

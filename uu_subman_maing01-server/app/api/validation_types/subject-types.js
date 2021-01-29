@@ -123,9 +123,9 @@ const subjectUpdateTopicDtoInType = shape({
 const subjectAddStudyMaterialDtoInType = shape({
         id: mongoId().isRequired(),
         data: shape ({
-        baseUri: uri().isRequired(),
+        baseUri: uu5String(300).isRequired(),
         type: uu5String(50).isRequired(),
-        productCode: uu5String(50),
+        productCode: uu5String(50).isRequired(),
         name: uu5String(50)
         }),
     language: oneOf(["cs", "en"]).isRequired(),

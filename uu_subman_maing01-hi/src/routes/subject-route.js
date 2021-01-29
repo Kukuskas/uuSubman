@@ -26,6 +26,7 @@ const SubjectRoute = createVisualComponent({
     const deleteTopicSubjectRef = useRef();
     const addTopicSubjectRef = useRef();
     const deleteStudyMaterialSubjectRef =  useRef();
+    const addStudyMaterialSubjectRef = useRef();
     //@viewOff:hooks
 
     //@@viewOn:private
@@ -89,7 +90,15 @@ const SubjectRoute = createVisualComponent({
         console.log("///////////////////passed to del////////////");
         await deleteStudyMaterialSubjectRef.current(studyMaterial);
       } catch {
-        showError(`Deletion of the topic failed!`);
+        showError(`Deletion of the study material failed!`);
+      }
+    }
+
+    async function handleAddStudyMaterial(studyMaterial) {
+      try {
+        await addStudyMaterialSubjectRef.current(studyMaterial);
+      } catch {
+        showError(`Adding of the study material failed!`);
       }
     }
     function renderLoad() {
@@ -106,6 +115,7 @@ const SubjectRoute = createVisualComponent({
           onDeleteTopic={handleDeleteTopic}
           onAddTopic={handleAddTopic}
           onDeleteStudyMaterial={handleDeleteStudyMaterial}
+          onAddStudyMaterial = {handleAddStudyMaterial}
         />
       );
     }
@@ -150,6 +160,7 @@ const SubjectRoute = createVisualComponent({
               deleteTopicSubjectRef.current = handlerMap.deleteTopicSubject;
               addTopicSubjectRef.current = handlerMap.addTopicSubject;
               deleteStudyMaterialSubjectRef.current = handlerMap.deleteStudyMaterialSubject;
+              addStudyMaterialSubjectRef.current = handlerMap.addStudyMaterialSubjectRef;
              
 
               switch (state) {

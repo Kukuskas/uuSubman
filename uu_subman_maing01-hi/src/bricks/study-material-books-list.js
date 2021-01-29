@@ -28,10 +28,11 @@ const StudyMaterialBooksList = createVisualComponent({
     subject: {},
     studyForm: "Full-time",
     onDeleteStudyMaterial: () => { },
+    onAddStudyMaterial:() => {},
   },
   //@@viewOff:defaultProps
 
-  render({ subject, studyForm, onDeleteStudyMaterial }) {
+  render({ subject, studyForm, onDeleteStudyMaterial, onAddStudyMaterial }) {
 
     //@@viewOn:render
     const fullTime = useLsi({
@@ -46,6 +47,7 @@ const StudyMaterialBooksList = createVisualComponent({
       cs: "cs",
       en: "en",
     });
+    
     function handleDeleteStudyMaterial(item) {
       onDeleteStudyMaterial({
           id: subject.id,
@@ -54,6 +56,7 @@ const StudyMaterialBooksList = createVisualComponent({
           formOfStudy: studyForm == "Full-time" ? "fulltime" : "parttime",
        } );
     }
+    
 
     function renderItem(item) {
    

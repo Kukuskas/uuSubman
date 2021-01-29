@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent, useState, useLsi } from "uu5g04-hooks";
 import Config from "./config/config";
 import Lsi from "./config/lsi";
 import "uu5g04-bricks";
@@ -13,8 +13,9 @@ import SubjectUpdate from "../bricks/subject-update";
 import StudyMaterialBooksList from "../bricks/study-material-books-list";
 import StudyMaterialCoursesList from "../bricks/study-material-courses-list";
 import StudyMaterialVideosList from "../bricks/study-material-videos-list";
-
+import StudyMaterialCreateForm from  "./study-material-create-form";
 //@@viewOff:imports
+
 
 const Mode = {
   fulltime: <UU5.Bricks.Lsi lsi={Lsi.subjectFullTime} />,
@@ -45,19 +46,26 @@ const SubjectDetail = createVisualComponent({
   defaultProps: {
     subject: null,
     colorSchema: "blue",
+    showButton: false,
     onUpdate: () => { },
     onDelete: () => { },
     onDeleteTopic: () => { },
     onAddTopic: () => { },
-    onDeleteStudyMaterial: () => {}
+    onDeleteStudyMaterial: () => {},
+    onAddStudyMaterial: () =>{},
   },
   //@@viewOff:defaultProps
 
-  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic, onDeleteStudyMaterial }) {
+  render({ subject, onDelete, onUpdate,onAddStudyMaterial, onUpdateTopic, onDeleteTopic, onAddTopic, onDeleteStudyMaterial }) {
     const [studyForm, setStudyForm] = useState(Mode.fulltime);
     const [teacherList, setTeacherList] = useState(true);
     const teachers = [<TeacherList teachers={subject.teachers} />];
+    const [showCreateModal, setShowCreateModal] = useState(false);
     //@@viewOn:private
+    const language = useLsi({
+      cs: "cs",
+      en: "en",
+    });
     function handleClick() {
       teacherList == true ? setTeacherList(false) : setTeacherList(true);
     }
@@ -70,6 +78,33 @@ const SubjectDetail = createVisualComponent({
     //@@viewOn:render
 
     //@@viewOn:render
+    function handleOpenCreateStudyMaterialForm() {
+      setShowCreateModal(true);
+    }
+
+    function handleCloseCreteStudyMaterialForm() {
+      setShowCreateModal(false);
+    }
+    function handleCreateStudyMaterialSave(opt) {
+      let it = opt.values;
+        const input = {
+          id: subject.id,
+          data: {
+            baseUri: it.baseUri,
+            type: it.type,
+            productCode: it.productCode,
+            name: it.name,
+          },
+          language: language,
+          formOfStudy: studyForm.props.lsi.en == "Full-time"? "fulltime" : "parttime",
+      };
+      console.log("Onoonon");
+      console.log(input);
+      console.log("Onoonon");
+      onAddStudyMaterial(input)
+      setShowCreateModal(false);
+     
+    }
 
     return (
       <>
@@ -153,12 +188,22 @@ const SubjectDetail = createVisualComponent({
             onAddTopic={onAddTopic}
             margin="5px"
           />
+           <StudyMaterialCreateForm
+          shown={showCreateModal}
+          onSave={handleCreateStudyMaterialSave}
+          onCancel={handleCloseCreteStudyMaterialForm}
+        />
+           <UU5.Bricks.Button size="s" onClick={handleOpenCreateStudyMaterialForm} bgStyle="filled"> 
+           <UU5.Bricks.Lsi lsi={{ en: "Add Video", cs: "Přidat Video" }} />
+            <UU5.Bricks.Icon icon="mdi-plus-circle" />
+          </UU5.Bricks.Button>
           <UU5.Bricks.Accordion>
             <UU5.Bricks.Panel
               header={<UU5.Bricks.Lsi lsi={{ en: "Books", cs: "Knihy" }} />}
               content={<StudyMaterialBooksList
                 subject={subject}
                 onDeleteStudyMaterial={onDeleteStudyMaterial}
+                // onAddStudyMaterial={onAddStudyMaterial}
               />}
               style={"font-size:large"}
               colorSchema="blue"
