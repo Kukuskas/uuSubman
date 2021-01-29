@@ -62,7 +62,7 @@ const SubjectList = createVisualComponent({
           subjects.map((data, index) => {
             let isGarant = false;
             let isTeacher = false;
-            if(identity !== null){
+            if( identity !==null && identity !== undefined){
              isGarant = data.data.supervisor === identity.uuIdentity;
              isTeacher = data.data.teachers.some((teacher) => teacher === identity.uuIdentity);
         };
