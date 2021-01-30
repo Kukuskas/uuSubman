@@ -34,19 +34,19 @@ const Subjects = createVisualComponent({
         colorSchema: "red",
       });
     }
-    function handleBack() {
-      return UU5.Environment.getRouter().setRoute({
-        url: "/subjects",
-      });
-    }
-    function handleHome() {
-      return (
-        UU5.Environment.getRouter().setRoute({
-          url: "/",
-        }),
-        handleBack()
-      );
-    }
+    // function handleBack() {
+    //   return UU5.Environment.getRouter().setRoute({
+    //     url: "/subjects",
+    //   });
+    // }
+    // function handleHome() {
+    //   return (
+    //     UU5.Environment.getRouter().setRoute({
+    //       url: "/",
+    //     }),
+    //     handleBack()
+    //   );
+    // }
 
     function isCreateAuthorized() {
       return contextData?.data?.authorizedProfileList?.some(

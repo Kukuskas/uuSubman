@@ -36,9 +36,9 @@ const Subject = createVisualComponent({
   render({ subject, colorSchema, onDelete, onDetail }) {
     //@@viewOn:private
 
-    function handleDelete() {
-      onDelete(subject);
-    }
+    // function handleDelete() {
+    //   onDelete(subject);
+    // }
 
     function handleDetail() {
       return UU5.Environment.getRouter().setRoute({

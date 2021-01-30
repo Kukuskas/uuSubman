@@ -4,14 +4,14 @@ import Config from "./config/config";
 import SubjectProvider from "../bricks/subject-provider";
 import Css from "./subject.css";
 import SubjectDetail from "../bricks/subject-detail";
-import UU5, { PropTypes } from "uu5g04";
+import UU5 from "uu5g04";
 import Calls from '../calls.js';
 
 //@@viewOff:imports
 
 const SubjectRoute = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "Subjects",
+  displayName: Config.TAG + "SubjectRoute",
   //@@viewOff:statics
 
   //@@viewOn:render
