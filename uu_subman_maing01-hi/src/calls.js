@@ -17,6 +17,10 @@ let Calls = {
     let commandUri = Calls.getCommandUri("submanMain/load");
     return Calls.call("get", commandUri, dtoIn);
   },
+  listStudyMaterials(dtoIn) {
+    let commandUri = Calls.getCommandUri("studyMaterials/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
 
   listSubjects(dtoIn) {
     let commandUri = Calls.getCommandUri("subject/list");
