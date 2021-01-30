@@ -135,7 +135,6 @@ class SubjectAbl {
       }
       return studyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
     })
-    let id;
     let subjectStudyMaterials;
     lang == "cs"
       ? form == "fulltime"

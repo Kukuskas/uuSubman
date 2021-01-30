@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState, useLsi } from "uu5g04-hooks";
+import { createVisualComponent, useState, useLsi, useEffect } from "uu5g04-hooks";
 import Config from "./config/config";
 import Lsi from "./config/lsi";
 import "uu5g04-bricks";
@@ -9,11 +9,9 @@ import "uu5g04-forms";
 import TeacherList from "./teacher-list";
 import TopicList from "./topic-list";
 import Css from "../routes/subject.css";
-import SubjectUpdate from "../bricks/subject-update";
-import StudyMaterialBooksList from "../bricks/study-material-books-list";
-import StudyMaterialCoursesList from "../bricks/study-material-courses-list";
-import StudyMaterialVideosList from "../bricks/study-material-videos-list";
-import StudyMaterialCreateForm from  "./study-material-create-form";
+import SubjectUpdate from "./subject-update";
+import StudyMaterials from "./study-materials";
+
 //@@viewOff:imports
 
 
@@ -56,56 +54,58 @@ const SubjectDetail = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ subject, onDelete, onUpdate,onAddStudyMaterial, onUpdateTopic, onDeleteTopic, onAddTopic, onDeleteStudyMaterial }) {
+  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic }) {
     const [studyForm, setStudyForm] = useState(Mode.fulltime);
     const [teacherList, setTeacherList] = useState(true);
     const teachers = [<TeacherList teachers={subject.teachers} />];
     const [showCreateModal, setShowCreateModal] = useState(false);
     //@@viewOn:private
-    const language = useLsi({
-      cs: "cs",
-      en: "en",
-    });
+    // const language = useLsi({
+    //   cs: "cs",
+    //   en: "en",
+    // });
     function handleClick() {
       teacherList == true ? setTeacherList(false) : setTeacherList(true);
     }
-
     function handleSwitch() {
       studyForm == Mode.parttime ? setStudyForm(Mode.fulltime) : setStudyForm(Mode.parttime);
     }
     //@@viewOff:private
 
     //@@viewOn:render
-
     //@@viewOn:render
-    function handleOpenCreateStudyMaterialForm() {
-      setShowCreateModal(true);
-    }
+    // function handleOpenCreateStudyMaterialForm() {
+    //   setShowCreateModal(true);
+    // }
 
-    function handleCloseCreteStudyMaterialForm() {
-      setShowCreateModal(false);
-    }
-    function handleCreateStudyMaterialSave(opt) {
-      let it = opt.values;
-        const input = {
-          id: subject.id,
-          data: {
-            baseUri: it.baseUri,
-            type: it.type,
-            productCode: it.productCode,
-            name: it.name,
-          },
-          language: language,
-          formOfStudy: studyForm.props.lsi.en == "Full-time"? "fulltime" : "parttime",
-      };
-      console.log("Onoonon");
-      console.log(input);
-      console.log("Onoonon");
-      onAddStudyMaterial(input)
-      setShowCreateModal(false);
+    // function handleCloseCreteStudyMaterialForm() {
+    //   setShowCreateModal(false);
+    // }
+    // function handleCreateStudyMaterialSave(opt) {
+    //   let it = opt.values;
+    //     const input = {
+    //       id: subject.id,
+    //       data: {
+    //         baseUri: it.baseUri,
+    //         type: it.type,
+    //         productCode: it.productCode,
+    //         name: it.name,
+    //       },
+    //       language: language,
+    //       formOfStudy: studyForm.props.lsi.en == "Full-time"? "fulltime" : "parttime",
+    //   };
+    //   console.log("Onoonon");
+    //   console.log(input);
+    //   console.log("Onoonon");
+    //   onAddStudyMaterial(input)
+    //   setShowCreateModal(false);
      
-    }
-
+    // }
+    const language = useLsi({
+      cs: "cs",
+      en: "en",
+    }); 
+    let formOfStudy =  studyForm.props.lsi.en == "Full-time"? "fulltime" : "parttime"
     return (
       <>
         <Plus4U5.App.ArtifactSetter
@@ -180,15 +180,20 @@ const SubjectDetail = createVisualComponent({
           <UU5.Bricks.Box>
             <UU5.Bricks.Block content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
           </UU5.Bricks.Box>
+
           <TopicList
             subject={subject}
-            studyForm={studyForm.props.lsi.en}
+            formOfStudy={formOfStudy}
             onUpdateTopic={onUpdateTopic}
             onDeleteTopic={onDeleteTopic}
             onAddTopic={onAddTopic}
+            language={language}
             margin="5px"
           />
-           <StudyMaterialCreateForm
+        <StudyMaterials subject={subject} 
+        formOfStudy={formOfStudy}
+         language={language}/>
+           {/* <StudyMaterialCreateForm
           shown={showCreateModal}
           onSave={handleCreateStudyMaterialSave}
           onCancel={handleCloseCreteStudyMaterialForm}
@@ -236,7 +241,7 @@ const SubjectDetail = createVisualComponent({
               iconExpanded="mdi-chevron-up"
               iconCollapsed="mdi-chevron-down"
             />
-          </UU5.Bricks.Accordion>
+          </UU5.Bricks.Accordion> */}
 
         </UU5.Bricks.Section>
       </>

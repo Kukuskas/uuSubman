@@ -4,6 +4,7 @@ import { createVisualComponent, useLsi } from "uu5g04-hooks";
 import Config from "./config/config";
 import Topic from "./topic";
 import Uu5Tiles from "uu5tilesg02";
+import StudyMaterialList from "./study-material-list";
 
 //@@viewOff:imports
 
@@ -36,7 +37,7 @@ const TopicList = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ subject, studyForm, onUpdateTopic, onDeleteTopic, onAddTopic }) {
+  render({ subject, formOfStudy, onUpdateTopic, onDeleteTopic, onAddTopic, language }) {
     //@@viewOn:render
     const fullTime = useLsi({
       cs: subject.language.cs.formOfStudy.fulltime.topics,
@@ -46,10 +47,7 @@ const TopicList = createVisualComponent({
       cs: subject.language.cs.formOfStudy.parttime.topics,
       en: subject.language.en.formOfStudy.parttime.topics,
     });
-    const language = useLsi({
-      cs: "cs",
-      en: "en",
-    });
+
     function renderItem(item) {
       if (item.length === 0) {
         return <UU5.Common.Error content="WTF No topics!" />;
@@ -63,17 +61,18 @@ const TopicList = createVisualComponent({
             teachers={subject.teachers}
             supervisor={subject.supervisor}
             id={subject.id}
-            formOfStudy={studyForm == "Full-time"?"fulltime":"parttime"}
+            formOfStudy={formOfStudy }
             language= {language}
           />
         );
       }
     }
+ 
 
     function addTopicParams() {
       onAddTopic({
         id: subject.id,
-        formOfStudy: studyForm == "Full-time"?"fulltime":"parttime",
+        formOfStudy: formOfStudy,
         language: language,
       });
     }
@@ -82,10 +81,10 @@ const TopicList = createVisualComponent({
       <>
         {/* <Uu5Tiles.ControllerProvider data={topic}> */}
         <UU5.Bricks.Button content="Add New Topic" onClick={addTopicParams}/>
-        <Uu5Tiles.Grid data={studyForm == "Full-time" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
+        <Uu5Tiles.Grid data={formOfStudy == "fulltime" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
           {renderItem}
+      
         </Uu5Tiles.Grid>
-
       </>
     );
     //@@viewOff:render

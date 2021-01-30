@@ -18,7 +18,7 @@ let Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
   listStudyMaterials(dtoIn) {
-    let commandUri = Calls.getCommandUri("studyMaterials/list");
+    let commandUri = Calls.getCommandUri("studyMaterial/list");
     return Calls.call("get", commandUri, dtoIn);
   },
 

@@ -15,12 +15,21 @@ const StudyMaterialProvider = createComponent({
       pageSize: 200,
       handlerMap: {
         load: Calls.listStudyMaterials,
+        // createSubject: Calls.createSubject,
+        // updateSubject: Calls.updateSubject,
+        // deleteSubject: Calls.deleteSubject,
+        // updateTopicSubject: Calls.updateTopicSubject,
+        // deleteTopicSubject: Calls.deleteTopicSubject,
+        // addTopicSubject: Calls.addTopicSubject,
+        // deleteStudyMaterialSubject: Calls.deleteStudyMaterialSubject,
+        // addStudyMaterialSubject: Calls.addStudyMaterialSubject,
       },
     });
 
     let { state, data, newData, pendingData, errorData, handlerMap } = listDataValues;
     //@@viewOff:hooks
-
+    console.log("AITEEEE+++++++++++++");
+    console.log(data);
     //@@viewOff:private
 
     //@@viewOn:render
