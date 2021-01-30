@@ -88,10 +88,12 @@ const Topic = createVisualComponent({
           <UU5.Bricks.Panel
             borderRadius="8px"
             header={topic.desc}
-            content={<Test />}
+            content={canManage()?(<Test />):null}
             colorSchema="grey"
             iconExpanded="mdi-chevron-up"
-            iconCollapsed="mdi-chevron-down"
+            iconCollapsed={canManage()?"mdi-chevron-down":null}
+            onClickNotCollapseOthers={true}
+            openClick={canManage()?"":"none"}
           />
         </UU5.Bricks.Accordion>
       </>

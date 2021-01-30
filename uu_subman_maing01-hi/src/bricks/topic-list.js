@@ -1,9 +1,10 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useLsi } from "uu5g04-hooks";
+import { createVisualComponent, useLsi, useSession, useContext } from "uu5g04-hooks";
 import Config from "./config/config";
 import Topic from "./topic";
 import Uu5Tiles from "uu5tilesg02";
+import SubmanMainContext from "../bricks/subman-main-context";
 
 //@@viewOff:imports
 
@@ -37,6 +38,21 @@ const TopicList = createVisualComponent({
   //@@viewOff:defaultProps
 
   render({ subject, studyForm, onUpdateTopic, onDeleteTopic, onAddTopic, onChange }) {
+
+    const { identity } = useSession();
+    const contextData = useContext(SubmanMainContext);
+
+    function canManage() {
+      if (identity==null) {
+        return false        
+      }
+      const isTeacher = subject.teachers.some((teacher) => teacher === identity.uuIdentity);
+      const isGarant = subject.supervisor === identity.uuIdentity;
+      const isAuthority = contextData?.data?.authorizedProfileList?.some(
+        (profile) => profile === Config.Profiles.AUTHORITIES
+      );
+      return isAuthority || isTeacher || isGarant;
+    }
     //@@viewOn:render
     const fullTime = useLsi({
       cs: subject.language.cs.formOfStudy.fulltime.topics,
@@ -85,7 +101,7 @@ const TopicList = createVisualComponent({
     return (
       <>
         {/* <Uu5Tiles.ControllerProvider data={topic}> */}
-        <UU5.Bricks.Button content="Add New Topic" onClick={addTopicParams}/>
+        {canManage() && ( <UU5.Bricks.Button content="Add New Topic" onClick={addTopicParams}/>)}
         <Uu5Tiles.Grid data={studyForm == "Full-time" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
           {renderItem}
         </Uu5Tiles.Grid>
