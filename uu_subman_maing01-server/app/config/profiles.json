@@ -112,6 +112,10 @@
       "subject/deleteStudyMaterial": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "studyMaterial/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

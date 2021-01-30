@@ -6,7 +6,9 @@ const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/study-material-error.js");
 
 const WARNINGS = {
-
+  listUnsupportedKeys:{
+    code: `${Errors.List.UC_CODE}unsupportedKeys`,
+  }
 };
 
 class StudyMaterialAbl {
@@ -15,6 +17,23 @@ class StudyMaterialAbl {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("studyMaterial");
   }
+
+  async list(awid, dtoIn) {
+    let validationResult = this.validator.validate("studyMaterialListDtoInType", dtoIn);
+    // hds 2.2, 2.3, A4, A5
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.listUnsupportedKeys.code,
+      Errors.List.InvalidDtoIn
+    );
+
+    let dtoOut = await this.dao.list();
+    // hds 4
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
+  }
+
 
   async create(awid, dtoIn) {
     
