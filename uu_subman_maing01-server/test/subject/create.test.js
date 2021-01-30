@@ -1,5 +1,4 @@
 const { TestHelper } = require("uu_appg01_server-test");
-const testHelper = require("uu_appg01_server-test/src/test-helper");
 
 beforeAll(async () => {
     await TestHelper.setup({ authEnabled: false, sysStatesEnabled: false});
@@ -10,7 +9,7 @@ afterAll(async () => {
 });
 
 describe("uuSubman test", () => {
-    test("01 test - subject/create", async () => {
+    test("test 01 - hds", async () => {
         const dtoIn = {
             name: {
                 cs: "Backendové systémy", 
@@ -27,101 +26,30 @@ describe("uuSubman test", () => {
             language: {}, 
             teachers: []
         };
-
-        const dtoOut = {
-                "name": {
-                  "cs": "Backendové systémy",
-                  "en": "Backends systems"
-                },
-                "credits": 9,
-                "supervisor": "24-9525-1",
-                "degree": "bachelor",
-                "desc": {
-                  "cs": "Cílem předmětu je poskytnout studentům přehled v oblasti backendového vývoje.",
-                  "en": "The course aims at providing students with an insight into backend development."
-                },
-                "languageOfStudy": "czech",
-                "language": {
-                  "cs": {
-                    "formOfStudy": {
-                      "fulltime": {
-                        "id": "1",
-                        "studyMaterialList": [],
-                        "topics": [
-                          {
-                            "name": "Example fulltime",
-                            "desc": "Lorem Ipsum",
-                            "id": "00",
-                            "studyMaterialList": []
-                          }
-                        ]
-                      },
-                      "parttime": {
-                        "id": "2",
-                        "studyMaterialList": [],
-                        "topics": [
-                          {
-                            "name": "Example parttime",
-                            "desc": "lorem Ipsum",
-                            "id": "00",
-                            "studyMaterialList": []
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "en": {
-                    "formOfStudy": {
-                      "fulltime": {
-                        "id": "1",
-                        "studyMaterialList": [],
-                        "topics": [
-                          {
-                            "name": "Example fulltime",
-                            "desc": "Lorem Ipsum",
-                            "id": "00",
-                            "studyMaterialList": []
-                          }
-                        ]
-                      },
-                      "parttime": {
-                        "id": "2",
-                        "studyMaterialList": [],
-                        "topics": [
-                          {
-                            "name": "Example parttime",
-                            "desc": "lorem Ipsum",
-                            "id": "00",
-                            "studyMaterialList": []
-                          }
-                        ]
-                      }
-                    }
-                  }
-                },
-                "teachers": [],
-                "uuIdentity": null,
-                "students": [
-                  {
-                    "uuIdentity": "",
-                    "formOfStudy": "fulltime"
-                  }
-                ],
-                "id": " ",
-                "sys": {},
-                "awid": "22222222222222222222222222222222",
-                "uuAppErrorMap": {}
-        }
-
+        
         let result = await TestHelper.executePostCommand("subject/create", dtoIn);
-     
-        result.data.id = " ";
-        result.data.sys = {};
 
-        expect(result.data).toEqual(dtoOut); 
+        expect(result.data.name.cs).toEqual(dtoIn.name.cs); 
+        expect(result.data.name.en).toEqual(dtoIn.name.en); 
+        expect(result.data.credits).toEqual(dtoIn.credits); 
+        expect(result.data.supervisor).toEqual(dtoIn.supervisor);
+        expect(result.data.degree).toEqual(dtoIn.degree);
+        expect(result.data.desc.cs).toEqual(dtoIn.desc.cs);
+        expect(result.data.desc.en).toEqual(dtoIn.desc.en);
+        expect(result.data.languageOfStudy).toEqual(dtoIn.languageOfStudy);
         expect(result.data.uuAppErrorMap).toBeDefined();
-        expect(result.data.uuAppErrorMap).toEqual({});
     });
+
+    test("test 02 - invalid dtoIn", async () => {
+       expect.assertions(3); 
+       try {
+          await TestHelper.executePostCommand("subject/create", {});
+       } catch (e) {
+          expect(e.code).toEqual("uu-subman-main/subject/create/invalidDtoIn");
+          expect(Object.keys(e.paramMap.missingKeyMap).length).toEqual(7);
+          expect(e.status).toEqual(400);
+       }
+    })
 });
 
 
