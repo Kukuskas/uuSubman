@@ -75,14 +75,7 @@ const SubjectRoute = createVisualComponent({
       // } catch {
       //   showError(`Getting the subject failed!`);
       // }
-
-      try {
-        await setTimeout(() => {
-          return Calls.getSubject(id)
-        }, 5000);
-      } catch (error) {
-        
-      }
+      return Calls.getSubject(id);
       
     }
 
