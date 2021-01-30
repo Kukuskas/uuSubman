@@ -7,7 +7,6 @@ import SubjectProvider from "../bricks/subject-provider";
 import SubjectsTitle from "../bricks/subject-title";
 import Css from "./subject.css";
 import UU5 from "uu5g04";
-import Calls from "../calls";
 import SubmanMainContext from "../bricks/subman-main-context";
 import Plus4U5 from "uu_plus4u5g01";
 
@@ -35,19 +34,19 @@ const Subjects = createVisualComponent({
         colorSchema: "red",
       });
     }
-    function handleBack() {
-      return UU5.Environment.getRouter().setRoute({
-        url: "/subjects",
-      });
-    }
-    function handleHome() {
-      return (
-        UU5.Environment.getRouter().setRoute({
-          url: "/",
-        }),
-        handleBack()
-      );
-    }
+    // function handleBack() {
+    //   return UU5.Environment.getRouter().setRoute({
+    //     url: "/subjects",
+    //   });
+    // }
+    // function handleHome() {
+    //   return (
+    //     UU5.Environment.getRouter().setRoute({
+    //       url: "/",
+    //     }),
+    //     handleBack()
+    //   );
+    // }
 
     function isCreateAuthorized() {
       return contextData?.data?.authorizedProfileList?.some(
@@ -111,7 +110,7 @@ const Subjects = createVisualComponent({
         case "load":
         case "loadNext":
         default:
-          return <UU5.Bricks.Error content="Error happened!" error={errorData.error} errorData={errorData.data} />;
+          return <UU5.Bricks.Error content="OMG... Error happened!" error={errorData.error} errorData={errorData.data} />;
       }
     }
 

@@ -36,10 +36,10 @@ export const Left = createVisualComponent({
       <Plus4U5.App.Left
         {...props}
         logoProps={{
-          backgroundColor: UU5.Environment.colors.red.c100,
-          backgroundColorTo: UU5.Environment.colors.red.c500,
-          title: "uuSubman",
-          companyLogo: `https://www.svgimages.com/svg-image/s3/student-256x256.png`,
+          backgroundColor: UU5.Environment.colors["deep-orange"].c700,
+          backgroundColorTo: UU5.Environment.colors.blue.c500,
+          title: "uuSubMan",
+          companyLogo: Plus4U5.Environment.basePath + "assets/img/unicorn-logo.svg",
           generation: "1",
         }}
         aboutItems={[{ content: <UU5.Bricks.Lsi lsi={Lsi.left.about} />, href: "about" }]}

@@ -34,6 +34,7 @@ const SubjectDetail = createVisualComponent({
     onDelete: UU5.PropTypes.func,
     onDeleteTopic: UU5.PropTypes.func,
     onAddTopic: UU5.PropTypes.func,
+    onGetSubject: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -45,10 +46,11 @@ const SubjectDetail = createVisualComponent({
     onDelete: () => {},
     onDeleteTopic: () => {},
     onAddTopic: () => {},
+    onGet: () => {},
   },
   //@@viewOff:defaultProps
 
-  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic }) {
+  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic, onGet }) {
     const [studyForm, setStudyForm] = useState(Mode.fulltime);
     const [teacherList, setTeacherList] = useState(true);
     const teachers = [<TeacherList teachers={subject.teachers} />];
@@ -63,12 +65,18 @@ const SubjectDetail = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-
+    const [reRender, setReRender] = useState(subject);
+function handleChange() {
+  Promise.resolve(onGet({id: subject.id})).then(function(value) {
+    setReRender(value);
+  })
+  console.log("updating...");
+}
     return (
       <>
         <Plus4U5.App.ArtifactSetter
           routeName="Subject Detail"
-          header={<UU5.Bricks.Lsi lsi={subject.name} />}
+          header={<UU5.Bricks.Lsi lsi={reRender.name} />}
           breadcrumbList={[
             {
               content: "Home",
@@ -84,7 +92,7 @@ const SubjectDetail = createVisualComponent({
               <UU5.Bricks.Header className="uu5-common-center" level={1}>
                 {<UU5.Bricks.Lsi lsi={subject.name} />}
               </UU5.Bricks.Header>
-              <SubjectUpdate onUpdate={onUpdate} onDelete={onDelete} subject={subject} />
+              <SubjectUpdate onUpdate={onUpdate} onDelete={onDelete} subject={reRender} />
             </UU5.Bricks.Row>
           </UU5.Bricks.Box>
 
@@ -139,14 +147,16 @@ const SubjectDetail = createVisualComponent({
             <UU5.Bricks.Block content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
           </UU5.Bricks.Box>
           <TopicList 
-          subject={subject} 
+          subject={reRender} 
           studyForm={studyForm.props.lsi.en} 
           onUpdateTopic={onUpdateTopic}  
           onDeleteTopic={onDeleteTopic} 
           onAddTopic={onAddTopic}
+          onChange= {handleChange}
           margin="5px" 
           />
         </UU5.Bricks.Section>
+        <UU5.Bricks.Button content= "Rerender" onClick={handleChange}/>
       </>
     );
   },

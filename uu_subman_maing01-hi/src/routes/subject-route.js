@@ -2,17 +2,15 @@
 import { createVisualComponent, useRef } from "uu5g04-hooks";
 import Config from "./config/config";
 import SubjectProvider from "../bricks/subject-provider";
-import SubjectUpdate from "../bricks/subject-update";
-import SubjectsTitle from "../bricks/subject-title";
 import Css from "./subject.css";
 import SubjectDetail from "../bricks/subject-detail";
-import UU5, { PropTypes } from "uu5g04";
-import TopicList from "../bricks/topic-list";
+import UU5 from "uu5g04";
+import Calls from '../calls.js';
 
 //@@viewOff:imports
 const SubjectRoute = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "Subjects",
+  displayName: Config.TAG + "SubjectRoute",
   //@@viewOff:statics
 
   //@@viewOn:render
@@ -68,6 +66,18 @@ const SubjectRoute = createVisualComponent({
       }
     }
 
+    async function handleGet(id) {
+      // console.log(id);
+      // console.log("this is id ++++++++++++++++++++++++++++++");
+      // try {
+      //   await getSubjectRef.current(id);
+      // } catch {
+      //   showError(`Getting the subject failed!`);
+      // }
+      return Calls.getSubject(id);
+      
+    }
+
     async function handleDeleteTopic(inputTopic) {
       try {
         await deleteTopicSubjectRef.current(inputTopic);
@@ -97,6 +107,7 @@ const SubjectRoute = createVisualComponent({
           onUpdateTopic={handleUpdateTopic}
           onDeleteTopic={handleDeleteTopic}
           onAddTopic={handleAddTopic}
+          onGet={handleGet}
         />
       );
     }

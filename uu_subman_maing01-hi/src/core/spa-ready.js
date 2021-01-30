@@ -15,6 +15,7 @@ import SubjectRoute from "../routes/subject-route";
 import ControlPanel from "../routes/control-panel";
 import InitAppWorkspace from "../routes/init-app-workspace";
 import SubmanMainContext from "../bricks/subman-main-context";
+import SubjectList from "../bricks/subject-list";
 //@@viewOff:imports
 
 const STATICS = {
@@ -24,16 +25,16 @@ const STATICS = {
 };
 
 const About = UU5.Common.Component.lazy(() => import("../routes/about"));
-
-const DEFAULT_USE_CASE = "home";
+//Default what highlights when on subjectDetail (may be "subjects" instead of "")
+const DEFAULT_USE_CASE = "subjects";
 
 const ROUTES = {
-  "": DEFAULT_USE_CASE,
+  "": "home",
   home: { component: <Home /> },
   about: { component: <About /> },
-  subjects: { component: <Subjects /> },
+  subjects: { component: <Subjects />},
+
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
-  "subjects/subject": { component: <SubjectRoute /> },
   controlPanel: { component: <ControlPanel /> },
 };
 
@@ -52,7 +53,7 @@ export const SpaReady = createVisualComponent({
     //@@viewOn:private
     let [initialActiveItemId] = useState(() => {
       let url = UU5.Common.Url.parse(window.location.href);
-      return url.useCase || DEFAULT_USE_CASE;
+      return url.useCase || "home";
     });
     //@@viewOff:private
 
