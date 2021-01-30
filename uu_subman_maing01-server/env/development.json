@@ -5,7 +5,7 @@
     "binary": "mongodb://127.0.0.1:27017/submanainBinary"
   },
   "asid_license_owner_list": [
-    "24-9525-1"
+    "24-9525-1", "7303-4447-1"
   ],
   "asid": "11111111111111111111111111111111",
   "log_level": "INFO",
