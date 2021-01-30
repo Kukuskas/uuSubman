@@ -75,7 +75,7 @@ function handleChange() {
 }
     return (
       <>
-        <Plus4U5.App.ArtifactSetter
+        <Plus4U5.App.ArtifactSetter 
           routeName="Subject Detail"
           header={<UU5.Bricks.Lsi lsi={reRender.name} />}
           breadcrumbList={[
@@ -87,11 +87,11 @@ function handleChange() {
           showBackButton
         />
 
-        <UU5.Bricks.Section>
-          <UU5.Bricks.Box colorSchema="green" className={Css.detail()}>
+        <UU5.Bricks.Section colorSchema="blue-grey">
+          <UU5.Bricks.Box  className={Css.detail()} style={{ backgroundColor: UU5.Environment.colors.teal.c50}} borderRadius="8px">
             <UU5.Bricks.Row>
-              <UU5.Bricks.Header className="uu5-common-center" level={1}>
-                {<UU5.Bricks.Lsi lsi={subject.name} />}
+              <UU5.Bricks.Header className="uu5-common-center" level={1}  color="blue-gray">
+                {<UU5.Bricks.Lsi lsi={subject.name} color="blue-gray"/>}
               </UU5.Bricks.Header>
               <SubjectUpdate onUpdate={onUpdate} onDelete={onDelete} subject={reRender} />
             </UU5.Bricks.Row>
@@ -121,7 +121,7 @@ function handleChange() {
               </UU5.BlockLayout.Tile>
 
               <div onClick={handleSwitch} className={Css.cursor()}>
-                <UU5.BlockLayout.Tile borderRadius="8px" margin="5px" className="uu5-elevation-hover-1">
+                <UU5.BlockLayout.Tile borderRadius="8px" margin="5px" className="uu5-elevation-hover-1 " colorSchema="blue-grey">
                   {studyForm}
                 </UU5.BlockLayout.Tile>
               </div>
@@ -144,9 +144,9 @@ function handleChange() {
 
           <UU5.Bricks.Text hidden={teacherList} content={teachers} />
 
-          <UU5.Bricks.Box>
-            <UU5.Bricks.Block content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
-          </UU5.Bricks.Box>
+          <UU5.Bricks.Section colorSchema="default">
+            <UU5.Bricks.Block content={<UU5.Bricks.Lsi lsi={subject.desc} />}/>
+          </UU5.Bricks.Section>
           <TopicList 
           subject={reRender} 
           studyForm={studyForm.props.lsi.en} 
@@ -155,6 +155,7 @@ function handleChange() {
           onAddTopic={onAddTopic}
           onChange= {handleChange}
           margin="5px" 
+          colorSchema="lime"
           />
         </UU5.Bricks.Section>
         <UU5.Bricks.Button content= "Rerender" onClick={handleChange}/>

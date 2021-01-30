@@ -101,7 +101,7 @@ const TopicList = createVisualComponent({
     return (
       <>
         {/* <Uu5Tiles.ControllerProvider data={topic}> */}
-        {canManage() && ( <UU5.Bricks.Button content="Add New Topic" onClick={addTopicParams}/>)}
+        {canManage() && ( <UU5.Bricks.Button content="Add New Topic" onClick={addTopicParams} colorSchema="blue-rich" />)}
         <Uu5Tiles.Grid data={studyForm == "Full-time" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
           {renderItem}
         </Uu5Tiles.Grid>

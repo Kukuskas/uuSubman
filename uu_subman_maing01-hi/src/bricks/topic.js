@@ -78,7 +78,7 @@ const Topic = createVisualComponent({
               id={id}
               onChange={onChange}
             />
-            <UU5.Bricks.Button size="s" onClick={deleteTopicParams} bgStyle="transparent">
+            <UU5.Bricks.Button size="s" onClick={deleteTopicParams} bgStyle="transparent" colorSchema="blue">
               <UU5.Bricks.Icon icon="glyphicon-trash" />
             </UU5.Bricks.Button>
           </UU5.Bricks.Row>
