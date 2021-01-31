@@ -1,36 +1,34 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState, getState } from "uu5g04-hooks";
+import { createVisualComponent, useState } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";
-import "uu5g04-bricks";
 
 //@@viewOff:imports
 
-const Form = createVisualComponent({
+const SubjectCreate = createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "SubjectCreateForm",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    subject: UU5.PropTypes.shape({
-      name: UU5.PropTypes.shape.isRequired,
-      desc: UU5.PropTypes.shape.isRequired,
-      id: UU5.PropTypes.isRequired,
-    }),
-    onSubmit: UU5.PropTypes.func,
+    onSave: UU5.PropTypes.func,
     onCancel: UU5.PropTypes.func,
+    shown: UU5.PropTypes.bool,
   },
   //@@viewOff:propTypes
+
   //@@viewOn:defaultProps
   defaultProps: {
-    subject: null,
-    onSubmit: () => {},
+    onSave: () => {},
     onCancel: () => {},
+    shown: false,
   },
   //@@viewOff:defaultProps
-  render({ onSave, onCancel, subject }) {
+
+  render({ shown, onSave, onCancel }) {
+    //@@viewOn:render
     const [dis, setDis] = useState(false);
     const [supervisor, setSupervisor] = useState();
 
@@ -61,9 +59,24 @@ const Form = createVisualComponent({
     function _handleUpdate(subject) {
       return "Hello subject";
     }
-
     return (
-      <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
+      <UU5.Forms.ContextModal
+        shown={shown}
+        size="l"
+        header={
+          <UU5.Forms.ContextHeader
+            content={<UU5.Bricks.Lsi lsi={{ en: "Create a new subject", cs: "Vytvořit nový předmět" }} />}
+            info={<UU5.Bricks.Lsi lsi={{ cs: "Více informací...", en: "More info..." }} />}
+          />
+        }
+        footer={
+          <UU5.Forms.ContextControls
+            buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Create", cs: "Vytvořit" }} /> }}
+            buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}
+          />
+        }
+      >
+        <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
         <UU5.Bricks.Row>
           <UU5.Bricks.Column colWidth="s-6">
             <UU5.Forms.Text
@@ -169,9 +182,10 @@ const Form = createVisualComponent({
           controlled={false}
         />
       </UU5.Forms.ContextForm>
+      </UU5.Forms.ContextModal>
     );
     //@@viewOff:render
   },
 });
 
-export default Form;
+export default SubjectCreate;

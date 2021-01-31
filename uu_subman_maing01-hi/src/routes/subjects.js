@@ -9,6 +9,7 @@ import Css from "./subject.css";
 import UU5 from "uu5g04";
 import SubmanMainContext from "../bricks/subman-main-context";
 import Plus4U5 from "uu_plus4u5g01";
+import SubjectRoute from "../routes/subject-route";
 
 //@@viewOff:imports
 
@@ -70,6 +71,13 @@ const Subjects = createVisualComponent({
         showError(`Update of ${subject.name} failed!`);
       }
     }
+    
+    function handleDetail(subject) {
+
+      return UU5.Environment.getRouter().setRoute({
+        component: <SubjectRoute subject={subject} />,
+      });
+    }
 
     async function handleDelete(subject) {
       try {
@@ -97,6 +105,7 @@ const Subjects = createVisualComponent({
           <SubjectsTitle subjects={subjects} />
           <SubjectList
             subjects={subjects}
+            onDetail={handleDetail}
             onDelete={handleDelete}
             onCreate={handleCreate}
             showButton={isCreateAuthorized()}

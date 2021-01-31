@@ -93,7 +93,7 @@ const Topic = createVisualComponent({
             iconExpanded="mdi-chevron-up"
             iconCollapsed={canManage()?"mdi-chevron-down":null}
             onClickNotCollapseOthers={true}
-            openClick={canManage()?"":"none"}
+            openClick={canManage()?null:"none"}
           />
         </UU5.Bricks.Accordion>
       </>

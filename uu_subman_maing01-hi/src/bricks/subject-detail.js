@@ -51,7 +51,7 @@ const SubjectDetail = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic, onGet }) {
+  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic, onGet, onChange }) {
     const [studyForm, setStudyForm] = useState(Mode.fulltime);
     const [teacherList, setTeacherList] = useState(true);
     const teachers = [<TeacherList teachers={subject.teachers} />];
@@ -153,7 +153,7 @@ function handleChange() {
           onUpdateTopic={onUpdateTopic}  
           onDeleteTopic={onDeleteTopic} 
           onAddTopic={onAddTopic}
-          onChange= {handleChange}
+          onChange= {onChange}
           margin="5px" 
           />
         </UU5.Bricks.Section>

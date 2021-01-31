@@ -2,7 +2,6 @@
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
-import SubjectRoute from "../routes/subject-route";
 //@@viewOff:imports
 
 const Subject = createVisualComponent({
@@ -33,18 +32,14 @@ const Subject = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ subject, colorSchema, onDelete, onDetail }) {
+  render({ subject, colorSchema, onDetail }) {
     //@@viewOn:private
 
     // function handleDelete() {
     //   onDelete(subject);
     // }
 
-    function handleDetail() {
-      return UU5.Environment.getRouter().setRoute({
-        component: <SubjectRoute subject={subject} />,
-      });
-    }
+
     //@@viewOff:private
 
     //@@viewOn:render
@@ -60,7 +55,7 @@ const Subject = createVisualComponent({
     return (
       <>
         {" "}
-        <div onClick={handleDetail}>
+        <div onClick={()=>{onDetail(subject)}}>
           <UU5.Bricks.Card colorSchema={colorSchema}>
             <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
             <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
