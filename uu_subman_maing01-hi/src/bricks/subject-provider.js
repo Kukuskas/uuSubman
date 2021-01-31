@@ -22,6 +22,8 @@ const SubjectProvider = createComponent({
         deleteTopicSubject: Calls.deleteTopicSubject,
         addTopicSubject: Calls.addTopicSubject,
         getSubject: Calls.getSubject,
+        deleteStudyMaterialSubject: Calls.deleteStudyMaterialSubject,
+        addStudyMaterialSubject: Calls.addStudyMaterialSubject,
       },
     });
 

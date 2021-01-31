@@ -71,7 +71,7 @@ const Topic = createVisualComponent({
         {canManage() && (
           <UU5.Bricks.Row>
             <SubjectUpdateTopic
-              onUpdateTopic={handleChange}
+              onUpdateTopic={onUpdateTopic}
               topic={topic}
               language={language}
               formOfStudy={formOfStudy}

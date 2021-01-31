@@ -75,6 +75,16 @@
         "realization": "api/controllers/SubjectController.deleteStudyMaterial",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "studyMaterial/list": {
+        "realization": "api/controllers/StudyMaterialController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "subject/studyMaterialList": {
+        "realization": "api/controllers/SubjectController.studyMaterialList",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

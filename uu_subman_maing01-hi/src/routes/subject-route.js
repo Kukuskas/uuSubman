@@ -5,7 +5,7 @@ import SubjectProvider from "../bricks/subject-provider";
 import Css from "./subject.css";
 import SubjectDetail from "../bricks/subject-detail";
 import UU5 from "uu5g04";
-import Calls from '../calls.js';
+import Calls from '../calls';
 
 //@@viewOff:imports
 
@@ -23,6 +23,8 @@ const SubjectRoute = createVisualComponent({
     const updateTopicSubjectRef = useRef();
     const deleteTopicSubjectRef = useRef();
     const addTopicSubjectRef = useRef();
+    const deleteStudyMaterialSubjectRef =  useRef();
+    const addStudyMaterialSubjectRef = useRef();
     //@viewOff:hooks
 
     //@@viewOn:private
@@ -50,7 +52,6 @@ const SubjectRoute = createVisualComponent({
     async function handleUpdate(subject) {
       try {
         await updateSubjectRef.current(subject);
-        return handleHome();
       } catch {
         showError(`Create of ${subject.name.en} failed!`);
       }
@@ -99,7 +100,27 @@ const SubjectRoute = createVisualComponent({
         showError(`Update of the topic failed!`);
       }
     }
+    async function handleDeleteStudyMaterial(studyMaterial) {
+      try {
+        console.log("///////////////////passed to del////////////");
+        await deleteStudyMaterialSubjectRef.current(studyMaterial);
+        console.log("///////////////////passed to del////////////");
+      } catch {
+        showError(`Deletion of the study material failed!`);
+      }
+    }
 
+
+
+    // ************SHOULD BE FIXED**************** //
+    async function handleAddStudyMaterial(studyMaterial) {
+      try {
+        await Calls.addStudyMaterialSubject(studyMaterial);
+      } catch {
+        showError(`Adding of the study material failed!`);
+      }
+    }
+    // ************SHOULD BE FIXED**************** //
     function renderLoad() {
       return <UU5.Bricks.Loading />;
     }
@@ -108,6 +129,7 @@ const SubjectRoute = createVisualComponent({
       // let su = sub.filter(subj => subj.data.id == subject.subject.id)
       console.log(sub[0].data);
       return (
+<>
         <SubjectDetail
           subject={sub[0].data}
           onDelete={handleDelete}
@@ -117,10 +139,14 @@ const SubjectRoute = createVisualComponent({
           onAddTopic={handleAddTopic}
           onGet={handleGet}
           onChange={handleChange}
+          onDeleteStudyMaterial={handleDeleteStudyMaterial}
+          onAddStudyMaterial={handleAddStudyMaterial}
         />
+</>
       );
     }
-
+    
+console.log();
     function renderError(errorData) {
       switch (errorData.operation) {
         case "load":
@@ -162,6 +188,9 @@ const SubjectRoute = createVisualComponent({
               updateTopicSubjectRef.current = handlerMap.updateTopicSubject;
               deleteTopicSubjectRef.current = handlerMap.deleteTopicSubject;
               addTopicSubjectRef.current = handlerMap.addTopicSubject;
+              deleteStudyMaterialSubjectRef.current = handlerMap.deleteStudyMaterialSubject;
+              addStudyMaterialSubjectRef.current = handlerMap.addStudyMaterialSubjectRef;
+             
 
               switch (state) {
                 case "pending":
@@ -176,6 +205,7 @@ const SubjectRoute = createVisualComponent({
                 default:
                   return renderReady(data=data.filter(subj => subj.data.id == subject.subject.id));
               }
+              
             }}
           </SubjectProvider>
         </UU5.Bricks.Section>
