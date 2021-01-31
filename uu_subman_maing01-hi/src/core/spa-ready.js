@@ -33,7 +33,6 @@ const ROUTES = {
   home: { component: <Home /> },
   about: { component: <About /> },
   subjects: { component: <Subjects />},
-
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
   controlPanel: { component: <ControlPanel /> },
 };

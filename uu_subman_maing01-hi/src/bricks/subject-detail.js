@@ -144,9 +144,9 @@ function handleChange() {
 
           <UU5.Bricks.Text hidden={teacherList} content={teachers} />
 
-          <UU5.Bricks.Section colorSchema="default">
-            <UU5.Bricks.Block content={<UU5.Bricks.Lsi lsi={subject.desc} />}/>
-          </UU5.Bricks.Section>
+          <UU5.Bricks.Box colorSchema="default">
+            <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={subject.desc} />}/>
+          </UU5.Bricks.Box>
           <TopicList 
           subject={reRender} 
           studyForm={studyForm.props.lsi.en} 
@@ -155,7 +155,6 @@ function handleChange() {
           onAddTopic={onAddTopic}
           onChange= {handleChange}
           margin="5px" 
-          colorSchema="lime"
           />
         </UU5.Bricks.Section>
         <UU5.Bricks.Button content= "Rerender" onClick={handleChange}/>
