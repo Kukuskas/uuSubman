@@ -51,6 +51,41 @@ class SubjectAbl {
     this.studyMaterialDao = DaoFactory.getDao("studyMaterial");
   }
 
+  async studyMaterialList(awid, dtoIn) {
+        // hds 2, 2.1
+        let validationResult = this.validator.validate("studyMaterialListDtoInType", dtoIn);
+        // hds 2.2, 2.3, A4, A5
+        let uuAppErrorMap = ValidationHelper.processValidationResult(
+          dtoIn,
+          validationResult,
+          WARNINGS.getUnsupportedKeys.code,
+          Errors.Get.InvalidDtoIn
+        );
+    
+        let lang = dtoIn.language;
+        let form = dtoIn.formOfStudy;
+        // hds 3
+        let subject = await this.dao.get(awid, dtoIn.id);
+        let studyMaterialList = await this.studyMaterialDao.list()
+        lang == "cs"
+          ? form == "fulltime"
+            ? subject = subject.language.cs.formOfStudy.fulltime.studyMaterialList
+              : subject = subject.language.cs.formOfStudy.parttime.studyMaterialList
+                : form == "fulltime"
+            ? subject = subject.language.en.formOfStudy.fulltime.studyMaterialList
+            : subject = subject.language.en.formOfStudy.parttime.studyMaterialList
+               
+        if (!subject) {
+          throw new Errors.Get.SubjectDoesNotExist(uuAppErrorMap, { subjectId: dtoIn.id });
+        }
+
+       const result = studyMaterialList.itemList.filter(item => subject.includes((item.id).toHexString()));    
+        // hds 4
+        result.uuAppErrorMap = uuAppErrorMap;
+        return result;
+    
+  }
+
   async deleteStudyMaterial(awid, dtoIn) {
     let validationResult = this.validator.validate("subjectDeleteStudyMaterialDtoInType", dtoIn);
     // hds 2.2, 2.3, A3, A4
@@ -135,6 +170,8 @@ class SubjectAbl {
       }
       return studyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
     })
+
+    let id;
     let subjectStudyMaterials;
     lang == "cs"
       ? form == "fulltime"
@@ -228,9 +265,6 @@ studyMaterialId = studyMaterialId.toHexString()
     let form = dtoIn.formOfStudy;
     // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
     let x = dtoIn.data.id
-
-
-
     lang == "cs"
       ? form == "fulltime"
         ? subject.language.cs.formOfStudy.fulltime.topics =

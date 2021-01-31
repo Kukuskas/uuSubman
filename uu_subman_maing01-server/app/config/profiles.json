@@ -116,6 +116,10 @@
       "studyMaterial/list": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "subject/studyMaterialList": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

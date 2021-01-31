@@ -5,6 +5,7 @@ import SubjectProvider from "../bricks/subject-provider";
 import Css from "./subject.css";
 import SubjectDetail from "../bricks/subject-detail";
 import UU5, { PropTypes } from "uu5g04";
+import Calls from "../calls";
 
 
 
@@ -88,18 +89,23 @@ const SubjectRoute = createVisualComponent({
       try {
         console.log("///////////////////passed to del////////////");
         await deleteStudyMaterialSubjectRef.current(studyMaterial);
+        console.log("///////////////////passed to del////////////");
       } catch {
         showError(`Deletion of the study material failed!`);
       }
     }
 
+
+
+    // ************SHOULD BE FIXED**************** //
     async function handleAddStudyMaterial(studyMaterial) {
       try {
-        await addStudyMaterialSubjectRef.current(studyMaterial);
+        await Calls.addStudyMaterialSubject(studyMaterial);
       } catch {
         showError(`Adding of the study material failed!`);
       }
     }
+    // ************SHOULD BE FIXED**************** //
     function renderLoad() {
       return <UU5.Bricks.Loading />;
     }
@@ -115,6 +121,7 @@ const SubjectRoute = createVisualComponent({
           onDeleteTopic={handleDeleteTopic}
           onAddTopic={handleAddTopic}
           onDeleteStudyMaterial={handleDeleteStudyMaterial}
+          onAddStudyMaterial={handleAddStudyMaterial}
         />
 </>
       );

@@ -49,21 +49,16 @@ const SubjectDetail = createVisualComponent({
     onDelete: () => { },
     onDeleteTopic: () => { },
     onAddTopic: () => { },
-    onDeleteStudyMaterial: () => {},
-    onAddStudyMaterial: () =>{},
+    onDeleteStudyMaterial: () => { },
+    onAddStudyMaterial: () => { },
   },
   //@@viewOff:defaultProps
 
-  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic }) {
+  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic, onAddStudyMaterial, onDeleteStudyMaterial }) {
     const [studyForm, setStudyForm] = useState(Mode.fulltime);
     const [teacherList, setTeacherList] = useState(true);
     const teachers = [<TeacherList teachers={subject.teachers} />];
-    const [showCreateModal, setShowCreateModal] = useState(false);
-    //@@viewOn:private
-    // const language = useLsi({
-    //   cs: "cs",
-    //   en: "en",
-    // });
+
     function handleClick() {
       teacherList == true ? setTeacherList(false) : setTeacherList(true);
     }
@@ -72,40 +67,11 @@ const SubjectDetail = createVisualComponent({
     }
     //@@viewOff:private
 
-    //@@viewOn:render
-    //@@viewOn:render
-    // function handleOpenCreateStudyMaterialForm() {
-    //   setShowCreateModal(true);
-    // }
-
-    // function handleCloseCreteStudyMaterialForm() {
-    //   setShowCreateModal(false);
-    // }
-    // function handleCreateStudyMaterialSave(opt) {
-    //   let it = opt.values;
-    //     const input = {
-    //       id: subject.id,
-    //       data: {
-    //         baseUri: it.baseUri,
-    //         type: it.type,
-    //         productCode: it.productCode,
-    //         name: it.name,
-    //       },
-    //       language: language,
-    //       formOfStudy: studyForm.props.lsi.en == "Full-time"? "fulltime" : "parttime",
-    //   };
-    //   console.log("Onoonon");
-    //   console.log(input);
-    //   console.log("Onoonon");
-    //   onAddStudyMaterial(input)
-    //   setShowCreateModal(false);
-     
-    // }
     const language = useLsi({
       cs: "cs",
       en: "en",
-    }); 
-    let formOfStudy =  studyForm.props.lsi.en == "Full-time"? "fulltime" : "parttime"
+    });
+    let formOfStudy = studyForm.props.lsi.en == "Full-time" ? "fulltime" : "parttime"
     return (
       <>
         <Plus4U5.App.ArtifactSetter
@@ -190,59 +156,14 @@ const SubjectDetail = createVisualComponent({
             language={language}
             margin="5px"
           />
-        <StudyMaterials subject={subject} 
-        formOfStudy={formOfStudy}
-         language={language}/>
-           {/* <StudyMaterialCreateForm
-          shown={showCreateModal}
-          onSave={handleCreateStudyMaterialSave}
-          onCancel={handleCloseCreteStudyMaterialForm}
-        />
-           <UU5.Bricks.Button size="s" onClick={handleOpenCreateStudyMaterialForm} bgStyle="filled"> 
-           <UU5.Bricks.Lsi lsi={{ en: "Add Video", cs: "Přidat Video" }} />
-            <UU5.Bricks.Icon icon="mdi-plus-circle" />
-          </UU5.Bricks.Button>
-          <UU5.Bricks.Accordion>
-            <UU5.Bricks.Panel
-              header={<UU5.Bricks.Lsi lsi={{ en: "Books", cs: "Knihy" }} />}
-              content={<StudyMaterialBooksList
-                subject={subject}
-                onDeleteStudyMaterial={onDeleteStudyMaterial}
-                // onAddStudyMaterial={onAddStudyMaterial}
-              />}
-              style={"font-size:large"}
-              colorSchema="blue"
-              iconExpanded="mdi-chevron-up"
-              iconCollapsed="mdi-chevron-down"
-            />
-          </UU5.Bricks.Accordion>
-          <UU5.Bricks.Accordion>
-            <UU5.Bricks.Panel
-              header={<UU5.Bricks.Lsi lsi={{ en: "Courses", cs: "Kurzy" }} />}
-              content={<StudyMaterialCoursesList
-                subject={subject}
-                onDeleteStudyMaterial={onDeleteStudyMaterial}
-              />}
-              style={"font-size:large"}
-              colorSchema="blue"
-              iconExpanded="mdi-chevron-up"
-              iconCollapsed="mdi-chevron-down"
-            />
-          </UU5.Bricks.Accordion>
-          <UU5.Bricks.Accordion>
-            <UU5.Bricks.Panel
-              header={<UU5.Bricks.Lsi lsi={{ en: "Videos", cs: "Videa" }} />}
-              content={<StudyMaterialVideosList
-                subject={subject}
-                onDeleteStudyMaterial={onDeleteStudyMaterial}
-              />}
-              style={"font-size:large"}
-              colorSchema="blue"
-              iconExpanded="mdi-chevron-up"
-              iconCollapsed="mdi-chevron-down"
-            />
-          </UU5.Bricks.Accordion> */}
-
+          <StudyMaterials
+            subjectId={subject.id}
+            subject={subject}
+            formOfStudy={formOfStudy}
+            language={language}
+            onDeleteStudyMaterial={onDeleteStudyMaterial}
+            onAddStudyMaterial={onAddStudyMaterial}
+          />
         </UU5.Bricks.Section>
       </>
     );
