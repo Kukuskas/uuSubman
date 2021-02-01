@@ -16,8 +16,6 @@ const SubjectProvider = createComponent({
       handlerMap: {
         load: Calls.listSubjects,
         createSubject: Calls.createSubject,
-        updateSubject: Calls.updateSubject,
-        deleteSubject: Calls.deleteSubject,
         updateTopicSubject: Calls.updateTopicSubject,
         deleteTopicSubject: Calls.deleteTopicSubject,
         addTopicSubject: Calls.addTopicSubject,
@@ -25,6 +23,10 @@ const SubjectProvider = createComponent({
         deleteStudyMaterialSubject: Calls.deleteStudyMaterialSubject,
         addStudyMaterialSubject: Calls.addStudyMaterialSubject,
       },
+      itemHandlerMap: {
+        updateSubject: Calls.updateSubject,
+        deleteSubject: Calls.deleteSubject,
+      }
     });
 
     let { state, data, newData, pendingData, errorData, handlerMap } = listDataValues;
