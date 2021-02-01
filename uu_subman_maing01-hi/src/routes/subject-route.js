@@ -74,14 +74,14 @@ const SubjectRoute = createVisualComponent({
     }
 
     async function handleGet(id) {
-      // console.log(id);
-      // console.log("this is id ++++++++++++++++++++++++++++++");
-      // try {
-      //   await getSubjectRef.current(id);
-      // } catch {
-      //   showError(`Getting the subject failed!`);
-      // }
-      return Calls.getSubject(id);
+      console.log(id);
+      console.log("this is id ++++++++++++++++++++++++++++++");
+      try {
+        await getSubjectRef.current(id);
+      } catch {
+        showError(`Getting the subject failed!`);
+      }
+      // return Calls.getSubject(id);
       
     }
 
@@ -127,11 +127,11 @@ const SubjectRoute = createVisualComponent({
 
     function renderReady(sub) {
       // let su = sub.filter(subj => subj.data.id == subject.subject.id)
-      console.log(sub[0].data);
+      // setReRender(sub[0].data)
       return (
 <>
         <SubjectDetail
-          subject={sub[0].data}
+          subject={reRender}
           onDelete={handleDelete}
           onUpdate={handleUpdate}
           onUpdateTopic={handleUpdateTopic}
@@ -190,7 +190,8 @@ console.log();
               addTopicSubjectRef.current = handlerMap.addTopicSubject;
               deleteStudyMaterialSubjectRef.current = handlerMap.deleteStudyMaterialSubject;
               addStudyMaterialSubjectRef.current = handlerMap.addStudyMaterialSubjectRef;
-             
+             console.log(data);
+             console.log(state);
 
               switch (state) {
                 case "pending":
@@ -203,7 +204,7 @@ console.log();
                 case "ready":
                 case "readyNoData":
                 default:
-                  return renderReady(data=data.filter(subj => subj.data.id == subject.subject.id));
+                  return renderReady(setReRender(data=data.filter(subj => subj.data.id == subject.subject.id)[0].data));
               }
               
             }}

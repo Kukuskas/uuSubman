@@ -63,7 +63,7 @@ const Topic = createVisualComponent({
         formOfStudy: formOfStudy,
         language: language,
       });
-      onChange()
+      // onChange()
     }
 
     return (

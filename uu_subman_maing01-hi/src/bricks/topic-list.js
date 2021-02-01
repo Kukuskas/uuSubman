@@ -93,7 +93,7 @@ const TopicList = createVisualComponent({
         formOfStudy: formOfStudy,
         language: language,
       });
-      onChange()
+      // onChange()
      
       
     }

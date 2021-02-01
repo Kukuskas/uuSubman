@@ -71,16 +71,30 @@ const SubjectDetail = createVisualComponent({
     //@@viewOn:render
     const [reRender, setReRender] = useState(subject);
 function handleChange() {
-  Promise.resolve(onGet({id: subject.id})).then(function(value) {
-    setReRender(value);
-  })
-  console.log("updating...");
+    // Promise.resolve(onGet({id: subject.id})).then(function(value) {
+    //   setReRender(value);
+  // }
+  // )
+  // console.log("updating...");
+}
+function renderLoad() {
+  return <UU5.Bricks.Loading />;
 }
     const language = useLsi({
       cs: "cs",
       en: "en",
     });
     let formOfStudy = studyForm.props.lsi.en == "Full-time" ? "fulltime" : "parttime"
+    switch (subject) {
+
+      case null:
+        return renderLoad();
+      case "error":
+      case "errorNoData":
+        return renderError(errorData);
+      case "ready":
+      case "readyNoData":
+      default:
     return (
       <>
         <Plus4U5.App.ArtifactSetter 
@@ -179,7 +193,7 @@ function handleChange() {
 
       </>
     );
-  },
+  }}
   //@@viewOff:render
 });
 
