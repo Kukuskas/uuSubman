@@ -110,8 +110,7 @@ const FormUpdate = createVisualComponent({
     function SuperviseronLoad() {
       // Pass useEffect a function
       useEffect(() => {
-        console.log('render!');
-        return () =>  console.log("lala");;
+        return () =>  console.log("lala");
       })
     
       return supervisor && (<UU5.Bricks.Column colWidth="s-6" style={{ alignSelf: "flex-end" }}>

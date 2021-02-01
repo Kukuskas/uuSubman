@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useState, useContext, useSession } from "uu5g04-hooks";
+import { createComponent, useState, useContext } from "uu5g04-hooks";
 import Config from "./config/config";
 import Css from "../routes/subject.css";
 import SubmanMainContext from "../bricks/subman-main-context";
@@ -40,7 +40,10 @@ const SubjectUpdateTopic = createComponent({
 
   render({ onUpdateTopic, id, topic, language, formOfStudy }) {
     //@viewOn:hooks
-
+    console.log("this is topic");
+    console.log(topic);
+   const [testStudyMaterialList, setTestStudyMaterialList] = useState("");
+    const [studyMaterialList, setStudyMaterialList] = useState(topic.studyMaterialList);
     const [mode, setMode] = useState(Mode.BUTTON);
     //@viewOff:hooks
 
@@ -48,6 +51,27 @@ const SubjectUpdateTopic = createComponent({
     function handleUpdateTopic() {
       setMode(Mode.FORM);
     }
+
+    function handleAdd() {
+      const i = studentsList;
+      if (i[i.length - 1].uuIdentity == "") {
+      } else {
+        const newStudentsList = studentsList.concat({ uuIdentity: "", formOfStudy: "fulltime" });
+        setStudentsList(newStudentsList);
+      }
+    }
+   
+    // function handleRemove(i) {
+    //   if (studentsList.length > 1) {
+    //     const newStudentsList = studentsList.filter((_, index) => index !== i);
+
+    //     setStudentsList(newStudentsList);
+    //     setTestStudents(JSON.stringify(studentsList));
+    //   } else {
+    //     setStudentsList([{ uuUdentity: "", formOfStudy: "" }]);
+    //     setTestStudents("");
+    //   }
+    // }
 
 
     function handleSave(opt) {
@@ -109,12 +133,16 @@ const SubjectUpdateTopic = createComponent({
 
           <UU5.Forms.ContextForm onSave={handleSave} onCancel={handleCancel}>
         <UU5.Bricks.Container>
+        <UU5.Bricks.Row>
+            <UU5.Bricks.Column colWidth="s-6">
           <UU5.Forms.Text
             borderRadius="8px"
             label={<UU5.Bricks.Lsi lsi={{ en: "Edit Name", cs: "Upravit Téma" }} />}
             name="name"
             value={topic.name}
           />
+             </UU5.Bricks.Column>
+            <UU5.Bricks.Column colWidth="s-6">
           <UU5.Forms.Text
             borderRadius="8px"
             label={<UU5.Bricks.Lsi lsi={{ en: "Edit Description", cs: "Upravit Popis" }} />}
@@ -122,6 +150,45 @@ const SubjectUpdateTopic = createComponent({
             value={topic.desc}
             required
           />
+           </UU5.Bricks.Column>
+          </UU5.Bricks.Row>
+          {studyMaterialList.map((studyMaterial, index) => (
+            <div key={index}>
+              <UU5.Bricks.Row label="studyMaterial">
+                <UU5.Bricks.Column colWidth="s-4">
+                  <UU5.Forms.Text
+                    type="text"
+                    name={"baseUri" + index}
+                    value={
+                      studyMaterial == null
+                        ? ((studyMaterial = { baseUri: "", name: "materials"/*, type:"books"*/ }), studyMaterial.baseUri)
+                        : studyMaterial.baseUri
+                    }
+                   // onBlur={(value) => handleUuIdentityChange(value.value, index)}
+                  />
+                </UU5.Bricks.Column>
+                <UU5.Bricks.Column colWidth="s-4">
+                <UU5.Forms.Text
+                    type="text"
+                    name={"name" + index}
+                    value={studyMaterial == null ? "" : studyMaterial.name}
+                  //  onBlur={(value) => handleUuIdentityChange(value.value, index)}
+                  />
+                </UU5.Bricks.Column>
+                {/* <UU5.Bricks.Column colWidth="s-4">
+                  <UU5.Bricks.Button onClick={() => handleRemove(index)} content="Remove" />
+                </UU5.Bricks.Column> */}
+              </UU5.Bricks.Row>
+            </div>
+          ))}
+
+          <UU5.Bricks.Row>
+            <UU5.Bricks.Button onClick={() => handleAdd(studyMaterialList)} content="Add" />
+          </UU5.Bricks.Row>
+          <UU5.Bricks.Row>
+            <UU5.Bricks.Button onClick={console.log("")} content="Test" />
+          </UU5.Bricks.Row>
+          <UU5.Forms.Text name="test" value={testStudyMaterialList} hidden={true} />
 
         </UU5.Bricks.Container>
       </UU5.Forms.ContextForm>

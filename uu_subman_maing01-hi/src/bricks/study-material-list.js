@@ -46,9 +46,13 @@ const StudyMaterialList = createVisualComponent({
         formOfStudy: formOfStudy,
       });
     }
+
+    console.log(studyMaterials);
+    console.log("StudyMaterials+++++++++++++++++");
     function handleOpenCreateStudyMaterialForm(type) {
       setCurrentType(type)
       setShowCreateModal(true);
+      
     }
 
     function handleCloseCreteStudyMaterialForm() {
