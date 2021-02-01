@@ -17,6 +17,14 @@ let Calls = {
     let commandUri = Calls.getCommandUri("submanMain/load");
     return Calls.call("get", commandUri, dtoIn);
   },
+  listStudyMaterials(dtoIn) {
+    let commandUri = Calls.getCommandUri("studyMaterial/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+  studyMaterialListSubject(dtoIn) {
+    let commandUri = Calls.getCommandUri("subject/studyMaterialList");
+    return Calls.call("get", commandUri, dtoIn);
+  },
 
   listSubjects(dtoIn) {
     let commandUri = Calls.getCommandUri("subject/list");
@@ -53,6 +61,15 @@ let Calls = {
     let commandUri = Calls.getCommandUri("subject/get");
     return Calls.call("get", commandUri, dtoIn);
   },
+  deleteStudyMaterialSubject(dtoIn) {
+    let commandUri = Calls.getCommandUri("subject/deleteStudyMaterial");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+  addStudyMaterialSubject(dtoIn) {
+    let commandUri = Calls.getCommandUri("subject/addStudyMaterial");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
 
   deleteSubject(dtoIn) {
     let commandUri = Calls.getCommandUri("subject/delete");

@@ -71,14 +71,14 @@ const Topic = createVisualComponent({
         {canManage() && (
           <UU5.Bricks.Row>
             <SubjectUpdateTopic
-              onUpdateTopic={handleChange}
+              onUpdateTopic={onUpdateTopic}
               topic={topic}
               language={language}
               formOfStudy={formOfStudy}
               id={id}
               onChange={onChange}
             />
-            <UU5.Bricks.Button size="s" onClick={deleteTopicParams} bgStyle="transparent">
+            <UU5.Bricks.Button size="s" onClick={deleteTopicParams} bgStyle="transparent" colorSchema="blue">
               <UU5.Bricks.Icon icon="glyphicon-trash" />
             </UU5.Bricks.Button>
           </UU5.Bricks.Row>
@@ -93,7 +93,7 @@ const Topic = createVisualComponent({
             iconExpanded="mdi-chevron-up"
             iconCollapsed={canManage()?"mdi-chevron-down":null}
             onClickNotCollapseOthers={true}
-            openClick={canManage()?"":"none"}
+            openClick={canManage()?null:"none"}
           />
         </UU5.Bricks.Accordion>
       </>

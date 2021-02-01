@@ -197,7 +197,13 @@ const DeleteStudyMaterial = {
   }
 };
 
+const StudyMaterialList = {
+  UC_CODE: `${SUBJECT_ERROR_PREFIX}studyMaterialList/`,
+  
+};
+
 module.exports = {
+  StudyMaterialList,
   DeleteStudyMaterial,
   AddStudyMaterial,
   UpdateTopic,

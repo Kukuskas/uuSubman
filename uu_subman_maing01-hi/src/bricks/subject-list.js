@@ -4,7 +4,7 @@ import { createVisualComponent, useState, useContext, useSession } from "uu5g04-
 import Config from "./config/config";
 import Subject from "./subject";
 import Uu5Tiles from "uu5tilesg02";
-import SubjectCreateForm from "./subject-create-form";
+import SubjectCreate from "./subject-create";
 import SubmanMainContext from "../bricks/subman-main-context";
 //@@viewOff:imports
 
@@ -28,10 +28,10 @@ const SubjectList = createVisualComponent({
   defaultProps: {
     subjects: [],
     showButton: false,
-    onDetail: () => {},
-    onUpdate: () => {},
-    onDelete: () => {},
-    onCreate: () => {},
+    onDetail: () => { },
+    onUpdate: () => { },
+    onDelete: () => { },
+    onCreate: () => { },
   },
   //@@viewOff:defaultProps
 
@@ -148,7 +148,6 @@ const SubjectList = createVisualComponent({
         },
       ];
     };
-
     if (subjects.length === 0) {
       return <>
         {console.log(isAuthority)}
@@ -164,9 +163,24 @@ const SubjectList = createVisualComponent({
       </>
     }
 
+    if (subjects.length === 0) {
+      return <>
+        {console.log(isAuthority)}
+        <Uu5Tiles.ControllerProvider data={subjects}>
+          <Uu5Tiles.ActionBar actions={canManage() && showButton ? GET_ACTIONS : []} />
+        </Uu5Tiles.ControllerProvider>
+        <SubjectCreate
+          shown={showCreateModal}
+          onSave={handleCreateSubjectSave}
+          onCancel={handleCloseCreateSubjectForm}
+        />
+        <UU5.Common.Error content="WTF No subjects!" />
+      </>
+    }
+
     return (
       <>
-        <SubjectCreateForm
+        <SubjectCreate
           shown={showCreateModal}
           onSave={handleCreateSubjectSave}
           onCancel={handleCloseCreateSubjectForm}

@@ -6,16 +6,13 @@ import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-app";
 
 import Config from "./config/config";
-import Top from "./top";
 import Left from "./left";
 import Bottom from "./bottom";
 import Home from "../routes/home";
 import Subjects from "../routes/subjects";
-import SubjectRoute from "../routes/subject-route";
 import ControlPanel from "../routes/control-panel";
 import InitAppWorkspace from "../routes/init-app-workspace";
 import SubmanMainContext from "../bricks/subman-main-context";
-import SubjectList from "../bricks/subject-list";
 //@@viewOff:imports
 
 const STATICS = {
@@ -33,7 +30,6 @@ const ROUTES = {
   home: { component: <Home /> },
   about: { component: <About /> },
   subjects: { component: <Subjects />},
-
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
   controlPanel: { component: <ControlPanel /> },
 };

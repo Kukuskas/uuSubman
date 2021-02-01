@@ -49,6 +49,41 @@ class SubjectAbl {
     this.studyMaterialDao = DaoFactory.getDao("studyMaterial");
   }
 
+  async studyMaterialList(awid, dtoIn) {
+        // hds 2, 2.1
+        let validationResult = this.validator.validate("studyMaterialListDtoInType", dtoIn);
+        // hds 2.2, 2.3, A4, A5
+        let uuAppErrorMap = ValidationHelper.processValidationResult(
+          dtoIn,
+          validationResult,
+          WARNINGS.getUnsupportedKeys.code,
+          Errors.Get.InvalidDtoIn
+        );
+    
+        let lang = dtoIn.language;
+        let form = dtoIn.formOfStudy;
+        // hds 3
+        let subject = await this.dao.get(awid, dtoIn.id);
+        let studyMaterialList = await this.studyMaterialDao.list()
+        lang == "cs"
+          ? form == "fulltime"
+            ? subject = subject.language.cs.formOfStudy.fulltime.studyMaterialList
+              : subject = subject.language.cs.formOfStudy.parttime.studyMaterialList
+                : form == "fulltime"
+            ? subject = subject.language.en.formOfStudy.fulltime.studyMaterialList
+            : subject = subject.language.en.formOfStudy.parttime.studyMaterialList
+               
+        if (!subject) {
+          throw new Errors.Get.SubjectDoesNotExist(uuAppErrorMap, { subjectId: dtoIn.id });
+        }
+
+       const result = studyMaterialList.itemList.filter(item => subject.includes((item.id).toHexString()));    
+        // hds 4
+        result.uuAppErrorMap = uuAppErrorMap;
+        return result;
+    
+  }
+
   async deleteStudyMaterial(awid, dtoIn) {
     let validationResult = this.validator.validate("subjectDeleteStudyMaterialDtoInType", dtoIn);
     // hds 2.2, 2.3, A3, A4
@@ -75,15 +110,14 @@ class SubjectAbl {
     lang == "cs"
       ? form == "fulltime"
         ? subject.language.cs.formOfStudy.fulltime.studyMaterialList =
-        subject.language.cs.formOfStudy.fulltime.studyMaterialList.filter(studyMaterialList => studyMaterialList.id !== x)
+        subject.language.cs.formOfStudy.fulltime.studyMaterialList.filter(studyMaterialList => studyMaterialList !== x)
         : subject.language.cs.formOfStudy.parttime.studyMaterialList =
-        subject.language.cs.formOfStudy.parttime.studyMaterialList.filter(studyMaterialList => studyMaterialList.id !== x)
+        subject.language.cs.formOfStudy.parttime.studyMaterialList.filter(studyMaterialList => studyMaterialList !== x)
       : form == "fulltime"
         ? subject.language.en.formOfStudy.fulltime.studyMaterialList =
-        subject.language.en.formOfStudy.fulltime.studyMaterialList.filter(studyMaterialList => studyMaterialList.id !== x)
+        subject.language.en.formOfStudy.fulltime.studyMaterialList.filter(studyMaterialList => studyMaterialList !== x)
         : subject.language.en.formOfStudy.parttime.studyMaterialList =
-        subject.language.en.formOfStudy.parttime.studyMaterialList.filter(studyMaterialList => studyMaterialList.id !== x)
-
+        subject.language.en.formOfStudy.parttime.studyMaterialList.filter(studyMaterialList => studyMaterialList !== x)
     let dtoOut;
 
     try {
@@ -102,6 +136,7 @@ class SubjectAbl {
     return dtoOut;
   }
 
+ 
   async addStudyMaterial(awid, dtoIn) {
 
     let validationResult = this.validator.validate("subjectAddStudyMaterialDtoInType", dtoIn);
@@ -121,67 +156,88 @@ class SubjectAbl {
     }
 
     // hds 7rs
+
     let lang = dtoIn.language;
     let form = dtoIn.formOfStudy;
-
-    dtoIn.data.id = ObjectId().toHexString();
-
-    lang == "cs"
-      ? form == "fulltime"
-        ? subject.language.cs.formOfStudy.fulltime.studyMaterialList.push(dtoIn.data)
-        : subject.language.cs.formOfStudy.parttime.studyMaterialList.push(dtoIn.data)
-      : form == "fulltime"
-        ? subject.language.en.formOfStudy.fulltime.studyMaterialList.push(dtoIn.data)
-        : subject.language.en.formOfStudy.parttime.studyMaterialList.push(dtoIn.data);
-    let dtoOut;
-
     let dtoInlink = dtoIn.data.baseUri.replace(/^https?:\/\/(www\.)?/, "")
-
-    let studyMaterials = await this.studyMaterialDao.list()
+    let studyMaterialId;
+    let studyMaterials = await this.studyMaterialDao.list() 
     
-    studyMaterials = studyMaterials.itemList.some(studyMaterials => {
+    studyMaterials= studyMaterials.itemList.some(studyMaterials => {
+
+      if (studyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink) {
+        studyMaterialId = studyMaterials.id;
+      }
       return studyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
     })
 
-    let subjectStudyMaterials = await this.dao.get(awid, dtoIn.id)
+    let id;
+    let subjectStudyMaterials;
     lang == "cs"
       ? form == "fulltime"
-        ? subjectStudyMaterials = subjectStudyMaterials.language.cs.formOfStudy.fulltime.studyMaterialList
+        ? subjectStudyMaterials = subject.language.cs.formOfStudy.fulltime.studyMaterialList
           .some(subjectStudyMaterials => {
-            return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
-          }) : subjectStudyMaterials = subjectStudyMaterials.language.cs.formOfStudy.parttime.studyMaterialList
+            id = subjectStudyMaterials
+            return subjectStudyMaterials == studyMaterialId
+          }) : subjectStudyMaterials = subject.language.cs.formOfStudy.parttime.studyMaterialList
             .some(subjectStudyMaterials => {
-              return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
+              return subjectStudyMaterials == studyMaterialId
             }) : form == "fulltime"
-        ? subjectStudyMaterials = subjectStudyMaterials.language.en.formOfStudy.fulltime.studyMaterialList
+        ? subjectStudyMaterials = subject.language.en.formOfStudy.fulltime.studyMaterialList
           .some(subjectStudyMaterials => {
-            return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
-          }) : subjectStudyMaterials = subjectStudyMaterials.language.en.formOfStudy.parttime.studyMaterialList
+            return subjectStudyMaterials == studyMaterialId
+          }) : subjectStudyMaterials = subject.language.en.formOfStudy.parttime.studyMaterialList
             .some(subjectStudyMaterials => {
-              return subjectStudyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
+              return subjectStudyMaterials == studyMaterialId
             })
-    if (studyMaterials && subjectStudyMaterials) {
-      throw new Errors.AddStudyMaterial.StudyMaterialAlreadyExist({ uuAppErrorMap }, { subjectId: dtoIn.id })
-    } else {
-
-      try {
-
+    let dtoOut;
+    let dtoOut2;
+    
+      if (!studyMaterials) {
+        try {
         dtoIn.awid = awid;
-        studyMaterials && !subjectStudyMaterials ? dtoOut = await this.dao.update(subject) : await this.dao.update(subject) &&
-          (dtoOut = await this.studyMaterialDao.create(dtoIn.data))
+        dtoOut = await this.studyMaterialDao.create(dtoIn.data) 
 
-      } catch (e) {
+      }catch (e) {
         if (e instanceof ObjectStoreError) {
           // A10
           throw new Errors.AddStudyMaterial.SubjectDaoAddStudyMaterialFailed({ uuAppErrorMap }, e);
         }
         throw e;
-      }
+      } 
+      studyMaterialId = dtoOut.id
+      dtoOut.uuAppErrorMap = uuAppErrorMap;
     }
-
-    // hds 8
-    dtoOut.uuAppErrorMap = uuAppErrorMap;
-    return dtoOut
+      if ( !subjectStudyMaterials) {
+        
+        try{
+        let lang = dtoIn.language;
+        let form = dtoIn.formOfStudy;
+studyMaterialId = studyMaterialId.toHexString()
+        lang == "cs"
+          ? form == "fulltime"
+            ? subject.language.cs.formOfStudy.fulltime.studyMaterialList.push( studyMaterialId )
+            : subject.language.cs.formOfStudy.parttime.studyMaterialList.push( studyMaterialId)
+          : form == "fulltime"
+            ? subject.language.en.formOfStudy.fulltime.studyMaterialList.push(studyMaterialId )
+            : subject.language.en.formOfStudy.parttime.studyMaterialList.push( studyMaterialId);
+        (dtoOut2 = await this.dao.update(subject))
+        }
+      
+     catch (e) {
+      if (e instanceof ObjectStoreError) {
+        // A10
+        throw new Errors.AddStudyMaterial.SubjectDaoAddStudyMaterialFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+  dtoOut2.uuAppErrorMap = uuAppErrorMap
+}else {
+  throw new Errors.AddStudyMaterial.StudyMaterialAlreadyExist({ uuAppErrorMap }, { subjectId: dtoIn.id })
+}     
+    // hds 8   
+    return  {a: dtoOut, b: dtoOut2}
+      
   }
 
 
@@ -209,9 +265,6 @@ class SubjectAbl {
     let form = dtoIn.formOfStudy;
     // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
     let x = dtoIn.data.id
-
-
-
     lang == "cs"
       ? form == "fulltime"
         ? subject.language.cs.formOfStudy.fulltime.topics =

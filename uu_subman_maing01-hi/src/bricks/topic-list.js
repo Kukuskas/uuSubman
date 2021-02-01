@@ -5,6 +5,7 @@ import Config from "./config/config";
 import Topic from "./topic";
 import Uu5Tiles from "uu5tilesg02";
 import SubmanMainContext from "../bricks/subman-main-context";
+import StudyMaterialList from "./study-material-list";
 
 //@@viewOff:imports
 
@@ -37,7 +38,7 @@ const TopicList = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ subject, studyForm, onUpdateTopic, onDeleteTopic, onAddTopic, onChange }) {
+  render({ subject, formOfStudy, onUpdateTopic, onDeleteTopic, onAddTopic, language, onChange }) {
 
     const { identity } = useSession();
     const contextData = useContext(SubmanMainContext);
@@ -53,6 +54,7 @@ const TopicList = createVisualComponent({
       );
       return isAuthority || isTeacher || isGarant;
     }
+  
     //@@viewOn:render
     const fullTime = useLsi({
       cs: subject.language.cs.formOfStudy.fulltime.topics,
@@ -62,10 +64,7 @@ const TopicList = createVisualComponent({
       cs: subject.language.cs.formOfStudy.parttime.topics,
       en: subject.language.en.formOfStudy.parttime.topics,
     });
-    const language = useLsi({
-      cs: "cs",
-      en: "en",
-    });
+
     function renderItem(item) {
       if (item.length === 0) {
         return <UU5.Common.Error content="WTF No topics!" />;
@@ -73,24 +72,25 @@ const TopicList = createVisualComponent({
         return (
           <Topic
             topic={item.data}
-            colorSchema="green"
+            
             onUpdateTopic={onUpdateTopic}
             onDeleteTopic={onDeleteTopic}
             teachers={subject.teachers}
             supervisor={subject.supervisor}
             id={subject.id}
-            formOfStudy={studyForm == "Full-time"?"fulltime":"parttime"}
+            formOfStudy={formOfStudy }
             language= {language}
             onChange={onChange}
           />
         );
       }
     }
+ 
 
     function addTopicParams() {
       onAddTopic({
         id: subject.id,
-        formOfStudy: studyForm == "Full-time"?"fulltime":"parttime",
+        formOfStudy: formOfStudy,
         language: language,
       });
       onChange()
@@ -100,12 +100,13 @@ const TopicList = createVisualComponent({
 
     return (
       <>
-        {/* <Uu5Tiles.ControllerProvider data={topic}> */}
-        {canManage() && ( <UU5.Bricks.Button content="Add New Topic" onClick={addTopicParams}/>)}
-        <Uu5Tiles.Grid data={studyForm == "Full-time" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
+      <UU5.Bricks.Section>
+        <Uu5Tiles.Grid data={formOfStudy == "fulltime" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
           {renderItem}
+      
         </Uu5Tiles.Grid>
-
+        {canManage() && ( <UU5.Bricks.Button content="Add New Topic" onClick={addTopicParams} colorSchema="blue-rich" />)}
+      </UU5.Bricks.Section>
       </>
     );
     //@@viewOff:render

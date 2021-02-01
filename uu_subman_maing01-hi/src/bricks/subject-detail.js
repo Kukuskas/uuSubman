@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent, useState, useLsi, useEffect } from "uu5g04-hooks";
 import Config from "./config/config";
 import Lsi from "./config/lsi";
 import "uu5g04-bricks";
@@ -9,7 +9,8 @@ import "uu5g04-forms";
 import TeacherList from "./teacher-list";
 import TopicList from "./topic-list";
 import Css from "../routes/subject.css";
-import SubjectUpdate from "../bricks/subject-update";
+import SubjectUpdate from "./subject-update";
+import StudyMaterials from "./study-materials";
 
 //@@viewOff:imports
 const Mode = {
@@ -41,24 +42,25 @@ const SubjectDetail = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     subject: null,
-    colorSchema: "red",
-    onUpdate: () => {},
-    onDelete: () => {},
-    onDeleteTopic: () => {},
-    onAddTopic: () => {},
-    onGet: () => {},
+    colorSchema: "blue",
+    showButton: false,
+    onUpdate: () => { },
+    onDelete: () => { },
+    onDeleteTopic: () => { },
+    onAddTopic: () => { },
+    onDeleteStudyMaterial: () => { },
+    onAddStudyMaterial: () => { },
   },
   //@@viewOff:defaultProps
 
-  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic, onGet }) {
+  render({ subject, onDelete, onUpdate, onUpdateTopic, onDeleteTopic, onAddTopic, onAddStudyMaterial, onDeleteStudyMaterial, onChange, onGet }) {
     const [studyForm, setStudyForm] = useState(Mode.fulltime);
     const [teacherList, setTeacherList] = useState(true);
     const teachers = [<TeacherList teachers={subject.teachers} />];
-    //@@viewOn:private
+
     function handleClick() {
       teacherList == true ? setTeacherList(false) : setTeacherList(true);
     }
-
     function handleSwitch() {
       studyForm == Mode.parttime ? setStudyForm(Mode.fulltime) : setStudyForm(Mode.parttime);
     }
@@ -72,9 +74,14 @@ function handleChange() {
   })
   console.log("updating...");
 }
+    const language = useLsi({
+      cs: "cs",
+      en: "en",
+    });
+    let formOfStudy = studyForm.props.lsi.en == "Full-time" ? "fulltime" : "parttime"
     return (
       <>
-        <Plus4U5.App.ArtifactSetter
+        <Plus4U5.App.ArtifactSetter 
           routeName="Subject Detail"
           header={<UU5.Bricks.Lsi lsi={reRender.name} />}
           breadcrumbList={[
@@ -86,11 +93,11 @@ function handleChange() {
           showBackButton
         />
 
-        <UU5.Bricks.Section>
-          <UU5.Bricks.Box colorSchema="green" className={Css.detail()}>
+        <UU5.Bricks.Section colorSchema="blue-grey">
+          <UU5.Bricks.Box  className={Css.detail()} style={{ backgroundColor: UU5.Environment.colors.teal.c50}} borderRadius="8px">
             <UU5.Bricks.Row>
-              <UU5.Bricks.Header className="uu5-common-center" level={1}>
-                {<UU5.Bricks.Lsi lsi={subject.name} />}
+              <UU5.Bricks.Header className="uu5-common-center" level={1}  color="blue-gray">
+                {<UU5.Bricks.Lsi lsi={subject.name} color="blue-gray"/>}
               </UU5.Bricks.Header>
               <SubjectUpdate onUpdate={onUpdate} onDelete={onDelete} subject={reRender} />
             </UU5.Bricks.Row>
@@ -120,7 +127,7 @@ function handleChange() {
               </UU5.BlockLayout.Tile>
 
               <div onClick={handleSwitch} className={Css.cursor()}>
-                <UU5.BlockLayout.Tile borderRadius="8px" margin="5px" className="uu5-elevation-hover-1">
+                <UU5.BlockLayout.Tile borderRadius="8px" margin="5px" className="uu5-elevation-hover-1 " colorSchema="blue-grey">
                   {studyForm}
                 </UU5.BlockLayout.Tile>
               </div>
@@ -143,20 +150,31 @@ function handleChange() {
 
           <UU5.Bricks.Text hidden={teacherList} content={teachers} />
 
-          <UU5.Bricks.Box>
-            <UU5.Bricks.Block content={<UU5.Bricks.Lsi lsi={subject.desc} />} colorSchema="green" />
+          <UU5.Bricks.Box colorSchema="default">
+            <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={subject.desc} />}/>
           </UU5.Bricks.Box>
+          <UU5.Bricks.Button content= "Rerender" onClick={handleChange} colorSchema="blue"/>
           <TopicList 
           subject={reRender} 
           studyForm={studyForm.props.lsi.en} 
           onUpdateTopic={onUpdateTopic}  
           onDeleteTopic={onDeleteTopic} 
           onAddTopic={onAddTopic}
-          onChange= {handleChange}
-          margin="5px" 
+          onChange= {onChange}
+            formOfStudy={formOfStudy}
+            language={language}
+            margin="5px"
+          />
+          <StudyMaterials
+            subjectId={subject.id}
+            subject={subject}
+            formOfStudy={formOfStudy}
+            language={language}
+            onDeleteStudyMaterial={onDeleteStudyMaterial}
+            onAddStudyMaterial={onAddStudyMaterial}
           />
         </UU5.Bricks.Section>
-        <UU5.Bricks.Button content= "Rerender" onClick={handleChange}/>
+
       </>
     );
   },

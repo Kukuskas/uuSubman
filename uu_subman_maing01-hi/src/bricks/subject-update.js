@@ -2,7 +2,7 @@
 import UU5 from "uu5g04";
 import { createComponent, useState, useContext, useSession } from "uu5g04-hooks";
 import Config from "./config/config";
-import SubjectUpdateForm from "./subject-update-form";
+import FormUpdate from "./form-update";
 import Css from "../routes/subject.css";
 import SubmanMainContext from "../bricks/subman-main-context";
 //@@viewOff:imports
@@ -39,7 +39,6 @@ const SubjectUpdate = createComponent({
 
   render({ onUpdate, onDelete, subject }) {
     //@viewOn:hooks
-    const { identity } = useSession();
     const contextData = useContext(SubmanMainContext);
     const [mode, setMode] = useState(Mode.BUTTON);
     //@viewOff:hooks
@@ -55,8 +54,6 @@ const SubjectUpdate = createComponent({
     function handleSave(opt) {
       let it = opt.values;
       it.test == "" ? (it.test = [{ uuIdentity: "", formOfStudy: "fulltime" }]) : (it.test = JSON.parse(it.test));
-      console.log("++++++it+++++++");
-      console.log(it);
       const input = {
         id: subject.id,
         name: {
@@ -76,9 +73,6 @@ const SubjectUpdate = createComponent({
         visibility: it.visibility,
         students: it.test,
       };
-      // if (it.students==null|| it.students==undefined) {
-      //   input.students=[]
-      //   }
 
       if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
         console.log("hahahahahahahahahahaha");
@@ -93,27 +87,10 @@ const SubjectUpdate = createComponent({
       setMode(Mode.BUTTON);
     }
 
-    //@@viewOff:private
-    function canManage() {
-      if (identity==null) {
-        return false        
-      }
-      const isTeacher = subject.teachers.some((teacher) => teacher === identity.uuIdentity);
-      const isGarant = subject.supervisor === identity.uuIdentity;
-      const isAuthority = contextData?.data?.authorizedProfileList?.some(
-        (profile) => profile === Config.Profiles.AUTHORITIES
-      );
-      const isAdministration = contextData?.data?.authorizedProfileList?.some(
-        (profile) => profile === Config.Profiles.ADMINISTRATIONS
-      );
-      return isAuthority || isTeacher || isGarant || isAdministration;
-    }
-
-    //@@viewOn:render
     function renderButton() {
       return (
         <>
-          {canManage() && (
+          {isAdministrator() && (
             <UU5.Bricks.Button
               onClick={handleUpdate}
               bgStyle="transparent"
@@ -127,9 +104,40 @@ const SubjectUpdate = createComponent({
       );
     }
 
+    function isAdministrator() {
+      const isAdministration = contextData?.data?.authorizedProfileList?.some(
+        (profile) => profile === Config.Profiles.ADMINISTRATIONS
+      );
+      const isAuthority = contextData?.data?.authorizedProfileList?.some(
+        (profile) => profile === Config.Profiles.AUTHORITIES
+      );
+      return isAuthority || isAdministration;
+    }
+
     function renderForm() {
       return (
-        <SubjectUpdateForm onSave={handleSave} onCancel={handleCancel} onDelete={handleDelete} subject={subject} />
+        <UU5.Bricks.Container>
+        <UU5.Forms.ContextModal size="l" shown={true}>
+          <UU5.Forms.ContextHeader
+            content={<UU5.Bricks.Lsi lsi={{ en: "Edit a new subject", cs: "Upravit nový předmět" }} />}
+            info={<UU5.Bricks.Lsi lsi={{ cs: <UU5.Bricks.Paragraph style="margin: 0" />, en: "More info..." }} />}
+          />
+          <>
+            {isAdministrator() && (
+              <UU5.Bricks.Button size="s" onClick={handleDelete} bgStyle="transparent">
+                <UU5.Bricks.Icon icon="glyphicon-trash" />
+              </UU5.Bricks.Button>
+            )}
+          </>
+
+          <FormUpdate onSave={handleSave} onCancel={handleCancel} subject={subject} />
+
+          <UU5.Forms.ContextControls
+            buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Edit", cs: "Upravit" }} /> }}
+            buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}
+          />
+        </UU5.Forms.ContextModal>
+      </UU5.Bricks.Container>
       );
     }
 
