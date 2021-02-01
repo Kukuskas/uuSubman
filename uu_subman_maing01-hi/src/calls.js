@@ -56,8 +56,6 @@ let Calls = {
   },
 
   getSubject(dtoIn) {
-    console.log(dtoIn);
-    console.log("this is dtoIn-------------------------");
     let commandUri = Calls.getCommandUri("subject/get");
     return Calls.call("get", commandUri, dtoIn);
   },
@@ -72,6 +70,8 @@ let Calls = {
 
 
   deleteSubject(dtoIn) {
+    console.log(dtoIn);
+    console.log("this is dtoIn ++++++++++++++++++++++");
     let commandUri = Calls.getCommandUri("subject/delete");
     return Calls.call("post", commandUri, dtoIn);
   },

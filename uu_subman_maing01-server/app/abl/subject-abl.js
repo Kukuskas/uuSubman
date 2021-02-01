@@ -409,7 +409,7 @@ studyMaterialId = studyMaterialId.toHexString()
       WARNINGS.deleteUnsupportedKeys.code,
       Errors.Delete.InvalidDtoIn
     );
-    await this.dao.delete(awid, dtoIn.id);
+    await this.dao.delete(dtoIn.id);
     return uuAppErrorMap;
   }
 

@@ -47,8 +47,8 @@ const SubjectUpdate = createComponent({
     function handleUpdate() {
       setMode(Mode.FORM);
     }
-    function handleDelete(subject) {
-      onDelete(subject);
+    function handleDelete() {
+      onDelete(subject.id);
     }
 
     function handleSave(opt) {

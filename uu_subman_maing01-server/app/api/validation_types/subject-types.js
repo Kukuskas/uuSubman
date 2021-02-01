@@ -31,7 +31,7 @@ const subjectListDtoInType = shape({
 })
 
 const subjectDeleteDtoInType = shape({
-    id: id().isRequired()
+    id: string(50).isRequired()
 });
 
 

@@ -32,7 +32,7 @@ const Topic = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ topic, onUpdateTopic, onDeleteTopic, teachers, supervisor, id, language, formOfStudy, onChange }) {
+  render({ topic, onUpdateTopic, onDeleteTopic, teachers, supervisor, id, language, formOfStudy }) {
     //EDIT
     //@@viewOn:render
     const { identity } = useSession();
@@ -63,7 +63,6 @@ const Topic = createVisualComponent({
         formOfStudy: formOfStudy,
         language: language,
       });
-      // onChange()
     }
 
     return (
@@ -76,7 +75,6 @@ const Topic = createVisualComponent({
               language={language}
               formOfStudy={formOfStudy}
               id={id}
-              onChange={onChange}
             />
             <UU5.Bricks.Button size="s" onClick={deleteTopicParams} bgStyle="transparent" colorSchema="blue">
               <UU5.Bricks.Icon icon="glyphicon-trash" />

@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
 import Config from "./config/config";
-import SubjectProvider from "../bricks/subject-provider";
+import SubjectDetailProvider from "../bricks/subject-detail-provider";
 import Css from "./subject.css";
 import SubjectDetail from "../bricks/subject-detail";
 import UU5 from "uu5g04";
@@ -15,9 +15,8 @@ const SubjectRoute = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:render
-  render(subject) {
+  render({subject}) {
     //@@viewOn:render
-    const getSubjectRef = useRef();
     const updateSubjectRef = useRef();
     const deleteSubjectRef = useRef();
     const updateTopicSubjectRef = useRef();
@@ -35,19 +34,6 @@ const SubjectRoute = createVisualComponent({
       });
     }
 
-    function handleHome() {
-      return (
-        UU5.Environment.getRouter().setRoute({
-          url: "/",
-        }),
-        handleBack()
-      );
-    }
-        function handleBack() {
-      return UU5.Environment.getRouter().setRoute({
-        url: "/subjects",
-      });
-    }
     /* eslint no-unused-vars: "off" */
     async function handleUpdate(subject) {
       try {
@@ -57,32 +43,12 @@ const SubjectRoute = createVisualComponent({
       }
     }
 
-    async function handleDelete(subject) {
-      try {
-        await deleteSubjectRef.current({ id: subject.id });
-      } catch {
-        showError(`Deletion of ${subject.name} failed!`);
-      }
-    }
-
     async function handleAddTopic(inputTopic) {
       try {
         await addTopicSubjectRef.current(inputTopic);
       } catch {
         showError(`Adding of the topic failed!`);
       }
-    }
-
-    async function handleGet(id) {
-      console.log(id);
-      console.log("this is id ++++++++++++++++++++++++++++++");
-      try {
-        await getSubjectRef.current(id);
-      } catch {
-        showError(`Getting the subject failed!`);
-      }
-      // return Calls.getSubject(id);
-      
     }
 
     async function handleDeleteTopic(inputTopic) {
@@ -102,9 +68,7 @@ const SubjectRoute = createVisualComponent({
     }
     async function handleDeleteStudyMaterial(studyMaterial) {
       try {
-        console.log("///////////////////passed to del////////////");
         await deleteStudyMaterialSubjectRef.current(studyMaterial);
-        console.log("///////////////////passed to del////////////");
       } catch {
         showError(`Deletion of the study material failed!`);
       }
@@ -116,6 +80,7 @@ const SubjectRoute = createVisualComponent({
     async function handleAddStudyMaterial(studyMaterial) {
       try {
         await Calls.addStudyMaterialSubject(studyMaterial);
+        // await addStudyMaterialSubjectRef.current(studyMaterial);
       } catch {
         showError(`Adding of the study material failed!`);
       }
@@ -125,20 +90,17 @@ const SubjectRoute = createVisualComponent({
       return <UU5.Bricks.Loading />;
     }
 
-    function renderReady(sub) {
+    function renderReady(data) {
       // let su = sub.filter(subj => subj.data.id == subject.subject.id)
-      // setReRender(sub[0].data)
       return (
 <>
         <SubjectDetail
-          subject={reRender}
+          subject={data}
           onDelete={handleDelete}
           onUpdate={handleUpdate}
           onUpdateTopic={handleUpdateTopic}
           onDeleteTopic={handleDeleteTopic}
           onAddTopic={handleAddTopic}
-          onGet={handleGet}
-          onChange={handleChange}
           onDeleteStudyMaterial={handleDeleteStudyMaterial}
           onAddStudyMaterial={handleAddStudyMaterial}
         />
@@ -146,7 +108,6 @@ const SubjectRoute = createVisualComponent({
       );
     }
     
-console.log();
     function renderError(errorData) {
       switch (errorData.operation) {
         case "load":
@@ -155,34 +116,27 @@ console.log();
           return <UU5.Bricks.Error content="Error happened!" error={errorData.error} errorData={errorData.data} />;
       }
     }
-
-    async function handleDelete(subject) {
+    function handleBack() {
+      return UU5.Environment.getRouter().setRoute({
+        url: "/subjects",
+      });
+    }
+    async function handleDelete(subjectId) {
       try {
-        await deleteSubjectRef.current({ id: subject.id });
-        handleBack();
+        await deleteSubjectRef.current({ id: subjectId });
+        handleBack()
       } catch {
-        showError(`Deletion of ${subject.name} failed!`);
+        showError(`Deletion of subject failed!`);
       }
     }
-    const [reRender, setReRender] = useState(subject.subject);
-    function handleChange() {
-      Promise.resolve(handleGet({id: subject.id})).then(function(value) {
-        setReRender(value);
-      })
-      console.log("updating...");
-    }
+
+
 
     return (
       <UU5.Bricks.Section className={Css.main()}>
-        {/* <UU5.Bricks.Button
-          colorSchema="primary"
-          content={<UU5.Bricks.Lsi lsi={{ en: "Back", cs: "Zpět" }} />}
-          onClick={handleBack}
-        /> */}
         <UU5.Bricks.Section className={Css.main()}>
-          <SubjectProvider>
+          <SubjectDetailProvider subjectId={subject.id}>
             {({ state, data, errorData, pendingData, handlerMap }) => {
-              getSubjectRef.current = handlerMap.getSubject;
               updateSubjectRef.current = handlerMap.updateSubject;
               deleteSubjectRef.current = handlerMap.deleteSubject;
               updateTopicSubjectRef.current = handlerMap.updateTopicSubject;
@@ -190,8 +144,6 @@ console.log();
               addTopicSubjectRef.current = handlerMap.addTopicSubject;
               deleteStudyMaterialSubjectRef.current = handlerMap.deleteStudyMaterialSubject;
               addStudyMaterialSubjectRef.current = handlerMap.addStudyMaterialSubjectRef;
-             console.log(data);
-             console.log(state);
 
               switch (state) {
                 case "pending":
@@ -204,11 +156,11 @@ console.log();
                 case "ready":
                 case "readyNoData":
                 default:
-                  return renderReady(setReRender(data=data.filter(subj => subj.data.id == subject.subject.id)[0].data));
+                  return renderReady(data);
               }
               
             }}
-          </SubjectProvider>
+          </SubjectDetailProvider>
         </UU5.Bricks.Section>
       </UU5.Bricks.Section>
     );

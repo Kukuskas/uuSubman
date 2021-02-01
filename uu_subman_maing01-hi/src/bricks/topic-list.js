@@ -5,7 +5,6 @@ import Config from "./config/config";
 import Topic from "./topic";
 import Uu5Tiles from "uu5tilesg02";
 import SubmanMainContext from "../bricks/subman-main-context";
-import StudyMaterialList from "./study-material-list";
 
 //@@viewOff:imports
 
@@ -38,7 +37,7 @@ const TopicList = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ subject, formOfStudy, onUpdateTopic, onDeleteTopic, onAddTopic, language, onChange }) {
+  render({ subject, formOfStudy, onUpdateTopic, onDeleteTopic, onAddTopic, language }) {
 
     const { identity } = useSession();
     const contextData = useContext(SubmanMainContext);
@@ -80,7 +79,6 @@ const TopicList = createVisualComponent({
             id={subject.id}
             formOfStudy={formOfStudy }
             language= {language}
-            onChange={onChange}
           />
         );
       }
@@ -93,7 +91,6 @@ const TopicList = createVisualComponent({
         formOfStudy: formOfStudy,
         language: language,
       });
-      // onChange()
      
       
     }
