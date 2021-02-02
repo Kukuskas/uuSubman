@@ -50,8 +50,10 @@ class SubjectAbl {
   }
 
   async studyMaterialList(awid, dtoIn) {
+
         // hds 2, 2.1
         let validationResult = this.validator.validate("studyMaterialListDtoInType", dtoIn);
+
         // hds 2.2, 2.3, A4, A5
         let uuAppErrorMap = ValidationHelper.processValidationResult(
           dtoIn,
@@ -62,9 +64,11 @@ class SubjectAbl {
     
         let lang = dtoIn.language;
         let form = dtoIn.formOfStudy;
+
         // hds 3
         let subject = await this.dao.get(awid, dtoIn.id);
         let studyMaterialList = await this.studyMaterialDao.list()
+
         lang == "cs"
           ? form == "fulltime"
             ? subject = subject.language.cs.formOfStudy.fulltime.studyMaterialList
@@ -77,7 +81,8 @@ class SubjectAbl {
           throw new Errors.Get.SubjectDoesNotExist(uuAppErrorMap, { subjectId: dtoIn.id });
         }
 
-       const result = studyMaterialList.itemList.filter(item => subject.includes((item.id).toHexString()));    
+       const result = studyMaterialList.itemList.filter(item => subject.includes((item.id).toHexString()));   
+
         // hds 4
         result.uuAppErrorMap = uuAppErrorMap;
         return result;
@@ -86,6 +91,7 @@ class SubjectAbl {
 
   async deleteStudyMaterial(awid, dtoIn) {
     let validationResult = this.validator.validate("subjectDeleteStudyMaterialDtoInType", dtoIn);
+
     // hds 2.2, 2.3, A3, A4
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -150,6 +156,7 @@ class SubjectAbl {
 
     // hds 3
     let subject = await this.dao.get(awid, dtoIn.id);
+
     // A5
     if (!subject) {
       throw new Errors.AddTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
@@ -168,6 +175,7 @@ class SubjectAbl {
       if (studyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink) {
         studyMaterialId = studyMaterials.id;
       }
+      
       return studyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
     })
 
@@ -190,6 +198,7 @@ class SubjectAbl {
             .some(subjectStudyMaterials => {
               return subjectStudyMaterials == studyMaterialId
             })
+
     let dtoOut;
     let dtoOut2;
     
@@ -198,51 +207,65 @@ class SubjectAbl {
         dtoIn.awid = awid;
         dtoOut = await this.studyMaterialDao.create(dtoIn.data) 
 
-      }catch (e) {
+        } catch (e) {
+
         if (e instanceof ObjectStoreError) {
           // A10
           throw new Errors.AddStudyMaterial.SubjectDaoAddStudyMaterialFailed({ uuAppErrorMap }, e);
         }
+
         throw e;
       } 
-      studyMaterialId = dtoOut.id
-      dtoOut.uuAppErrorMap = uuAppErrorMap;
-    }
+
+        studyMaterialId = dtoOut.id
+        dtoOut.uuAppErrorMap = uuAppErrorMap;
+
+      }
+
       if ( !subjectStudyMaterials) {
         
         try{
-        let lang = dtoIn.language;
-        let form = dtoIn.formOfStudy;
-studyMaterialId = studyMaterialId.toHexString()
-        lang == "cs"
-          ? form == "fulltime"
-            ? subject.language.cs.formOfStudy.fulltime.studyMaterialList.push( studyMaterialId )
-            : subject.language.cs.formOfStudy.parttime.studyMaterialList.push( studyMaterialId)
-          : form == "fulltime"
-            ? subject.language.en.formOfStudy.fulltime.studyMaterialList.push(studyMaterialId )
-            : subject.language.en.formOfStudy.parttime.studyMaterialList.push( studyMaterialId);
-        (dtoOut2 = await this.dao.update(subject))
+
+          let lang = dtoIn.language;
+          let form = dtoIn.formOfStudy;
+          studyMaterialId = studyMaterialId.toHexString()
+
+          lang == "cs"
+            ? form == "fulltime"
+              ? subject.language.cs.formOfStudy.fulltime.studyMaterialList.push( studyMaterialId )
+              : subject.language.cs.formOfStudy.parttime.studyMaterialList.push( studyMaterialId)
+            : form == "fulltime"
+              ? subject.language.en.formOfStudy.fulltime.studyMaterialList.push(studyMaterialId )
+              : subject.language.en.formOfStudy.parttime.studyMaterialList.push( studyMaterialId);
+          (dtoOut2 = await this.dao.update(subject))
+
+        } catch (e) {
+
+          if (e instanceof ObjectStoreError) {
+
+            // A10
+            throw new Errors.AddStudyMaterial.SubjectDaoAddStudyMaterialFailed({ uuAppErrorMap }, e);
+          }
+
+          throw e;
         }
-      
-     catch (e) {
-      if (e instanceof ObjectStoreError) {
-        // A10
-        throw new Errors.AddStudyMaterial.SubjectDaoAddStudyMaterialFailed({ uuAppErrorMap }, e);
-      }
-      throw e;
-    }
-  dtoOut2.uuAppErrorMap = uuAppErrorMap
-}else {
-  throw new Errors.AddStudyMaterial.StudyMaterialAlreadyExist({ uuAppErrorMap }, { subjectId: dtoIn.id })
-}     
-    // hds 8   
-    return  {a: dtoOut, b: dtoOut2}
-      
+
+        dtoOut2.uuAppErrorMap = uuAppErrorMap
+
+      } else {
+
+          throw new Errors.AddStudyMaterial.StudyMaterialAlreadyExist({ uuAppErrorMap }, { subjectId: dtoIn.id })
+
+      }     
+
+      // hds 8   
+      return  {a: dtoOut, b: dtoOut2} 
   }
 
 
   async updateTopic(awid, dtoIn) {
     let validationResult = this.validator.validate("subjectUpdateTopicDtoInType", dtoIn);
+
     // hds 2.2, 2.3, A3, A4
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -253,6 +276,7 @@ studyMaterialId = studyMaterialId.toHexString()
 
     // hds 3
     let subject = await this.dao.get(awid, dtoIn.id);
+
     // A5
     if (!subject) {
       throw new Errors.UpdateTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
@@ -276,7 +300,9 @@ studyMaterialId = studyMaterialId.toHexString()
         subject.language.en.formOfStudy.fulltime.topics.map(topic => topic.id == x ? dtoIn.data : topic)
         : subject.language.en.formOfStudy.parttime.topics =
         subject.language.en.formOfStudy.parttime.topics.map(topic => topic.id == x ? dtoIn.data : topic)
+
     let dtoOut;
+
     try {
       dtoIn.awid = awid;
       dtoOut = await this.dao.update(subject);
@@ -297,6 +323,7 @@ studyMaterialId = studyMaterialId.toHexString()
 
   async deleteTopic(awid, dtoIn) {
     let validationResult = this.validator.validate("subjectDeleteTopicDtoInType", dtoIn);
+
     // hds 2.2, 2.3, A3, A4
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -307,11 +334,11 @@ studyMaterialId = studyMaterialId.toHexString()
 
     // hds 3
     let subject = await this.dao.get(awid, dtoIn.id);
+
     // A5
     if (!subject) {
       throw new Errors.DeleteTopic.SubjectDoesNotExist({ uuAppErrorMap }, { subjectId: dtoIn.id });
     }
-
 
     // hds 7rs
     let lang = dtoIn.language;
