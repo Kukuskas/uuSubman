@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import UU5, { Bricks } from "uu5g04";
+import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import "uu5g04-forms";

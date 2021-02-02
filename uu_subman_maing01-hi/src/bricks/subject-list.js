@@ -28,10 +28,10 @@ const SubjectList = createVisualComponent({
   defaultProps: {
     subjects: [],
     showButton: false,
-    onDetail: () => { },
-    onUpdate: () => { },
-    onDelete: () => { },
-    onCreate: () => { },
+    onDetail: () => {},
+    onUpdate: () => {},
+    onDelete: () => {},
+    onCreate: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -53,29 +53,27 @@ const SubjectList = createVisualComponent({
       (profile) => profile === Config.Profiles.ADMINISTRATIONS
     );
     function canManage() {
-     return isAuthority || isAdministration
+      return isAuthority || isAdministration;
     }
 
     function visibility() {
-         if (!isAuthority || !isAdministration) {
-          
-          subjects.map((data, index) => {
-            let isGarant = false;
-            let isTeacher = false;
-            if( identity !==null && identity !== undefined){
-             isGarant = data.data.supervisor === identity.uuIdentity;
-             isTeacher = data.data.teachers.some((teacher) => teacher === identity.uuIdentity);
-        };
+      if (!isAuthority || !isAdministration) {
+        subjects.map((data, index) => {
+          let isGarant = false;
+          let isTeacher = false;
+          if (identity !== null && identity !== undefined) {
+            isGarant = data.data.supervisor === identity.uuIdentity;
+            isTeacher = data.data.teachers.some((teacher) => teacher === identity.uuIdentity);
+          }
           // console.log(
-          //   "God mode: ", isAuthority, 
-          //   "Is administraton: ", isAdministration?true:false, 
+          //   "God mode: ", isAuthority,
+          //   "Is administraton: ", isAdministration?true:false,
           //   "Is teacher: ", isTeacher || isGarant);
           if (!isGarant && !isTeacher && data.data.visibility == false) {
             subjects.splice(index, 1);
           }
-        }
-        );
-       }
+        });
+      }
       return subjects;
     }
 
@@ -147,34 +145,22 @@ const SubjectList = createVisualComponent({
         },
       ];
     };
-    if (subjects.length === 0) {
-      return <>
-        {console.log(isAuthority)}
-        <Uu5Tiles.ControllerProvider data={subjects}>
-          <Uu5Tiles.ActionBar actions={canManage() && showButton ? GET_ACTIONS : []} />
-        </Uu5Tiles.ControllerProvider>
-        <SubjectCreateForm
-          shown={showCreateModal}
-          onSave={handleCreateSubjectSave}
-          onCancel={handleCloseCreateSubjectForm}
-        />
-        <UU5.Common.Error content="WTF No subjects!" />
-      </>
-    }
 
     if (subjects.length === 0) {
-      return <>
-        {console.log(isAuthority)}
-        <Uu5Tiles.ControllerProvider data={subjects}>
-          <Uu5Tiles.ActionBar actions={canManage() && showButton ? GET_ACTIONS : []} />
-        </Uu5Tiles.ControllerProvider>
-        <SubjectCreate
-          shown={showCreateModal}
-          onSave={handleCreateSubjectSave}
-          onCancel={handleCloseCreateSubjectForm}
-        />
-        <UU5.Common.Error content="WTF No subjects!" />
-      </>
+      return (
+        <>
+          {console.log(isAuthority)}
+          <Uu5Tiles.ControllerProvider data={subjects}>
+            <Uu5Tiles.ActionBar actions={canManage() && showButton ? GET_ACTIONS : []} />
+          </Uu5Tiles.ControllerProvider>
+          <SubjectCreate
+            shown={showCreateModal}
+            onSave={handleCreateSubjectSave}
+            onCancel={handleCloseCreateSubjectForm}
+          />
+          <UU5.Common.Error content="WTF No subjects!" />
+        </>
+      );
     }
 
     return (

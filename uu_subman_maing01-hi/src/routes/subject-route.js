@@ -1,11 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
+import { createVisualComponent, useRef } from "uu5g04-hooks";
 import Config from "./config/config";
 import SubjectDetailProvider from "../bricks/subject-detail-provider";
 import Css from "./subject.css";
 import SubjectDetail from "../bricks/subject-detail";
 import UU5 from "uu5g04";
-import Calls from '../calls';
 
 //@@viewOff:imports
 
@@ -66,26 +65,6 @@ const SubjectRoute = createVisualComponent({
         showError(`Update of the topic failed!`);
       }
     }
-    async function handleDeleteStudyMaterial(studyMaterial) {
-      try {
-        await deleteStudyMaterialSubjectRef.current(studyMaterial);
-      } catch {
-        showError(`Deletion of the study material failed!`);
-      }
-    }
-
-
-
-    // ************SHOULD BE FIXED**************** //
-    async function handleAddStudyMaterial(studyMaterial) {
-      try {
-        await Calls.addStudyMaterialSubject(studyMaterial);
-        // await addStudyMaterialSubjectRef.current(studyMaterial);
-      } catch {
-        showError(`Adding of the study material failed!`);
-      }
-    }
-    // ************SHOULD BE FIXED**************** //
     function renderLoad() {
       return <UU5.Bricks.Loading />;
     }
@@ -101,8 +80,6 @@ const SubjectRoute = createVisualComponent({
           onUpdateTopic={handleUpdateTopic}
           onDeleteTopic={handleDeleteTopic}
           onAddTopic={handleAddTopic}
-          onDeleteStudyMaterial={handleDeleteStudyMaterial}
-          onAddStudyMaterial={handleAddStudyMaterial}
         />
 </>
       );

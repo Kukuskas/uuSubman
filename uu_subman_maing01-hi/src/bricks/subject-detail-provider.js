@@ -1,6 +1,5 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createComponent, useDataObject, useDataList } from "uu5g04-hooks";
+import { createComponent, useDataObject } from "uu5g04-hooks";
 import Calls from "calls";
 import Config from "./config/config";
 //@@viewOff:impor<<<<
@@ -27,14 +26,7 @@ const SubjectDetailProvider = createComponent({
     });
 
     let { state, data, pendingData, errorData, handlerMap } = objectDataValues;
-    // let listDataValues = useDataList({
-    //   pageInfo: 200,
-    //   handlerMap2: {
-    //     deleteSubject: Calls.deleteSubject,
-    //   },
-    // });
-
-    // let handlerMap2 = listDataValues;
+    
     //@@viewOff:hooks
     //@@viewOff:private
 

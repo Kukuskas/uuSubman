@@ -5,7 +5,6 @@ import Config from "./config/config";
 import UuMall from "uu_mall";
 import "uu_productcatalogueg01";
 import StudyMaterialCreateForm from "./study-material-create-form";
-import Uu5Tiles from "uu5tilesg02";
 
 
 //@@viewOff:imports

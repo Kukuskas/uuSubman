@@ -2,11 +2,9 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useSession, useContext, useState } from "uu5g04-hooks";
 import Config from "./config/config";
-import Uu5Tiles from "uu5tilesg02";
-import Test from "./test";
+
 import SubjectUpdateTopic from "./subject-update-topic";
 import SubmanMainContext from "../bricks/subman-main-context";
-import subjectCss from "../routes/subject.css";
 //@@viewOff:imports
 
 const Topic = createVisualComponent({
@@ -37,7 +35,6 @@ const Topic = createVisualComponent({
     //@@viewOn:render
     const { identity } = useSession();
     const contextData = useContext(SubmanMainContext);
-    const [changeTopic, setChangeTopic] = useState(topic);
 
     function canManage() {
       if (identity==null) {
@@ -51,10 +48,6 @@ const Topic = createVisualComponent({
       return isAuthority || isTeacher || isGarant;
     }
     
-    function handleChange(input) {
-      setChangeTopic(input);
-      onUpdateTopic(input);
-    }
 
     function deleteTopicParams() {
       onDeleteTopic({
@@ -86,7 +79,6 @@ const Topic = createVisualComponent({
           <UU5.Bricks.Panel
             borderRadius="8px"
             header={topic.desc}
-            content={canManage()?(<Test />):null}
             colorSchema="grey"
             iconExpanded="mdi-chevron-up"
             iconCollapsed={canManage()?"mdi-chevron-down":null}

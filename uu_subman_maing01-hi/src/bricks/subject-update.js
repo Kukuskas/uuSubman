@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useState, useContext, useSession } from "uu5g04-hooks";
+import { createComponent, useState, useContext } from "uu5g04-hooks";
 import Config from "./config/config";
 import FormUpdate from "./form-update";
 import Css from "../routes/subject.css";

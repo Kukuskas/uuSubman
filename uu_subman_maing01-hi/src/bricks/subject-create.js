@@ -8,7 +8,7 @@ import "uu5g04-forms";
 
 const SubjectCreate = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "SubjectCreateForm",
+  displayName: Config.TAG + "SubjectCreate",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -29,7 +29,6 @@ const SubjectCreate = createVisualComponent({
 
   render({ shown, onSave, onCancel }) {
     //@@viewOn:render
-    const [dis, setDis] = useState(false);
     const [supervisor, setSupervisor] = useState();
 
     //@@viewOn:render
@@ -52,13 +51,7 @@ const SubjectCreate = createVisualComponent({
         alert("Please fill in Supervisor uuIdentity");
       }
     }
-    function _handleSupervisorOnDelete() {
-      setSupervisor("");
-      setDis(false);
-    }
-    function _handleUpdate(subject) {
-      return "Hello subject";
-    }
+
     return (
       <UU5.Forms.ContextModal
         shown={shown}
@@ -162,7 +155,6 @@ const SubjectCreate = createVisualComponent({
               label={<UU5.Bricks.Lsi lsi={{ en: "Supervisor", cs: "Garant" }} />}
               name="supervisor"
               onBlur={_handleSupervisorOnBlur}
-              disabled={dis}
               validate={/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/}
               controlled={false}
               required
