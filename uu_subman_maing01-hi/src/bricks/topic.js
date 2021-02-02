@@ -36,7 +36,6 @@ const Topic = createVisualComponent({
     //@@viewOn:render
     const { identity } = useSession();
     const contextData = useContext(SubmanMainContext);
-    const [changeTopic, setChangeTopic] = useState(topic);
 
     function canManage() {
       if (identity==null) {
@@ -50,10 +49,6 @@ const Topic = createVisualComponent({
       return isAuthority || isTeacher || isGarant;
     }
     
-    function handleChange(input) {
-      setChangeTopic(input);
-      onUpdateTopic(input);
-    }
 
     function deleteTopicParams() {
       onDeleteTopic({

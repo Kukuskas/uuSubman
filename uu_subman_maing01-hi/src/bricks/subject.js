@@ -54,7 +54,6 @@ const Subject = createVisualComponent({
 
     return (
       <>
-        {" "}
         <div onClick={()=>{onDetail(subject)}}>
           <UU5.Bricks.Card colorSchema={colorSchema}>
             <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>

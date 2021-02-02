@@ -28,10 +28,10 @@ const SubjectList = createVisualComponent({
   defaultProps: {
     subjects: [],
     showButton: false,
-    onDetail: () => { },
-    onUpdate: () => { },
-    onDelete: () => { },
-    onCreate: () => { },
+    onDetail: () => {},
+    onUpdate: () => {},
+    onDelete: () => {},
+    onCreate: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -53,29 +53,27 @@ const SubjectList = createVisualComponent({
       (profile) => profile === Config.Profiles.ADMINISTRATIONS
     );
     function canManage() {
-     return isAuthority || isAdministration
+      return isAuthority || isAdministration;
     }
 
     function visibility() {
-         if (!isAuthority || !isAdministration) {
-          
-          subjects.map((data, index) => {
-            let isGarant = false;
-            let isTeacher = false;
-            if( identity !==null && identity !== undefined){
-             isGarant = data.data.supervisor === identity.uuIdentity;
-             isTeacher = data.data.teachers.some((teacher) => teacher === identity.uuIdentity);
-        };
+      if (!isAuthority || !isAdministration) {
+        subjects.map((data, index) => {
+          let isGarant = false;
+          let isTeacher = false;
+          if (identity !== null && identity !== undefined) {
+            isGarant = data.data.supervisor === identity.uuIdentity;
+            isTeacher = data.data.teachers.some((teacher) => teacher === identity.uuIdentity);
+          }
           // console.log(
-          //   "God mode: ", isAuthority, 
-          //   "Is administraton: ", isAdministration?true:false, 
+          //   "God mode: ", isAuthority,
+          //   "Is administraton: ", isAdministration?true:false,
           //   "Is teacher: ", isTeacher || isGarant);
           if (!isGarant && !isTeacher && data.data.visibility == false) {
             subjects.splice(index, 1);
           }
-        }
-        );
-       }
+        });
+      }
       return subjects;
     }
 

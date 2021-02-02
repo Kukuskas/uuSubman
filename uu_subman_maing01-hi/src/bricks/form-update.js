@@ -252,9 +252,6 @@ const FormUpdate = createVisualComponent({
           <UU5.Bricks.Row>
             <UU5.Bricks.Button onClick={() => handleAdd(studentsList)} content="Add" />
           </UU5.Bricks.Row>
-          <UU5.Bricks.Row>
-            <UU5.Bricks.Button onClick={console.log("")} content="Test" />
-          </UU5.Bricks.Row>
           <UU5.Forms.Text name="test" value={testStudents} hidden={true} />
         </UU5.Bricks.Container>
       </UU5.Forms.ContextForm>
