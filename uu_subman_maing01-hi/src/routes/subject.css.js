@@ -43,6 +43,10 @@ const buttons = () =>Config.Css.css`
 left: 95px;
 bottom: 26px; 
 `;
+const trashes = () =>Config.Css.css`
+float : right;
+bottom: 19px;
+`;
 
 
 export default {
@@ -55,5 +59,6 @@ export default {
   accordion,
   updateTopic,
   visibility,
-  buttons
+  buttons,
+  trashes
 };

@@ -64,16 +64,13 @@ let Calls = {
     return Calls.call("post", commandUri, dtoIn);
   },
   addStudyMaterialSubject(dtoIn) {
-    console.log(dtoIn);
-    console.log("Calls dtoIn");
+
     let commandUri = Calls.getCommandUri("subject/addStudyMaterial");
     return Calls.call("post", commandUri, dtoIn);
   },
 
 
   deleteSubject(dtoIn) {
-    console.log(dtoIn);
-    console.log("this is dtoIn ++++++++++++++++++++++");
     let commandUri = Calls.getCommandUri("subject/delete");
     return Calls.call("post", commandUri, dtoIn);
   },

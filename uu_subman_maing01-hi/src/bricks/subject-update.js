@@ -75,7 +75,6 @@ const SubjectUpdate = createVisualComponent({
       };
 
       if (/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/g.test(it.supervisor)) {
-        console.log("hahahahahahahahahahaha");
         onUpdate(input);
         setMode(Mode.BUTTON);
       } else {

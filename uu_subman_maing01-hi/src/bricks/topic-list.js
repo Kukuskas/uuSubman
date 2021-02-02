@@ -95,12 +95,16 @@ const TopicList = createVisualComponent({
     return (
       <>
         <UU5.Bricks.Section>
+          {canManage() && (<UU5.Bricks.Button
+            size="s"
+            bgStyle="filled"
+            onClick={addTopicParams} colorSchema="blue-rich">
+            <UU5.Bricks.Lsi lsi={{ en: "Add topic", cs: "Přidat téma" }} />
+            <UU5.Bricks.Icon icon="mdi-plus-circle" />
+          </UU5.Bricks.Button>)}
           <Uu5Tiles.Grid data={formOfStudy == "fulltime" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
             {renderItem}
           </Uu5Tiles.Grid>
-          {canManage() && (
-            <UU5.Bricks.Button content="Add New Topic" onClick={addTopicParams} colorSchema="blue-rich" />
-          )}
         </UU5.Bricks.Section>
       </>
     );

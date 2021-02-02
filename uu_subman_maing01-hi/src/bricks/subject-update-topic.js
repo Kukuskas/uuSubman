@@ -38,8 +38,6 @@ const SubjectUpdateTopic = createVisualComponent({
 
   render({ onUpdateTopic, id, topic, language, formOfStudy }) {
     //@viewOn:hooks
-    console.log("this is topic");
-    console.log(topic);
     
     const contextData = useContext(SubmanMainContext);
      const [testStudyMaterialList, setTestStudyMaterialList] = useState("");
@@ -72,8 +70,6 @@ const SubjectUpdateTopic = createVisualComponent({
 
     function handleAdd() {
       const i = studyMaterialList;
-      console.log("Materials");
-      console.log(studyMaterialList);
       if (i[i.length - 1].Url == "") {
       } else {
         const newStudyMaterialList = studyMaterialList.concat({ url: "", name: "", type: "books" });
@@ -99,9 +95,6 @@ const SubjectUpdateTopic = createVisualComponent({
       it.test == "" ?
        (it.test = [{ url: "", name: "", type: "books" }]) 
        : (it.test = JSON.parse(it.test));
-       console.log("It+++++++++++++++");
-       console.log(it.test);
-       console.log("It+++++++++++++++");
       const input = {
         id: id,
         data: {
@@ -141,7 +134,7 @@ const SubjectUpdateTopic = createVisualComponent({
             bgStyle="transparent"
             colorSchema="primary"
             className={Css.updateTopic()}
-            size="m"
+            size="s"
             content={<UU5.Bricks.Icon icon="glyphicon-edit" />}
           />
         </>
@@ -241,10 +234,6 @@ const SubjectUpdateTopic = createVisualComponent({
                   <UU5.Bricks.Lsi lsi={{ en: "Add", cs: "Přidat" }} />
                   <UU5.Bricks.Icon icon="mdi-plus-circle" />
                 </UU5.Bricks.Button>
-                {/* </UU5.Bricks.Row> */}
-                {/* <UU5.Bricks.Row>
-            <UU5.Bricks.Button onClick={console.log("")} content="Test" />
-          </UU5.Bricks.Row> */}
                 <UU5.Forms.Text name="test" value={testStudyMaterialList} hidden={true} />
 
               </UU5.Bricks.Container>

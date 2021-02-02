@@ -5,6 +5,7 @@ import Config from "./config/config";
 import SubjectUpdateTopic from "./subject-update-topic";
 import SubmanMainContext from "../bricks/subman-main-context";
 import TopicStudyMaterialList from "./topic-study-material-list";
+import Css from "../routes/subject.css";
 
 //@@viewOff:imports
 
@@ -83,7 +84,8 @@ const Topic = createVisualComponent({
               formOfStudy={formOfStudy}
               id={subjectId}
             />
-            <UU5.Bricks.Button size="s" onClick={deleteTopicParams} bgStyle="transparent" colorSchema="blue">
+            <UU5.Bricks.Button size="s" onClick={deleteTopicParams}
+             className={Css.trashes()} bgStyle="transparent" colorSchema="blue">
               <UU5.Bricks.Icon icon="glyphicon-trash" />
             </UU5.Bricks.Button>
           </UU5.Bricks.Row>

@@ -21,8 +21,6 @@ const StudyMaterialProvider = createComponent({
     });
 
     let { state, data, pendingData, errorData, handlerMap } = objectDataValues;
-      console.log(data);
-      console.log("Data in provider");
 
     //@@viewOn:render
     return children({

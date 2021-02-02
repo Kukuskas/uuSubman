@@ -43,7 +43,12 @@ const TopicStudyMaterial = createVisualComponent({
       return <UU5.Bricks.Loading />;
     }
     function renderReady(studyMaterials) {
-
+      let topicStudyMatIds = topicStudyMaterialList.map(item => {
+        return item.id
+      })
+      let topicStudMaterial = studyMaterials.filter(item => {
+        return topicStudyMatIds.includes(item.id)
+      })
       const booksStudyMat = topicStudyMaterialList.some((item) => {
         return item.type === "books"
       })
@@ -63,21 +68,21 @@ const TopicStudyMaterial = createVisualComponent({
           <Uu5Tiles.ControllerProvider data ={topicStudyMaterialList}>
             <UU5.Bricks.Header level={4} content="Books" hidden={booksSM} />
             <UU5.Bricks.Line hidden={booksSM}  />
-            <Uu5Tiles.Grid tileMaxWidth={100} passAllTileProps={true} >
+            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true} >
               {books}
             </Uu5Tiles.Grid>
           </Uu5Tiles.ControllerProvider>
           <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
             <UU5.Bricks.Header level={4} content="Videos" hidden={videosSM} />
             <UU5.Bricks.Line hidden={videosSM}  />
-            <Uu5Tiles.Grid tileMaxWidth={100} passAllTileProps={true}  >
+            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true}  >
               {videos}
             </Uu5Tiles.Grid>
           </Uu5Tiles.ControllerProvider>
           <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
             <UU5.Bricks.Header level={4} content="Courses" hidden={coursesSM} />
             <UU5.Bricks.Line hidden={coursesSM}  />
-            <Uu5Tiles.Grid tileMaxWidth={100} passAllTileProps={true}>
+            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true}>
               {courses}
             </Uu5Tiles.Grid>
           </Uu5Tiles.ControllerProvider>
@@ -99,10 +104,6 @@ const TopicStudyMaterial = createVisualComponent({
     
 
     function books(attrs) {
-      
-     console.log("name");
-     console.log(attrs);
-
       if (attrs.data.type == "books") {
         return <div {...attrs}>
           <UuProductCatalogue.Bricks.ProductInfo

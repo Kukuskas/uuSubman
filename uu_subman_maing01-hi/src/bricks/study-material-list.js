@@ -56,8 +56,6 @@ const StudyMaterialList = createVisualComponent({
       const isAuthority = contextData?.data?.authorizedProfileList?.some(
         (profile) => profile === Config.Profiles.AUTHORITIES
       );
-      console.log(isTeacher);
-      console.log("StudyMaterials+++++++++++++++++");
       return isAuthority || isTeacher || isGarant;
     }
 
@@ -85,9 +83,6 @@ const StudyMaterialList = createVisualComponent({
       };
       onAddStudyMaterial(input);
       setShowCreateModal(false);
-      console.log("Onoonon");
-      console.log(input);
-      console.log("Onoonon");
     }
 
     let books = studyMaterials.map((item) => {
@@ -106,17 +101,24 @@ const StudyMaterialList = createVisualComponent({
     });
     let videos = studyMaterials.map((item) => {
       if (item.type == "videos") {
-        return (
+        return <div>
+       
+        {canManage() && (<UU5.Bricks.Button size="s"
+            onClick={() => handleDeleteStudyMaterial(item)}
+            bgStyle="transparent">
+            <UU5.Bricks.Icon icon="glyphicon-trash" />
+          </UU5.Bricks.Button>)}
           <>
-            <UU5.Bricks.Video src={item.baseUri} colorSchema="green" type="mp4" style={{ height: 140 }} />
-            <UU5.Bricks.Header level={4} content={item.name} />
-            {canManage() && (
-              <UU5.Bricks.Button size="s" onClick={() => handleDeleteStudyMaterial(item)} bgStyle="transparent">
-                <UU5.Bricks.Icon icon="glyphicon-trash" />
-              </UU5.Bricks.Button>
-            )}
+          <UU5.Bricks.Video
+            src={item.baseUri}
+            colorSchema="green"
+            type="mp4"
+            style={{ height: 140 }}
+          />
+          <UU5.Bricks.Header level={6} content={item.name} />
           </>
-        );
+         
+      </div>
       }
     });
     let courses = studyMaterials.map((item) => {
@@ -143,34 +145,35 @@ const StudyMaterialList = createVisualComponent({
           onCancel={handleCloseCreteStudyMaterialForm}
         />
 
-        {canManage() && (
-          <UU5.Bricks.Button size="s" onClick={() => handleOpenCreateStudyMaterialForm("books")} bgStyle="filled">
-            <UU5.Bricks.Lsi lsi={{ en: "Add a Book", cs: "Přidat Knihu" }} />
-            <UU5.Bricks.Icon icon="mdi-plus-circle" />
-          </UU5.Bricks.Button>
-        )}
-        <UU5.Bricks.Accordion data={studyMaterials}>
-          <UU5.Bricks.Panel
+        {canManage() && (<UU5.Bricks.Button size="s"
+          onClick={() => handleOpenCreateStudyMaterialForm("books")}
+          bgStyle="filled">
+          <UU5.Bricks.Lsi lsi={{ en: "Add a Book", cs: "Přidat Knihu" }} />
+          <UU5.Bricks.Icon icon="mdi-plus-circle" />
+        </UU5.Bricks.Button>)}
+        <UU5.Bricks.Accordion data={studyMaterials} >
+          <UU5.Bricks.Panel 
             header={<UU5.Bricks.Lsi lsi={{ en: "Books", cs: "Knihy" }} />}
             content={books}
             style={"font-size:large"}
+           
             colorSchema="blue"
             iconExpanded="mdi-chevron-up"
             iconCollapsed="mdi-chevron-down"
           />
         </UU5.Bricks.Accordion>
 
-        {canManage() && (
-          <UU5.Bricks.Button size="s" onClick={() => handleOpenCreateStudyMaterialForm("videos")} bgStyle="filled">
-            <UU5.Bricks.Lsi lsi={{ en: "Add a Video", cs: "Přidat Video" }} />
-            <UU5.Bricks.Icon icon="mdi-plus-circle" />
-          </UU5.Bricks.Button>
-        )}
-        <UU5.Bricks.Accordion data={studyMaterials}>
-          <UU5.Bricks.Panel
+        {canManage() && (<UU5.Bricks.Button size="s"
+          onClick={() => handleOpenCreateStudyMaterialForm("videos")}
+          bgStyle="filled">
+          <UU5.Bricks.Lsi lsi={{ en: "Add a Video", cs: "Přidat Video" }} />
+          <UU5.Bricks.Icon icon="mdi-plus-circle" />
+        </UU5.Bricks.Button>)}
+        <UU5.Bricks.Accordion data={studyMaterials}  >
+          <UU5.Bricks.Panel 
             header={<UU5.Bricks.Lsi lsi={{ en: "Videos", cs: "Videa" }} />}
             content={videos}
-            style={"font-size:large"}
+          style={"font-size:large"}
             colorSchema="blue"
             iconExpanded="mdi-chevron-up"
             iconCollapsed="mdi-chevron-down"

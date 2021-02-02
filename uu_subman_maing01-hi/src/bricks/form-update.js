@@ -60,11 +60,6 @@ const FormUpdate = createVisualComponent({
       }
     }
 
-    function _handleSupervisorOnDelete() {
-      setSupervisor("");
-      setDis(false);
-    }
-
     function handleUuIdentityChange(value, index) {
       studentsList[index].uuIdentity = value;
       setStudentsList(studentsList);
@@ -110,8 +105,9 @@ const FormUpdate = createVisualComponent({
     function SuperviseronLoad() {
       // Pass useEffect a function
       useEffect(() => {
-        return () => console.log("lala");
+        return () => console.log("");
       });
+      //xD???
 
       return (
         supervisor && (
