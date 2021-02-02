@@ -2,9 +2,10 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useSession, useContext, useState } from "uu5g04-hooks";
 import Config from "./config/config";
-
 import SubjectUpdateTopic from "./subject-update-topic";
 import SubmanMainContext from "../bricks/subman-main-context";
+import TopicStudyMaterialList from "./topic-study-material-list";
+
 //@@viewOff:imports
 
 const Topic = createVisualComponent({
@@ -79,6 +80,12 @@ const Topic = createVisualComponent({
           <UU5.Bricks.Panel
             borderRadius="8px"
             header={topic.desc}
+            content={canManage()?(<TopicStudyMaterialList
+               topicStudyMaterialList={topic.studyMaterialList} 
+               subjectId={id}
+               language={language} 
+               formOfStudy={formOfStudy}
+               />):null}
             colorSchema="grey"
             iconExpanded="mdi-chevron-up"
             iconCollapsed={canManage()?"mdi-chevron-down":null}

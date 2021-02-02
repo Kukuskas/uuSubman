@@ -4,7 +4,7 @@ import { createVisualComponent, useState, useContext, useSession } from "uu5g04-
 import Config from "./config/config";
 import Subject from "./subject";
 import Uu5Tiles from "uu5tilesg02";
-import SubjectCreate from "./subject-create";
+import SubjectCreateForm from "./subject-create-form";
 import SubmanMainContext from "../bricks/subman-main-context";
 //@@viewOff:imports
 
@@ -146,33 +146,46 @@ const SubjectList = createVisualComponent({
       ];
     };
 
+    let actionList = canManage() && showButton ? GET_ACTIONS : [];
+
     if (subjects.length === 0) {
-      return (
-        <>
-          {console.log(isAuthority)}
-          <Uu5Tiles.ControllerProvider data={subjects}>
-            <Uu5Tiles.ActionBar actions={canManage() && showButton ? GET_ACTIONS : []} />
-          </Uu5Tiles.ControllerProvider>
-          <SubjectCreate
-            shown={showCreateModal}
-            onSave={handleCreateSubjectSave}
-            onCancel={handleCloseCreateSubjectForm}
-          />
-          <UU5.Common.Error content="WTF No subjects!" />
-        </>
-      );
+      return <>
+        <Uu5Tiles.ControllerProvider data={subjects}>
+          <Uu5Tiles.ActionBar actions={actionList} />
+        </Uu5Tiles.ControllerProvider>
+        <SubjectCreateForm
+          shown={showCreateModal}
+          onSave={handleCreateSubjectSave}
+          onCancel={handleCloseCreateSubjectForm}
+        />
+        <UU5.Common.Error content="WTF No subjects!" />
+      </>
+    }
+
+    if (subjects.length === 0) {
+      return <>
+        <Uu5Tiles.ControllerProvider data={subjects}>
+          <Uu5Tiles.ActionBar actions={actionList} />
+        </Uu5Tiles.ControllerProvider>
+        <SubjectCreateForm
+          shown={showCreateModal}
+          onSave={handleCreateSubjectSave}
+          onCancel={handleCloseCreateSubjectForm}
+        />
+        <UU5.Common.Error content="WTF No subjects!" />
+      </>
     }
 
     return (
       <>
-        <SubjectCreate
+        <SubjectCreateForm
           shown={showCreateModal}
           onSave={handleCreateSubjectSave}
           onCancel={handleCloseCreateSubjectForm}
         />
         {visibility() && (
           <Uu5Tiles.ControllerProvider data={subjects}>
-            <Uu5Tiles.ActionBar actions={canManage() && showButton ? GET_ACTIONS : []} />
+            <Uu5Tiles.ActionBar actions={actionList} />
             <Uu5Tiles.Grid tileHeight="auto" tileMinWidth={200} tileMaxWidth={300} tileSpacing={8} rowSpacing={8}>
               {renderItem}
             </Uu5Tiles.Grid>

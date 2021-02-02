@@ -110,8 +110,7 @@ const FormUpdate = createVisualComponent({
     function SuperviseronLoad() {
       // Pass useEffect a function
       useEffect(() => {
-        console.log('render!');
-        return () =>  console.log("lala");;
+        return () =>  console.log("lala");
       })
     
       return supervisor && (<UU5.Bricks.Column colWidth="s-6" style={{ alignSelf: "flex-end" }}>
@@ -252,9 +251,6 @@ const FormUpdate = createVisualComponent({
 
           <UU5.Bricks.Row>
             <UU5.Bricks.Button onClick={() => handleAdd(studentsList)} content="Add" />
-          </UU5.Bricks.Row>
-          <UU5.Bricks.Row>
-            <UU5.Bricks.Button onClick={console.log("")} content="Test" />
           </UU5.Bricks.Row>
           <UU5.Forms.Text name="test" value={testStudents} hidden={true} />
         </UU5.Bricks.Container>

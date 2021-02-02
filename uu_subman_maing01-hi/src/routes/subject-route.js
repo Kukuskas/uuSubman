@@ -21,8 +21,8 @@ const SubjectRoute = createVisualComponent({
     const updateTopicSubjectRef = useRef();
     const deleteTopicSubjectRef = useRef();
     const addTopicSubjectRef = useRef();
-    const deleteStudyMaterialSubjectRef =  useRef();
-    const addStudyMaterialSubjectRef = useRef();
+    // const deleteStudyMaterialSubjectRef =  useRef();
+    // const addStudyMaterialSubjectRef = useRef();
     //@viewOff:hooks
 
     //@@viewOn:private
@@ -119,8 +119,8 @@ const SubjectRoute = createVisualComponent({
               updateTopicSubjectRef.current = handlerMap.updateTopicSubject;
               deleteTopicSubjectRef.current = handlerMap.deleteTopicSubject;
               addTopicSubjectRef.current = handlerMap.addTopicSubject;
-              deleteStudyMaterialSubjectRef.current = handlerMap.deleteStudyMaterialSubject;
-              addStudyMaterialSubjectRef.current = handlerMap.addStudyMaterialSubjectRef;
+              // deleteStudyMaterialSubjectRef.current = handlerMap.deleteStudyMaterialSubject;
+              // addStudyMaterialSubjectRef.current = handlerMap.addStudyMaterialSubjectRef;
 
               switch (state) {
                 case "pending":
