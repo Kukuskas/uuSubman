@@ -123,6 +123,11 @@ class SubjectAbl {
     try {
       dtoIn.awid = awid;
       dtoOut = await this.dao.update(subject);
+      dtoOut = await this.studyMaterialList(awid, {
+        id :dtoIn.id,
+        language: lang,
+        formOfStudy: form
+      })
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         // A10
@@ -169,7 +174,7 @@ class SubjectAbl {
         studyMaterialId = studyMaterials.id;
       }
       return studyMaterials.baseUri.replace(/^https?:\/\/(www\.)?/, "") == dtoInlink
-    })
+    });
 
     let id;
     let subjectStudyMaterials;
@@ -211,6 +216,7 @@ class SubjectAbl {
       if ( !subjectStudyMaterials) {
         
         try{
+          dtoIn.awid = awid;
         let lang = dtoIn.language;
         let form = dtoIn.formOfStudy;
 studyMaterialId = studyMaterialId.toHexString()
@@ -221,7 +227,14 @@ studyMaterialId = studyMaterialId.toHexString()
           : form == "fulltime"
             ? subject.language.en.formOfStudy.fulltime.studyMaterialList.push(studyMaterialId )
             : subject.language.en.formOfStudy.parttime.studyMaterialList.push( studyMaterialId);
-        (dtoOut2 = await this.dao.update(subject))
+         
+      //  dtoOut2 = await this.dao.update(subject),
+        dtoOut = await this.dao.update(subject),
+        dtoOut = await this.studyMaterialList(awid, {
+          id :dtoIn.id,
+          language: lang,
+          formOfStudy: form
+        })
         }
       
      catch (e) {
@@ -231,12 +244,13 @@ studyMaterialId = studyMaterialId.toHexString()
       }
       throw e;
     }
-  dtoOut2.uuAppErrorMap = uuAppErrorMap
+ // dtoOut2.uuAppErrorMap = uuAppErrorMap
+ dtoOut.uuAppErrorMap = uuAppErrorMap
 }else {
   throw new Errors.AddStudyMaterial.StudyMaterialAlreadyExist({ uuAppErrorMap }, { subjectId: dtoIn.id })
 }     
     // hds 8   
-    return  {a: dtoOut, b: dtoOut2}
+    return  dtoOut
       
   }
 
@@ -422,7 +436,7 @@ studyMaterialId = studyMaterialId.toHexString()
       id: ObjectId().toHexString(),
       name: "",
       desc: "example",
-      studyMaterialList: []
+      studyMaterialList: [{ baseUri: "", name: "" , type: "books"}]
     }
 
     lang == "cs"
@@ -457,8 +471,15 @@ studyMaterialId = studyMaterialId.toHexString()
       WARNINGS.deleteUnsupportedKeys.code,
       Errors.Delete.InvalidDtoIn
     );
+<<<<<<< HEAD
     await this.dao.deleteOne(awid, dtoIn.id);
     return uuAppErrorMap;
+=======
+    await this.dao.delete(awid, dtoIn.id);
+    let dtoOut = {};
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
+>>>>>>> subman
   }
 
   async list(awid, dtoIn, session, authorizationResult) {
@@ -521,6 +542,7 @@ studyMaterialId = studyMaterialId.toHexString()
 
     dtoIn.language = { cs: studyForms, en: studyForms };
     dtoIn.students = [{ uuIdentity: "", formOfStudy: "fulltime" }];
+
 
     dtoIn.awid = awid;
     let dtoOut;
