@@ -39,7 +39,9 @@ const TopicStudyMaterialList = createVisualComponent({
             colorSchema="green"
             showName={false}
           />
-          <UU5.Bricks.Header level={6} content={item.data.name} />
+          <UU5.Bricks.Header level={6}
+           content={item.data.name}
+           className="uu5-common-center"/>
         </div>
       } else
         return <> </>
@@ -55,7 +57,9 @@ const TopicStudyMaterialList = createVisualComponent({
             style={{ height: 140, paddingRight: 10, paddingLeft: 12 }}
             showName={false}
           />
-          <UU5.Bricks.Header level={6} content={item.data.name} />
+          <UU5.Bricks.Header level={6}
+          className="uu5-common-center"
+           content={item.data.name} />
         </div>
 
       } else
@@ -71,7 +75,9 @@ const TopicStudyMaterialList = createVisualComponent({
             colorSchema="green"
             showName={false}
           />
-          <UU5.Bricks.Header level={6} content={item.data.name} />
+          <UU5.Bricks.Header level={6}
+           className="uu5-common-center"
+            content={item.data.name} />
         </div>
       } else
         return <> </>
