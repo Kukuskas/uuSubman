@@ -143,7 +143,7 @@ const SubjectUpdateTopic = createComponent({
             bgStyle="transparent"
             colorSchema="blue"
             className={Css.updateTopic()}
-            size="m"
+            size="s"
             content={<UU5.Bricks.Icon icon="glyphicon-edit" />}
           />
         </>

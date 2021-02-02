@@ -31,9 +31,9 @@ const TopicList = createVisualComponent({
   defaultProps: {
     subject: {},
     studyForm: "Full-time",
-    onDetail: () => {},
-    onUpdateTopic: () => {},
-    onDeleteTopic: () => {},
+    onDetail: () => { },
+    onUpdateTopic: () => { },
+    onDeleteTopic: () => { },
   },
   //@@viewOff:defaultProps
 
@@ -43,8 +43,8 @@ const TopicList = createVisualComponent({
     const contextData = useContext(SubmanMainContext);
 
     function canManage() {
-      if (identity==null) {
-        return false        
+      if (identity == null) {
+        return false
       }
       const isTeacher = subject.teachers.some((teacher) => teacher === identity.uuIdentity);
       const isGarant = subject.supervisor === identity.uuIdentity;
@@ -53,7 +53,7 @@ const TopicList = createVisualComponent({
       );
       return isAuthority || isTeacher || isGarant;
     }
-  
+
     //@@viewOn:render
     const fullTime = useLsi({
       cs: subject.language.cs.formOfStudy.fulltime.topics,
@@ -71,19 +71,19 @@ const TopicList = createVisualComponent({
         return (
           <Topic
             topic={item.data}
-            
+
             onUpdateTopic={onUpdateTopic}
             onDeleteTopic={onDeleteTopic}
             teachers={subject.teachers}
             supervisor={subject.supervisor}
             id={subject.id}
-            formOfStudy={formOfStudy }
-            language= {language}
+            formOfStudy={formOfStudy}
+            language={language}
           />
         );
       }
     }
- 
+
 
     function addTopicParams() {
       onAddTopic({
@@ -91,19 +91,24 @@ const TopicList = createVisualComponent({
         formOfStudy: formOfStudy,
         language: language,
       });
-     
-      
+
+
     }
 
     return (
       <>
-      <UU5.Bricks.Section>
-        <Uu5Tiles.Grid data={formOfStudy == "fulltime" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
-          {renderItem}
-      
-        </Uu5Tiles.Grid>
-        {canManage() && ( <UU5.Bricks.Button content="Add New Topic" onClick={addTopicParams} colorSchema="blue-rich" />)}
-      </UU5.Bricks.Section>
+        <UU5.Bricks.Section>
+          {canManage() && (<UU5.Bricks.Button
+            size="s"
+            bgStyle="filled"
+            onClick={addTopicParams} colorSchema="blue-rich">
+            <UU5.Bricks.Lsi lsi={{ en: "Add topic", cs: "Přidat téma" }} />
+            <UU5.Bricks.Icon icon="mdi-plus-circle" />
+          </UU5.Bricks.Button>)}
+          <Uu5Tiles.Grid data={formOfStudy == "fulltime" ? fullTime : partTime} tileHeight="auto" rowSpacing={8}>
+            {renderItem}
+          </Uu5Tiles.Grid>
+        </UU5.Bricks.Section>
       </>
     );
     //@@viewOff:render

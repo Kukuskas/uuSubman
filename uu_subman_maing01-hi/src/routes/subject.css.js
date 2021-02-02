@@ -43,8 +43,9 @@ const buttons = () =>Config.Css.css`
 left: 95px;
 bottom: 26px; 
 `;
-const grid = () =>Config.Css.css`
-display : flex
+const trashes = () =>Config.Css.css`
+float : right;
+bottom: 19px;
 `;
 
 
@@ -59,5 +60,5 @@ export default {
   updateTopic,
   visibility,
   buttons,
-  grid
+  trashes
 };

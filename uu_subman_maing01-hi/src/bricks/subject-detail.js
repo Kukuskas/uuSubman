@@ -148,6 +148,7 @@ const SubjectDetail = createVisualComponent({
 
           <UU5.Bricks.Box colorSchema="default">
             <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={subject.desc} />}/>
+            <UU5.Bricks.Line/>
           </UU5.Bricks.Box>
           <TopicList 
           subject={subject} 
