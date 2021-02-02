@@ -388,7 +388,7 @@ studyMaterialId = studyMaterialId.toHexString()
       id: ObjectId().toHexString(),
       name: "",
       desc: "example",
-      studyMaterialList: []
+      studyMaterialList: [{ baseUri: "", name: "" , type: "books"}]
     }
 
     lang == "cs"
@@ -487,6 +487,7 @@ studyMaterialId = studyMaterialId.toHexString()
 
     dtoIn.language = { cs: studyForms, en: studyForms };
     dtoIn.students = [{ uuIdentity: "", formOfStudy: "fulltime" }];
+
 
     dtoIn.awid = awid;
     let dtoOut;

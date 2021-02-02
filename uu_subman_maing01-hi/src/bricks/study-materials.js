@@ -6,6 +6,7 @@ import Config from "./config/config";
 import StudyMaterialList from "./study-material-list";
 import StudyMaterialProvider from "./study-material-provider";
 import Calls from "calls"
+import TopicStudyMaterialList from "./topic-study-material-list";
 
 //@@viewOff:imports
 
@@ -28,7 +29,7 @@ const StudyMaterials = createComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ subjectId, formOfStudy, language, onDeleteStudyMaterial, onAddStudyMaterial }) {
+  render({ subjectId, formOfStudy, language, subject, onDeleteStudyMaterial, onAddStudyMaterial }) {
     const deleteStudyMaterialSubjectRef = useRef();
     const addStudyMaterialSubjectRef = useRef();
     async function handleDeleteStudyMaterial(studyMaterial) {
@@ -56,7 +57,8 @@ const StudyMaterials = createComponent({
         colorSchema: "red",
       });
     }
-
+console.log(subject);
+console.log("subject");
     function renderLoad() {
       return <UU5.Bricks.Loading />;
     }
@@ -71,8 +73,10 @@ const StudyMaterials = createComponent({
             subjectId={subjectId}
             onDeleteStudyMaterial={handleDeleteStudyMaterial}
             onAddStudyMaterial={handleAddStudyMaterial}
+            subject={subject}
           />
         </>
+
 
       );
     }
