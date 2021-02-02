@@ -39,7 +39,10 @@ background-color: rgb(250, 250, 250);
 const visibility = () => Config.Css.css`
 display:none;
 `;
-
+const buttons = () =>Config.Css.css`
+left: 95px;
+bottom: 26px; 
+`;
 
 
 export default {
@@ -52,4 +55,5 @@ export default {
   accordion,
   updateTopic,
   visibility,
+  buttons
 };
