@@ -70,7 +70,7 @@ const TopicStudyMaterial = createVisualComponent({
           <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
             <UU5.Bricks.Header level={4} content="Videos" hidden={videosSM} />
             <UU5.Bricks.Line hidden={videosSM}  />
-            <Uu5Tiles.Grid tileMaxWidth={"80px"} passAllTileProps={true} tileSpacing={"20px"} >
+            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true}  >
               {videos}
             </Uu5Tiles.Grid>
           </Uu5Tiles.ControllerProvider>
@@ -126,7 +126,7 @@ const TopicStudyMaterial = createVisualComponent({
             src={attrs.data.url}
             colorSchema="green"
             type="mp4"
-            style={{ height: 100 }}
+            style={{ height: 140, paddingRight:10 }}
             showName={false}
           />
            <UU5.Bricks.Header level={6} content={attrs.data.name} />
