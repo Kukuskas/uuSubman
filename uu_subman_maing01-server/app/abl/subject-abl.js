@@ -471,15 +471,10 @@ studyMaterialId = studyMaterialId.toHexString()
       WARNINGS.deleteUnsupportedKeys.code,
       Errors.Delete.InvalidDtoIn
     );
-<<<<<<< HEAD
-    await this.dao.deleteOne(awid, dtoIn.id);
-    return uuAppErrorMap;
-=======
     await this.dao.delete(awid, dtoIn.id);
     let dtoOut = {};
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
->>>>>>> subman
   }
 
   async list(awid, dtoIn, session, authorizationResult) {
