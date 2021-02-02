@@ -7,6 +7,7 @@ import "uu_productcatalogueg01";
 import StudyMaterialCreateForm from "./study-material-create-form";
 import Uu5Tiles from "uu5tilesg02";
 import SubmanMainContext from "../bricks/subman-main-context";
+import Css from "../routes/subject.css";
 
 
 //@@viewOff:imports
@@ -112,8 +113,14 @@ const StudyMaterialList = createVisualComponent({
     });
     let videos = studyMaterials.map(item => {
       if (item.type == "videos") {
-        return <div style={{display: flex}}>
-      <div>
+        return <div>
+       
+        {canManage() && (<UU5.Bricks.Button size="s"
+            onClick={() => handleDeleteStudyMaterial(item)}
+            bgStyle="transparent">
+            <UU5.Bricks.Icon icon="glyphicon-trash" />
+          </UU5.Bricks.Button>)}
+          <>
           <UU5.Bricks.Video
             src={item.baseUri}
             colorSchema="green"
@@ -121,14 +128,9 @@ const StudyMaterialList = createVisualComponent({
             style={{ height: 140 }}
           />
           <UU5.Bricks.Header level={6} content={item.name} />
-          </div>
-          {canManage() && (<UU5.Bricks.Button size="s"
-            onClick={() => handleDeleteStudyMaterial(item)}
-            bgStyle="transparent">
-            <UU5.Bricks.Icon icon="glyphicon-trash" />
-          </UU5.Bricks.Button>)}
-       
-        </div>
+          </>
+         
+      </div>
       }
     });
     let courses = studyMaterials.map(item => {
@@ -165,10 +167,11 @@ const StudyMaterialList = createVisualComponent({
           <UU5.Bricks.Icon icon="mdi-plus-circle" />
         </UU5.Bricks.Button>)}
         <UU5.Bricks.Accordion data={studyMaterials} >
-          <UU5.Bricks.Panel
+          <UU5.Bricks.Panel 
             header={<UU5.Bricks.Lsi lsi={{ en: "Books", cs: "Knihy" }} />}
             content={books}
             style={"font-size:large"}
+           
             colorSchema="blue"
             iconExpanded="mdi-chevron-up"
             iconCollapsed="mdi-chevron-down"
@@ -181,11 +184,11 @@ const StudyMaterialList = createVisualComponent({
           <UU5.Bricks.Lsi lsi={{ en: "Add a Video", cs: "Přidat Video" }} />
           <UU5.Bricks.Icon icon="mdi-plus-circle" />
         </UU5.Bricks.Button>)}
-        <UU5.Bricks.Accordion data={studyMaterials} style={{display: flex}} >
+        <UU5.Bricks.Accordion data={studyMaterials}  >
           <UU5.Bricks.Panel 
             header={<UU5.Bricks.Lsi lsi={{ en: "Videos", cs: "Videa" }} />}
             content={videos}
-            style={"font-size:large"}
+          style={"font-size:large"}
             colorSchema="blue"
             iconExpanded="mdi-chevron-up"
             iconCollapsed="mdi-chevron-down"
