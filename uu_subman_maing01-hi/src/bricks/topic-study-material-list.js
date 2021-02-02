@@ -1,181 +1,112 @@
+
+
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import Uu5Tiles from "uu5tilesg02";
 import "uu_productcatalogueg01";
-import StudyMaterialProvider from "./study-material-provider";
+
 
 //@@viewOff:imports
 
-const TopicStudyMaterial = createVisualComponent({
+const TopicStudyMaterialList = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "TopicStudyMaterial",
+  displayName: Config.TAG + "TopicStudyMaterialList",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    subjectId: UU5.PropTypes.string,
-    formOfStudy: UU5.PropTypes.string,
-    language: UU5.PropTypes.string,
     topicStudyMaterialList: UU5.PropTypes.array,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    subjectId: null,
-    formOfStudy: "fulltime",
-    language: "cs",
     topicStudyMaterialList: [],
   },
   //@@viewOff:defaultProps
 
-  render({ topicStudyMaterialList, subjectId, formOfStudy, language }) {
+  render({ topicStudyMaterialList }) {
     //@@viewOn:hooks
-    const [booksSM, setBooksSM] = useState(true)
-    const [videosSM, setVideosSM] = useState(true)
-    const [coursesSM, setCoursesSM] = useState(true)
-    //@@viewOff:hooks
 
-
-    function renderLoad() {
-      return <UU5.Bricks.Loading />;
-    }
-    function renderReady(studyMaterials) {
-      let topicStudyMatIds = topicStudyMaterialList.map(item => {
-        return item.id
-      })
-      let topicStudMaterial = studyMaterials.filter(item => {
-        return topicStudyMatIds.includes(item.id)
-      })
-      const booksStudyMat = topicStudyMaterialList.some((item) => {
-        return item.type === "books"
-      })
-      const videosStudyMat = topicStudyMaterialList.some((item) => {
-        return item.type === "videos"
-      })
-      const coursesStudyMat = topicStudyMaterialList.some((item) => {
-        return item.type === "courses"
-      })
-      if (booksStudyMat) { setBooksSM(false) }
-      if (videosStudyMat) { setVideosSM(false) }
-      if (coursesStudyMat) { setCoursesSM(false) }
-
-      return (
-        <>
-       
-          <Uu5Tiles.ControllerProvider data ={topicStudyMaterialList}>
-            <UU5.Bricks.Header level={4} content="Books" hidden={booksSM} />
-            <UU5.Bricks.Line hidden={booksSM}  />
-            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true} >
-              {books}
-            </Uu5Tiles.Grid>
-          </Uu5Tiles.ControllerProvider>
-          <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
-            <UU5.Bricks.Header level={4} content="Videos" hidden={videosSM} />
-            <UU5.Bricks.Line hidden={videosSM}  />
-            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true}  >
-              {videos}
-            </Uu5Tiles.Grid>
-          </Uu5Tiles.ControllerProvider>
-          <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
-            <UU5.Bricks.Header level={4} content="Courses" hidden={coursesSM} />
-            <UU5.Bricks.Line hidden={coursesSM}  />
-            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true}>
-              {courses}
-            </Uu5Tiles.Grid>
-          </Uu5Tiles.ControllerProvider>
-
-
-        </>
-      );
-
-    }
-
-    function renderError(errorData) {
-      switch (errorData.operation) {
-        case "load":
-        case "loadNext":
-        default:
-          return <UU5.Bricks.Error content="Error happened!" error={errorData.error} errorData={errorData.data} />;
-      }
-    }
-    
-
-    function books(attrs) {
-      if (attrs.data.type == "books") {
-        return <div {...attrs}>
+    function books(item) {
+      if (item.data.type == "books") {
+        return <div {...item}>
           <UuProductCatalogue.Bricks.ProductInfo
             type="4x3"
-            baseUri={attrs.data.url}
+            baseUri={item.data.url}
             colorSchema="green"
             showName={false}
-            
           />
-        
-           <UU5.Bricks.Header level={6} content={attrs.data.name} />
+          <UU5.Bricks.Header level={6} content={item.data.name} />
         </div>
       } else
         return <> </>
 
     }
-    function videos(attrs) {
-      if (attrs.data.type == "videos") {
-        return <div {...attrs}>
+    function videos(item) {
+      if (item.data.type == "videos") {
+        return <div {...item}>
           <UU5.Bricks.Video
-            src={attrs.data.url}
+            src={item.data.url}
             colorSchema="green"
             type="mp4"
-            style={{ height: 140, paddingRight:10 }}
+            style={{ height: 140, paddingRight: 10, paddingLeft: 12 }}
             showName={false}
           />
-           <UU5.Bricks.Header level={6} content={attrs.data.name} />
-           </div>
+          <UU5.Bricks.Header level={6} content={item.data.name} />
+        </div>
 
       } else
         return <> </>
 
     }
-    function courses(attrs) {
-      if (attrs.data.type == "courses") {
-        return <div {...attrs}>
+    function courses(item) {
+      if (item.data.type == "courses") {
+        return <div {...item}>
           <UuProductCatalogue.Bricks.ProductInfo
             type="4x3"
-            baseUri={attrs.data.url}
+            baseUri={item.data.url}
             colorSchema="green"
             showName={false}
           />
-           <UU5.Bricks.Header level={6} content={attrs.data.name} />
+          <UU5.Bricks.Header level={6} content={item.data.name} />
         </div>
       } else
         return <> </>
-
     }
+
     return (
-      <StudyMaterialProvider subjectId={subjectId} language={language} formOfStudy={formOfStudy}>
-        {({ state, data, errorData, pendingData, handlerMap }) => {
+      <>
 
-          switch (state) {
-            case "pending":
-            case "pendingNoData":
-              return renderLoad();
-            case "error":
-            case "errorNoData":
-              return renderError(errorData);
-            case "itemPending":
-            case "ready":
-            case "readyNoData":
-            default:
-              return renderReady(data);
-          }
+        <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
+          <UU5.Bricks.Header level={4} content="Books" />
+          <Uu5Tiles.Grid tileMaxWidth={200} passAllTileProps={true}  >
+            {books}
+          </Uu5Tiles.Grid>
+        </Uu5Tiles.ControllerProvider>
 
-        }}
-      </StudyMaterialProvider>
-
+        <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
+          <UU5.Bricks.Header level={4} content="Videos" />
+          <UU5.Bricks.Line />
+          <Uu5Tiles.Grid tileMaxWidth={200} passAllTileProps={true}  >
+            {videos}
+          </Uu5Tiles.Grid>
+        </Uu5Tiles.ControllerProvider>
+        <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
+          <UU5.Bricks.Header level={4} content="Courses" />
+          <UU5.Bricks.Line />
+          <Uu5Tiles.Grid tileMaxWidth={200} passAllTileProps={true}  >
+            {courses}
+          </Uu5Tiles.Grid>
+        </Uu5Tiles.ControllerProvider>
+      </>
     );
     //@@viewOff:render
   },
 });
 
-export default TopicStudyMaterial;
+export default TopicStudyMaterialList;
+
+
