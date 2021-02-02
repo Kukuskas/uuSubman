@@ -112,20 +112,23 @@ const StudyMaterialList = createVisualComponent({
     });
     let videos = studyMaterials.map(item => {
       if (item.type == "videos") {
-        return <>
+        return <div style={{display: flex}}>
+      <div>
           <UU5.Bricks.Video
             src={item.baseUri}
             colorSchema="green"
             type="mp4"
             style={{ height: 140 }}
           />
-          <UU5.Bricks.Header level={4} content={item.name} />
+          <UU5.Bricks.Header level={6} content={item.name} />
+          </div>
           {canManage() && (<UU5.Bricks.Button size="s"
             onClick={() => handleDeleteStudyMaterial(item)}
             bgStyle="transparent">
             <UU5.Bricks.Icon icon="glyphicon-trash" />
           </UU5.Bricks.Button>)}
-        </>
+       
+        </div>
       }
     });
     let courses = studyMaterials.map(item => {
@@ -178,8 +181,8 @@ const StudyMaterialList = createVisualComponent({
           <UU5.Bricks.Lsi lsi={{ en: "Add a Video", cs: "Přidat Video" }} />
           <UU5.Bricks.Icon icon="mdi-plus-circle" />
         </UU5.Bricks.Button>)}
-        <UU5.Bricks.Accordion data={studyMaterials} >
-          <UU5.Bricks.Panel
+        <UU5.Bricks.Accordion data={studyMaterials} style={{display: flex}} >
+          <UU5.Bricks.Panel 
             header={<UU5.Bricks.Lsi lsi={{ en: "Videos", cs: "Videa" }} />}
             content={videos}
             style={"font-size:large"}
