@@ -3,7 +3,6 @@ import { createVisualComponent, useContext, useRef } from "uu5g04-hooks";
 import Config from "./config/config";
 import SubjectList from "../bricks/subject-list";
 import SubjectProvider from "../bricks/subject-provider";
-
 import SubjectsTitle from "../bricks/subject-title";
 import Css from "./subject.css";
 import UU5 from "uu5g04";
@@ -35,19 +34,6 @@ const Subjects = createVisualComponent({
         colorSchema: "red",
       });
     }
-    // function handleBack() {
-    //   return UU5.Environment.getRouter().setRoute({
-    //     url: "/subjects",
-    //   });
-    // }
-    // function handleHome() {
-    //   return (
-    //     UU5.Environment.getRouter().setRoute({
-    //       url: "/",
-    //     }),
-    //     handleBack()
-    //   );
-    // }
 
     function isCreateAuthorized() {
       return contextData?.data?.authorizedProfileList?.some(
@@ -58,17 +44,8 @@ const Subjects = createVisualComponent({
     async function handleCreate(subject) {
       try {
         await createSubjectRef.current(subject);
-        //return handleHome()
       } catch {
         showError(`Create of ${subject.name.en} failed!`);
-      }
-    }
-
-    async function handleUpdate(subject, values) {
-      try {
-        await updateSubjectRef.current({ id: subject.id, ...values });
-      } catch {
-        showError(`Update of ${subject.name} failed!`);
       }
     }
     
