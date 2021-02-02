@@ -12,33 +12,23 @@ const Subject = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     subject: UU5.PropTypes.shape({
-      name: UU5.PropTypes.shape.isRequired,
-      desc: UU5.PropTypes.shape.isRequired,
+      name: UU5.PropTypes.shape({ cs: UU5.PropTypes.string, en: UU5.PropTypes.string }).isRequired,
+      desc: UU5.PropTypes.shape({ cs: UU5.PropTypes.string, en: UU5.PropTypes.string }).isRequired,
+      id: UU5.PropTypes.isRequired,
     }),
-    colorSchema: UU5.PropTypes.string,
     onDetail: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     subject: null,
-    colorSchema: "blue",
     onDetail: () => {},
-    onUpdate: () => {},
-    onDelete: () => {},
   },
   //@@viewOff:defaultProps
 
-  render({ subject, colorSchema, onDetail }) {
+  render({ subject, onDetail }) {
     //@@viewOn:private
-
-    // function handleDelete() {
-    //   onDelete(subject);
-    // }
-
 
     //@@viewOff:private
 
@@ -50,12 +40,15 @@ const Subject = createVisualComponent({
     if (!subject) {
       return null;
     }
-    // onClick in div could be subject detail
 
     return (
       <>
-        <div onClick={()=>{onDetail(subject)}}>
-          <UU5.Bricks.Card colorSchema={colorSchema}>
+        <div
+          onClick={() => {
+            onDetail(subject);
+          }}
+        >
+          <UU5.Bricks.Card colorSchema="green">
             <UU5.Bricks.Strong>{renderHeader()}</UU5.Bricks.Strong>
             <UU5.Bricks.Section content={<UU5.Bricks.Lsi lsi={subject.desc} />} />
             <UU5.Bricks.Text content={subject.credits} />

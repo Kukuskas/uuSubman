@@ -15,14 +15,19 @@ const TopicStudyMaterial = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    subjects: UU5.PropTypes.array.isRequired,
+    subjectId: UU5.PropTypes.string,
+    formOfStudy: UU5.PropTypes.string,
+    language: UU5.PropTypes.string,
+    topicStudyMaterialList: UU5.PropTypes.array,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    subjects: [],
-
+    subjectId: null,
+    formOfStudy: "fulltime",
+    language: "cs",
+    topicStudyMaterialList: [],
   },
   //@@viewOff:defaultProps
 
@@ -38,12 +43,7 @@ const TopicStudyMaterial = createVisualComponent({
       return <UU5.Bricks.Loading />;
     }
     function renderReady(studyMaterials) {
-      let topicStudyMatIds = topicStudyMaterialList.map(item => {
-        return item.id
-      })
-      let topicStudMaterial = studyMaterials.filter(item => {
-        return topicStudyMatIds.includes(item.id)
-      })
+
       const booksStudyMat = topicStudyMaterialList.some((item) => {
         return item.type === "books"
       })
@@ -63,21 +63,21 @@ const TopicStudyMaterial = createVisualComponent({
           <Uu5Tiles.ControllerProvider data ={topicStudyMaterialList}>
             <UU5.Bricks.Header level={4} content="Books" hidden={booksSM} />
             <UU5.Bricks.Line hidden={booksSM}  />
-            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true} >
+            <Uu5Tiles.Grid tileMaxWidth={100} passAllTileProps={true} >
               {books}
             </Uu5Tiles.Grid>
           </Uu5Tiles.ControllerProvider>
           <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
             <UU5.Bricks.Header level={4} content="Videos" hidden={videosSM} />
             <UU5.Bricks.Line hidden={videosSM}  />
-            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true}  >
+            <Uu5Tiles.Grid tileMaxWidth={100} passAllTileProps={true}  >
               {videos}
             </Uu5Tiles.Grid>
           </Uu5Tiles.ControllerProvider>
           <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
             <UU5.Bricks.Header level={4} content="Courses" hidden={coursesSM} />
             <UU5.Bricks.Line hidden={coursesSM}  />
-            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true}>
+            <Uu5Tiles.Grid tileMaxWidth={100} passAllTileProps={true}>
               {courses}
             </Uu5Tiles.Grid>
           </Uu5Tiles.ControllerProvider>

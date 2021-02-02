@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useState, useContext } from "uu5g04-hooks";
+import { createVisualComponent, useState, useContext } from "uu5g04-hooks";
 import Config from "./config/config";
 import FormUpdate from "./form-update";
 import Css from "../routes/subject.css";
@@ -12,7 +12,7 @@ const Mode = {
   FORM: "FORM",
 };
 
-const SubjectUpdate = createComponent({
+const SubjectUpdate = createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "SubjectUpdate",
   //@@viewOff:statics
@@ -20,8 +20,8 @@ const SubjectUpdate = createComponent({
   //@@viewOn:propTypes
   propTypes: {
     subject: UU5.PropTypes.shape({
-      name: UU5.PropTypes.shape.isRequired,
-      desc: UU5.PropTypes.shape.isRequired,
+      name: UU5.PropTypes.shape({ cs: UU5.PropTypes.string, en: UU5.PropTypes.string }).isRequired,
+      desc: UU5.PropTypes.shape({ cs: UU5.PropTypes.string, en: UU5.PropTypes.string }).isRequired,
       id: UU5.PropTypes.isRequired,
     }),
     onUpdate: UU5.PropTypes.func,
@@ -94,7 +94,7 @@ const SubjectUpdate = createComponent({
             <UU5.Bricks.Button
               onClick={handleUpdate}
               bgStyle="transparent"
-              colorSchema="blue"
+              colorSchema="primary"
               className={Css.update()}
               size="l"
               content={<UU5.Bricks.Icon icon="glyphicon-edit" />}
@@ -117,27 +117,27 @@ const SubjectUpdate = createComponent({
     function renderForm() {
       return (
         <UU5.Bricks.Container>
-        <UU5.Forms.ContextModal size="l" shown={true}>
-          <UU5.Forms.ContextHeader
-            content={<UU5.Bricks.Lsi lsi={{ en: "Edit a new subject", cs: "Upravit nový předmět" }} />}
-            info={<UU5.Bricks.Lsi lsi={{ cs: <UU5.Bricks.Paragraph style="margin: 0" />, en: "More info..." }} />}
-          />
-          <>
-            {isAdministrator() && (
-              <UU5.Bricks.Button size="s" onClick={handleDelete} bgStyle="transparent">
-                <UU5.Bricks.Icon icon="glyphicon-trash" />
-              </UU5.Bricks.Button>
-            )}
-          </>
+          <UU5.Forms.ContextModal size="l" shown={true}>
+            <UU5.Forms.ContextHeader
+              content={<UU5.Bricks.Lsi lsi={{ en: "Edit a new subject", cs: "Upravit nový předmět" }} />}
+              info={<UU5.Bricks.Lsi lsi={{ cs: <UU5.Bricks.Paragraph style="margin: 0" />, en: "More info..." }} />}
+            />
+            <>
+              {isAdministrator() && (
+                <UU5.Bricks.Button size="s" onClick={handleDelete} bgStyle="transparent">
+                  <UU5.Bricks.Icon icon="glyphicon-trash" />
+                </UU5.Bricks.Button>
+              )}
+            </>
 
-          <FormUpdate onSave={handleSave} onCancel={handleCancel} subject={subject} />
+            <FormUpdate onSave={handleSave} onCancel={handleCancel} subject={subject} />
 
-          <UU5.Forms.ContextControls
-            buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Edit", cs: "Upravit" }} /> }}
-            buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}
-          />
-        </UU5.Forms.ContextModal>
-      </UU5.Bricks.Container>
+            <UU5.Forms.ContextControls
+              buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Edit", cs: "Upravit" }} /> }}
+              buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={{ en: "Cancel", cs: "Zrušit" }} /> }}
+            />
+          </UU5.Forms.ContextModal>
+        </UU5.Bricks.Container>
       );
     }
 

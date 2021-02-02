@@ -7,7 +7,6 @@ import "uu_productcatalogueg01";
 import StudyMaterialCreateForm from "./study-material-create-form";
 import SubmanMainContext from "../bricks/subman-main-context";
 
-
 //@@viewOff:imports
 
 const StudyMaterialList = createVisualComponent({
@@ -18,8 +17,8 @@ const StudyMaterialList = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     studyMaterial: UU5.PropTypes.shape({
-      name: UU5.PropTypes.shape.isRequired,
-      desc: UU5.PropTypes.shape.isRequired,
+      name: UU5.PropTypes.shape({ cs: UU5.PropTypes.string, en: UU5.PropTypes.string }).isRequired,
+      desc: UU5.PropTypes.shape({ cs: UU5.PropTypes.string, en: UU5.PropTypes.string }).isRequired,
       id: UU5.PropTypes.isRequired,
     }),
     // studyForm: UU5.PropTypes.string,
@@ -30,8 +29,8 @@ const StudyMaterialList = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     subject: {},
-    onDeleteStudyMaterial: () => { },
-    onAddStudyMaterial: () => { },
+    onDeleteStudyMaterial: () => {},
+    onAddStudyMaterial: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -50,7 +49,7 @@ const StudyMaterialList = createVisualComponent({
     }
     function canManage() {
       if (identity == null) {
-        return false
+        return false;
       }
       const isTeacher = subject.teachers.some((teacher) => teacher === identity.uuIdentity);
       const isGarant = subject.supervisor === identity.uuIdentity;
@@ -60,13 +59,11 @@ const StudyMaterialList = createVisualComponent({
       console.log(isTeacher);
       console.log("StudyMaterials+++++++++++++++++");
       return isAuthority || isTeacher || isGarant;
-      
     }
-  
-    function handleOpenCreateStudyMaterialForm(type) {
-      setCurrentType(type)
-      setShowCreateModal(true);
 
+    function handleOpenCreateStudyMaterialForm(type) {
+      setCurrentType(type);
+      setShowCreateModal(true);
     }
 
     function handleCloseCreteStudyMaterialForm() {
@@ -81,72 +78,64 @@ const StudyMaterialList = createVisualComponent({
           baseUri: it.baseUri,
           type: it.type,
           name: it.name,
-          productCode: ""
+          productCode: "",
         },
         language: language,
         formOfStudy: formOfStudy,
       };
-      onAddStudyMaterial(input)
+      onAddStudyMaterial(input);
       setShowCreateModal(false);
       console.log("Onoonon");
       console.log(input);
       console.log("Onoonon");
     }
 
-    let books = studyMaterials.map(item => {
+    let books = studyMaterials.map((item) => {
       if (item.type == "books") {
-        return <>
-          <UuProductCatalogue.Bricks.ProductInfo
-            type="16x9"
-            baseUri={item.baseUri}
-            colorSchema="green"
-          />
-          {canManage() && (<UU5.Bricks.Button size="s"
-            onClick={() => handleDeleteStudyMaterial(item)}
-            bgStyle="transparent">
-            <UU5.Bricks.Icon icon="glyphicon-trash" />
-          </UU5.Bricks.Button>)}
-        </>
+        return (
+          <>
+            <UuProductCatalogue.Bricks.ProductInfo type="16x9" baseUri={item.baseUri} colorSchema="green" />
+            {canManage() && (
+              <UU5.Bricks.Button size="s" onClick={() => handleDeleteStudyMaterial(item)} bgStyle="transparent">
+                <UU5.Bricks.Icon icon="glyphicon-trash" />
+              </UU5.Bricks.Button>
+            )}
+          </>
+        );
       }
     });
-    let videos = studyMaterials.map(item => {
+    let videos = studyMaterials.map((item) => {
       if (item.type == "videos") {
-        return <>
-          <UU5.Bricks.Video
-            src={item.baseUri}
-            colorSchema="green"
-            type="mp4"
-            style={{ height: 140 }}
-          />
-          <UU5.Bricks.Header level={4} content={item.name} />
-          {canManage() && (<UU5.Bricks.Button size="s"
-            onClick={() => handleDeleteStudyMaterial(item)}
-            bgStyle="transparent">
-            <UU5.Bricks.Icon icon="glyphicon-trash" />
-          </UU5.Bricks.Button>)}
-        </>
+        return (
+          <>
+            <UU5.Bricks.Video src={item.baseUri} colorSchema="green" type="mp4" style={{ height: 140 }} />
+            <UU5.Bricks.Header level={4} content={item.name} />
+            {canManage() && (
+              <UU5.Bricks.Button size="s" onClick={() => handleDeleteStudyMaterial(item)} bgStyle="transparent">
+                <UU5.Bricks.Icon icon="glyphicon-trash" />
+              </UU5.Bricks.Button>
+            )}
+          </>
+        );
       }
     });
-    let courses = studyMaterials.map(item => {
+    let courses = studyMaterials.map((item) => {
       if (item.type == "courses") {
-        return <>
-          <UuMall.Bricks.Product
-            productCode={item.productCode}
-            baseUri={item.baseUri}
-            colorSchema="green"
-          />
-          {canManage() && (<UU5.Bricks.Button size="s"
-            onClick={() => handleDeleteStudyMaterial(item)}
-            bgStyle="transparent">
-            <UU5.Bricks.Icon icon="glyphicon-trash" />
-          </UU5.Bricks.Button>)}
-        </>
+        return (
+          <>
+            <UuMall.Bricks.Product productCode={item.productCode} baseUri={item.baseUri} colorSchema="green" />
+            {canManage() && (
+              <UU5.Bricks.Button size="s" onClick={() => handleDeleteStudyMaterial(item)} bgStyle="transparent">
+                <UU5.Bricks.Icon icon="glyphicon-trash" />
+              </UU5.Bricks.Button>
+            )}
+          </>
+        );
       }
     });
 
     return (
       <>
-
         <StudyMaterialCreateForm
           shown={showCreateModal}
           type={currentType}
@@ -154,13 +143,13 @@ const StudyMaterialList = createVisualComponent({
           onCancel={handleCloseCreteStudyMaterialForm}
         />
 
-        {canManage() && (<UU5.Bricks.Button size="s"
-          onClick={() => handleOpenCreateStudyMaterialForm("books")}
-          bgStyle="filled">
-          <UU5.Bricks.Lsi lsi={{ en: "Add a Book", cs: "Přidat Knihu" }} />
-          <UU5.Bricks.Icon icon="mdi-plus-circle" />
-        </UU5.Bricks.Button>)}
-        <UU5.Bricks.Accordion data={studyMaterials} >
+        {canManage() && (
+          <UU5.Bricks.Button size="s" onClick={() => handleOpenCreateStudyMaterialForm("books")} bgStyle="filled">
+            <UU5.Bricks.Lsi lsi={{ en: "Add a Book", cs: "Přidat Knihu" }} />
+            <UU5.Bricks.Icon icon="mdi-plus-circle" />
+          </UU5.Bricks.Button>
+        )}
+        <UU5.Bricks.Accordion data={studyMaterials}>
           <UU5.Bricks.Panel
             header={<UU5.Bricks.Lsi lsi={{ en: "Books", cs: "Knihy" }} />}
             content={books}
@@ -171,13 +160,13 @@ const StudyMaterialList = createVisualComponent({
           />
         </UU5.Bricks.Accordion>
 
-        {canManage() && (<UU5.Bricks.Button size="s"
-          onClick={() => handleOpenCreateStudyMaterialForm("videos")}
-          bgStyle="filled">
-          <UU5.Bricks.Lsi lsi={{ en: "Add a Video", cs: "Přidat Video" }} />
-          <UU5.Bricks.Icon icon="mdi-plus-circle" />
-        </UU5.Bricks.Button>)}
-        <UU5.Bricks.Accordion data={studyMaterials} >
+        {canManage() && (
+          <UU5.Bricks.Button size="s" onClick={() => handleOpenCreateStudyMaterialForm("videos")} bgStyle="filled">
+            <UU5.Bricks.Lsi lsi={{ en: "Add a Video", cs: "Přidat Video" }} />
+            <UU5.Bricks.Icon icon="mdi-plus-circle" />
+          </UU5.Bricks.Button>
+        )}
+        <UU5.Bricks.Accordion data={studyMaterials}>
           <UU5.Bricks.Panel
             header={<UU5.Bricks.Lsi lsi={{ en: "Videos", cs: "Videa" }} />}
             content={videos}
@@ -188,13 +177,13 @@ const StudyMaterialList = createVisualComponent({
           />
         </UU5.Bricks.Accordion>
 
-        {canManage() && (<UU5.Bricks.Button size="s"
-          onClick={() => handleOpenCreateStudyMaterialForm("courses")}
-          bgStyle="filled">
-          <UU5.Bricks.Lsi lsi={{ en: "Add a Course", cs: "Přidat Kurz" }} />
-          <UU5.Bricks.Icon icon="mdi-plus-circle" />
-        </UU5.Bricks.Button>)}
-        <UU5.Bricks.Accordion data={studyMaterials} >
+        {canManage() && (
+          <UU5.Bricks.Button size="s" onClick={() => handleOpenCreateStudyMaterialForm("courses")} bgStyle="filled">
+            <UU5.Bricks.Lsi lsi={{ en: "Add a Course", cs: "Přidat Kurz" }} />
+            <UU5.Bricks.Icon icon="mdi-plus-circle" />
+          </UU5.Bricks.Button>
+        )}
+        <UU5.Bricks.Accordion data={studyMaterials}>
           <UU5.Bricks.Panel
             header={<UU5.Bricks.Lsi lsi={{ en: "Courses", cs: "Kurzy" }} />}
             content={courses}

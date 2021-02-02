@@ -14,12 +14,12 @@ const FormUpdate = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    subject: UU5.PropTypes.shape({
-      name: UU5.PropTypes.shape.isRequired,
-      desc: UU5.PropTypes.shape.isRequired,
-      id: UU5.PropTypes.isRequired,
-    }),
-    onSubmit: UU5.PropTypes.func,
+    // subject: UU5.PropTypes.shape({
+    //   name: UU5.PropTypes.shape({ cs: UU5.PropTypes.string, en: UU5.PropTypes.string, }).isRequired,
+    //   desc: UU5.PropTypes.shape({ cs: UU5.PropTypes.string, en: UU5.PropTypes.string, }).isRequired,
+    //   id: UU5.PropTypes.isRequired,
+    // }),
+    onSave: UU5.PropTypes.func,
     onCancel: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
@@ -27,7 +27,7 @@ const FormUpdate = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     subject: null,
-    onSubmit: () => {},
+    onSave: () => {},
     onCancel: () => {},
   },
   //@@viewOff:defaultProps
@@ -84,7 +84,7 @@ const FormUpdate = createVisualComponent({
         setStudentsList(newStudentsList);
       }
     }
-   
+
     function handleRemove(i) {
       if (studentsList.length > 1) {
         const newStudentsList = studentsList.filter((_, index) => index !== i);
@@ -110,14 +110,17 @@ const FormUpdate = createVisualComponent({
     function SuperviseronLoad() {
       // Pass useEffect a function
       useEffect(() => {
-        return () =>  console.log("lala");
-      })
-    
-      return supervisor && (<UU5.Bricks.Column colWidth="s-6" style={{ alignSelf: "flex-end" }}>
-      <Plus4U5.Bricks.BusinessCard uuIdentity={supervisor} visual={"micro"} />
-    </UU5.Bricks.Column> )
-    }
+        return () => console.log("lala");
+      });
 
+      return (
+        supervisor && (
+          <UU5.Bricks.Column colWidth="s-6" style={{ alignSelf: "flex-end" }}>
+            <Plus4U5.Bricks.BusinessCard uuIdentity={supervisor} visual={"micro"} />
+          </UU5.Bricks.Column>
+        )
+      );
+    }
 
     return (
       <UU5.Forms.ContextForm onSave={onSave} onCancel={onCancel}>
@@ -207,7 +210,7 @@ const FormUpdate = createVisualComponent({
               required
             />
           </UU5.Bricks.Column>
-          <SuperviseronLoad/>
+          <SuperviseronLoad />
           <UU5.Bricks.Column>
             <UU5.Forms.Text
               borderRadius="8px"
@@ -215,7 +218,7 @@ const FormUpdate = createVisualComponent({
               name="teachers"
               value={subject.teachers.toString()}
             />
-             <UU5.Forms.Checkbox name="visibility" value={subject.visibility} label="Visibility" size="m" />
+            <UU5.Forms.Checkbox name="visibility" value={subject.visibility} label="Visibility" size="m" />
           </UU5.Bricks.Column>
 
           {studentsList.map((student, index) => (

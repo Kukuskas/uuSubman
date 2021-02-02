@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useState, useContext } from "uu5g04-hooks";
+import { createVisualComponent, useState, useContext } from "uu5g04-hooks";
 import Config from "./config/config";
 import Css from "../routes/subject.css";
 import SubmanMainContext from "../bricks/subman-main-context";
@@ -12,7 +12,7 @@ const Mode = {
   FORM: "FORM",
 };
 
-const SubjectUpdateTopic = createComponent({
+const SubjectUpdateTopic = createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "SubjectUpdateTopic",
   //@@viewOff:statics
@@ -26,15 +26,13 @@ const SubjectUpdateTopic = createComponent({
       id: UU5.PropTypes.isRequired,
     }),
     onUpdateTopic: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     topic: {},
-    onUpdate: () => { },
-    onDelete: () => { },
+    onUpdateTopic: () => { },
   },
   //@@viewOff:defaultProps
 
@@ -141,7 +139,7 @@ const SubjectUpdateTopic = createComponent({
           <UU5.Bricks.Button
             onClick={handleUpdateTopic}
             bgStyle="transparent"
-            colorSchema="blue"
+            colorSchema="primary"
             className={Css.updateTopic()}
             size="m"
             content={<UU5.Bricks.Icon icon="glyphicon-edit" />}
@@ -226,7 +224,7 @@ const SubjectUpdateTopic = createComponent({
                       <UU5.Bricks.Column colWidth="s-4">
                         <UU5.Bricks.Button size="s"
                           onClick={() => handleRemove(index)}
-                          colorSchema="blue" bgStyle="filled">
+                          colorSchema="primary" bgStyle="filled">
                           <UU5.Bricks.Lsi lsi={{ en: "Remove", cs: "Odebrat" }} />
                           <UU5.Bricks.Icon icon="mdi-minus-circle" />
                         </UU5.Bricks.Button>
@@ -239,7 +237,7 @@ const SubjectUpdateTopic = createComponent({
                 <UU5.Bricks.Button size="s"
                   className={Css.buttons()}
                   onClick={() => handleAdd(studyMaterialList)}
-                  colorSchema="blue" bgStyle="filled">
+                  colorSchema="primary" bgStyle="filled">
                   <UU5.Bricks.Lsi lsi={{ en: "Add", cs: "Přidat" }} />
                   <UU5.Bricks.Icon icon="mdi-plus-circle" />
                 </UU5.Bricks.Button>

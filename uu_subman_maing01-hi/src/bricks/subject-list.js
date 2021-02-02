@@ -82,7 +82,6 @@ const SubjectList = createVisualComponent({
       return (
         <Subject
           subject={item.data.data}
-          colorSchema="green"
           onDetail={onDetail}
           onUpdate={onUpdate}
           onDelete={onDelete}

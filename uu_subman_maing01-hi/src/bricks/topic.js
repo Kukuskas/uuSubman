@@ -15,23 +15,36 @@ const Topic = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    // topic: UU5.PropTypes.array.isRequired, //EDIT
-    onDetail: UU5.PropTypes.func,
+    // topic: UU5.PropTypes.shape({
+    //   name: UU5.PropTypes.string,
+    //   desc: UU5.PropTypes.string.isRequired,
+    //   studyMaterialList: UU5.PropTypes.array,
+    //   id: UU5.PropTypes.isRequired,
+    // }), 
     onUpdateTopic: UU5.PropTypes.func,
     onDeleteTopic: UU5.PropTypes.func,
+    subjectId: UU5.PropTypes.string,
+    formOfStudy: UU5.PropTypes.string,
+    language: UU5.PropTypes.string,
+    // teachers: UU5.PropTypes.array,
+    // supervisor: UU5.PropTypes.string,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    topics: [], //EDIT
-    onDetail: () => {},
+    // topic: {}, 
     onUpdateTopic: () => {},
     onDeleteTopic: () => {},
+    subjectId: null,
+    formOfStudy: "fulltime",
+    language: "cs",
+    // teachers: [],
+    // supervisor: null,
   },
   //@@viewOff:defaultProps
 
-  render({ topic, onUpdateTopic, onDeleteTopic, teachers, supervisor, id, language, formOfStudy }) {
+  render({ topic, onUpdateTopic, onDeleteTopic, teachers, supervisor, subjectId, language, formOfStudy }) {
     //EDIT
     //@@viewOn:render
     const { identity } = useSession();
@@ -52,7 +65,7 @@ const Topic = createVisualComponent({
 
     function deleteTopicParams() {
       onDeleteTopic({
-        id: id,
+        id: subjectId,
         data: { id: topic.id },
         formOfStudy: formOfStudy,
         language: language,
@@ -68,7 +81,7 @@ const Topic = createVisualComponent({
               topic={topic}
               language={language}
               formOfStudy={formOfStudy}
-              id={id}
+              id={subjectId}
             />
             <UU5.Bricks.Button size="s" onClick={deleteTopicParams} bgStyle="transparent" colorSchema="blue">
               <UU5.Bricks.Icon icon="glyphicon-trash" />
@@ -82,7 +95,7 @@ const Topic = createVisualComponent({
             header={topic.desc}
             content={canManage()?(<TopicStudyMaterialList
                topicStudyMaterialList={topic.studyMaterialList} 
-               subjectId={id}
+               subjectId={subjectId}
                language={language} 
                formOfStudy={formOfStudy}
                />):null}

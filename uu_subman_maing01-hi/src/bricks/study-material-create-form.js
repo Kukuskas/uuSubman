@@ -15,6 +15,7 @@ const StudyMaterialCreateForm = createVisualComponent({
     onSave: UU5.PropTypes.func,
     onCancel: UU5.PropTypes.func,
     shown: UU5.PropTypes.bool,
+    type: UU5.PropTypes.str,
   },
   //@@viewOff:propTypes
 
