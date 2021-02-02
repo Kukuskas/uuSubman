@@ -263,6 +263,54 @@ studyMaterialId = studyMaterialId.toHexString()
     // hds 7rs
     let lang = dtoIn.language;
     let form = dtoIn.formOfStudy;
+    //   let SM;      
+    //   let dtoOutStudyMaterial
+    //   let studyMaterials = await this.studyMaterialDao.list() 
+    //   // let studyMaterialId;
+    //   if (dtoIn.data.studyMaterialList[0].url) {
+
+      
+    //   dtoIn.data.studyMaterialList= dtoIn.data.studyMaterialList.map( topicStudyMaterial=> {
+    //     SM=topicStudyMaterial
+    //     let topicBaseUri = topicStudyMaterial.url.replace(/^https?:\/\/(www\.)?/, "").split("/")
+    //     topicBaseUri = topicBaseUri[0]+"/"+topicBaseUri[1]+"/"+topicBaseUri[2]+"/"
+    //   let x = studyMaterials.itemList.forEach( studyMaterial => {
+    //     if (studyMaterial.baseUri!==null|| studyMaterial.baseUri!==undefined) {
+    //       let studyMaterialBaseUri = studyMaterial.baseUri.replace(/^https?:\/\/(www\.)?/, "")
+    //       if (studyMaterialBaseUri == topicBaseUri) {
+    //         SM.id = studyMaterial.id;
+    //         delete SM.type
+            
+    //       }
+    //       if(!SM.id){
+    //         SM.baseUri=topicBaseUri
+    //         return SM
+    //       }
+    //     //   else if (studyMaterialBaseUri !== topicBaseUri) {
+            
+          
+
+    //     //       let addStudyMaterial = {
+    //     //         baseUri:topicBaseUri,
+    //     //         type:topicStudyMaterial.type,
+    //     //         name:"",
+    //     //         productCode:""
+    //     //       }
+    //     //       dtoOutStudyMaterial = this.studyMaterialDao.create(addStudyMaterial)
+
+            
+    //     //     SM.id=dtoOutStudyMaterial.id
+    //     //     delete SM.type
+    //     //     return SM
+            
+    //     // }
+    //     // delete SM.type
+        
+    //   }})
+
+    //   return SM
+    // })}
+
     // let x = subject.language.cs.formOfStudy.parttime.topics.pop()
     let x = dtoIn.data.id
     lang == "cs"
@@ -409,7 +457,7 @@ studyMaterialId = studyMaterialId.toHexString()
       WARNINGS.deleteUnsupportedKeys.code,
       Errors.Delete.InvalidDtoIn
     );
-    await this.dao.delete(dtoIn.id);
+    await this.dao.deleteOne(awid, dtoIn.id);
     return uuAppErrorMap;
   }
 
