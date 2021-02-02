@@ -177,6 +177,7 @@ class SubjectAbl {
     });
 
     let id;
+    
     let subjectStudyMaterials;
     lang == "cs"
       ? form == "fulltime"
@@ -247,7 +248,24 @@ studyMaterialId = studyMaterialId.toHexString()
  // dtoOut2.uuAppErrorMap = uuAppErrorMap
  dtoOut.uuAppErrorMap = uuAppErrorMap
 }else {
-  throw new Errors.AddStudyMaterial.StudyMaterialAlreadyExist({ uuAppErrorMap }, { subjectId: dtoIn.id })
+
+  try {
+    dtoOut = await this.studyMaterialList(awid, {
+      id :dtoIn.id,
+      language: lang,
+      formOfStudy: form
+    })
+    
+  } catch (e) {
+    if (e instanceof ObjectStoreError) {
+      // A10
+     
+      throw new Errors.AddStudyMaterial.SubjectDaoAddStudyMaterialFailed({ uuAppErrorMap }, e);
+    }
+    throw e
+  }
+  dtoOut.uuAppErrorMap = uuAppErrorMap
+ // 
 }     
     // hds 8   
     return  dtoOut
@@ -516,7 +534,7 @@ studyMaterialId = studyMaterialId.toHexString()
               name: "Example fulltime",
               desc: "Lorem Ipsum",
               id: "00",
-              studyMaterialList: [],
+              studyMaterialList: [{ baseUri: "", name: "" , type: "books"}],
             },
           ],
         },
@@ -528,7 +546,7 @@ studyMaterialId = studyMaterialId.toHexString()
               name: "Example parttime",
               desc: "lorem Ipsum",
               id: "00",
-              studyMaterialList: [],
+              studyMaterialList: [{ baseUri: "", name: "" , type: "books"}],
             },
           ],
         },

@@ -43,6 +43,9 @@ const buttons = () =>Config.Css.css`
 left: 95px;
 bottom: 26px; 
 `;
+const grid = () =>Config.Css.css`
+display : flex
+`;
 
 
 export default {
@@ -55,5 +58,6 @@ export default {
   accordion,
   updateTopic,
   visibility,
-  buttons
+  buttons,
+  grid
 };
