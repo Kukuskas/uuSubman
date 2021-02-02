@@ -45,7 +45,7 @@ const StudyMaterials = createComponent({
       console.log("StudyMatets");
       try {
          console.log("onAddStudyMaterial-------------------");
-       await Calls.addStudyMaterialSubject(studyMaterial);
+       await addStudyMaterialSubjectRef.current(studyMaterial);
       } catch {
         showError(`Adding of the study material failed!`);
       }
@@ -93,7 +93,7 @@ console.log("subject");
         <StudyMaterialProvider subjectId={subjectId} language={language} formOfStudy={formOfStudy}>
           {({ state, data, errorData, pendingData, handlerMap }) => {
             deleteStudyMaterialSubjectRef.current = handlerMap.deleteStudyMaterialSubject;
-            addStudyMaterialSubjectRef.current = handlerMap.addStudyMaterialSubjectRef;
+            addStudyMaterialSubjectRef.current = handlerMap.addStudyMaterialSubject;
 
             switch (state) {
               case "pending":

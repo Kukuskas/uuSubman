@@ -63,21 +63,21 @@ const TopicStudyMaterial = createVisualComponent({
           <Uu5Tiles.ControllerProvider data ={topicStudyMaterialList}>
             <UU5.Bricks.Header level={4} content="Books" hidden={booksSM} />
             <UU5.Bricks.Line hidden={booksSM}  />
-            <Uu5Tiles.Grid >
+            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true} >
               {books}
             </Uu5Tiles.Grid>
           </Uu5Tiles.ControllerProvider>
           <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
             <UU5.Bricks.Header level={4} content="Videos" hidden={videosSM} />
             <UU5.Bricks.Line hidden={videosSM}  />
-            <Uu5Tiles.Grid  >
+            <Uu5Tiles.Grid tileMaxWidth={"80px"} passAllTileProps={true} tileSpacing={"20px"} >
               {videos}
             </Uu5Tiles.Grid>
           </Uu5Tiles.ControllerProvider>
           <Uu5Tiles.ControllerProvider data={topicStudyMaterialList}>
             <UU5.Bricks.Header level={4} content="Courses" hidden={coursesSM} />
             <UU5.Bricks.Line hidden={coursesSM}  />
-            <Uu5Tiles.Grid >
+            <Uu5Tiles.Grid tileMaxWidth={"100px"} passAllTileProps={true}>
               {courses}
             </Uu5Tiles.Grid>
           </Uu5Tiles.ControllerProvider>
@@ -98,53 +98,55 @@ const TopicStudyMaterial = createVisualComponent({
     }
     
 
-    function books(item) {
+    function books(attrs) {
+      
      console.log("name");
-     console.log(item);
+     console.log(attrs);
 
-      if (item.data.type == "books") {
-        return <>
+      if (attrs.data.type == "books") {
+        return <div {...attrs}>
           <UuProductCatalogue.Bricks.ProductInfo
             type="4x3"
-            baseUri={item.data.url}
+            baseUri={attrs.data.url}
             colorSchema="green"
             showName={false}
+            
           />
         
-           <UU5.Bricks.Header level={6} content={item.data.name} />
-        </>
+           <UU5.Bricks.Header level={6} content={attrs.data.name} />
+        </div>
       } else
         return <> </>
 
     }
-    function videos(item) {
-      if (item.data.type == "videos") {
-        return <>
+    function videos(attrs) {
+      if (attrs.data.type == "videos") {
+        return <div {...attrs}>
           <UU5.Bricks.Video
-            src={item.data.url}
+            src={attrs.data.url}
             colorSchema="green"
             type="mp4"
-            style={{ height: 140 }}
+            style={{ height: 100 }}
             showName={false}
           />
-           <UU5.Bricks.Header level={6} content={item.data.name} />
-        </>
+           <UU5.Bricks.Header level={6} content={attrs.data.name} />
+           </div>
 
       } else
         return <> </>
 
     }
-    function courses(item) {
-      if (item.data.type == "courses") {
-        return <>
+    function courses(attrs) {
+      if (attrs.data.type == "courses") {
+        return <div {...attrs}>
           <UuProductCatalogue.Bricks.ProductInfo
             type="4x3"
-            baseUri={item.data.url}
+            baseUri={attrs.data.url}
             colorSchema="green"
             showName={false}
           />
-           <UU5.Bricks.Header level={6} content={item.data.name} />
-        </>
+           <UU5.Bricks.Header level={6} content={attrs.data.name} />
+        </div>
       } else
         return <> </>
 
