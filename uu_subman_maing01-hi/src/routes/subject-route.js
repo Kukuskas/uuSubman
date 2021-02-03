@@ -14,10 +14,9 @@ const SubjectRoute = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:render
-  render({subject, params}) {
+  render({params}) {
     //@@viewOn:render
-    console.log("Ulalalal");
-console.log(params);
+
     const updateSubjectRef = useRef();
     const deleteSubjectRef = useRef();
     const updateTopicSubjectRef = useRef();

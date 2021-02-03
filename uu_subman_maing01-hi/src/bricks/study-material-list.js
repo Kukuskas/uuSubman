@@ -76,7 +76,7 @@ const StudyMaterialList = createVisualComponent({
           baseUri: it.baseUri,
           type: it.type,
           name: it.name,
-          productCode: "",
+          productCode: it.productCode,
         },
         language: language,
         formOfStudy: formOfStudy,
@@ -155,8 +155,7 @@ const StudyMaterialList = createVisualComponent({
           <UU5.Bricks.Panel 
             header={<UU5.Bricks.Lsi lsi={{ en: "Books", cs: "Knihy" }} />}
             content={books}
-            style={"font-size:large"}
-           
+            style={"font-size:large"}        
             colorSchema="blue"
             iconExpanded="mdi-chevron-up"
             iconCollapsed="mdi-chevron-down"

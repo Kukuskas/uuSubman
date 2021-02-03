@@ -55,13 +55,6 @@ const Subjects = createVisualComponent({
       });
     }
 
-    async function handleDelete(subject) {
-      try {
-        await deleteSubjectRef.current({ id: subject.id });
-      } catch {
-        showError(`Deletion of ${subject.name} failed!`);
-      }
-    }
 
     function renderLoad() {
       return <UU5.Bricks.Loading />;
@@ -82,7 +75,6 @@ const Subjects = createVisualComponent({
           <SubjectList
             subjects={subjects}
             onDetail={handleDetail}
-            onDelete={handleDelete}
             onCreate={handleCreate}
             showButton={isCreateAuthorized()}
           />
