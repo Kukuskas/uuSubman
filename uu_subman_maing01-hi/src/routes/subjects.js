@@ -48,11 +48,12 @@ const Subjects = createVisualComponent({
         showError(`Create of ${subject.name.en} failed!`);
       }
     }
-    
-    function handleDetail(subject) {
 
+    function handleDetail(subject) {
       return UU5.Environment.getRouter().setRoute({
-        component: <SubjectRoute subject={subject} onDelete={handleDelete}/>,
+        component: <SubjectRoute subject={subject}
+          onDelete={handleDelete} />,
+        url: { useCase: "subject", parameters: { id: subject.id } }
       });
     }
 
