@@ -14,8 +14,10 @@ const SubjectRoute = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:render
-  render({subject}) {
+  render({subject, params}) {
     //@@viewOn:render
+    console.log("Ulalalal");
+console.log(params);
     const updateSubjectRef = useRef();
     const deleteSubjectRef = useRef();
     const updateTopicSubjectRef = useRef();
@@ -110,7 +112,7 @@ const SubjectRoute = createVisualComponent({
     return (
       <UU5.Bricks.Section className={Css.main()}>
         <UU5.Bricks.Section className={Css.main()}>
-          <SubjectDetailProvider subjectId={subject.id}>
+          <SubjectDetailProvider subjectId={params.id}>
             {({ state, data, errorData, pendingData, handlerMap }) => {
               updateSubjectRef.current = handlerMap.updateSubject;
               deleteSubjectRef.current = handlerMap.deleteSubject;

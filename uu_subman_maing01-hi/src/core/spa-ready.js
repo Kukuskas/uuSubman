@@ -31,7 +31,7 @@ const ROUTES = {
   home: { component: <Home /> },
   about: { component: <About /> },
   subjects: { component: <Subjects />},
-  subjectRoute: { component: <SubjectRoute /> },
+  subject: { component: <SubjectRoute /> },
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
   controlPanel: { component: <ControlPanel /> },
 };

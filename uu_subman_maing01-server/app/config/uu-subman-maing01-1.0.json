@@ -3,7 +3,7 @@
   "code": "uu-subman-maing01",
   "name": "uuSubman uuAppMetaModel",
   "desc": "uuSubman uuAppMetaModel",
-  "version": "0.1.0-beta.2",
+  "version": "0.1.0-beta.5",
 
   "defaultIcon": "uubmlicon-uuelementarymanagement-uu-elementary-management",
   "defaultCategory": "control",
@@ -52,27 +52,15 @@
       "desc": "Authorities"
     },
     {
-      "code": "Executives",
-      "name": "Executives",
-      "desc": "Executives"
-    },
-    {
       "code": "Administrations",
       "name": "Administrations",
       "desc": "Administrations"
-    },
-    {
-      "code": "StandardUsers",
-      "name": "Standard users",
-      "desc": "Standard users"
     }
   ],
 
   "defaultPermissionMatrix": [
     "10000000-00000000-00000000-00001000",
-    "01100000-00000000-00000000-00000000",
-    "00000000-00000000-00000000-00000010",
-    "00000000-00000000-00000000-00000000"
+    "10000000-00000000-00000000-00000000"
   ],
 
   "ancestorPathList": ["uu-businessterritory-maing01/uuAwsc"],
