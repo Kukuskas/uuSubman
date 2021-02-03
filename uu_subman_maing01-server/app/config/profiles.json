@@ -75,7 +75,7 @@
       },
       "subject/get": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Public"]
+        "profileList": ["Authorities","Public"]
       },
       "subject/list": {
         "sysStateList": ["active"],
@@ -120,6 +120,10 @@
       "subject/studyMaterialList": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "studyMaterial/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities"]
       }
     }
   }

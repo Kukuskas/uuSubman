@@ -5,3 +5,7 @@ const studyMaterialListDtoInType = shape({
         pageSize: integer()
     })
 })
+
+const studyMaterialDeleteDtoInType = shape({
+    id: string(50).isRequired()
+});
