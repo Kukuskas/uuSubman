@@ -120,6 +120,10 @@
       "subject/studyMaterialList": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "studyMaterial/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities"]
       }
     }
   }

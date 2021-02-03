@@ -3,6 +3,10 @@ const StudyMaterialAbl = require("../../abl/study-material-abl.js");
 
 class StudyMaterialController {
 
+  delete(ucEnv) {
+    return StudyMaterialAbl.delete(ucEnv.getDtoIn());
+  }
+
   list(ucEnv) {
     return StudyMaterialAbl.list(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

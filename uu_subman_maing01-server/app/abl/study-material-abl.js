@@ -8,6 +8,9 @@ const Errors = require("../api/errors/study-material-error.js");
 const WARNINGS = {
   listUnsupportedKeys:{
     code: `${Errors.List.UC_CODE}unsupportedKeys`,
+  },
+  deleteUnsupportedKeys:{
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
   }
 };
 
@@ -16,6 +19,21 @@ class StudyMaterialAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("studyMaterial");
+  }
+
+  async delete(dtoIn) {
+      let validationResult = this.validator.validate("studyMaterialDeleteDtoInType", dtoIn);
+      let uuAppErrorMap = ValidationHelper.processValidationResult(
+        dtoIn,
+        validationResult,
+        WARNINGS.deleteUnsupportedKeys.code,
+        Errors.Delete.InvalidDtoIn
+      );
+      await this.dao.delete(dtoIn.id);
+      let dtoOut = {};
+      dtoOut.uuAppErrorMap = uuAppErrorMap;
+      return dtoOut;
+    
   }
 
   async list(awid, dtoIn) {

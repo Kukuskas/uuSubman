@@ -19,7 +19,13 @@ const List = {
   }
 };
 
+const Delete = {
+  UC_CODE: `${STUDY_MATERIAL_ERROR_PREFIX}delete/`,
+  
+};
+
 module.exports = {
+  Delete,
   List,
   Create
 };

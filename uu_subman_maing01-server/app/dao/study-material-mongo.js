@@ -17,6 +17,9 @@ class StudyMaterialMongo extends UuObjectDao {
   async list(awid, pageInfo) {
     return await super.find({ awid }, pageInfo);
   }
+  async delete( id) {
+    await super.deleteOne({ id });
+  }
 }
 
 module.exports = StudyMaterialMongo;
