@@ -3,7 +3,7 @@
   "schemaSpecificationUri": "https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-289fcd2e11d34f3e9b2184bedb236ded/book/page?code=uuSubAppInstanceDescriptor",
   "uuSubApp": {
     "code": "UUN.BPMI20WFT02.MAING01",
-    "version": "0.3.0-beta",
+    "version": "0.3.0-alfa",
     "name": "uuSubmanMaing01",
     "description": "",
     "license": "License Commercial",
@@ -17,7 +17,7 @@
           "min": 1,
           "max": 1
         },
-        "appPackUri": "ues:UCL-BT:UUN.BPMI20WFT02.MAING01/APPBOX-0.3.0-beta:UUN.BPMI20WFT02.MAING01/CMD-PACK",
+        "appPackUri": "ues:UCL-BT:UUN.BPMI20WFT02.MAING01/APPBOX-0.3.0-alfa:UUN.BPMI20WFT02.MAING01/CMD-PACK",
         "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.4"
       }
     },
