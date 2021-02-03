@@ -71,11 +71,12 @@ const Subjects = createVisualComponent({
         showError(`Update of ${subject.name} failed!`);
       }
     }
-    
-    function handleDetail(subject) {
 
+    function handleDetail(subject) {
       return UU5.Environment.getRouter().setRoute({
-        component: <SubjectRoute subject={subject} onDelete={handleDelete}/>,
+        component: <SubjectRoute subject={subject}
+          onDelete={handleDelete} />,
+        url: { useCase: "subject", parameters: { id: subject.id } }
       });
     }
 

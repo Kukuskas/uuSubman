@@ -10,6 +10,7 @@ import Left from "./left";
 import Bottom from "./bottom";
 import Home from "../routes/home";
 import Subjects from "../routes/subjects";
+import SubjectRoute from "../routes/subject-route";
 import ControlPanel from "../routes/control-panel";
 import InitAppWorkspace from "../routes/init-app-workspace";
 import SubmanMainContext from "../bricks/subman-main-context";
@@ -30,6 +31,7 @@ const ROUTES = {
   home: { component: <Home /> },
   about: { component: <About /> },
   subjects: { component: <Subjects />},
+  subjectRoute: { component: <SubjectRoute /> },
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
   controlPanel: { component: <ControlPanel /> },
 };

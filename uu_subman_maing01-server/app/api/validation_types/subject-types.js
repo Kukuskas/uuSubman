@@ -15,8 +15,8 @@ const subjectCreateDtoInType = shape({
     languageOfStudy: oneOf(["english", "czech", "czech/english"]).isRequired(),
     language: shape().isRequired(),
     /* edit it later */
-    teachers: array(
-    ),
+    teachers: array(),
+    students: array(),
     visibility: boolean()
 })
 

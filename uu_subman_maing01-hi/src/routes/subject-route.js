@@ -21,8 +21,6 @@ const SubjectRoute = createVisualComponent({
     const updateTopicSubjectRef = useRef();
     const deleteTopicSubjectRef = useRef();
     const addTopicSubjectRef = useRef();
-    // const deleteStudyMaterialSubjectRef =  useRef();
-    // const addStudyMaterialSubjectRef = useRef();
     //@viewOff:hooks
 
     //@@viewOn:private
