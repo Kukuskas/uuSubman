@@ -8,7 +8,7 @@
     "useCaseMap": {
       "subject/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Administrations","Public"]
+        "profileList": ["Authorities","Administrations"]
       },
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
@@ -75,7 +75,7 @@
       },
       "subject/get": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Public"]
+        "profileList": ["Public"]
       },
       "subject/list": {
         "sysStateList": ["active"],
@@ -87,7 +87,7 @@
       },
       "subject/update": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Administrations","Public"]
+        "profileList": ["Authorities","Administrations"]
       },
       "subject/addTopic": {
         "sysStateList": ["active"],
@@ -95,11 +95,11 @@
       },
       "subject/deleteTopic": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Public"]
       },
       "subject/updateTopic": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Public"]
       },
       "subject/addStudyMaterial": {
         "sysStateList": ["active"],

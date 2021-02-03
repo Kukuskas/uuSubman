@@ -48,7 +48,6 @@ const Subjects = createVisualComponent({
       }
     }
 
-
     function handleDetail(subject) {
       return UU5.Environment.getRouter().setRoute({
         url: { useCase: "subject", parameters: { id: subject.id } }
