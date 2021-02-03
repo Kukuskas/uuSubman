@@ -57,7 +57,7 @@ const SubjectList = createVisualComponent({
     }
 
     function visibility() {
-      if (!isAuthority || !isAdministration) {
+      if (!isAuthority && !isAdministration) {
         subjects.map((data, index) => {
           let isGarant = false;
           let isTeacher = false;
